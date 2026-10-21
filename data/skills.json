@@ -631,5 +631,45 @@
     "aliases": [
       "project planning"
     ]
+  },
+  {
+    "id": "SK079",
+    "name": "Leadership",
+    "category": "transferable",
+    "aliases": [
+      "team leadership",
+      "led a team",
+      "team lead"
+    ]
+  },
+  {
+    "id": "SK080",
+    "name": "Teamwork",
+    "category": "transferable",
+    "aliases": [
+      "team player",
+      "collaboration",
+      "teamwork skills"
+    ]
+  },
+  {
+    "id": "SK081",
+    "name": "Event management",
+    "category": "transferable",
+    "aliases": [
+      "event organisation",
+      "event organization",
+      "event planning",
+      "event coordination"
+    ]
+  },
+  {
+    "id": "SK082",
+    "name": "Problem solving",
+    "category": "transferable",
+    "aliases": [
+      "problem-solving",
+      "solving problems"
+    ]
   }
 ]

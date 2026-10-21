@@ -1,0 +1,366 @@
+[
+ {
+  "id": "kaggle-python",
+  "title": "Python",
+  "provider": "Kaggle Learn",
+  "url": "https://www.kaggle.com/learn/python",
+  "cost": "free",
+  "hours": 5,
+  "hours_estimated": false,
+  "language": "en",
+  "skill_ids": [
+   "SK005"
+  ],
+  "notes": "Free certificate on completion."
+ },
+ {
+  "id": "kaggle-intro-to-sql",
+  "title": "Intro to SQL",
+  "provider": "Kaggle Learn",
+  "url": "https://www.kaggle.com/learn/intro-to-sql",
+  "cost": "free",
+  "hours": 3,
+  "hours_estimated": false,
+  "language": "en",
+  "skill_ids": [
+   "SK001"
+  ],
+  "notes": "Free certificate on completion."
+ },
+ {
+  "id": "kaggle-data-visualization",
+  "title": "Data Visualization",
+  "provider": "Kaggle Learn",
+  "url": "https://www.kaggle.com/learn/data-visualization",
+  "cost": "free",
+  "hours": 4,
+  "hours_estimated": false,
+  "language": "en",
+  "skill_ids": [
+   "SK004"
+  ],
+  "notes": ""
+ },
+ {
+  "id": "anthropic-ai-fluency",
+  "title": "AI Fluency: Framework & Foundations",
+  "provider": "Anthropic Academy",
+  "url": "https://anthropic.skilljar.com/ai-fluency-framework-foundations",
+  "cost": "free",
+  "hours": 2,
+  "hours_estimated": false,
+  "language": "en",
+  "skill_ids": [
+   "SK077"
+  ],
+  "notes": "10 lessons, 1.1 hours of video plus exercises."
+ },
+ {
+  "id": "learnfree-excel-foundations",
+  "title": "Excel: Foundations",
+  "provider": "LearnFree (formerly GCFGlobal)",
+  "url": "https://www.learnfree.org/series/excel-foundations",
+  "cost": "free",
+  "hours": 6,
+  "hours_estimated": true,
+  "language": "en",
+  "skill_ids": [
+   "SK020"
+  ],
+  "notes": "The provider gives no total time; hours are a LaluanKu estimate."
+ },
+ {
+  "id": "ms-learn-data-analytics",
+  "title": "Get started with Microsoft data analytics",
+  "provider": "Microsoft Learn",
+  "url": "https://learn.microsoft.com/en-us/training/paths/data-analytics-microsoft/",
+  "cost": "free",
+  "hours": 2,
+  "hours_estimated": false,
+  "language": "en",
+  "skill_ids": [
+   "SK027",
+   "SK004"
+  ],
+  "notes": "1 hr 28 min learning path; introduces Power BI."
+ },
+ {
+  "id": "cisco-intro-cybersecurity",
+  "title": "Introduction to Cybersecurity",
+  "provider": "Cisco Networking Academy",
+  "url": "https://www.netacad.com/courses/introduction-to-cybersecurity",
+  "cost": "free",
+  "hours": 6,
+  "hours_estimated": false,
+  "language": "en",
+  "skill_ids": [
+   "SK011"
+  ],
+  "notes": "Also offered in several other languages."
+ },
+ {
+  "id": "cisco-python-essentials-1",
+  "title": "Python Essentials 1",
+  "provider": "Cisco Networking Academy",
+  "url": "https://www.netacad.com/courses/python-essentials-1",
+  "cost": "free",
+  "hours": 30,
+  "hours_estimated": false,
+  "language": "en",
+  "skill_ids": [
+   "SK005"
+  ],
+  "notes": "No prior experience needed."
+ },
+ {
+  "id": "cisco-network-defense",
+  "title": "Network Defense",
+  "provider": "Cisco Networking Academy",
+  "url": "https://www.netacad.com/courses/network-defense",
+  "cost": "free",
+  "hours": 27,
+  "hours_estimated": false,
+  "language": "en",
+  "skill_ids": [
+   "SK010",
+   "SK011",
+   "SK016"
+  ],
+  "notes": ""
+ },
+ {
+  "id": "cisco-data-analytics-essentials",
+  "title": "Introduction to Data Analytics Essentials",
+  "provider": "Cisco Networking Academy",
+  "url": "https://www.netacad.com/courses/data-analytics-essentials",
+  "cost": "free",
+  "hours": 30,
+  "hours_estimated": false,
+  "language": "en",
+  "skill_ids": [
+   "SK020",
+   "SK001",
+   "SK004"
+  ],
+  "notes": "Covers Excel, SQL and presenting data."
+ },
+ {
+  "id": "cs50x",
+  "title": "CS50x: Introduction to Computer Science",
+  "provider": "Harvard University (OpenCourseWare)",
+  "url": "https://cs50.harvard.edu/x/",
+  "cost": "free",
+  "hours": 100,
+  "hours_estimated": true,
+  "language": "en",
+  "skill_ids": [
+   "SK005",
+   "SK001",
+   "SK082"
+  ],
+  "notes": "Free via OpenCourseWare; demanding. Hours are a LaluanKu estimate."
+ },
+ {
+  "id": "canva-graphic-design-basics",
+  "title": "Graphic design basics",
+  "provider": "Canva Design School",
+  "url": "https://www.canva.com/design-school/courses/graphic-design-basics-from-the-experts/",
+  "cost": "free",
+  "hours": 2,
+  "hours_estimated": true,
+  "language": "en",
+  "skill_ids": [
+   "SK076"
+  ],
+  "notes": "12 short lessons; hours are a LaluanKu estimate."
+ },
+ {
+  "id": "canva-essentials",
+  "title": "Canva essentials",
+  "provider": "Canva Design School",
+  "url": "https://www.canva.com/design-school/courses/canva-essentials/",
+  "cost": "free",
+  "hours": 2,
+  "hours_estimated": true,
+  "language": "en",
+  "skill_ids": [
+   "SK076"
+  ],
+  "notes": "10 short lessons; hours are a LaluanKu estimate."
+ },
+ {
+  "id": "coursera-ux-foundations",
+  "title": "Foundations of User Experience (UX) Design",
+  "provider": "Google on Coursera",
+  "url": "https://www.coursera.org/learn/foundations-user-experience-design",
+  "cost": "low",
+  "hours": 12,
+  "hours_estimated": false,
+  "language": "en",
+  "skill_ids": [
+   "SK071"
+  ],
+  "notes": "Coursera subscription or financial aid; some content may be free to preview."
+ },
+ {
+  "id": "coursera-pm-foundations",
+  "title": "Foundations of Project Management",
+  "provider": "Google on Coursera",
+  "url": "https://www.coursera.org/learn/project-management-foundations",
+  "cost": "low",
+  "hours": 13,
+  "hours_estimated": false,
+  "language": "en",
+  "skill_ids": [
+   "SK078",
+   "SK024",
+   "SK016"
+  ],
+  "notes": "Coursera subscription or financial aid."
+ },
+ {
+  "id": "coursera-agile-pm",
+  "title": "Agile Project Management",
+  "provider": "Google on Coursera",
+  "url": "https://www.coursera.org/learn/agile-project-management",
+  "cost": "low",
+  "hours": 20,
+  "hours_estimated": false,
+  "language": "en",
+  "skill_ids": [
+   "SK078"
+  ],
+  "notes": "Coursera subscription or financial aid."
+ },
+ {
+  "id": "ghg-protocol-corporate-standard",
+  "title": "Corporate Standard Recorded Webinar",
+  "provider": "GHG Protocol",
+  "url": "https://ghgprotocol.org/e-learning-opportunities",
+  "cost": "free",
+  "hours": 2,
+  "hours_estimated": true,
+  "language": "en",
+  "skill_ids": [
+   "SK045",
+   "SK043"
+  ],
+  "notes": "The provider's free entry point to corporate emissions accounting; no certificate. Hours are a LaluanKu estimate."
+ },
+ {
+  "id": "coursera-solar-energy-basics",
+  "title": "Solar Energy Basics",
+  "provider": "The State University of New York on Coursera",
+  "url": "https://www.coursera.org/learn/solar-energy-basics",
+  "cost": "low",
+  "hours": 15,
+  "hours_estimated": false,
+  "language": "en",
+  "skill_ids": [
+   "SK048"
+  ],
+  "notes": "Free to audit on Coursera where offered; certificate is paid."
+ },
+ {
+  "id": "edx-delft-pv-energy-conversion",
+  "title": "Solar Energy: Photovoltaic (PV) Energy Conversion",
+  "provider": "DelftX on edX",
+  "url": "https://www.edx.org/learn/solar-energy/delft-university-of-technology-solar-energy-photovoltaic-pv-energy-conversion",
+  "cost": "low",
+  "hours": 120,
+  "hours_estimated": false,
+  "language": "en",
+  "skill_ids": [
+   "SK048",
+   "SK049"
+  ],
+  "notes": "Stated as 12 weeks at about 10 hours a week. Free to audit on edX where offered; certificate is paid."
+ },
+ {
+  "id": "seda-gcpv-wireman-chargeman",
+  "title": "SEDA Malaysia Grid-Connected Photovoltaic (GCPV) Systems Course for Wireman and Chargeman",
+  "provider": "Pahang Skills Development Centre",
+  "url": "https://www.pahangskills.gov.my/courses/seda-malaysia-grid-connected-photovoltaic-systems-course-for-wireman-and-chargeman/",
+  "cost": "hrdc_claimable",
+  "hours": 40,
+  "hours_estimated": true,
+  "language": "en",
+  "skill_ids": [
+   "SK048",
+   "SK049",
+   "SK053"
+  ],
+  "notes": "5-day course listed by the provider as HRDF claimable; for wiremen and chargemen. Hours estimated from 5 days. Confirm the current run and HRD Corp approval with the provider before applying."
+ },
+ {
+  "id": "coursera-intro-electronics",
+  "title": "Introduction to Electronics",
+  "provider": "Georgia Institute of Technology on Coursera",
+  "url": "https://www.coursera.org/learn/electronics",
+  "cost": "low",
+  "hours": 46,
+  "hours_estimated": false,
+  "language": "en",
+  "skill_ids": [
+   "SK049",
+   "SK058"
+  ],
+  "notes": "Free to audit on Coursera where offered; certificate is paid."
+ },
+ {
+  "id": "coursera-business-writing",
+  "title": "High-Impact Business Writing",
+  "provider": "University of California, Irvine on Coursera",
+  "url": "https://www.coursera.org/learn/business-writing",
+  "cost": "low",
+  "hours": 8,
+  "hours_estimated": false,
+  "language": "en",
+  "skill_ids": [
+   "SK007"
+  ],
+  "notes": "Free to audit on Coursera where offered; certificate is paid."
+ },
+ {
+  "id": "coursera-data-privacy",
+  "title": "Data Privacy Fundamentals",
+  "provider": "Northeastern University on Coursera",
+  "url": "https://www.coursera.org/learn/northeastern-data-privacy",
+  "cost": "low",
+  "hours": 9,
+  "hours_estimated": false,
+  "language": "en",
+  "skill_ids": [
+   "SK034"
+  ],
+  "notes": "Free to audit on Coursera where offered; certificate is paid."
+ },
+ {
+  "id": "coursera-basic-statistics",
+  "title": "Basic Statistics",
+  "provider": "University of Amsterdam on Coursera",
+  "url": "https://www.coursera.org/learn/basic-statistics",
+  "cost": "low",
+  "hours": 17,
+  "hours_estimated": false,
+  "language": "en",
+  "skill_ids": [
+   "SK002"
+  ],
+  "notes": "Free to audit on Coursera where offered; certificate is paid."
+ },
+ {
+  "id": "coursera-iot-embedded",
+  "title": "Introduction to the Internet of Things and Embedded Systems",
+  "provider": "University of California, Irvine on Coursera",
+  "url": "https://www.coursera.org/learn/iot",
+  "cost": "low",
+  "hours": 12,
+  "hours_estimated": false,
+  "language": "en",
+  "skill_ids": [
+   "SK058"
+  ],
+  "notes": "Free to audit on Coursera where offered; certificate is paid."
+ }
+]
