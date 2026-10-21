@@ -7,9 +7,10 @@
 5. `backend/engine.py`: deterministic role scoring and gap prioritisation. A user-confirmed skill can contribute; unknown is separate from zero.
 6. `backend/scenarios.py`: documents per-role fictional task exposure/oversight assumptions; has distinct moderate and rapid descriptions and action plans.
 7. `data/roles.json`: twelve careers, with nine role-skill requirements each and SDG justifications.
-8. `data/skills.json`: 78 canonical skills with aliases.
+8. `data/skills.json`: 82 canonical skills with aliases (SK079-SK082 are transferable skills: leadership, teamwork, event management, problem solving).
 9. `data/snapshots.json`: prepared synthetic S1 (published) and S2 (draft). Approving S2 does not rewrite previously saved recommendations.
-10. `data/learning_resources.json`: 30 course **placeholders**. Do not claim verification.
+10. `data/learning_resources.json`: 30 course **placeholders**. Do not claim verification. They are shown only for skills with no checked course.
+    `data/courses.json` (imported from LaluanKu) and `data/extra_courses.json` (56 courses added by hand, each with the date its provider page was checked) are the checked courses: real links, cost and hours from the provider's page. Only Energy simulation and Content development still lack one.
 11. `tests/`: verifies API and engine invariants, including scenario differences without changing the user profile.
 12. `requirements.txt`: Python libraries needed to run.
 
