@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><meta name="design_doc_mode" content="canvas"><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet"><style>body{margin:0;background:#ecebf0;font-family:Geist,system-ui,sans-serif;-webkit-font-smoothing:antialiased}a{color:inherit;text-decoration:none}a:hover{opacity:.85}input[type=range]{accent-color:#5b2bd6}[data-theme=light]{--bg:#fbfaff;--sf:#ffffff;--sf2:#f5f2fc;--ink:#18151f;--mu:#5d5870;--ln:#e7e2f1;--pr:#5b2bd6;--pri:#ffffff;--soft:#ece5fd;--hero:linear-gradient(180deg,#efe7ff 0%,#f7f3ff 55%,#fbfaff 100%);--up:#0f7a5c;--upbg:#dcf5ec;--dn:#b4234a;--dnbg:#fde4ea;--am:#8a5a00;--ambg:#fff4d6;--sh:0 10px 30px -12px rgba(60,30,140,.18)}[data-theme=dark]{--bg:#0f0d16;--sf:#17141f;--sf2:#1e1a2a;--ink:#f2effa;--mu:#a49eb8;--ln:#2d283b;--pr:#a68bff;--pri:#140d2b;--soft:#251d3d;--hero:linear-gradient(180deg,#221a3d 0%,#16121f 60%,#0f0d16 100%);--up:#4fd1a5;--upbg:#0f3328;--dn:#ff7d9c;--dnbg:#3a1622;--am:#f5c35b;--ambg:#352712;--sh:0 10px 30px -12px rgba(0,0,0,.6)}.dv-turn{padding:40px 44px 32px}.dv-thd{display:flex;align-items:baseline;gap:10px;margin:0 0 20px}.dv-tid{font:600 10px 'Geist Mono',monospace;padding:3px 7px;background:#1a1a1a;color:#fff;border-radius:4px}.dv-tname{font:600 13px Geist;color:#1a1a1a}.dv-opts{display:flex;flex-direction:column;gap:48px}.dv-opt{display:flex;flex-direction:column;gap:10px;scroll-margin-top:16px}.dv-oid{font:600 10.5px 'Geist Mono',monospace;padding:3px 7px;background:rgba(0,0,0,.08);color:#1a1a1a;border-radius:5px}.dv-olabel{display:flex;align-items:baseline;gap:8px;font:400 12px Geist;color:rgba(0,0,0,.6)}.dv-opt:target .dv-oid{background:#5b2bd6;color:#fff}.dv-next{margin:28px 0 0;font:12px/1.5 Geist;color:rgba(0,0,0,.55)}</style></helmet>
+<section class="dv-turn" id="t1">
+<div class="dv-thd"><a class="dv-tid" href="#t1">1</a><span class="dv-tname">Results — final (from option 1a) · desktop 1280 + mobile 390 · light/dark toggle in the nav</span></div>
+<div class="dv-opts">
+<div class="dv-opt" id="1a"><div class="dv-olabel"><a class="dv-oid" href="#1a">1a</a>Role board — job-portal pattern: controls in a filter sidebar, roles as rich cards with a score ring</div>
+<div data-theme="{{ th1a }}" style="display:flex;gap:28px;align-items:flex-start">
+<div data-screen-label="Results 1a desktop" style="width:1280px;flex:none;background:var(--bg);color:var(--ink);border-radius:10px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.08)">
+<nav style="display:flex;align-items:center;gap:32px;padding:18px 48px;background:var(--sf);border-bottom:1px solid var(--ln)"><a style="display:flex;align-items:center;gap:10px;font-weight:700;font-size:18px"><span style="width:26px;height:26px;border-radius:8px;background:var(--pr)"></span>FuturePath</a><div style="display:flex;gap:28px;font-size:14px;font-weight:500;color:var(--mu)"><a>Start</a><a style="color:var(--pr)">Results</a><a>Signals</a><a>About</a></div><div style="margin-left:auto;display:flex;gap:10px;align-items:center"><button onClick="{{ tg1a }}" style="border:1px solid var(--ln);background:var(--sf2);color:var(--ink);border-radius:999px;padding:7px 14px;font:500 13px Geist;cursor:pointer">◐ {{ lbl1a }}</button><span style="border:1px solid var(--ln);border-radius:999px;padding:7px 12px;font-size:13px;font-weight:600">EN | <span style="color:var(--mu)">BM</span></span></div></nav>
+<header style="background:var(--hero);padding:40px 48px 32px;display:flex;flex-direction:column;gap:18px"><div style="display:flex;align-items:flex-end;gap:24px"><div style="flex:1"><h1 style="margin:0;font-size:40px;letter-spacing:-.035em;font-weight:700">Your future roles</h1><p style="margin:6px 0 0;color:var(--mu)">Showing results for <b style="color:var(--ink)">Siti (sample)</b>: admin assistant returning after a 4-year career break</p></div><div style="display:flex;gap:6px;background:var(--sf);border:1px solid var(--ln);border-radius:999px;padding:4px;font-size:13px;font-weight:500"><span style="background:var(--pr);color:var(--pri);border-radius:999px;padding:6px 14px">Siti</span><span style="padding:6px 14px;color:var(--mu)">Aiman</span><span style="padding:6px 14px;color:var(--mu)">Daniel</span></div></div>
+<div style="display:flex;gap:12px;align-items:center;background:var(--ambg);color:var(--am);border-radius:14px;padding:12px 16px;font-size:14px"><b>⚠ Estimate, not a prediction.</b><span style="color:var(--ink);opacity:.8">Scores show where today's evidence points, not what will happen.</span><span style="margin-left:auto;font:12px 'Geist Mono',monospace">signals updated 20 Oct 2026</span></div></header>
+<div style="display:grid;grid-template-columns:300px 1fr;gap:28px;padding:28px 48px 48px">
+<aside style="display:flex;flex-direction:column;gap:16px"><div style="display:flex;justify-content:space-between;align-items:baseline"><b style="font-size:18px">Controls</b><button onClick="{{ reset }}" style="border:0;background:none;color:var(--pr);font:500 13px Geist;cursor:pointer;text-decoration:underline">Reset</button></div>
+<div style="background:var(--sf);border:1px solid var(--ln);border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:20px">
+<div><div style="font-size:13px;font-weight:600;margin-bottom:10px">AI disruption scenario</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;background:var(--sf2);border-radius:12px;padding:4px"><button onClick="{{ setMod }}" style="border:0;border-radius:9px;padding:9px 6px;font:600 13px Geist;cursor:pointer;background:{{ modBg }};color:{{ modFg }}">Moderate</button><button onClick="{{ setFast }}" style="border:0;border-radius:9px;padding:9px 6px;font:600 13px Geist;cursor:pointer;background:{{ fastBg }};color:{{ fastFg }}">Fast AI</button></div><p style="margin:8px 0 0;font-size:12px;line-height:1.45;color:var(--mu)">{{ scenarioDesc }}</p></div>
+<div style="height:1px;background:var(--ln)"></div>
+<div style="display:flex;flex-direction:column;gap:12px"><div style="font-size:13px;font-weight:600">Adjust the weights</div>
+<label style="display:flex;flex-direction:column;gap:4px;font-size:13px"><span style="display:flex;justify-content:space-between"><span>Skills you have</span><b style="font-family:'Geist Mono'">{{ wsPct }}%</b></span><input type="range" min="0" max="100" value="{{ ws }}" onChange="{{ onWs }}"></label>
+<label style="display:flex;flex-direction:column;gap:4px;font-size:13px"><span style="display:flex;justify-content:space-between"><span>Future demand</span><b style="font-family:'Geist Mono'">{{ wdPct }}%</b></span><input type="range" min="0" max="100" value="{{ wd }}" onChange="{{ onWd }}"></label>
+<p style="margin:0;font-size:12px;color:var(--mu)">Interest fit: take the optional <a style="color:var(--pr);text-decoration:underline">RIASEC quiz</a> to add it.</p></div>
+<div style="height:1px;background:var(--ln)"></div>
+<label style="display:flex;gap:10px;font-size:13px;align-items:flex-start;cursor:pointer"><input type="checkbox" checked="{{ incDecl }}" onChange="{{ toggleDecl }}" style="accent-color:#5b2bd6;margin-top:2px">Also rank roles flagged as declining</label></div>
+<div style="background:var(--sf);border:1px solid var(--ln);border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:10px"><b style="font-size:14px">What changed</b><p style="margin:0;font-size:13px;line-height:1.45">Vocational &amp; Digital Skills Trainer moved up from <b>#6</b> after 13 new signals since 20 Oct 2026.</p><a style="font-size:13px;color:var(--pr);font-weight:600">See all moves →</a></div></aside>
+<main style="display:flex;flex-direction:column;gap:16px"><div style="display:flex;align-items:baseline;justify-content:space-between"><b style="font-size:18px">Top matched roles <span style="color:var(--mu);font-weight:500">({{ count }})</span></b><span style="font-size:13px;color:var(--mu)">Sorted by match</span></div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px"><sc-for list="{{ top4 }}" as="r" hint-placeholder-count="4"><article style="background:var(--sf);border:1px solid var(--ln);border-radius:22px;padding:22px;display:flex;flex-direction:column;gap:14px;box-shadow:var(--sh)">
+<div style="display:flex;gap:14px;align-items:flex-start"><div style="flex:1;min-width:0"><div style="font:600 12px 'Geist Mono',monospace;color:var(--mu)">#{{ r.rank }} · {{ r.sector }}</div><h3 style="margin:4px 0 0;font-size:19px;line-height:1.25;letter-spacing:-.01em">{{ r.title }}</h3><div style="margin-top:8px;display:flex;gap:4px;flex-wrap:wrap"><sc-for list="{{ r.sdgs }}" as="g"><span style="background:{{ g.c }};color:#fff;border-radius:5px;padding:2px 6px;font-size:11px;font-weight:600">SDG {{ g.n }}</span></sc-for></div></div>
+<div style="flex:none;display:flex;flex-direction:column;align-items:center;gap:6px"><div style="width:72px;height:72px;border-radius:50%;background:{{ r.ring }};display:flex;align-items:center;justify-content:center"><div style="width:60px;height:60px;border-radius:50%;background:var(--sf);display:flex;align-items:center;justify-content:center"><b style="font-size:24px;line-height:1">{{ r.score }}</b></div></div><span style="font:10px 'Geist Mono',monospace;color:var(--mu)">{{ r.lo }}–{{ r.hi }}</span></div></div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:12px"><div><div style="display:flex;justify-content:space-between;color:var(--mu)"><span>Skills</span><b style="color:var(--ink)">{{ r.skill }}</b></div><div style="margin-top:5px;height:6px;border-radius:6px;background:var(--sf2)"><div style="height:100%;border-radius:6px;background:var(--pr);width:{{ r.skillW }}"></div></div></div><div><div style="display:flex;justify-content:space-between;color:var(--mu)"><span>Demand ±{{ r.pm }}</span><b style="color:var(--ink)">{{ r.demand }}</b></div><div style="margin-top:5px;height:6px;border-radius:6px;background:var(--sf2)"><div style="height:100%;border-radius:6px;background:{{ r.demC }};width:{{ r.demW }}"></div></div></div></div>
+<div style="display:flex;flex-wrap:wrap;gap:4px"><sc-for list="{{ r.have }}" as="h"><span style="background:var(--upbg);color:var(--up);border-radius:6px;padding:3px 8px;font-size:12px">✓ {{ h }}</span></sc-for><sc-for list="{{ r.gap }}" as="h"><span style="border:1px dashed var(--ln);color:var(--mu);border-radius:6px;padding:2px 8px;font-size:12px">+ {{ h }}</span></sc-for></div>
+<div style="font:11px 'Geist Mono',monospace;color:var(--mu);background:var(--sf2);border-radius:8px;padding:6px 10px">{{ r.formula }}</div>
+<div style="display:flex;gap:10px"><a style="flex:1;text-align:center;border:1.5px solid var(--pr);color:var(--pr);border-radius:10px;padding:9px;font-size:14px;font-weight:600">Why this role</a><a style="flex:1;text-align:center;background:var(--pr);color:var(--pri);border-radius:10px;padding:10px;font-size:14px;font-weight:600">See pathway →</a></div></article></sc-for></div>
+<div style="background:var(--sf);border:1px solid var(--ln);border-radius:20px;padding:8px 20px"><sc-for list="{{ rest }}" as="r" hint-placeholder-count="3"><div style="display:flex;align-items:center;gap:14px;padding:12px 0;border-bottom:1px solid var(--ln);font-size:14px"><span style="width:28px;font-family:'Geist Mono';color:var(--mu)">{{ r.rank }}</span><span style="flex:1;font-weight:500">{{ r.title }}</span><span style="color:var(--mu);font-size:13px">Skills {{ r.skill }} · Demand {{ r.demand }}</span><b style="width:36px;text-align:right">{{ r.score }}</b></div></sc-for></div>
+<div style="border:1px solid var(--dnbg);background:var(--sf);border-radius:20px;padding:20px;display:flex;gap:20px;align-items:center"><div style="flex:1"><b>Roles like your current one</b><p style="margin:4px 0 0;font-size:13px;color:var(--mu)">These fit your experience, but most signals point to shrinking demand.</p></div><sc-for list="{{ declining }}" as="d"><span style="background:var(--dnbg);color:var(--dn);border-radius:10px;padding:8px 12px;font-size:13px">↓ {{ d.title }} · {{ d.demand }}</span></sc-for></div></main></div></div>
+<div data-screen-label="Results 1a mobile" style="width:390px;height:844px;flex:none;border-radius:44px;border:10px solid #111;overflow:hidden;background:var(--bg);color:var(--ink);box-sizing:content-box">
+<nav style="display:flex;align-items:center;gap:8px;padding:16px 18px;background:var(--sf);border-bottom:1px solid var(--ln)"><span style="width:24px;height:24px;border-radius:7px;background:var(--pr)"></span><b>Results</b><button onClick="{{ tg1a }}" style="margin-left:auto;border:1px solid var(--ln);background:var(--sf2);color:var(--ink);border-radius:999px;padding:8px 12px;font:500 12px Geist;min-height:36px">◐</button><span style="border:1px solid var(--ln);border-radius:999px;padding:8px 10px;font-size:12px;font-weight:600">BM</span></nav>
+<div style="padding:18px;display:flex;flex-direction:column;gap:14px"><div><h1 style="margin:0;font-size:28px;letter-spacing:-.03em">Your future roles</h1><p style="margin:4px 0 0;font-size:13px;color:var(--mu)">Siti (sample) · estimate, not a prediction</p></div>
+<div style="display:flex;gap:8px"><div style="flex:1;display:grid;grid-template-columns:1fr 1fr;gap:4px;background:var(--sf2);border-radius:12px;padding:4px"><button onClick="{{ setMod }}" style="border:0;border-radius:9px;padding:10px 4px;font:600 13px Geist;background:{{ modBg }};color:{{ modFg }}">Moderate</button><button onClick="{{ setFast }}" style="border:0;border-radius:9px;padding:10px 4px;font:600 13px Geist;background:{{ fastBg }};color:{{ fastFg }}">Fast AI</button></div><span style="border:1px solid var(--ln);background:var(--sf);border-radius:12px;padding:0 14px;display:flex;align-items:center;font-size:13px;font-weight:600">Weights</span></div>
+<sc-for list="{{ top3 }}" as="r" hint-placeholder-count="3"><article style="background:var(--sf);border:1px solid var(--ln);border-radius:20px;padding:16px;display:flex;flex-direction:column;gap:10px"><div style="display:flex;gap:12px;align-items:center"><div style="flex:1"><div style="font:600 11px 'Geist Mono';color:var(--mu)">#{{ r.rank }} · {{ r.sector }}</div><b style="font-size:16px;line-height:1.25">{{ r.title }}</b></div><div style="flex:none;width:56px;height:56px;border-radius:50%;background:{{ r.ring }};display:flex;align-items:center;justify-content:center"><div style="width:44px;height:44px;border-radius:50%;background:var(--sf);display:flex;align-items:center;justify-content:center;font-weight:700">{{ r.score }}</div></div></div><div style="font-size:12px;color:var(--mu)">Skills {{ r.skill }} · Demand {{ r.demand }} ±{{ r.pm }}</div><a style="background:var(--pr);color:var(--pri);border-radius:10px;padding:12px;text-align:center;font-size:14px;font-weight:600">See pathway →</a></article></sc-for></div></div>
+</div></div>
+</div>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const SDG = { 4: "#C5192D", 7: "#FCC30B", 8: "#A21942", 9: "#FD6925", 12: "#BF8B2E", 13: "#3F7E44" };
+const ROLES = [
+  { id: "pa", title: "Process Automation Specialist", sector: "Technology", skill: 58, demand: 81, fast: 88, pm: 11, sdg: [8, 9], have: ["Spreadsheets", "Data entry", "No-code tools"], gap: ["RPA tools", "Process mapping"], sig: 6, why: "You cover 5 of 9 required skills. 6 signals point to rising demand overall." },
+  { id: "vt", title: "Vocational & Digital Skills Trainer", sector: "Education", skill: 61, demand: 74, fast: 77, pm: 9, sdg: [4, 8], have: ["Communication", "Business writing", "Multilingual"], gap: ["Instructional design", "Digital literacy"], sig: 13, why: "You cover 6 of 10 required skills. 13 signals point to rising demand overall." },
+  { id: "da", title: "Data Analyst", sector: "Technology", skill: 52, demand: 83, fast: 91, pm: 8, sdg: [8, 9], have: ["Spreadsheets", "Attention to detail"], gap: ["SQL", "Data visualisation", "Statistics"], sig: 9, why: "You cover 4 of 9 required skills. 9 signals point to rising demand overall." },
+  { id: "sc", title: "Supply Chain & Logistics Specialist", sector: "Logistics", skill: 63, demand: 66, fast: 68, pm: 12, sdg: [9, 12], have: ["Logistics coordination", "Inventory", "Scheduling"], gap: ["ERP systems"], sig: 4, why: "You cover 6 of 9 required skills. 4 signals point to rising demand." },
+  { id: "pm", title: "Project Manager", sector: "Cross-sector", skill: 49, demand: 70, fast: 72, pm: 10, sdg: [8], have: ["Scheduling", "Communication"], gap: ["Project planning", "Stakeholder management"], sig: 5, why: "You cover 4 of 9 required skills." },
+  { id: "ec", title: "E-commerce Specialist", sector: "Retail", skill: 47, demand: 69, fast: 74, pm: 13, sdg: [8, 9], have: ["Customer service"], gap: ["Digital marketing", "Analytics"], sig: 3, why: "You cover 3 of 8 required skills." },
+  { id: "bi", title: "Business Intelligence Analyst", sector: "Technology", skill: 40, demand: 78, fast: 85, pm: 9, sdg: [8, 9], have: ["Spreadsheets"], gap: ["SQL", "Dashboards"], sig: 5, why: "You cover 3 of 9 required skills." }
+];
+const DECL = [
+  { id: "aa", title: "Administrative Assistant", sector: "Clerical", skill: 92, demand: 18, fast: 9, pm: 7, sdg: [8], have: ["Office administration", "Scheduling", "Records"], gap: [], sig: 4, why: "Fits your experience, but signals point to shrinking demand.", declining: true },
+  { id: "de", title: "Data Entry Clerk", sector: "Clerical", skill: 88, demand: 14, fast: 6, pm: 6, sdg: [8], have: ["Data entry", "Attention to detail"], gap: [], sig: 3, why: "Fits your experience, but signals point to shrinking demand.", declining: true },
+  { id: "cs", title: "Customer Service Worker", sector: "Services", skill: 71, demand: 27, fast: 19, pm: 8, sdg: [8], have: ["Customer service", "Communication"], gap: ["CRM tools"], sig: 3, why: "Signals point to shrinking demand.", declining: true }
+];
+class Component extends DCLogic {
+  state = { th: { "1a": "light", "1b": "light", "1c": "dark" }, fast: false, ws: 55, wd: 45, incDecl: false, sel: "pa" };
+  tg(id) { this.setState(s => ({ th: { ...s.th, [id]: s.th[id] === "dark" ? "light" : "dark" } })); }
+  renderVals() {
+    const st = this.state, out = {};
+    ["1a", "1b", "1c"].forEach(id => { out["th" + id] = st.th[id]; out["tg" + id] = () => this.tg(id); out["lbl" + id] = st.th[id] === "dark" ? "Light" : "Dark"; });
+    const sum = (st.ws + st.wd) || 1, ws = st.ws / sum, wd = st.wd / sum;
+    const pool = st.incDecl ? ROLES.concat(DECL) : ROLES;
+    const ranked = pool.map(r => {
+      const d = st.fast ? r.fast : r.demand, score = Math.round(ws * r.skill + wd * d), b = Math.round(wd * r.pm);
+      const pc = st.fast ? "var(--pr)" : "var(--pr)";
+      return { ...r, demand: d, score, lo: score - b, hi: score + b, skillW: r.skill + "%", demW: d + "%", demC: d >= 50 ? "var(--up)" : "var(--dn)",
+        ring: `conic-gradient(var(--pr) ${score * 3.6}deg, var(--sf2) 0)`,
+        sdgs: r.sdg.map(n => ({ n, c: SDG[n] })),
+        formula: `${ws.toFixed(2)} × ${r.skill} + ${wd.toFixed(2)} × ${d} = ${score}`,
+        x: r.skill + "%", y: d + "%", dot: Math.round(14 + score * 0.25) + "px",
+        dotBg: r.declining ? "var(--dn)" : "var(--pr)" };
+    }).sort((a, b) => b.score - a.score).map((r, i) => ({ ...r, rank: i + 1,
+      selBg: r.id === st.sel ? "var(--soft)" : "transparent", selBd: r.id === st.sel ? "var(--pr)" : "transparent",
+      pick: () => this.setState({ sel: r.id }) }));
+    const LEFT = { da: 1, aa: 1, de: 1, pm: 1, bi: 1 };
+    const place = r => ({ ...r, x: Math.max(3, Math.min(97, (r.skill - 35) / 60 * 100)) + "%", y: Math.max(4, Math.min(96, r.demand / 95 * 100)) + "%",
+      lblL: LEFT[r.id] ? "auto" : "calc(100% + 8px)", lblR: LEFT[r.id] ? "calc(100% + 8px)" : "auto", lblDisp: (r.rank <= 3 || r.id === st.sel || r.declining) ? "block" : "none" });
+    ranked.forEach((r, i) => { ranked[i] = place(r); });
+    const sel = ranked.find(r => r.id === st.sel) || ranked[0];
+    const on = { bg: "var(--sf)", fg: "var(--ink)" }, off = { bg: "transparent", fg: "var(--mu)" };
+    const m = st.fast ? off : on, f = st.fast ? on : off;
+    return { ...out, ranked, top4: ranked.slice(0, 4), top3: ranked.slice(0, 3), rest: ranked.slice(4, 8), count: ranked.length, sel,
+      allDots: ranked.concat(st.incDecl ? [] : DECL.map(r => { const d = st.fast ? r.fast : r.demand; return place({ ...r, demand: d, dot: "18px", dotBg: "var(--dn)", score: "", rank: 99, selBd: "transparent", pick: () => {} }); })),
+      declining: DECL.map(r => ({ title: r.title, demand: st.fast ? r.fast : r.demand })),
+      ws: st.ws, wd: st.wd, wsPct: Math.round(ws * 100), wdPct: Math.round(wd * 100),
+      onWs: e => this.setState({ ws: +e.target.value }), onWd: e => this.setState({ wd: +e.target.value }),
+      reset: () => this.setState({ ws: 55, wd: 45, fast: false, incDecl: false }),
+      incDecl: st.incDecl, toggleDecl: () => this.setState(s => ({ incDecl: !s.incDecl })),
+      setMod: () => this.setState({ fast: false }), setFast: () => this.setState({ fast: true }),
+      modBg: m.bg, modFg: m.fg, fastBg: f.bg, fastFg: f.fg,
+      scenarioName: st.fast ? "Fast AI disruption" : "Moderate AI disruption",
+      scenarioDesc: st.fast ? "AI adoption speeds up, so demand shifts faster for roles most exposed to AI, in both directions." : "AI adoption continues at roughly the pace employers reported in the WEF Future of Jobs Survey 2024."
+    };
+  }
+}
+</script>
+</body>
+</html>
