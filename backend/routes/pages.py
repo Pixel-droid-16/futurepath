@@ -5,6 +5,10 @@ from ..catalog import ROOT
 router=APIRouter(tags=['pages'])
 @router.get('/')
 def homepage():return FileResponse(ROOT/'frontend'/'index.html')
+# The v2 app is one page; these paths open it on the matching screen (refresh and bookmarks work).
+APP_PATHS=('start','results','pathway','signals','about')
+for _path in APP_PATHS:
+    router.add_api_route('/'+_path,homepage,methods=['GET'],include_in_schema=False)
 @router.get('/ai-lab')
 def ai_lab():return FileResponse(ROOT/'frontend'/'ai-lab.html')
 @router.get('/support.js')

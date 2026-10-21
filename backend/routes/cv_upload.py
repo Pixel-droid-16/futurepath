@@ -1,10 +1,17 @@
-"""Synthetic PDF, DOCX and TXT rule-based upload extraction."""
-from fastapi import APIRouter,UploadFile,File
-from ..services.documents import read_cv
+"""CV upload: PDF, DOCX and TXT. Claude reads PDFs directly; the dictionary is the offline fallback."""
+from fastapi import APIRouter,UploadFile,File,Form
+from ..services.documents import read_upload,parse_cv
 from ..services.dictionary import suggest
+from ..services.ai_extraction import extract_suggestions
 router=APIRouter(prefix='/api',tags=['cv-upload'])
 @router.post('/extract')
-async def extract(file:UploadFile=File(...)):
-    content=await read_cv(file)
-    return {'candidates':suggest(content,45,55),
-            'warning':'Rule-based fallback, not GPU AI. Synthetic CVs only. Review and confirm each skill; no extracted skill is scored automatically.'}
+async def extract(file:UploadFile=File(...),provider:str=Form('dictionary')):
+    name,raw=await read_upload(file)
+    if provider=='dictionary':
+        return {'provider':'dictionary','candidates':suggest(parse_cv(name,raw),45,55),'scanned':False,
+                'warning':'Rule-based fallback, not GPU AI. Synthetic CVs only. Review and confirm each skill; no extracted skill is scored automatically.'}
+    # Same provider chain as /api/ai/skills (auto: RunPod -> Claude -> dictionary); Claude gets the PDF itself.
+    # The CV body is not stored.
+    is_pdf=name.endswith('.pdf')
+    result=await extract_suggestions(parse_cv(name,raw,strict=not is_pdf),provider,pdf=raw if is_pdf else None)
+    return {**result,'warning':'AI suggestions are unconfirmed. Review and confirm each skill before it is saved.'}
