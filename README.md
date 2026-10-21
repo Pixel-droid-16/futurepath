@@ -1,55 +1,122 @@
-# FuturePath v2 — Scenario Connected Edition
+# FuturePath
 
-**Status:** Local runnable demo using the group's **confirmed original v2 mockup**. This release adds backend-driven career results, a functional Moderate AI / Rapid AI comparison and linked learning priorities to the original screen style. It is not yet an end-to-end production app.
+Career exploration and reskilling prototype for **SDC Hackathon 2026 — Domain 1**.
 
-## Quick start (Windows)
+We're building FuturePath to help students, graduates and working professionals understand how their current skills relate to different careers, what they might need to learn next, and how AI adoption could change the work involved.
 
-1. Extract this ZIP into a **new** folder, for example `C:\Users\<you>\OneDrive\Desktop\FuturePath_v2_Scenarios_Connected`. Keep your existing `FuturePath_v2` intact.
-2. Open File Explorer in the new extracted folder that contains `requirements.txt` and `backend`, click the address bar, type `cmd` and press Enter.
-3. Install and start:
+The project currently uses our team's **v2 interface design** with a Python backend. It is a hackathon prototype, not a live labour-market forecasting service.
 
-```bat
+## Try it locally
+
+You'll need Python and a terminal.
+
+```bash
 python -m pip install -r requirements.txt
 python -m uvicorn backend.app:app --reload
 ```
 
-4. Open `http://127.0.0.1:8000` and click **Results**, then scroll to **Scenario Lab — Moderate AI vs Rapid AI**.
-5. The Results page should say **Connected to Python matching engine · SYNTHETIC EVIDENCE**.
+Open:
 
-If another FuturePath server is already running on port 8000, press **Ctrl+C** in its Command Prompt first.
+- **Website:** http://127.0.0.1:8000
+- **AI extraction test page:** http://127.0.0.1:8000/ai-lab
+- **API documentation:** http://127.0.0.1:8000/docs
 
-## Demonstration
+If port 8000 is in use, stop the previous local server before starting this one.
 
-- Original v2 **Home**, **Intake**, **Results**, **Pathway**, **Signals**, **About**, **Login** design framework preserved.
-- **12 backend careers** replace the earlier seven sample Results cards when connected.
-- **Moderate/Rapid** toggles change the task-impact comparisons, skill-priority ordering and illustrative suitability component. Compare Data Analyst first.
-- Click **See pathway** on any career result to open a role-specific pathway with the selected scenario's priority skills. Unverified course details are clearly labelled.
-- Your friend’s original v2 styling and page navigation are maintained; only targeted result/pathway content and one matching-style scenario panel are changed.
+## What you can try today
 
-## Important limits
+1. Open **Results**. The career cards load **12 roles across six sectors** from the Python matching API using a shared synthetic demo profile.
+2. In **Scenario Lab**, select **Data Analyst** and compare **Moderate AI** with **Rapid AI**.
+3. Change the selected career to see a different set of task impacts and skills to prioritise.
+4. Open **Pathway** from a career card. It carries the selected role and scenario into the learning-priority view.
+5. Open **AI Lab** to test rule-based skill extraction. Claude and RunPod adapters are included, but live use requires private credentials and an active provider endpoint.
 
-- Career trends are **synthetic prepared snapshots**. Neither the feed nor scenario numbers are verified labour-market forecasts.
-- The original v2 **Intake** page, **Signals** page, login, and evidence/history user interface still contain mockup functionality. The real Python profile and recommendation APIs, the curator demo endpoints, and `/ai-lab` remain available. The next integration step is to wire skill confirmation and profile saving to the original v2 Intake page.
-- RunPod worker deployment and real Claude API calls are **not yet verified with your account**. Neither is required to compare the two AI adoption scenarios.
-- The demo has a shared profile, an unauthenticated curator endpoint and no user accounts. **Do not publicly deploy without securing these routes and isolating user data.**
+The Moderate/Rapid scenarios use explicit, hand-authored assumptions about task change and human oversight. **They are not measured probabilities, job-loss forecasts or verified labour-market predictions.** Score adjustments are intentionally bounded; the more visible differences are in task impacts and learning priorities.
 
-## Project organization and edit locations
+## Current implementation status
 
-Read **`docs/SCENARIO_CONNECTION_GUIDE.md`** first. It includes a file-by-file editing map, exact demo walk-through and the distinction between true functionality and mockup behaviour.
+| Area | Current state |
+| --- | --- |
+| v2 Home, Results and Pathway design | Present |
+| Career matching | Python API connected to Results |
+| Moderate/Rapid scenario comparison | Backend-connected on Results |
+| Career-specific learning priorities | Connected from Results to Pathway |
+| Skill taxonomy and role catalogue | Local JSON datasets |
+| CV skill extraction | Local fallback and optional AI provider adapters |
+| Skills Radar / Home signal feed | Illustrative data and interface |
+| Intake and saved user profile | Original form is not yet connected end-to-end |
+| Login and user accounts | Mockup only; no real authentication |
+| Evidence approval and recommendation history | Backend demo APIs exist; v2 screens are not fully connected |
+| Claude API | Integration code included; live calls not verified for this deployment |
+| RunPod GPU | Worker and adapter code included; GPU worker not deployed here |
 
-All frontend v2 pages remain individually editable under `frontend/mockup_source/pages/`. Feature-specific JavaScript lives under `frontend/mockup_source/logic/`. Python APIs are divided under `backend/routes/` with engine logic in `backend/engine.py` and assumptions in `backend/scenarios.py`.
+The prototype uses **synthetic CV/profile information and prepared evidence snapshots**. Learning-resource details may be placeholders or unverified. Please don't treat the displayed career scores as employment probabilities.
 
-To rebuild the assembled frontend after editing its source:
+## Project structure
 
-```bat
-python scripts\build_frontend.py
+```text
+backend/
+  app.py                 FastAPI entry point
+  routes/                Endpoints grouped by feature
+  services/              Recommendation, document and extraction logic
+  providers/             Claude, RunPod and output validation
+  engine.py              Career scoring and skill-gap calculations
+  scenarios.py           Moderate and Rapid AI assumptions
+data/
+  roles.json             Career requirements
+  skills.json            Canonical skill catalogue
+  snapshots.json         Prepared evidence versions
+  learning_resources.json
+frontend/
+  index.html             Generated v2 application page
+  ai-lab.html            Standalone extraction test page
+  mockup_source/
+    pages/               Editable v2 screen markup
+    logic/               Screen-specific interaction code
+    styles/              Theme styles
+runpod_worker/           Example GPU inference worker
+scripts/                 Frontend build and integrity checks
+tests/                   Automated checks
+docs/                    Architecture, edit locations and demo walkthrough
 ```
 
-To verify and run tests:
+**Editing the UI:** Change the source fragments under `frontend/mockup_source/`, then regenerate `frontend/index.html`:
 
-```bat
-python scripts\verify_integrity.py
+```bash
+python scripts/build_frontend.py
+```
+
+For a guide to the Results scenario connection, see [docs/SCENARIO_CONNECTION_GUIDE.md](docs/SCENARIO_CONNECTION_GUIDE.md). For other edit locations, see [docs/WHERE_TO_EDIT.md](docs/WHERE_TO_EDIT.md).
+
+## Checks
+
+Run from the repository root:
+
+```bash
+python scripts/verify_integrity.py
 python -m pytest -q
 ```
 
-The previous unchanged release is available under `backup/` for rollback. This ZIP has no API keys and makes no changes to your local folder or GitHub.
+The integrity script checks preserved design assets. The tests cover parts of the backend and its API adapters; **passing them is not the same as verifying the whole experience in a browser**.
+
+## API credentials and deployment
+
+Keep keys out of the repository and frontend code. See `.env.example` for the environment variable names; **never commit actual values**.
+
+The current application uses a shared demo profile and includes endpoints without user authentication. **It is not ready to deploy publicly with real user CVs or personal information.** Access control, data isolation, source verification and live provider testing need to be addressed first.
+
+## What we're working on next
+
+- Connect the original v2 Intake screen to profile saving and user-confirmed skills.
+- Connect AI extraction to Intake without changing the team's UI design.
+- Replace illustrative signals and course information with dated, reviewed sources.
+- Complete evidence-update preview, saved history and deletion in the v2 interface.
+- Add authentication and security checks before public deployment.
+
+## Development notes and attribution
+
+This prototype combines our team's v2 UI mockup with a modular FastAPI application and AI-assisted development. AI tools were used during prototyping and code preparation; the team is responsible for reviewing, testing and explaining the final submission. The original v2 interface design came from a team member and should be credited appropriately in the final project presentation.
+
+We are keeping the existing commit history as a record of how the code entered the repository. Future changes should have commit messages describing the actual changes made.
+
+Licensed under [Apache 2.0](LICENSE).
