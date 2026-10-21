@@ -6,18 +6,18 @@ from backend.app import app
 from scripts.build_frontend import assemble_home,assemble_ai_lab
 
 ROOT=Path(__file__).resolve().parents[1]
-BASELINE=json.loads((ROOT/'docs'/'ORIGINAL_FILE_HASHES.json').read_text())
+BASELINE=json.loads((ROOT/'docs'/'ORIGINAL_FILE_HASHES.json').read_text(encoding='utf8'))
 
 def test_results_layout_compiles_from_editable_v2_source():
     html=assemble_home()
-    assert html==(ROOT/'frontend'/'index.html').read_text()
-    assert 'SCENARIO LAB · BACKEND CONNECTED' in html
+    assert html==(ROOT/'frontend'/'index.html').read_text(encoding='utf8')
+    assert 'AI disruption scenario' in html and 'What do you enjoy? (optional)' in html
     assert 'The world of work is changing.' in html
     assert 'LIVE SIGNAL FEED' not in html  # Sample signals must be explicitly labelled
 
 def test_original_ai_lab_layout_identical():
     html=assemble_ai_lab()
-    assert html==(ROOT/'frontend'/'ai-lab.html').read_text()
+    assert html==(ROOT/'frontend'/'ai-lab.html').read_text(encoding='utf8')
     assert hashlib.sha256(html.encode()).hexdigest()==BASELINE['frontend/ai-lab.html']
 
 def test_backend_endpoint_compatibility():
@@ -33,6 +33,28 @@ def test_backend_endpoint_compatibility():
     assert api.get('/ai-lab').status_code==200
     assert api.get('/api/skills').status_code==200
     assert api.get('/api/scenarios/data-analyst').status_code==200
+
+def test_start_flow_pages():
+    html=assemble_home()
+    for screen in ('Home','Start','Results','Pathway','Signals','About'):
+        assert f'data-screen-label="{screen}"' in html
+    for removed in ('Intake','Confirm','Login'):
+        assert f'data-screen-label="{removed}"' not in html
+    api=TestClient(app)
+    for path in ('/start','/results','/pathway','/signals','/about'):
+        resp=api.get(path)
+        assert resp.status_code==200 and 'data-screen-label="Start"' in resp.text
+    assert api.get('/confirm').status_code==404
+
+def test_cv_upload_can_use_ai_provider_chain(monkeypatch):
+    for name in ('ANTHROPIC_API_KEY','RUNPOD_API_KEY','RUNPOD_ENDPOINT_ID','RUNPOD_ENDPOINT_URL'):
+        monkeypatch.delenv(name,raising=False)
+    api=TestClient(app)
+    cv=('cv.txt',b'I wrote SQL queries and Python scripts.','text/plain')
+    legacy=api.post('/api/extract',files={'file':cv}).json()
+    assert legacy['provider']=='dictionary' and legacy['candidates']
+    auto=api.post('/api/extract',files={'file':cv},data={'provider':'auto'}).json()
+    assert auto['provider']=='dictionary' and auto['requires_confirmation'] is True and auto['stored'] is False
 
 def test_dictionary_and_profile_contract():
     client=TestClient(app)

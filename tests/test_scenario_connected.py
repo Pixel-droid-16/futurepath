@@ -26,7 +26,5 @@ def test_task_impacts_and_priorities_are_exposed_by_api_and_original_v2_ui():
     assert obj['moderate']['scenario_details']['tasks'][0]['adoption_impact'] != obj['rapid']['scenario_details']['tasks'][0]['adoption_impact']
     assert obj['moderate']['scenario_details']['recommended_action'] != obj['rapid']['scenario_details']['recommended_action']
     original=(ROOT/'frontend'/'index.html').read_text(encoding='utf8')
-    assert 'SCENARIO LAB · BACKEND CONNECTED' in original
-    assert '{{ scenarioTasks }}' in original
-    assert '{{ roleOptions }}' in original
+    assert 'Fast AI disruption' in original and '{{ setFast }}' in original  # the results scenario toggle
     assert 'The world of work is changing.' in original

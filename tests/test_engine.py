@@ -2,7 +2,7 @@ import json
 from pathlib import Path
 from backend.engine import recommend
 ROOT=Path(__file__).resolve().parents[1]
-def data(f):return json.loads((ROOT/'data'/f).read_text())
+def data(f):return json.loads((ROOT/'data'/f).read_text(encoding='utf8'))
 def setup():
  skills=data('skills.json');return data('roles.json'),data('demo_profile.json'),data('snapshots.json'),{s['id']:s for s in skills},data('learning_resources.json')
 def test_catalogue_and_role_skills():
