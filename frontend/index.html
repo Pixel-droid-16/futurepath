@@ -9,115 +9,139 @@
 <x-dc>
 <helmet><title>FuturePath</title><script src="./image-slot.js"></script><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet"><style>body{margin:0;font-family:Geist,system-ui,sans-serif;-webkit-font-smoothing:antialiased}a{color:inherit;text-decoration:none}a{cursor:pointer}a:hover{opacity:.85}*{box-sizing:border-box}input[type=range],input[type=checkbox]{accent-color:var(--pr)}[data-theme=light]{--bg:#fbfaff;--sf:#ffffff;--sf2:#f5f2fc;--ink:#18151f;--mu:#5d5870;--ln:#e7e2f1;--pr:#5b2bd6;--pri:#ffffff;--soft:#ece5fd;--hero:linear-gradient(180deg,#efe7ff 0%,#f7f3ff 55%,#fbfaff 100%);--up:#0f7a5c;--upbg:#dcf5ec;--dn:#b4234a;--dnbg:#fde4ea;--am:#8a5a00;--ambg:#fff4d6;--sky:#1d5fa8;--skybg:#e1eefc;--sh:0 10px 30px -12px rgba(60,30,140,.18)}[data-theme=dark]{--bg:#0f0d16;--sf:#17141f;--sf2:#1e1a2a;--ink:#f2effa;--mu:#a49eb8;--ln:#2d283b;--pr:#a68bff;--pri:#140d2b;--soft:#251d3d;--hero:linear-gradient(180deg,#221a3d 0%,#16121f 60%,#0f0d16 100%);--up:#4fd1a5;--upbg:#0f3328;--dn:#ff7d9c;--dnbg:#3a1622;--am:#f5c35b;--ambg:#352712;--sky:#7cb8ff;--skybg:#132a45;--sh:0 10px 30px -12px rgba(0,0,0,.6)}[data-accent=emerald][data-theme=light]{--pr:#047857;--soft:#d7f5e8;--hero:linear-gradient(180deg,#dcf5ea 0%,#f2faf6 55%,#fbfaff 100%)}[data-accent=emerald][data-theme=dark]{--pr:#34d399;--pri:#04261b;--soft:#10291f;--hero:linear-gradient(180deg,#0f2a20 0%,#121a17 60%,#0f0d16 100%)}[data-accent=ocean][data-theme=light]{--pr:#1d5fd1;--soft:#e1ebfd;--hero:linear-gradient(180deg,#e2ecfd 0%,#f3f7fe 55%,#fbfaff 100%)}[data-accent=ocean][data-theme=dark]{--pr:#7aa8ff;--pri:#0b1630;--soft:#16233d;--hero:linear-gradient(180deg,#152440 0%,#12151f 60%,#0f0d16 100%)}[data-accent=coral][data-theme=light]{--pr:#c2410c;--soft:#ffeadb;--hero:linear-gradient(180deg,#ffe9da 0%,#fff6f0 55%,#fbfaff 100%)}[data-accent=coral][data-theme=dark]{--pr:#fb923c;--pri:#2a1205;--soft:#3a2012;--hero:linear-gradient(180deg,#3a2213 0%,#1c1512 60%,#0f0d16 100%)}</style></helmet>
 <div data-theme="{{ theme }}" data-accent="{{ accent }}" style="min-height:100vh;display:flex;flex-direction:column;background:var(--bg);color:var(--ink);transition:background .2s">
-<nav style="position:sticky;top:0;z-index:10;background:var(--bg);border-bottom:1px solid var(--ln);display:flex;flex-wrap:wrap;align-items:center;gap:16px 28px;padding:14px max(clamp(20px,4vw,48px),calc((100% - 1200px)/2))"><a onClick="{{ goHome }}" style="font-weight:800;font-size:21px;letter-spacing:-.04em">future<span style="color:var(--pr)">path</span></a><div style="display:flex;flex-wrap:wrap;gap:2px;background:var(--sf2);border:1px solid var(--ln);border-radius:999px;padding:4px"><button onClick="{{ go_home }}" style="border:0;cursor:pointer;font:500 14px Geist;border-radius:999px;padding:8px 16px;background:{{ nb_home }};color:{{ nc_home }}">{{ t_home }}</button><button onClick="{{ go_intake }}" style="border:0;cursor:pointer;font:500 14px Geist;border-radius:999px;padding:8px 16px;background:{{ nb_intake }};color:{{ nc_intake }}">{{ t_intake }}</button><button onClick="{{ go_results }}" style="border:0;cursor:pointer;font:500 14px Geist;border-radius:999px;padding:8px 16px;background:{{ nb_results }};color:{{ nc_results }}">{{ t_results }}</button><button onClick="{{ go_pathway }}" style="border:0;cursor:pointer;font:500 14px Geist;border-radius:999px;padding:8px 16px;background:{{ nb_pathway }};color:{{ nc_pathway }}">{{ t_pathway }}</button><button onClick="{{ go_signals }}" style="border:0;cursor:pointer;font:500 14px Geist;border-radius:999px;padding:8px 16px;background:{{ nb_signals }};color:{{ nc_signals }}">{{ t_signals }}</button></div><div style="margin-left:auto;display:flex;gap:10px;align-items:center"><button onClick="{{ toggle }}" style="border:1px solid var(--ln);background:var(--sf2);color:var(--ink);border-radius:999px;padding:8px 14px;font:500 13px Geist;cursor:pointer;min-height:36px">◐ {{ lbl }}</button><button onClick="{{ toggleLang }}" style="border:1px solid var(--ln);background:transparent;color:var(--ink);border-radius:999px;padding:8px 12px;font:600 13px Geist;cursor:pointer;min-height:36px">{{ langLbl }}</button><a onClick="{{ goLogin }}" style="border:1px solid var(--ln);border-radius:999px;padding:9px 18px;font-size:14px;font-weight:600">{{ t_login }}</a></div></nav>
+<nav style="position:sticky;top:0;z-index:10;background:var(--bg);border-bottom:1px solid var(--ln);display:flex;flex-wrap:wrap;align-items:center;gap:16px 28px;padding:14px max(clamp(20px,4vw,48px),calc((100% - 1200px)/2))"><a onClick="{{ goHome }}" style="font-weight:800;font-size:21px;letter-spacing:-.04em">future<span style="color:var(--pr)">path</span></a><div style="display:flex;flex-wrap:wrap;gap:2px;background:var(--sf2);border:1px solid var(--ln);border-radius:999px;padding:4px"><button onClick="{{ go_home }}" style="border:0;cursor:pointer;font:500 14px Geist;border-radius:999px;padding:8px 16px;background:{{ nb_home }};color:{{ nc_home }}">{{ t_home }}</button><button onClick="{{ go_start }}" style="border:0;cursor:pointer;font:500 14px Geist;border-radius:999px;padding:8px 16px;background:{{ nb_start }};color:{{ nc_start }}">{{ t_start }}</button><button onClick="{{ go_signals }}" style="border:0;cursor:pointer;font:500 14px Geist;border-radius:999px;padding:8px 16px;background:{{ nb_signals }};color:{{ nc_signals }}">{{ t_signals }}</button><button onClick="{{ go_about }}" style="border:0;cursor:pointer;font:500 14px Geist;border-radius:999px;padding:8px 16px;background:{{ nb_about }};color:{{ nc_about }}">{{ t_about }}</button></div><div style="margin-left:auto;display:flex;gap:10px;align-items:center"><button onClick="{{ toggle }}" style="border:1px solid var(--ln);background:var(--sf2);color:var(--ink);border-radius:999px;padding:8px 14px;font:500 13px Geist;cursor:pointer;min-height:36px">◐ {{ lbl }}</button><button onClick="{{ toggleLang }}" style="border:1px solid var(--ln);background:transparent;color:var(--ink);border-radius:999px;padding:8px 12px;font:600 13px Geist;cursor:pointer;min-height:36px">{{ langLbl }}</button></div></nav>
 <sc-if value="{{ is_home }}" hint-placeholder-val="{{ true }}"><main data-screen-label="Home" style="flex:1;display:flex;flex-direction:column"><section style="background:var(--hero);border-bottom:1px solid var(--ln);padding:64px max(clamp(20px,4vw,48px),calc((100% - 1200px)/2)) 72px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:48px;align-items:center">
 <div style="display:flex;flex-direction:column;gap:24px">
 <h1 style="margin:0;font-size:clamp(44px,6.5vw,80px);line-height:.98;letter-spacing:-.05em;font-weight:800;text-wrap:balance">The world of work is changing. <span style="color:var(--pr)">Find your place in it.</span></h1>
-<p style="margin:0;font-size:18px;line-height:1.55;color:var(--mu);max-width:560px">Whether you’re an SPM leaver, a student, an intern or already working, FuturePath shows which future roles fit your skills, why, and an affordable path to get there.</p><div style="display:flex;flex-wrap:wrap;gap:8px"><span style="background:var(--sf);border:1px solid var(--ln);border-radius:999px;padding:6px 14px;font-size:13px;font-weight:600">SPM leavers</span><span style="background:var(--sf);border:1px solid var(--ln);border-radius:999px;padding:6px 14px;font-size:13px;font-weight:600">Students</span><span style="background:var(--sf);border:1px solid var(--ln);border-radius:999px;padding:6px 14px;font-size:13px;font-weight:600">Interns</span><span style="background:var(--sf);border:1px solid var(--ln);border-radius:999px;padding:6px 14px;font-size:13px;font-weight:600">Working professionals</span></div>
-<div style="display:flex;flex-wrap:wrap;gap:12px"><a onClick="{{ goIntake }}" style="background:var(--pr);color:var(--pri);border-radius:12px;padding:15px 24px;font-size:16px;font-weight:600">Build my profile</a></div>
-<div style="display:flex;flex-wrap:wrap;gap:32px;padding-top:20px;border-top:1px solid var(--ln)"><div><div style="font-size:30px;font-weight:800;letter-spacing:-.03em">12</div><div style="font-size:13px;color:var(--mu)">demo careers</div></div><div><div style="font-size:30px;font-weight:800;letter-spacing:-.03em">2</div><div style="font-size:13px;color:var(--mu)">synthetic snapshots</div></div><div><div style="font-size:30px;font-weight:800;letter-spacing:-.03em">30</div><div style="font-size:13px;color:var(--mu)">resource placeholders</div></div></div></div>
+<p style="margin:0;font-size:18px;line-height:1.55;color:var(--mu);max-width:560px">Whether you’re returning to work, facing a restructuring or just starting out, FuturePath shows which future roles fit your skills, why, and an affordable path to get there.</p><div style="display:flex;flex-wrap:wrap;gap:8px"><span style="background:var(--sf);border:1px solid var(--ln);border-radius:999px;padding:6px 14px;font-size:13px;font-weight:600">Returning to work</span><span style="background:var(--sf);border:1px solid var(--ln);border-radius:999px;padding:6px 14px;font-size:13px;font-weight:600">Facing restructuring</span><span style="background:var(--sf);border:1px solid var(--ln);border-radius:999px;padding:6px 14px;font-size:13px;font-weight:600">Career switchers</span><span style="background:var(--sf);border:1px solid var(--ln);border-radius:999px;padding:6px 14px;font-size:13px;font-weight:600">Fresh graduates</span></div>
+<div style="display:flex;flex-wrap:wrap;gap:12px"><a onClick="{{ goStart }}" style="background:var(--pr);color:var(--pri);border-radius:12px;padding:15px 24px;font-size:16px;font-weight:600">Build my profile</a></div>
+<div style="display:flex;flex-wrap:wrap;gap:32px;padding-top:20px;border-top:1px solid var(--ln)"><div><div style="font-size:30px;font-weight:800;letter-spacing:-.03em">12</div><div style="font-size:13px;color:var(--mu)">future roles</div></div><div><div style="font-size:30px;font-weight:800;letter-spacing:-.03em">{{ sigTotal }}</div><div style="font-size:13px;color:var(--mu)">dated signals</div></div><div><div style="font-size:30px;font-weight:800;letter-spacing:-.03em">{{ courseTotal }}</div><div style="font-size:13px;color:var(--mu)">checked courses</div></div></div></div>
 <div style="background:var(--sf);border:1px solid var(--ln);border-radius:24px;box-shadow:var(--sh);padding:24px;display:flex;flex-direction:column;gap:16px">
-<div style="display:flex;align-items:center;gap:10px"><span style="width:10px;height:10px;border-radius:50%;background:var(--up);box-shadow:0 0 0 4px var(--upbg)"></span><b style="font:600 12px 'Geist Mono',monospace;letter-spacing:.06em">SAMPLE SIGNAL FEED</b><span style="margin-left:auto;font:500 12px 'Geist Mono',monospace;color:var(--mu)">{{ clock }} MYT</span></div>
+<div style="display:flex;align-items:center;gap:10px"><span style="width:10px;height:10px;border-radius:50%;background:var(--up);box-shadow:0 0 0 4px var(--upbg)"></span><b style="font:600 12px 'Geist Mono',monospace;letter-spacing:.06em">{{ feedLabel }}</b><span style="margin-left:auto;font:500 12px 'Geist Mono',monospace;color:var(--mu)">{{ clock }} MYT</span></div>
 <div style="background:var(--sf2);border-radius:16px;padding:20px;display:flex;flex-direction:column;gap:12px;min-height:172px">
 <div style="display:flex;gap:8px;align-items:center"><span style="background:{{ live.bg }};color:{{ live.c }};border-radius:8px;padding:4px 10px;font-size:12px;font-weight:600">{{ live.dir }} {{ live.kind }}</span><span style="margin-left:auto;font:12px 'Geist Mono',monospace;color:var(--mu)">{{ live.src }}</span></div>
 <p style="margin:0;font-size:19px;line-height:1.35;font-weight:600;letter-spacing:-.01em;text-wrap:pretty">{{ live.t }}</p>
-<div style="margin-top:auto;font-size:13px;color:var(--mu)">Affects: <b style="color:var(--ink);font-weight:500">{{ live.roles }}</b></div>
-<div style="height:3px;border-radius:3px;background:var(--ln);overflow:hidden"><div style="height:100%;background:var(--pr);width:{{ liveProg }};transition:width 1s linear"></div></div></div>
+<div style="margin-top:auto;height:3px;border-radius:3px;background:var(--ln);overflow:hidden"><div style="height:100%;background:var(--pr);width:{{ liveProg }};transition:width 1s linear"></div></div></div>
 <div><div style="font:600 12px 'Geist Mono',monospace;letter-spacing:.06em;color:var(--mu);margin-bottom:4px">UP NEXT</div>
 <sc-for list="{{ liveNext }}" as="n" hint-placeholder-count="3"><div style="display:flex;gap:10px;align-items:center;padding:10px 0;border-top:1px solid var(--ln);font-size:14px"><b style="color:{{ n.c }};width:14px">{{ n.dir }}</b><span style="flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ n.t }}</span><span style="font:12px 'Geist Mono',monospace;color:var(--mu)">{{ n.src }}</span></div></sc-for></div>
-<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;text-align:center"><div style="background:var(--sf2);border-radius:16px;padding:12px"><b style="font-size:20px">36</b><div style="font-size:12px;color:var(--mu)">curated</div></div><div style="background:var(--upbg);border-radius:16px;padding:12px;color:var(--up)"><b style="font-size:20px">+13</b><div style="font-size:12px">this week</div></div><div style="background:var(--sf2);border-radius:16px;padding:12px"><b style="font-size:20px">{{ refreshAgo }}</b><div style="font-size:12px;color:var(--mu)">since refresh</div></div></div>
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;text-align:center"><div style="background:var(--sf2);border-radius:16px;padding:12px"><b style="font-size:20px">{{ sigTotal }}</b><div style="font-size:12px;color:var(--mu)">signals</div></div><div style="background:var(--upbg);border-radius:16px;padding:12px;color:var(--up)"><b style="font-size:20px">+{{ sigNewWeek }}</b><div style="font-size:12px">new this week</div></div><div style="background:var(--sf2);border-radius:16px;padding:12px"><b style="font-size:20px">{{ sinceFetch }}</b><div style="font-size:12px;color:var(--mu)">since last fetch</div></div></div>
 <a onClick="{{ goSignals }}" style="font-size:14px;font-weight:600;color:var(--pr)">See all signals →</a></div></section>
+<section style="padding:72px max(clamp(20px,4vw,48px),calc((100% - 1200px)/2)) 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:20px;align-items:center"><div><span style="font:600 12px 'Geist Mono',monospace;letter-spacing:.06em;color:var(--pr)">WHY NOW</span><h2 style="margin:8px 0 0;font-size:clamp(26px,3vw,34px);line-height:1.15;letter-spacing:-.03em;font-weight:700">Future-Ready Career Navigator</h2></div><div style="background:var(--sf);border:1px solid var(--ln);border-radius:24px;padding:24px;display:flex;flex-direction:column;gap:8px"><b style="font-size:36px;font-weight:800;letter-spacing:-.03em;color:var(--pr)">56%</b><span style="font-size:15px;line-height:1.5">of Malaysian professionals use AI at work, but only 26% have had formal training.</span><a href="https://sea.peoplemattersglobal.com/article/strategic-hr/ai-in-malaysian-workplaces-a-strategic-outlook-46436" target="_blank" rel="noopener noreferrer" style="font:12px 'Geist Mono',monospace;color:var(--mu)">Hays Asia Salary Guide 2025</a></div><div style="background:var(--sf);border:1px solid var(--ln);border-radius:24px;padding:24px;display:flex;flex-direction:column;gap:8px"><b style="font-size:36px;font-weight:800;letter-spacing:-.03em;color:var(--pr)">600,000+</b><span style="font-size:15px;line-height:1.5">workers will need reskilling within the next 3–5 years.</span><a href="https://www.malaymail.com/news/malaysia/2025/01/07/mosti-ai-disruption-looms-in-malaysia-600000-workers-must-reskill-in-three-to-five-years/162368" target="_blank" rel="noopener noreferrer" style="font:12px 'Geist Mono',monospace;color:var(--mu)">MOSTI</a></div></section>
 <section style="padding:72px max(clamp(20px,4vw,48px),calc((100% - 1200px)/2));display:flex;flex-direction:column;gap:28px">
-<div style="display:flex;flex-wrap:wrap;align-items:flex-end;gap:12px 32px"><div style="flex:1 1 420px"><span style="font:600 12px 'Geist Mono',monospace;letter-spacing:.06em;color:var(--pr)">FUTURE SKILLS RADAR</span><h2 style="margin:8px 0 0;font-size:clamp(26px,3vw,34px);line-height:1.1;letter-spacing:-.03em;font-weight:700">What's rising, what's fading</h2></div><p style="flex:1 1 320px;margin:0;color:var(--mu);font-size:16px;line-height:1.55">Skill outlook from dated reports and live feeds. Bars show signal strength, not certainty.</p></div>
+<div style="display:flex;flex-wrap:wrap;align-items:flex-end;gap:12px 32px"><div style="flex:1 1 420px"><span style="font:600 12px 'Geist Mono',monospace;letter-spacing:.06em;color:var(--pr)">FUTURE SKILLS RADAR</span><h2 style="margin:8px 0 0;font-size:clamp(26px,3vw,34px);line-height:1.1;letter-spacing:-.03em;font-weight:700">What's rising, what's fading</h2></div><p style="flex:1 1 320px;margin:0;color:var(--mu);font-size:16px;line-height:1.55"><span style="display:block;font:12px 'Geist Mono',monospace;color:var(--mu)">{{ radarUpdated }}</span></p></div>
 <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:20px">
 <div style="background:var(--sf);border:1px solid var(--ln);border-radius:24px;padding:24px;display:flex;flex-direction:column;gap:16px"><b style="font-size:17px;font-weight:600;color:var(--up)">↑ Rising skills</b><sc-for list="{{ radarUp }}" as="k" hint-placeholder-count="5"><div style="display:flex;gap:12px;align-items:center"><span style="flex:none;width:28px;height:28px;border-radius:8px;background:var(--upbg);color:var(--up);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px">↑</span><div style="flex:1;min-width:0"><div style="font-size:14px;font-weight:500">{{ k.t }}</div><div style="margin-top:6px;height:6px;border-radius:6px;background:var(--sf2)"><div style="height:100%;border-radius:6px;background:var(--up);width:{{ k.w }}"></div></div></div></div></sc-for></div>
 <div style="background:var(--sf);border:1px solid var(--ln);border-radius:24px;padding:24px;display:flex;flex-direction:column;gap:16px"><b style="font-size:17px;font-weight:600;color:var(--dn)">↓ Declining skills</b><sc-for list="{{ radarDn }}" as="k" hint-placeholder-count="4"><div style="display:flex;gap:12px;align-items:center"><span style="flex:none;width:28px;height:28px;border-radius:8px;background:var(--dnbg);color:var(--dn);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px">↓</span><div style="flex:1;min-width:0"><div style="font-size:14px;font-weight:500">{{ k.t }}</div><div style="margin-top:6px;height:6px;border-radius:6px;background:var(--sf2)"><div style="height:100%;border-radius:6px;background:var(--dn);width:{{ k.w }}"></div></div></div></div></sc-for><a onClick="{{ goSignals }}" style="margin-top:auto;font-size:14px;font-weight:600;color:var(--pr)">See the signals behind this →</a></div></div>
-<div style="background:var(--sf);border:1px solid var(--ln);border-radius:24px;padding:24px;display:flex;flex-direction:column;gap:18px"><div style="display:flex;flex-wrap:wrap;gap:6px 24px;align-items:baseline"><b style="font-size:17px;font-weight:600">Every role links to the UN SDGs</b><span style="font-size:14px;color:var(--mu)">All 17 goals, mapped to our roles and skills</span></div>
-<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:8px"><sc-if value="{{ sdgReady }}" hint-placeholder-val="{{ false }}"><sc-for list="{{ sdgTiles }}" as="g"><div role="img" aria-label="SDG {{ g.n }}: {{ g.name }}" title="SDG {{ g.n }}: {{ g.name }}" style="width:100%;aspect-ratio:1;border-radius:12px;background:{{ g.bgImg }}"></div></sc-for></sc-if></div></div></section></main></sc-if>
-<sc-if value="{{ is_intake }}" hint-placeholder-val="{{ false }}"><main data-screen-label="Intake" style="flex:1;display:flex;flex-direction:column"><section style="background:var(--hero);border-bottom:1px solid var(--ln);padding:56px max(clamp(20px,4vw,48px),calc((100% - 1200px)/2)) 44px"><span style="font:600 12px 'Geist Mono',monospace;letter-spacing:.06em;color:var(--pr)">STEP 2 OF 4</span><h1 style="margin:8px 0 0;font-size:clamp(34px,4.5vw,52px);line-height:1.05;letter-spacing:-.035em;font-weight:700">Build your skills profile</h1><p style="margin:12px 0 0;font-size:17px;line-height:1.55;color:var(--mu);max-width:640px">You'll review and confirm everything before anything is saved.</p>
-<div style="margin-top:28px;display:flex;flex-wrap:wrap;align-items:center;gap:12px;font-size:14px;font-weight:600"><span style="display:flex;align-items:center;gap:8px;color:var(--up)"><span style="width:28px;height:28px;border-radius:50%;background:var(--upbg);display:flex;align-items:center;justify-content:center">✓</span>Choose start</span><i style="width:48px;height:2px;background:var(--up)"></i><span style="display:flex;align-items:center;gap:8px;color:var(--pr)"><span style="width:28px;height:28px;border-radius:50%;background:var(--pr);color:var(--pri);display:flex;align-items:center;justify-content:center;font-size:13px">2</span>Check profile</span><i style="width:48px;height:2px;background:var(--ln)"></i><span style="display:flex;align-items:center;gap:8px;color:var(--mu)"><span style="width:28px;height:28px;border-radius:50%;border:1.5px solid var(--ln);display:flex;align-items:center;justify-content:center;font-size:13px">3</span>Interest quiz</span><i style="width:48px;height:2px;background:var(--ln)"></i><span style="display:flex;align-items:center;gap:8px;color:var(--mu)"><span style="width:28px;height:28px;border-radius:50%;border:1.5px solid var(--ln);display:flex;align-items:center;justify-content:center;font-size:13px">4</span>Results</span></div></section>
+<div style="background:var(--sf);border:1px solid var(--ln);border-radius:24px;padding:24px;display:flex;flex-direction:column;gap:18px"><div style="display:flex;flex-wrap:wrap;gap:6px 24px;align-items:baseline"><b style="font-size:17px;font-weight:600">Every role links to the UN SDGs</b><span style="font-size:14px;color:var(--mu)">{{ sdgLinkedCount }} of the 17 goals are linked to our roles (highlighted).</span></div>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:8px"><sc-if value="{{ sdgReady }}" hint-placeholder-val="{{ false }}"><sc-for list="{{ sdgTiles }}" as="g"><div role="img" aria-label="SDG {{ g.n }}: {{ g.name }}{{ g.note }}" title="SDG {{ g.n }}: {{ g.name }}{{ g.note }}" style="width:100%;aspect-ratio:1;border-radius:12px;background:{{ g.bgImg }};filter:{{ g.filter }};opacity:{{ g.op }}"></div></sc-for></sc-if></div><p style="margin:0;font-size:12px;color:var(--mu)">SDG icons © United Nations, used for information only; no endorsement implied.</p></div></section></main></sc-if>
+<sc-if value="{{ showStartFlow }}" hint-placeholder-val="{{ false }}"><main data-screen-label="Start" style="flex:1;display:flex;flex-direction:column"><section style="background:var(--hero);border-bottom:1px solid var(--ln);padding:56px max(clamp(20px,4vw,48px),calc((100% - 1200px)/2)) 44px"><span style="font:600 12px 'Geist Mono',monospace;letter-spacing:.06em;color:var(--pr)">STEP {{ stepNo }} OF 4</span><h1 style="margin:8px 0 0;font-size:clamp(34px,4.5vw,52px);line-height:1.05;letter-spacing:-.035em;font-weight:700">Build your skills profile</h1><p style="margin:12px 0 0;font-size:17px;line-height:1.55;color:var(--mu);max-width:640px">Choose how to start. You'll review and confirm everything before anything is saved.</p>
+<div style="margin-top:28px;display:flex;flex-wrap:wrap;align-items:center;gap:12px;font-size:14px;font-weight:600"><sc-for list="{{ stepper }}" as="s" hint-placeholder-count="4"><span style="display:flex;align-items:center;gap:8px;color:{{ s.c }}"><span style="width:28px;height:28px;border-radius:50%;background:{{ s.bg }};color:{{ s.fg }};border:{{ s.bd }};box-sizing:border-box;display:flex;align-items:center;justify-content:center;font-size:13px">{{ s.mark }}</span>{{ s.label }}</span><sc-if value="{{ s.line }}"><i style="width:48px;height:2px;background:{{ s.lineC }}"></i></sc-if></sc-for></div></section>
 <section style="padding:40px max(clamp(20px,4vw,48px),calc((100% - 1200px)/2)) 72px;display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start">
-<div style="flex:3 1 560px;min-width:0;background:var(--sf);border:1px solid var(--ln);border-radius:24px;padding:clamp(20px,3vw,32px);display:flex;flex-direction:column;gap:22px">
+<div style="flex:3 1 560px;min-width:0;display:flex;flex-direction:column;gap:16px">
+<sc-if value="{{ isChoose }}" hint-placeholder-val="{{ true }}"><sc-if value="{{ hasPeople }}" hint-placeholder-val="{{ false }}"><div style="background:var(--soft);border-radius:20px;padding:16px 20px;display:flex;flex-direction:column;gap:10px"><div style="font:600 12px Geist;letter-spacing:.04em;color:var(--pr)">SAVED PEOPLE ({{ peopleCount }})</div><sc-for list="{{ peopleRows }}" as="p"><div style="display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;background:var(--sf);border-radius:14px;padding:10px 14px"><div style="flex:1 1 200px;min-width:0"><b style="font-size:15px;font-weight:600">{{ p.name }}</b><div style="font-size:12px;color:var(--mu)">{{ p.sub }}</div></div><a onClick="{{ p.open }}" style="background:var(--pr);color:var(--pri);border-radius:10px;padding:9px 16px;font-size:14px;font-weight:600">See results →</a><sc-if value="{{ p.notAsking }}" hint-placeholder-val="{{ true }}"><button onClick="{{ p.ask }}" style="border:0;background:none;color:var(--dn);font:600 13px Geist;cursor:pointer;padding:6px">Delete</button></sc-if><sc-if value="{{ p.asking }}" hint-placeholder-val="{{ false }}"><span style="display:flex;flex-wrap:wrap;align-items:center;gap:8px;font-size:13px"><span style="color:var(--dn);font-weight:600">Delete {{ p.name }}? This can't be undone.</span><button onClick="{{ p.confirm }}" style="border:0;background:var(--dn);color:#fff;border-radius:8px;padding:7px 12px;font:600 13px Geist;cursor:pointer">Yes, delete</button><button onClick="{{ p.cancel }}" style="border:1px solid var(--ln);background:var(--sf);color:var(--ink);border-radius:8px;padding:6px 12px;font:600 13px Geist;cursor:pointer">Cancel</button></span></sc-if></div></sc-for></div></sc-if>
+<div style="background:var(--sf);border:1px solid var(--ln);border-radius:24px;padding:clamp(20px,3vw,32px);display:flex;flex-direction:column;gap:22px"><b style="font-size:20px;font-weight:600">How would you like to start?</b>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr));gap:12px"><sc-for list="{{ startTiles }}" as="o" hint-placeholder-count="3"><button onClick="{{ o.choose }}" style="text-align:left;background:var(--sf2);border:1px solid var(--ln);border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:8px;color:var(--ink);font:inherit;cursor:pointer"><span style="width:40px;height:40px;border-radius:12px;background:var(--soft);color:var(--pr);display:flex;align-items:center;justify-content:center;font:700 12px Geist">{{ o.icon }}</span><b style="font-size:17px;font-weight:600;margin-top:8px">{{ o.t }}</b><span style="font-size:14px;line-height:1.45;color:var(--mu)">{{ o.d }}</span></button></sc-for></div></div></sc-if>
+<sc-if value="{{ isCvStep }}" hint-placeholder-val="{{ false }}"><div style="background:var(--sf);border:1px solid var(--ln);border-radius:24px;padding:clamp(20px,3vw,32px);display:flex;flex-direction:column;gap:20px"><div><b style="font-size:20px;font-weight:600">Upload a CV</b><p style="margin:4px 0 0;font-size:14px;color:var(--mu)">PDF, up to 2 MB. Skills are matched to our catalog for you to check.</p></div>
+<label style="border:1.5px dashed var(--ln);border-radius:16px;background:var(--sf2);padding:28px;display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer;text-align:center"><input type="file" accept=".pdf,application/pdf" onChange="{{ onCvFile }}" style="position:absolute;width:1px;height:1px;opacity:0"><b style="color:var(--pr);font-size:15px;font-weight:600">{{ cvPickLbl }}</b><span style="font-size:13px;color:var(--mu)">PDF · max 2 MB</span></label>
+<div style="display:flex;flex-wrap:wrap;gap:12px"><a onClick="{{ backToChoose }}" style="background:var(--sf);border:1.5px solid var(--ln);color:var(--ink);border-radius:12px;padding:12px 20px;font-size:15px;font-weight:600">Back</a><a onClick="{{ readCv }}" style="background:var(--pr);color:var(--pri);border-radius:12px;padding:13px 20px;font-size:15px;font-weight:600;opacity:{{ readOp }}">{{ readLbl }}</a></div></div></sc-if>
+<sc-if value="{{ isFormStep }}" hint-placeholder-val="{{ false }}"><div style="background:var(--sf);border:1px solid var(--ln);border-radius:24px;padding:clamp(20px,3vw,32px);display:flex;flex-direction:column;gap:18px"><b style="font-size:20px;font-weight:600">Fill a short form</b>
+<label style="display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:500">Your current or most recent role<input value="{{ fRole }}" onInput="{{ onFRole }}" placeholder="e.g. Administrative assistant at a logistics company" style="width:100%;box-sizing:border-box;border:1px solid var(--ln);border-radius:12px;padding:13px 14px;font:400 15px Geist;background:var(--bg);color:var(--ink)"></label>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:16px"><label style="display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:500">Years of work experience<input type="number" min="0" max="60" value="{{ fYears }}" onInput="{{ onFYears }}" style="width:100%;box-sizing:border-box;border:1px solid var(--ln);border-radius:12px;padding:13px 14px;font:400 15px Geist;background:var(--bg);color:var(--ink)"></label><label style="display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:500">Highest qualification<input value="{{ fQual }}" onInput="{{ onFQual }}" placeholder="e.g. Diploma in Office Management" style="width:100%;box-sizing:border-box;border:1px solid var(--ln);border-radius:12px;padding:13px 14px;font:400 15px Geist;background:var(--bg);color:var(--ink)"></label></div>
+<label style="display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:500">Languages you can work in (comma separated)<input value="{{ fLangs }}" onInput="{{ onFLangs }}" placeholder="Bahasa Melayu, English" style="width:100%;box-sizing:border-box;border:1px solid var(--ln);border-radius:12px;padding:13px 14px;font:400 15px Geist;background:var(--bg);color:var(--ink)"></label>
+<div style="display:flex;flex-direction:column;gap:8px"><b style="font-size:14px;font-weight:500">Your skills</b><span style="font-size:12px;color:var(--mu);margin-top:-6px">Search and add every skill you have used at work, study or volunteering.</span>
+<sc-if value="{{ formEmpty }}" hint-placeholder-val="{{ true }}"><span style="font-size:14px;color:var(--mu)">No skills yet. Add at least one.</span></sc-if>
+<div style="display:flex;flex-wrap:wrap;gap:8px"><sc-for list="{{ formChosen }}" as="k"><button onClick="{{ k.remove }}" title="Remove" style="border:1.5px solid var(--pr);background:var(--soft);color:var(--pr);border-radius:999px;padding:6px 12px;font:600 13px Geist;cursor:pointer">{{ k.name }} ×</button></sc-for></div>
+<input value="{{ formQuery }}" onInput="{{ onFormQuery }}" onFocus="{{ openFormList }}" onClick="{{ openFormList }}" placeholder="+ Search skills…" style="width:100%;box-sizing:border-box;border:1.5px dashed var(--ln);border-radius:12px;padding:13px 14px;font:400 14px Geist;background:var(--bg);color:var(--ink)">
+<sc-if value="{{ hasFormResults }}" hint-placeholder-val="{{ false }}"><div style="display:flex;flex-wrap:wrap;gap:8px;max-height:240px;overflow:auto;border:1px solid var(--ln);border-radius:12px;padding:10px;background:var(--sf)"><sc-for list="{{ formResults }}" as="k"><button onClick="{{ k.add }}" style="border:1.5px solid var(--ln);background:var(--sf);color:var(--ink);border-radius:999px;padding:6px 12px;font:500 13px Geist;cursor:pointer">+ {{ k.name }}</button></sc-for></div></sc-if><sc-if value="{{ formNoMatch }}" hint-placeholder-val="{{ false }}"><span style="font-size:13px;color:var(--mu)">No matching skill in our catalogue.</span></sc-if><sc-if value="{{ formListOpen }}" hint-placeholder-val="{{ false }}"><button onClick="{{ closeFormList }}" style="align-self:flex-start;border:0;background:none;color:var(--pr);font:600 13px Geist;cursor:pointer;padding:2px 0">Done</button></sc-if></div>
+<label style="display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:500">What do you want from your next role? (optional)<textarea value="{{ fGoals }}" onInput="{{ onFGoals }}" rows="3" style="width:100%;box-sizing:border-box;border:1px solid var(--ln);border-radius:12px;padding:13px 14px;font:400 15px/1.5 Geist;background:var(--bg);color:var(--ink);resize:vertical"></textarea></label>
+<div style="display:flex;flex-wrap:wrap;gap:12px"><a onClick="{{ backToChoose }}" style="background:var(--sf);border:1.5px solid var(--ln);color:var(--ink);border-radius:12px;padding:12px 20px;font-size:15px;font-weight:600">Back</a><a onClick="{{ useForm }}" style="background:var(--pr);color:var(--pri);border-radius:12px;padding:13px 20px;font-size:15px;font-weight:600;opacity:{{ formOp }}">Continue →</a></div></div></sc-if>
+<sc-if value="{{ isCheckStep }}" hint-placeholder-val="{{ false }}"><div style="background:var(--sf);border:1px solid var(--ln);border-radius:24px;padding:clamp(20px,3vw,32px);display:flex;flex-direction:column;gap:20px">
 <div><b style="font-size:20px;font-weight:600">Check your profile</b><p style="margin:4px 0 0;font-size:14px;color:var(--mu)">Edit anything that's wrong. Remove skills you don't have and add any that are missing.</p></div>
-<div style="background:var(--soft);color:var(--pr);border-radius:12px;padding:12px 14px;font-size:13px;font-weight:500">Skills extracted by Claude from your CV. Please check them.</div>
-<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:16px"><label style="display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:500">Profile name<input value="Siti" style="width:100%;border:1px solid var(--ln);border-radius:12px;padding:13px 14px;font:400 15px Geist;background:var(--bg);color:var(--ink)"></label><label style="display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:500">Headline<input value="Administrative assistant returning to work" style="width:100%;border:1px solid var(--ln);border-radius:12px;padding:13px 14px;font:400 15px Geist;background:var(--bg);color:var(--ink)"></label></div>
-<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,160px),1fr));gap:16px"><label style="display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:500">Years of experience<input value="6" style="width:100%;border:1px solid var(--ln);border-radius:12px;padding:13px 14px;font:400 15px Geist;background:var(--bg);color:var(--ink)"></label><label style="display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:500">Study hours / week<input value="8" style="width:100%;border:1px solid var(--ln);border-radius:12px;padding:13px 14px;font:400 15px Geist;background:var(--bg);color:var(--ink)"></label><label style="display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:500">Course budget<select style="width:100%;border:1px solid var(--ln);border-radius:12px;padding:13px 14px;font:400 15px Geist;background:var(--bg);color:var(--ink)"><option>Free only</option><option>Low cost</option><option selected="{{ true }}">HRD Corp claimable</option></select></label></div>
-<div style="display:flex;flex-direction:column;gap:8px"><b style="font-size:14px;font-weight:600">Skills <span style="color:var(--mu);font-weight:400">({{ skillCount }})</span></b>
-<sc-for list="{{ skills }}" as="k" hint-placeholder-count="5"><div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;background:var(--sf2);border-radius:16px;padding:12px 16px;font-size:14px"><div style="flex:1 1 200px;min-width:0"><div style="font-weight:500">{{ k.name }}</div><div style="font-size:12px;color:var(--mu)">{{ k.ev }}</div></div><div style="display:flex;gap:2px;background:var(--sf);border:1px solid var(--ln);border-radius:10px;padding:3px;font-size:12px;font-weight:500"><span style="padding:5px 10px;border-radius:7px;background:{{ k.b1 }};color:{{ k.c1 }}">Basic</span><span style="padding:5px 10px;border-radius:7px;background:{{ k.b2 }};color:{{ k.c2 }}">Working</span><span style="padding:5px 10px;border-radius:7px;background:{{ k.b3 }};color:{{ k.c3 }}">Strong</span></div><button onClick="{{ k.remove }}" style="border:0;background:none;color:var(--dn);font:600 13px Geist;cursor:pointer;padding:6px">Remove</button></div></sc-for>
-<div style="border:1.5px dashed var(--ln);border-radius:12px;padding:13px 14px;font-size:14px;color:var(--mu)">+ Search and add a skill…</div></div>
-<label style="display:flex;gap:10px;font-size:14px;align-items:center"><input type="checkbox" checked="{{ true }}" style="width:18px;height:18px">I have checked these skills and they describe me.</label>
-<div style="display:flex;flex-wrap:wrap;gap:12px"><a onClick="{{ goHome }}" style="background:var(--sf);border:1.5px solid var(--ln);color:var(--ink);border-radius:12px;padding:12px 20px;font-size:15px;font-weight:600">Back</a><a onClick="{{ goResults }}" style="background:var(--pr);color:var(--pri);border-radius:12px;padding:13px 20px;font-size:15px;font-weight:600">See my results →</a></div></div>
+<div style="background:var(--soft);color:var(--pr);border-radius:12px;padding:12px 14px;font-size:13px;font-weight:500">{{ draftNote }}</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:16px"><label style="display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:500">Profile name (a nickname is fine)<input value="{{ mName }}" onInput="{{ onMName }}" style="width:100%;box-sizing:border-box;border:1px solid var(--ln);border-radius:12px;padding:13px 14px;font:400 15px Geist;background:var(--bg);color:var(--ink)"></label><label style="display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:500">Headline<input value="{{ mHeadline }}" onInput="{{ onMHeadline }}" style="width:100%;box-sizing:border-box;border:1px solid var(--ln);border-radius:12px;padding:13px 14px;font:400 15px Geist;background:var(--bg);color:var(--ink)"></label></div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,160px),1fr));gap:16px"><label style="display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:500">Years of work experience<input type="number" min="0" max="60" value="{{ mYears }}" onInput="{{ onMYears }}" style="width:100%;box-sizing:border-box;border:1px solid var(--ln);border-radius:12px;padding:13px 14px;font:400 15px Geist;background:var(--bg);color:var(--ink)"></label><label style="display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:500">Hours per week you can study<input type="number" min="1" max="60" value="{{ mHours }}" onInput="{{ onMHours }}" style="width:100%;box-sizing:border-box;border:1px solid var(--ln);border-radius:12px;padding:13px 14px;font:400 15px Geist;background:var(--bg);color:var(--ink)"></label></div>
+<div style="display:flex;flex-direction:column;gap:8px"><b style="font-size:14px;font-weight:600">Skills <span style="color:var(--mu);font-weight:400">({{ draftCount }})</span></b>
+<sc-for list="{{ draftRows }}" as="k" hint-placeholder-count="4"><div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;background:var(--sf2);border-radius:16px;padding:12px 16px;font-size:14px"><div style="flex:1 1 200px;min-width:0"><div style="font-weight:500">{{ k.name }}</div><div style="font-size:12px;color:var(--mu)">{{ k.ev }}</div></div><div style="display:flex;gap:2px;background:var(--sf);border:1px solid var(--ln);border-radius:10px;padding:3px"><sc-for list="{{ k.levels }}" as="l"><button onClick="{{ l.set }}" style="border:0;cursor:pointer;font:500 12px Geist;padding:5px 10px;border-radius:7px;background:{{ l.b }};color:{{ l.c }}">{{ l.label }}</button></sc-for></div><button onClick="{{ k.remove }}" style="border:0;background:none;color:var(--dn);font:600 13px Geist;cursor:pointer;padding:6px">Remove</button></div></sc-for>
+<input value="{{ addQuery }}" onInput="{{ onAddQuery }}" onFocus="{{ openAddList }}" onClick="{{ openAddList }}" placeholder="+ Search skills…" style="width:100%;box-sizing:border-box;border:1.5px dashed var(--ln);border-radius:12px;padding:13px 14px;font:400 14px Geist;background:var(--bg);color:var(--ink)">
+<sc-if value="{{ hasAddOptions }}" hint-placeholder-val="{{ false }}"><div style="display:flex;flex-wrap:wrap;gap:8px;max-height:240px;overflow:auto;border:1px solid var(--ln);border-radius:12px;padding:10px;background:var(--sf)"><sc-for list="{{ addOptions }}" as="a"><button onClick="{{ a.add }}" style="border:1.5px solid var(--ln);background:var(--sf);color:var(--ink);border-radius:999px;padding:6px 12px;font:500 13px Geist;cursor:pointer">+ {{ a.name }}</button></sc-for></div></sc-if><sc-if value="{{ addNoMatch }}" hint-placeholder-val="{{ false }}"><span style="font-size:13px;color:var(--mu)">No matching skill in our catalogue.</span></sc-if><sc-if value="{{ addListOpen }}" hint-placeholder-val="{{ false }}"><button onClick="{{ closeAddList }}" style="align-self:flex-start;border:0;background:none;color:var(--pr);font:600 13px Geist;cursor:pointer;padding:2px 0">Done</button></sc-if></div>
+<label style="display:flex;gap:10px;font-size:14px;align-items:center;cursor:pointer"><input type="checkbox" checked="{{ approved }}" onChange="{{ toggleApproved }}" style="width:18px;height:18px">I have checked these skills and they describe me.</label>
+<sc-if value="{{ hasConfirmError }}" hint-placeholder-val="{{ false }}"><div role="alert" style="background:var(--dnbg);color:var(--dn);border-radius:12px;padding:12px 14px;font-size:14px;font-weight:500">{{ confirmError }}</div></sc-if>
+<div style="display:flex;flex-wrap:wrap;gap:12px"><a onClick="{{ backFromCheck }}" style="background:var(--sf);border:1.5px solid var(--ln);color:var(--ink);border-radius:12px;padding:12px 20px;font-size:15px;font-weight:600">Back</a><a onClick="{{ toQuiz }}" style="background:var(--pr);color:var(--pri);border-radius:12px;padding:13px 20px;font-size:15px;font-weight:600;opacity:{{ quizOp }}">Continue to the interest quiz →</a></div></div></sc-if>
+<sc-if value="{{ isQuizStep }}" hint-placeholder-val="{{ false }}"><div style="background:var(--sf);border:1px solid var(--ln);border-radius:24px;padding:clamp(20px,3vw,32px);display:flex;flex-direction:column;gap:16px">
+<div><b style="font-size:20px;font-weight:600">What do you enjoy? (optional)</b><p style="margin:4px 0 0;font-size:14px;line-height:1.5;color:var(--mu)">18 quick questions based on the Holland RIASEC interest model. Your answers add an interest-fit score. They never hide any role, and you can skip this.</p></div>
+<div style="display:flex;align-items:center;gap:12px"><div style="flex:1;height:6px;border-radius:6px;background:var(--sf2)"><div style="height:100%;border-radius:6px;background:var(--pr);width:{{ quizPct }}"></div></div><span style="font:12px 'Geist Mono',monospace;color:var(--mu)">{{ quizDone }} of {{ quizTotal }} answered</span></div>
+<sc-for list="{{ quizRows }}" as="q" hint-placeholder-count="6"><div style="background:var(--sf2);border-radius:16px;padding:14px 16px;display:flex;flex-direction:column;gap:10px"><div style="font-size:15px"><span style="font-family:'Geist Mono';color:var(--mu)">{{ q.n }}.</span> {{ q.text }}</div><div style="display:flex;flex-wrap:wrap;gap:6px"><sc-for list="{{ q.options }}" as="o"><button onClick="{{ o.pick }}" style="border:1px solid {{ o.bd }};background:{{ o.b }};color:{{ o.c }};border-radius:999px;padding:6px 12px;font:500 13px Geist;cursor:pointer">{{ o.label }}</button></sc-for></div></div></sc-for>
+<sc-if value="{{ hasConfirmError }}" hint-placeholder-val="{{ false }}"><div role="alert" style="background:var(--dnbg);color:var(--dn);border-radius:12px;padding:12px 14px;font-size:14px;font-weight:500">{{ confirmError }}</div></sc-if>
+<div style="display:flex;flex-wrap:wrap;gap:12px"><a onClick="{{ backToCheck }}" style="background:var(--sf);border:1.5px solid var(--ln);color:var(--ink);border-radius:12px;padding:12px 20px;font-size:15px;font-weight:600">Back</a><a onClick="{{ skipQuiz }}" style="background:var(--sf);border:1.5px solid var(--ln);color:var(--ink);border-radius:12px;padding:12px 20px;font-size:15px;font-weight:600">Skip the quiz</a><a onClick="{{ finishQuiz }}" style="background:var(--pr);color:var(--pri);border-radius:12px;padding:13px 20px;font-size:15px;font-weight:600;opacity:{{ finishOp }}">{{ finishLbl }}</a></div></div></sc-if>
+<sc-if value="{{ hasStartError }}" hint-placeholder-val="{{ false }}"><div role="alert" style="background:var(--dnbg);color:var(--dn);border-radius:12px;padding:12px 14px;font-size:14px;font-weight:500">{{ startError }}</div></sc-if></div>
 <div style="flex:1 1 300px;min-width:0;display:flex;flex-direction:column;gap:16px">
 <div style="background:var(--sf);border:1px solid var(--ln);border-radius:24px;padding:24px;display:flex;flex-direction:column;gap:14px"><b style="font-size:17px;font-weight:600">What happens next</b>
-<div style="display:flex;gap:12px;font-size:14px;line-height:1.45"><span style="flex:none;width:24px;height:24px;border-radius:50%;background:var(--soft);color:var(--pr);display:flex;align-items:center;justify-content:center;font:600 12px 'Geist Mono'">1</span>Your skills are scored against 30 future roles.</div>
-<div style="display:flex;gap:12px;font-size:14px;line-height:1.45"><span style="flex:none;width:24px;height:24px;border-radius:50%;background:var(--soft);color:var(--pr);display:flex;align-items:center;justify-content:center;font:600 12px 'Geist Mono'">2</span>Demand comes from 36 dated, sourced signals.</div>
-<div style="display:flex;gap:12px;font-size:14px;line-height:1.45"><span style="flex:none;width:24px;height:24px;border-radius:50%;background:var(--soft);color:var(--pr);display:flex;align-items:center;justify-content:center;font:600 12px 'Geist Mono'">3</span>You get a week-by-week plan within your budget.</div></div>
-<div style="background:var(--sf2);border-radius:24px;padding:24px;font-size:14px;line-height:1.5;color:var(--mu)"><b style="display:block;color:var(--ink);font-size:17px;font-weight:600;margin-bottom:6px">Private by design</b>Your CV is read once and never stored. Age, gender, ethnicity, religion and contact details are removed and never used in scoring.</div></div></section></main></sc-if>
-<sc-if value="{{ is_results }}" hint-placeholder-val="{{ false }}"><main data-screen-label="Results" style="flex:1;display:flex;flex-direction:column"><section style="background:var(--hero);border-bottom:1px solid var(--ln);padding:56px max(clamp(20px,4vw,48px),calc((100% - 1200px)/2)) 44px"><span style="font:600 12px 'Geist Mono',monospace;letter-spacing:.06em;color:var(--pr)">RESULTS · {{ demoUserLabel }}</span><h1 style="margin:8px 0 0;font-size:clamp(34px,4.5vw,52px);line-height:1.05;letter-spacing:-.035em;font-weight:700">Your future roles</h1><p style="margin:12px 0 0;font-size:17px;line-height:1.55;color:var(--mu);max-width:640px">Ranked against the saved synthetic demo profile and curator-approved synthetic snapshot. Real-world results require verified evidence.</p>
-<div style="margin-top:20px;display:inline-flex;flex-wrap:wrap;gap:8px 12px;align-items:center;background:var(--ambg);color:var(--am);border-radius:12px;padding:10px 14px;font-size:14px"><b>⚠ Estimate, not a prediction.</b><span style="color:var(--ink);opacity:.8">Scores use demonstration data and are not employment probabilities.</span></div></section>
-<section style="padding:18px max(clamp(20px,4vw,48px),calc((100% - 1200px)/2)) 0;display:flex;gap:12px;align-items:center;flex-wrap:wrap;font-size:13px;color:var(--mu)"><span role="status" aria-live="polite">{{ liveStatus }}</span><button onClick="{{ refreshLive }}" style="border:1px solid var(--ln);background:var(--sf);color:var(--pr);border-radius:12px;padding:8px 14px;cursor:pointer;font:600 13px Geist">Refresh from backend</button></section>
-<section style="padding:40px max(clamp(20px,4vw,48px),calc((100% - 1200px)/2)) 72px;display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start">
+<div style="display:flex;gap:12px;font-size:14px;line-height:1.45"><span style="flex:none;width:24px;height:24px;border-radius:50%;background:var(--soft);color:var(--pr);display:flex;align-items:center;justify-content:center;font:600 12px 'Geist Mono'">1</span>Your skills are scored against 12 future roles.</div>
+<div style="display:flex;gap:12px;font-size:14px;line-height:1.45"><span style="flex:none;width:24px;height:24px;border-radius:50%;background:var(--soft);color:var(--pr);display:flex;align-items:center;justify-content:center;font:600 12px 'Geist Mono'">2</span>Demand comes from dated, sourced trend signals.</div>
+<div style="display:flex;gap:12px;font-size:14px;line-height:1.45"><span style="flex:none;width:24px;height:24px;border-radius:50%;background:var(--soft);color:var(--pr);display:flex;align-items:center;justify-content:center;font:600 12px 'Geist Mono'">3</span>You get a week-by-week plan with checked courses.</div></div>
+<div style="background:var(--sf2);border-radius:24px;padding:24px;font-size:14px;line-height:1.5;color:var(--mu)"><b style="display:block;color:var(--ink);font-size:17px;font-weight:600;margin-bottom:6px">🔒 Private by design</b>Your CV is read once to pick out skills and is never stored. Only the skills you approve are saved, and personal details are never used in scoring.</div></div></section></main></sc-if>
+<sc-if value="{{ showResults }}" hint-placeholder-val="{{ false }}"><main data-screen-label="Results" style="flex:1;display:flex;flex-direction:column"><section style="background:var(--hero);border-bottom:1px solid var(--ln);padding:56px max(clamp(20px,4vw,48px),calc((100% - 1200px)/2)) 44px"><span style="font:600 12px 'Geist Mono',monospace;letter-spacing:.06em;color:var(--pr)">STEP 4 OF 4</span><h1 style="margin:8px 0 0;font-size:clamp(34px,4.5vw,52px);line-height:1.05;letter-spacing:-.035em;font-weight:700">Your future roles</h1><p style="margin:12px 0 0;font-size:17px;line-height:1.55;color:var(--mu);max-width:640px">{{ resultsProfileName }}</p>
+<div style="margin-top:28px;display:flex;flex-wrap:wrap;align-items:center;gap:12px;font-size:14px;font-weight:600"><sc-for list="{{ resultsStepper }}" as="s" hint-placeholder-count="4"><span style="display:flex;align-items:center;gap:8px;color:{{ s.c }}"><span style="width:28px;height:28px;border-radius:50%;background:{{ s.bg }};color:{{ s.fg }};display:flex;align-items:center;justify-content:center;font-size:13px">{{ s.mark }}</span>{{ s.label }}</span><sc-if value="{{ s.line }}"><i style="width:48px;height:2px;background:var(--up)"></i></sc-if></sc-for></div></section>
+<section style="padding:40px max(clamp(20px,4vw,48px),calc((100% - 1200px)/2)) 0;display:flex;flex-direction:column;gap:20px">
+<div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center"><a onClick="{{ startOver }}" style="background:var(--pr);color:var(--pri);border-radius:12px;padding:13px 20px;font-size:15px;font-weight:600">+ Analyse a different CV</a><sc-if value="{{ hasOtherPeople }}" hint-placeholder-val="{{ false }}"><div style="display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:14px"><span style="color:var(--mu);font-weight:500">Saved people:</span><sc-for list="{{ personChips }}" as="p"><button onClick="{{ p.open }}" style="border:1.5px solid {{ p.bd }};background:{{ p.b }};color:{{ p.c }};border-radius:999px;padding:7px 14px;font:600 13px Geist;cursor:pointer">{{ p.name }}</button></sc-for></div></sc-if></div>
+<div style="background:var(--ambg);border-radius:16px;padding:14px 18px;font-size:14px;line-height:1.5;display:flex;flex-direction:column;gap:4px"><span><b style="color:var(--am)">⚠ Estimate, not a prediction.</b> Scores combine the skills you have with dated trend signals, using the formula shown on each role. They show where today's evidence points, not what will happen. You decide what to do with them.</span><span style="font-size:12px;color:var(--mu)">Signals last updated: {{ sigUpdated }} · <a onClick="{{ goSignals }}" style="color:var(--mu);text-decoration:underline">Signals</a> · Skill matching: exact skills from our catalogue, at the level you confirmed.</span></div></section>
+<section style="padding:24px max(clamp(20px,4vw,48px),calc((100% - 1200px)/2)) 72px;display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start">
 <aside style="flex:1 1 280px;min-width:0;display:flex;flex-direction:column;gap:16px">
-<div style="background:var(--sf);border:1px solid var(--ln);border-radius:24px;padding:24px;display:flex;flex-direction:column;gap:18px">
+<div style="background:var(--sf);border:1px solid var(--ln);border-radius:24px;padding:24px;display:flex;flex-direction:column;gap:14px"><b style="font-size:17px;font-weight:600">AI disruption scenario</b>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;background:var(--sf2);border:1px solid var(--ln);border-radius:14px;padding:4px"><button onClick="{{ setMod }}" style="border:0;border-radius:10px;padding:10px 8px;cursor:pointer;font:600 14px Geist;background:{{ modBg }};color:{{ modFg }}">Moderate AI disruption</button><button onClick="{{ setFast }}" style="border:0;border-radius:10px;padding:10px 8px;cursor:pointer;font:600 14px Geist;background:{{ fastBg }};color:{{ fastFg }}">Fast AI disruption</button></div>
+<p style="margin:0;font-size:13px;line-height:1.5;color:var(--mu)">{{ scenarioText }}</p><p style="margin:0;font-size:13px;line-height:1.5;color:var(--mu);font-style:italic">{{ scenarioNote }}</p></div>
+<div style="background:var(--sf);border:1px solid var(--ln);border-radius:24px;padding:24px;display:flex;flex-direction:column;gap:16px">
 <div style="display:flex;justify-content:space-between;align-items:baseline"><b style="font-size:17px;font-weight:600">Adjust the weights</b><button onClick="{{ reset }}" style="border:0;background:none;color:var(--pr);font:600 14px Geist;cursor:pointer;padding:0">Reset</button></div>
-<p style="margin:-8px 0 0;font-size:13px;line-height:1.45;color:var(--mu)">Explore how skills versus trends affect the 65% adjustable portion of the match. Interests (20%) and feasibility (15%) stay fixed. Slider scores are previews only; saved results use the backend's official 45/20/20/15 weights.</p>
+<p style="margin:-6px 0 0;font-size:13px;line-height:1.45;color:var(--mu)">You are in control: change how much each part counts and the ranking updates.</p>
 <label style="display:flex;flex-direction:column;gap:6px;font-size:14px"><span style="display:flex;justify-content:space-between"><span>Skills you have</span><b style="font-family:'Geist Mono'">{{ wsPct }}%</b></span><input type="range" min="0" max="100" value="{{ ws }}" onChange="{{ onWs }}"></label>
 <label style="display:flex;flex-direction:column;gap:6px;font-size:14px"><span style="display:flex;justify-content:space-between"><span>Future demand</span><b style="font-family:'Geist Mono'">{{ wdPct }}%</b></span><input type="range" min="0" max="100" value="{{ wd }}" onChange="{{ onWd }}"></label>
-<div style="background:var(--sf2);border-radius:16px;padding:12px 14px;font-size:13px;color:var(--mu)">Interest fit: take the optional <a onClick="{{ goIntake }}" style="color:var(--pr);font-weight:600">RIASEC quiz</a> to add it.</div>
-<p style="font-size:12px;color:var(--mu);margin:0">The catalogue currently contains 12 careers. Declining classifications require validated trend evidence.</p></div>
-<div style="background:var(--sf);border:1px solid var(--ln);border-radius:24px;padding:24px;display:flex;flex-direction:column;gap:10px"><span style="font:600 12px 'Geist Mono',monospace;letter-spacing:.06em;color:var(--mu)">WHAT CHANGED</span><p style="margin:0;font-size:14px;line-height:1.5">All displayed scores use a curator-approved <b>synthetic snapshot</b>. They are not derived from a live signal feed.</p><a onClick="{{ goSignals }}" style="font-size:14px;font-weight:600;color:var(--pr)">See the signals →</a></div></aside>
+<div style="background:var(--sf2);border-radius:14px;padding:12px 14px;font-size:13px;line-height:1.45;color:var(--mu)">{{ interestNote }} <sc-if value="{{ noQuiz }}" hint-placeholder-val="{{ true }}"><a onClick="{{ takeQuiz }}" style="color:var(--pr);font-weight:600">Start →</a></sc-if></div></div>
+<div style="border:1.5px dashed var(--ln);border-radius:24px;padding:24px;display:flex;flex-direction:column;gap:10px"><span style="font:600 12px 'Geist Mono',monospace;letter-spacing:.06em;color:var(--mu)">WHAT CHANGED</span><p style="margin:0;font-size:14px;line-height:1.5">{{ wcSummary }}</p>
+<sc-if value="{{ hasWcMoves }}" hint-placeholder-val="{{ false }}"><div style="display:flex;flex-direction:column;gap:10px"><sc-for list="{{ wcMoves }}" as="m"><div style="border-left:3px solid var(--pr);padding-left:10px;font-size:13px;line-height:1.45"><b style="font-weight:600">{{ m.text }}</b><div style="color:var(--mu)">{{ m.why }}</div></div></sc-for></div></sc-if></div></aside>
 <div style="flex:3 1 560px;min-width:0;display:flex;flex-direction:column;gap:16px">
 <div style="display:flex;align-items:baseline;justify-content:space-between"><b style="font-size:20px;font-weight:600">Top matched roles <span style="color:var(--mu);font-weight:400">({{ count }})</span></b><span style="font-size:13px;color:var(--mu)">Sorted by match</span></div>
 <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:16px"><sc-for list="{{ top4 }}" as="r" hint-placeholder-count="4"><article style="background:var(--sf);border:1px solid var(--ln);border-radius:24px;padding:24px;display:flex;flex-direction:column;gap:16px">
 <div style="display:flex;gap:14px;align-items:flex-start"><div style="flex:1;min-width:0"><div style="font:600 12px 'Geist Mono',monospace;color:var(--mu)">#{{ r.rank }} · {{ r.sector }}</div><h3 style="margin:4px 0 0;font-size:18px;line-height:1.25;font-weight:600">{{ r.title }}</h3><div style="margin-top:8px;display:flex;gap:4px;flex-wrap:wrap"><sc-for list="{{ r.sdgs }}" as="g"><span style="background:{{ g.c }};color:#fff;border-radius:8px;padding:3px 8px;font-size:11px;font-weight:600">SDG {{ g.n }}</span></sc-for></div></div>
-<div style="flex:none;display:flex;flex-direction:column;align-items:center;gap:6px"><div style="width:68px;height:68px;border-radius:50%;background:{{ r.ring }};display:flex;align-items:center;justify-content:center"><div style="width:56px;height:56px;border-radius:50%;background:var(--sf);display:flex;align-items:center;justify-content:center"><b style="font-size:22px;line-height:1">{{ r.score }}</b></div></div><span style="font:11px 'Geist Mono',monospace;color:var(--mu)">{{ r.completeness }}% assessed</span></div></div>
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:12px"><div><div style="display:flex;justify-content:space-between;color:var(--mu)"><span>Skills</span><b style="color:var(--ink)">{{ r.skill }}</b></div><div style="margin-top:6px;height:6px;border-radius:6px;background:var(--sf2)"><div style="height:100%;border-radius:6px;background:var(--pr);width:{{ r.skillW }}"></div></div></div><div><div style="display:flex;justify-content:space-between;color:var(--mu)"><span>Trends (demo)</span><b style="color:var(--ink)">{{ r.demand }}</b></div><div style="margin-top:6px;height:6px;border-radius:6px;background:var(--sf2)"><div style="height:100%;border-radius:6px;background:{{ r.demC }};width:{{ r.demW }}"></div></div></div></div>
+<div style="flex:none;display:flex;flex-direction:column;align-items:center;gap:6px"><div style="width:68px;height:68px;border-radius:50%;background:{{ r.ring }};display:flex;align-items:center;justify-content:center"><div style="width:56px;height:56px;border-radius:50%;background:var(--sf);display:flex;align-items:center;justify-content:center"><b style="font-size:22px;line-height:1">{{ r.score }}</b></div></div><span style="font:11px 'Geist Mono',monospace;color:var(--mu)">{{ r.lo }}–{{ r.hi }}</span></div></div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:12px"><div><div style="display:flex;justify-content:space-between;color:var(--mu)"><span>Skills</span><b style="color:var(--ink)">{{ r.skill }}</b></div><div style="margin-top:6px;height:6px;border-radius:6px;background:var(--sf2)"><div style="height:100%;border-radius:6px;background:var(--pr);width:{{ r.skillW }}"></div></div></div><div><div style="display:flex;justify-content:space-between;color:var(--mu)"><span>Demand ±{{ r.band }}</span><b style="color:var(--ink)">{{ r.demand }}</b></div><div style="margin-top:6px;height:6px;border-radius:6px;background:var(--sf2)"><div style="height:100%;border-radius:6px;background:{{ r.demC }};width:{{ r.demW }}"></div></div></div></div>
 <div style="display:flex;flex-wrap:wrap;gap:4px"><sc-for list="{{ r.have }}" as="h"><span style="background:var(--upbg);color:var(--up);border-radius:8px;padding:4px 10px;font-size:12px;font-weight:500">✓ {{ h }}</span></sc-for><sc-for list="{{ r.gap }}" as="h"><span style="border:1px dashed var(--mu);color:var(--mu);border-radius:8px;padding:3px 10px;font-size:12px">+ {{ h }}</span></sc-for></div>
 <div style="font:12px 'Geist Mono',monospace;color:var(--mu);background:var(--sf2);border-radius:12px;padding:8px 12px">{{ r.formula }}</div>
+<details style="font-size:13px;line-height:1.5"><summary style="cursor:pointer;color:var(--pr);font-weight:600">Why this role, signals and interest fit</summary><div style="display:flex;flex-direction:column;gap:8px;padding-top:10px"><span style="color:var(--mu)">{{ r.signalLine }}</span><sc-for list="{{ r.why }}" as="w"><div style="border-left:3px solid var(--ln);padding-left:10px"><a href="{{ w.url }}" target="_blank" rel="noopener noreferrer" style="color:var(--ink);font-weight:500">{{ w.t }} ↗</a><div style="font:11px 'Geist Mono',monospace;color:var(--mu)">{{ w.src }}</div></div></sc-for><span><b style="font-weight:600">Interest fit:</b> {{ r.interestWhy }}</span></div></details>
 <a onClick="{{ r.goPathway }}" style="margin-top:auto;background:var(--pr);color:var(--pri);border-radius:12px;padding:12px 20px;font-size:15px;font-weight:600;text-align:center">See pathway →</a></article></sc-for></div>
-<div style="background:var(--sf);border:1px solid var(--ln);border-radius:24px;padding:8px 24px"><sc-for list="{{ rest }}" as="r" hint-placeholder-count="3"><div style="display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;padding:14px 0;border-bottom:1px solid var(--ln);font-size:14px"><span style="width:24px;font-family:'Geist Mono';color:var(--mu)">{{ r.rank }}</span><span style="flex:1 1 200px;font-weight:500">{{ r.title }}</span><span style="color:var(--mu);font-size:13px">Skills {{ r.skill }} · Demand {{ r.demand }}</span><b style="width:32px;text-align:right">{{ r.score }}</b></div></sc-for></div>
-<div style="background:var(--sf);border:1px solid var(--ln);border-radius:24px;padding:24px;display:flex;flex-direction:column;gap:12px"><div><b style="font-size:17px;font-weight:600">Data limitations</b><p style="margin:4px 0 0;font-size:14px;color:var(--mu)">Declining-role evidence is not available in the current 12-career demonstration catalogue. No job-loss claims are made.</p></div></div></div></section>
-<section style="padding:0 max(clamp(20px,4vw,48px),calc((100% - 1200px)/2)) 72px">
-<div style="background:var(--sf);border:1px solid var(--ln);border-radius:24px;padding:clamp(20px,3vw,32px);box-shadow:var(--sh);display:flex;flex-direction:column;gap:20px">
-<div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:18px;align-items:center"><div><span style="font:600 12px 'Geist Mono',monospace;color:var(--pr);letter-spacing:.06em">SCENARIO LAB · BACKEND CONNECTED</span><h2 style="font-size:clamp(24px,3vw,34px);margin:6px 0 4px">Moderate AI vs Rapid AI</h2><p style="font-size:14px;color:var(--mu);margin:0">Different hypothetical adoption speeds change tasks and learning priorities, not your confirmed skill levels.</p></div>
-<div style="display:flex;align-items:center;gap:6px;background:var(--sf2);border:1px solid var(--ln);border-radius:100px;padding:5px"><button onClick="{{ setMod }}" style="border:0;border-radius:999px;padding:10px 17px;cursor:pointer;font:600 14px Geist;background:{{ modBg }};color:{{ modFg }}">Moderate AI</button><button onClick="{{ setFast }}" style="border:0;border-radius:999px;padding:10px 17px;cursor:pointer;font:600 14px Geist;background:{{ fastBg }};color:{{ fastFg }}">Rapid AI</button></div></div>
-<div style="display:flex;flex-wrap:wrap;align-items:center;gap:12px"><label for="fp-scenario-role" style="font-weight:600;font-size:14px">Compare career</label><select id="fp-scenario-role" value="{{ selectedRole }}" onChange="{{ changeScenarioRole }}" style="flex:1 1 260px;max-width:480px;padding:11px 15px;border-radius:12px;border:1px solid var(--ln);background:var(--bg);color:var(--ink);font:500 14px Geist"><sc-for list="{{ roleOptions }}" as="c"><option value="{{ c.id }}">{{ c.title }}</option></sc-for></select><span style="font-size:12px;color:var(--mu)">Evidence snapshot: {{ currentSnapshot }} · demo only</span></div>
-<sc-if value="{{ hasScenario }}"><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,290px),1fr));gap:14px">
-<div style="background:var(--sf2);border:1px solid var(--ln);padding:20px;border-radius:18px"><b style="color:var(--pr)">Moderate AI</b><div style="font-size:32px;font-weight:750;margin:10px 0 5px">{{ scenarioMod.score }}<span style="font-size:13px;color:var(--mu);font-weight:400"> /100</span></div><p style="color:var(--mu);font-size:13px;line-height:1.5">{{ scenarioMod.assumption }}</p><p style="font-size:14px;line-height:1.5">{{ scenarioMod.recommended_action }}</p></div>
-<div style="background:var(--soft);border:1px solid var(--ln);padding:20px;border-radius:18px"><b style="color:var(--pr)">Rapid AI</b><div style="font-size:32px;font-weight:750;margin:10px 0 5px">{{ scenarioRapid.score }}<span style="font-size:13px;color:var(--mu);font-weight:400"> /100</span></div><p style="color:var(--mu);font-size:13px;line-height:1.5">{{ scenarioRapid.assumption }}</p><p style="font-size:14px;line-height:1.5">{{ scenarioRapid.recommended_action }}</p></div></div>
-<div style="background:var(--sf2);border-radius:14px;padding:12px 16px;font-size:13px;color:var(--mu)">Difference: <b style="color:var(--ink)">{{ scenarioScoreDelta }} points</b>. This is an illustrative scenario assumption, not a forecast of jobs gained or lost. No changes to confirmed skills.</div>
-<h3 style="font-size:18px;margin:0">How the tasks change</h3>
-<div style="display:flex;flex-direction:column;gap:10px"><sc-for list="{{ scenarioTasks }}" as="t"><div style="border:1px solid var(--ln);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:10px"><b style="font-size:14px">{{ t.name }}</b><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px"><div style="font-size:13px"><span style="display:block;color:var(--mu)">Moderate</span>{{ t.moderate }}</div><div style="font-size:13px"><span style="display:block;color:var(--mu)">Rapid</span>{{ t.rapid }}</div></div></div></sc-for></div>
-<h3 style="font-size:18px;margin:0">Different learning priorities</h3><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,290px),1fr));gap:16px"><div><b style="color:var(--pr)">Moderate AI priorities</b><ol style="padding-left:20px;display:flex;flex-direction:column;gap:8px;font-size:14px"><sc-for list="{{ scenarioMod.priorities }}" as="p"><li><b>{{ p.title }}</b><div style="font-size:12px;color:var(--mu)">{{ p.label }} · {{ p.category }}</div></li></sc-for></ol></div><div><b style="color:var(--pr)">Rapid AI priorities</b><ol style="padding-left:20px;display:flex;flex-direction:column;gap:8px;font-size:14px"><sc-for list="{{ scenarioRapid.priorities }}" as="p"><li><b>{{ p.title }}</b><div style="font-size:12px;color:var(--mu)">{{ p.label }} · {{ p.category }}</div></li></sc-for></ol></div></div>
-<a onClick="{{ goPathway }}" style="align-self:flex-start;border-radius:12px;padding:13px 20px;color:var(--pri);background:var(--pr);font-size:14px;font-weight:600">Open {{ scenarioSelectedMode }} pathway →</a>
-</sc-if><sc-if value="{{ isLiveConnected }}" hint-placeholder-val="{{ false }}"><p style="color:var(--mu);font-size:12px;margin:0">Backend results use the selected synthetic snapshot and shared demo profile. These are not real labour-market predictions.</p></sc-if>
-</div></section>
-</main></sc-if><sc-if value="{{ is_pathway }}" hint-placeholder-val="{{ false }}"><main data-screen-label="Pathway" style="flex:1;display:flex;flex-direction:column"><section style="background:var(--hero);border-bottom:1px solid var(--ln);padding:56px max(clamp(20px,4vw,48px),calc((100% - 1200px)/2)) 44px"><a onClick="{{ goResults }}" style="font-size:14px;font-weight:600;color:var(--pr)">← Back to results</a><div style="margin-top:16px"><span style="font:600 12px 'Geist Mono',monospace;letter-spacing:.06em;color:var(--pr)">LEARNING PATHWAY</span></div><h1 style="margin:8px 0 0;font-size:clamp(34px,4.5vw,52px);line-height:1.05;letter-spacing:-.035em;font-weight:700">{{ pathTitle }}</h1><p style="margin:12px 0 0;font-size:17px;line-height:1.55;color:var(--mu);max-width:640px">{{ pathIntroduction }}</p>
-<div style="margin-top:16px;display:flex;flex-wrap:wrap;gap:6px"><span style="background:#A21942;color:#fff;border-radius:8px;padding:4px 10px;font-size:12px;font-weight:600">SDG 8 · Decent Work</span><span style="background:#FD6925;color:#fff;border-radius:8px;padding:4px 10px;font-size:12px;font-weight:600">SDG 9 · Industry &amp; Innovation</span></div></section>
+<div style="background:var(--sf);border:1px solid var(--ln);border-radius:24px;padding:8px 24px"><sc-for list="{{ rest }}" as="r" hint-placeholder-count="3"><div style="display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;padding:14px 0;border-bottom:1px solid var(--ln);font-size:14px"><span style="width:24px;font-family:'Geist Mono';color:var(--mu)">{{ r.rank }}</span><a onClick="{{ r.goPathway }}" style="flex:1 1 200px;font-weight:500;color:var(--ink)">{{ r.title }}</a><span style="color:var(--mu);font-size:13px">Skills {{ r.skill }} · Demand {{ r.demand }}</span><b style="width:32px;text-align:right">{{ r.score }}</b></div></sc-for></div>
+<div style="background:var(--sf);border:1px solid var(--ln);border-radius:24px;padding:24px;display:flex;flex-direction:column;gap:16px"><div><span style="font:600 12px 'Geist Mono',monospace;letter-spacing:.06em;color:var(--pr)">FUTURE SKILLS RADAR</span><h3 style="margin:6px 0 0;font-size:20px;font-weight:600">Future Skills Radar</h3></div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:20px"><div style="display:flex;flex-direction:column;gap:12px"><b style="color:var(--up);font-weight:600">↑ Rising roles</b><sc-for list="{{ risingRoles }}" as="k" hint-placeholder-count="5"><div style="display:flex;gap:12px;align-items:flex-start"><span style="flex:none;width:28px;height:28px;border-radius:8px;background:var(--upbg);color:var(--up);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px">↑</span><div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:6px"><span style="font-size:14px;font-weight:500">{{ k.title }}</span><div style="height:6px;border-radius:6px;background:var(--sf2)"><div style="height:100%;border-radius:6px;background:var(--up);width:{{ k.w }}"></div></div><span style="align-self:flex-start;border:1px solid var(--ln);border-radius:6px;padding:2px 8px;font:11px 'Geist Mono',monospace;color:var(--mu)">{{ k.src }}</span></div></div></sc-for></div>
+<div style="display:flex;flex-direction:column;gap:12px"><b style="color:var(--dn);font-weight:600">↓ Declining roles</b><sc-for list="{{ decliningRoles }}" as="k"><div style="display:flex;gap:12px;align-items:flex-start"><span style="flex:none;width:28px;height:28px;border-radius:8px;background:var(--dnbg);color:var(--dn);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px">↓</span><div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:6px"><span style="font-size:14px;font-weight:500">{{ k.title }}</span><div style="height:6px;border-radius:6px;background:var(--sf2)"><div style="height:100%;border-radius:6px;background:var(--dn);width:{{ k.w }}"></div></div><span style="align-self:flex-start;border:1px solid var(--ln);border-radius:6px;padding:2px 8px;font:11px 'Geist Mono',monospace;color:var(--mu)">{{ k.src }}</span></div></div></sc-for><sc-if value="{{ noDeclining }}" hint-placeholder-val="{{ false }}"><span style="font-size:13px;color:var(--mu)">No career in our catalogue has net declining demand signals right now.</span></sc-if></div></div>
+<p style="margin:0;font-size:12px;color:var(--mu)">Role demand changes with the scenario. Skill outlook uses the signals as published.</p></div></div></section></main></sc-if>
+<sc-if value="{{ is_pathway }}" hint-placeholder-val="{{ false }}"><main data-screen-label="Pathway" style="flex:1;display:flex;flex-direction:column"><section style="background:var(--hero);border-bottom:1px solid var(--ln);padding:56px max(clamp(20px,4vw,48px),calc((100% - 1200px)/2)) 44px"><a onClick="{{ backToResults }}" style="font-size:14px;font-weight:600;color:var(--pr)">← Back to results</a><div style="margin-top:16px"><span style="font:600 12px 'Geist Mono',monospace;letter-spacing:.06em;color:var(--pr)">LEARNING PATHWAY</span></div><h1 style="margin:8px 0 0;font-size:clamp(34px,4.5vw,52px);line-height:1.05;letter-spacing:-.035em;font-weight:700">{{ pathTitle }}</h1><p style="margin:12px 0 0;font-size:17px;line-height:1.55;color:var(--mu);max-width:640px">{{ pathIntroduction }}</p>
+<div style="margin-top:16px;display:flex;flex-wrap:wrap;gap:6px"><sc-for list="{{ pathSdgs }}" as="g"><span style="background:{{ g.c }};color:#fff;border-radius:8px;padding:4px 10px;font-size:12px;font-weight:600">SDG {{ g.n }}</span></sc-for></div></section>
 <section style="padding:40px max(clamp(20px,4vw,48px),calc((100% - 1200px)/2)) 72px;display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start">
 <div style="flex:3 1 560px;min-width:0;display:flex;flex-direction:column;gap:16px">
-<div style="background:var(--sf);border:1px solid var(--ln);border-radius:24px;padding:24px;display:flex;flex-direction:column;gap:16px"><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;text-align:center"><div style="background:var(--sf2);border-radius:16px;padding:16px"><div style="font-size:30px;font-weight:800;letter-spacing:-.03em">{{ pathHours }}</div><div style="font-size:13px;color:var(--mu)">hours</div></div><div style="background:var(--sf2);border-radius:16px;padding:16px"><div style="font-size:30px;font-weight:800;letter-spacing:-.03em">{{ pathWeeks }}</div><div style="font-size:13px;color:var(--mu)">weeks</div></div><div style="background:var(--upbg);border-radius:16px;padding:16px;color:var(--up)"><div style="font-size:30px;font-weight:800;letter-spacing:-.03em">{{ pathCost }}</div><div style="font-size:13px">Not verified</div></div></div>
+<div style="background:var(--sf);border:1px solid var(--ln);border-radius:24px;padding:24px;display:flex;flex-direction:column;gap:16px"><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;text-align:center"><div style="background:var(--sf2);border-radius:16px;padding:16px"><div style="font-size:30px;font-weight:800;letter-spacing:-.03em">{{ pathHours }}</div><div style="font-size:13px;color:var(--mu)">hours</div></div><div style="background:var(--sf2);border-radius:16px;padding:16px"><div style="font-size:30px;font-weight:800;letter-spacing:-.03em">{{ pathWeeks }}</div><div style="font-size:13px;color:var(--mu)">weeks</div></div><div style="background:var(--upbg);border-radius:16px;padding:16px;color:var(--up)"><div style="font-size:30px;font-weight:800;letter-spacing:-.03em">{{ pathCost }}</div><div style="font-size:13px">{{ pathCostNote }}</div></div></div>
 <div style="display:flex;gap:4px"><sc-for list="{{ weeks }}" as="w"><div style="flex:1;display:flex;flex-direction:column;gap:4px;align-items:center"><span style="width:100%;height:10px;border-radius:4px;background:{{ w.bg }}"></span><span style="font:11px 'Geist Mono';color:var(--mu)">P{{ w.w }}</span></div></sc-for></div></div>
 <div style="display:flex;flex-direction:column;position:relative"><div style="position:absolute;left:19px;top:24px;bottom:24px;width:3px;background:linear-gradient(180deg,var(--pr),var(--up));border-radius:3px"></div>
 <sc-for list="{{ steps }}" as="s" hint-placeholder-count="4"><div style="display:flex;gap:16px;padding-bottom:16px;position:relative"><span style="flex:none;width:40px;height:40px;border-radius:50%;background:var(--sf);border:3px solid var(--pr);box-sizing:border-box;display:flex;align-items:center;justify-content:center;font:700 14px 'Geist Mono';color:var(--pr)">{{ s.n }}</span>
-<div style="flex:1;min-width:0;background:var(--sf);border:1px solid var(--ln);border-radius:24px;padding:24px;display:flex;flex-direction:column;gap:8px"><div style="display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:12px"><b style="color:var(--mu);font-weight:600">{{ s.w }}</b><span style="background:{{ s.cb }};color:{{ s.cc }};border-radius:8px;padding:4px 10px;font-weight:600">{{ s.cost }}</span><span style="background:var(--sf2);border-radius:8px;padding:4px 10px;font-weight:600">{{ s.h }}</span><span style="color:var(--mu)">{{ s.lang }}</span></div><h3 style="margin:0;font-size:18px;font-weight:600;line-height:1.3">{{ s.t }}</h3><div style="font-size:14px;color:var(--mu)">{{ s.p }}</div><div style="font-size:14px"><b style="font-weight:600">Builds:</b> {{ s.covers }}</div><div style="display:flex;gap:16px;font-size:14px"><a style="color:var(--pr);font-weight:600">Resource verification pending</a><a style="color:var(--mu);font-weight:500">Assess prerequisites</a></div></div></div></sc-for>
+<div style="flex:1;min-width:0;background:var(--sf);border:1px solid var(--ln);border-radius:24px;padding:24px;display:flex;flex-direction:column;gap:8px"><div style="display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:12px"><b style="color:var(--mu);font-weight:600">{{ s.w }}</b><span style="background:{{ s.cb }};color:{{ s.cc }};border-radius:8px;padding:4px 10px;font-weight:600">{{ s.cost }}</span><span style="background:var(--sf2);border-radius:8px;padding:4px 10px;font-weight:600">{{ s.h }}</span><span style="color:var(--mu)">{{ s.lang }}</span></div><h3 style="margin:0;font-size:18px;font-weight:600;line-height:1.3">{{ s.t }}</h3><div style="font-size:14px;color:var(--mu)">{{ s.p }}</div><div style="font-size:14px"><b style="font-weight:600">Builds:</b> {{ s.covers }}</div><div style="display:flex;gap:16px;font-size:14px"><sc-if value="{{ s.hasCourse }}" hint-placeholder-val="{{ false }}"><a href="{{ s.courseUrl }}" target="_blank" rel="noopener noreferrer" style="color:var(--pr);font-weight:600">{{ s.course }} ↗</a><span style="color:var(--mu)">{{ s.checked }}</span></sc-if><sc-if value="{{ s.noCourse }}" hint-placeholder-val="{{ true }}"><span style="color:var(--mu)">No checked course yet</span></sc-if></div><sc-if value="{{ s.hasAlternatives }}" hint-placeholder-val="{{ false }}"><div style="display:flex;flex-direction:column;gap:4px;font-size:13px;color:var(--mu)"><span>Other options:</span><sc-for list="{{ s.alternatives }}" as="o"><span><a href="{{ o.url }}" target="_blank" rel="noopener noreferrer" style="color:var(--pr);font-weight:500">{{ o.title }} ↗</a> · {{ o.info }}</span></sc-for></div></sc-if></div></div></sc-for>
 <p style="margin:0 0 0 56px;font-size:13px;color:var(--mu);line-height:1.5">{{ pathNote }}</p></div></div>
 <aside style="flex:1 1 300px;min-width:0;display:flex;flex-direction:column;gap:16px">
 <div style="background:var(--sf);border:1px solid var(--ln);border-radius:24px;padding:24px;display:flex;flex-direction:column;gap:14px"><b style="font-size:17px;font-weight:600">SDG contribution of this path</b>
 <div style="display:flex;gap:10px;font-size:14px;line-height:1.45"><span style="flex:none;height:fit-content;background:#C5192D;color:#fff;border-radius:8px;padding:3px 8px;font-size:12px;font-weight:700">4.4</span><span>Develop job-relevant competencies through approved skill requirements.</span></div>
 <div style="display:flex;gap:10px;font-size:14px;line-height:1.45"><span style="flex:none;height:fit-content;background:#C5192D;color:#fff;border-radius:8px;padding:3px 8px;font-size:12px;font-weight:700">4.3</span><span>Resource costs are not verified in this demo catalogue.</span></div>
 <div style="display:flex;gap:10px;font-size:14px;line-height:1.45"><span style="flex:none;height:fit-content;background:#A21942;color:#fff;border-radius:8px;padding:3px 8px;font-size:12px;font-weight:700">8.5</span><span>Helps plan a pathway; actual employment outcomes are uncertain.</span></div></div>
-<div style="background:var(--sf);border:1px solid var(--ln);border-radius:24px;padding:24px;font-size:14px;line-height:1.5"><b style="display:block;font-size:17px;font-weight:600;margin-bottom:6px;color:var(--am)">Not in our catalog yet</b>Verified training, qualification rules and local availability require curator review.</div>
+<div style="background:var(--sf);border:1px solid var(--ln);border-radius:24px;padding:24px;font-size:14px;line-height:1.5"><b style="display:block;font-size:17px;font-weight:600;margin-bottom:6px;color:var(--am)">Not in our catalog yet</b>{{ pathMissingText }}</div>
 <div style="background:var(--sf);border:1px solid var(--ln);border-radius:24px;padding:24px;font-size:14px;line-height:1.5"><b style="display:block;font-size:17px;font-weight:600;margin-bottom:6px">Build through practice</b>Practice verified skills and ask for feedback as you learn.</div></aside></section></main></sc-if>
 <sc-if value="{{ is_signals }}" hint-placeholder-val="{{ false }}"><main data-screen-label="Signals" style="flex:1;display:flex;flex-direction:column"><section style="background:var(--hero);border-bottom:1px solid var(--ln);padding:56px max(clamp(20px,4vw,48px),calc((100% - 1200px)/2)) 44px;display:flex;flex-wrap:wrap;gap:24px 40px;align-items:flex-end"><div style="flex:1 1 480px"><span style="font:600 12px 'Geist Mono',monospace;letter-spacing:.06em;color:var(--pr)">TREND SIGNALS</span><h1 style="margin:8px 0 0;font-size:clamp(34px,4.5vw,52px);line-height:1.05;letter-spacing:-.035em;font-weight:700">The evidence behind every score</h1><p style="margin:12px 0 0;font-size:17px;line-height:1.55;color:var(--mu);max-width:640px">Curated reports form the baseline; new items arrive from news, research and dataset feeds, each dated and sourced.</p></div>
-<div style="display:flex;flex-wrap:wrap;gap:12px"><div style="background:var(--sf);border:1px solid var(--ln);border-radius:16px;padding:14px 18px"><div style="font:600 12px 'Geist Mono';letter-spacing:.06em;color:var(--mu)">LAST UPDATED</div><b style="font-size:15px;font-weight:600">20 Oct 2026, 09:12</b></div><div style="background:var(--sf);border:1px solid var(--ln);border-radius:16px;padding:14px 18px"><div style="font:600 12px 'Geist Mono';letter-spacing:.06em;color:var(--mu)">LAST REFRESH</div><b style="font-size:15px;font-weight:600;color:var(--up)">● OK · 13 accepted</b></div></div></section>
+<div style="display:flex;flex-wrap:wrap;gap:12px"><div style="background:var(--sf);border:1px solid var(--ln);border-radius:16px;padding:14px 18px"><div style="font:600 12px 'Geist Mono';letter-spacing:.06em;color:var(--mu)">LAST UPDATED</div><b style="font-size:15px;font-weight:600">{{ sigUpdated }}</b></div><div style="background:var(--sf);border:1px solid var(--ln);border-radius:16px;padding:14px 18px"><div style="font:600 12px 'Geist Mono';letter-spacing:.06em;color:var(--mu)">LAST REFRESH</div><b style="font-size:15px;font-weight:600;color:{{ sigLastRunC }}">{{ sigLastRun }}</b></div></div></section>
+<section style="padding:24px max(clamp(20px,4vw,48px),calc((100% - 1200px)/2)) 0"><div style="background:var(--sf);border:1px solid var(--ln);border-radius:20px;padding:18px 22px;display:flex;flex-direction:column;gap:12px"><div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center"><div style="flex:1 1 320px"><b style="font-size:15px;font-weight:600">Refresh from live feeds</b><p style="margin:2px 0 0;font-size:13px;color:var(--mu);line-height:1.45">Google News, arXiv and the Anthropic Economic Index. New items are tagged by Claude (or keywords without an API key), checked against our catalogue and stored with their source and date.</p></div><button onClick="{{ refreshSignals }}" style="border:0;background:var(--pr);color:var(--pri);border-radius:12px;padding:12px 18px;font:600 14px Geist;cursor:pointer">{{ refreshLbl }}</button></div>
+<sc-if value="{{ hasRefreshMsg }}" hint-placeholder-val="{{ false }}"><div role="status" style="background:var(--soft);color:var(--pr);border-radius:12px;padding:10px 14px;font-size:13px;font-weight:500">{{ refreshMsg }}</div></sc-if>
+<div style="display:flex;flex-wrap:wrap;gap:6px 14px;font-size:12px"><sc-for list="{{ sigFeeds }}" as="d"><span style="color:{{ d.c }}">{{ d.name }}: {{ d.state }}</span></sc-for></div></div></section>
 <section style="padding:40px max(clamp(20px,4vw,48px),calc((100% - 1200px)/2)) 72px;display:flex;flex-direction:column;gap:20px">
 <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center"><div style="display:flex;gap:4px;background:var(--sf2);border:1px solid var(--ln);border-radius:12px;padding:4px"><button onClick="{{ fAll }}" style="border:0;border-radius:9px;padding:9px 16px;font:600 14px Geist;cursor:pointer;background:{{ fAllB }};color:{{ fAllC }}">All</button><button onClick="{{ fUp }}" style="border:0;border-radius:9px;padding:9px 16px;font:600 14px Geist;cursor:pointer;background:{{ fUpB }};color:{{ fUpC }}">↑ Emerging</button><button onClick="{{ fDn }}" style="border:0;border-radius:9px;padding:9px 16px;font:600 14px Geist;cursor:pointer;background:{{ fDnB }};color:{{ fDnC }}">↓ Declining</button></div><span style="margin-left:auto;font-size:14px;color:var(--mu)">{{ sigCount }} signals</span></div>
 <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:16px"><sc-for list="{{ signals }}" as="s" hint-placeholder-count="4"><article style="background:var(--sf);border:1px solid var(--ln);border-radius:24px;padding:24px;display:flex;flex-direction:column;gap:12px">
 <div style="display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:12px"><span style="background:{{ s.db }};color:{{ s.dc }};border-radius:8px;padding:4px 10px;font-weight:600">{{ s.dir }}</span><span style="background:{{ s.tb }};color:{{ s.tc }};border-radius:8px;padding:4px 10px;font-weight:600">{{ s.tag }}</span><span style="background:var(--sf2);border-radius:8px;padding:4px 10px;font-weight:600">{{ s.type }}</span><span style="margin-left:auto;color:var(--pr);letter-spacing:2px" title="Strength">{{ s.dots }}</span></div>
 <h3 style="margin:0;font-size:18px;line-height:1.3;font-weight:600">{{ s.t }}</h3><p style="margin:0;font-size:14px;color:var(--mu);line-height:1.45"><b style="color:var(--ink);font-weight:600">Roles:</b> {{ s.roles }}</p>
-<div style="margin-top:auto;display:flex;gap:12px;align-items:center;font-size:13px;color:var(--mu);padding-top:12px;border-top:1px solid var(--ln)"><span style="font-family:'Geist Mono'">{{ s.src }}</span><a style="margin-left:auto;color:var(--pr);font-weight:600">Open source ↗</a></div></article></sc-for></div>
-<p style="margin:0;font-size:13px;color:var(--mu);line-height:1.5">Strength (1–5) is a team judgement of how direct and large the evidence is. Feed items are capped at 3.</p></section></main></sc-if>
+<div style="margin-top:auto;display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;font-size:12px;color:var(--mu);padding-top:12px;border-top:1px solid var(--ln)"><span style="font-family:'Geist Mono';font-size:13px">{{ s.src }}</span><a href="{{ s.url }}" target="_blank" rel="noopener noreferrer" style="margin-left:auto;color:var(--pr);font-weight:600;font-size:13px">Open source ↗</a></div></article></sc-for></div>
+<p style="margin:0;font-size:13px;color:var(--mu);line-height:1.5">Strength (1–5) is a team judgement of how direct and large the evidence is (curated reports); feed items are capped at 3. A signal counts in full for a career it names, at reduced weight through a required skill, and halves in weight every 12 months.</p></section></main></sc-if>
 <sc-if value="{{ is_about }}" hint-placeholder-val="{{ false }}"><main data-screen-label="About" style="flex:1;display:flex;flex-direction:column"><section style="background:var(--hero);border-bottom:1px solid var(--ln);padding:56px max(clamp(20px,4vw,48px),calc((100% - 1200px)/2)) 44px"><span style="font:600 12px 'Geist Mono',monospace;letter-spacing:.06em;color:var(--pr)">ABOUT &amp; AI DISCLOSURE</span><h1 style="margin:8px 0 0;font-size:clamp(34px,4.5vw,52px);line-height:1.05;letter-spacing:-.035em;font-weight:700">AI supports. <span style="color:var(--pr)">Humans decide.</span></h1><p style="margin:12px 0 0;font-size:17px;line-height:1.55;color:var(--mu);max-width:640px">FuturePath helps people in Malaysia whose jobs are changing because of AI see which future roles fit them, why, and how to get there with free or low-cost learning.</p></section>
 <section style="padding:40px max(clamp(20px,4vw,48px),calc((100% - 1200px)/2)) 72px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:16px">
 <div style="background:var(--sf);border:1px solid var(--ln);border-radius:24px;padding:24px;display:flex;flex-direction:column;gap:8px"><span style="font:600 12px 'Geist Mono';color:var(--pr)">01</span><b style="font-size:17px;font-weight:600">Fixed, published formulas</b><p style="margin:0;font-size:14px;line-height:1.5;color:var(--mu)">AI never decides a score or a career for you.</p></div>
@@ -125,25 +149,12 @@
 <div style="background:var(--sf);border:1px solid var(--ln);border-radius:24px;padding:24px;display:flex;flex-direction:column;gap:8px"><span style="font:600 12px 'Geist Mono';color:var(--pr)">03</span><b style="font-size:17px;font-weight:600">Checked catalog only</b><p style="margin:0;font-size:14px;line-height:1.5;color:var(--mu)">The AI cannot invent jobs, courses or statistics.</p></div>
 <div style="grid-column:1/-1;background:var(--sf);border:1px solid var(--ln);border-radius:24px;padding:24px;display:flex;flex-direction:column;gap:12px"><b style="font-size:17px;font-weight:600">AI models used</b>
 <div style="display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;background:var(--sf2);border-radius:16px;padding:14px 16px;font-size:14px"><span style="background:var(--soft);color:var(--pr);border-radius:8px;padding:4px 10px;font:600 12px 'Geist Mono'">LLM</span><span style="flex:1 1 260px">Claude by Anthropic: tags trend signals, extracts skills from CVs</span><span style="color:var(--up);font-weight:600;font-size:13px">● configured</span></div>
-<div style="display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;background:var(--sf2);border-radius:16px;padding:14px 16px;font-size:14px"><span style="background:var(--soft);color:var(--pr);border-radius:8px;padding:4px 10px;font:600 12px 'Geist Mono'">EMB</span><span style="flex:1 1 260px">BAAI/bge-m3 on RunPod: compares skill names only</span><span style="color:var(--am);font-weight:600;font-size:13px">● keyword fallback</span></div>
+<div style="display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;background:var(--sf2);border-radius:16px;padding:14px 16px;font-size:14px"><span style="background:var(--soft);color:var(--pr);border-radius:8px;padding:4px 10px;font:600 12px 'Geist Mono'">KEY</span><span style="flex:1 1 260px">Keyword matching: used for CV skills and signal tagging when Claude is not configured</span><span style="color:var(--am);font-weight:600;font-size:13px">● keyword fallback</span></div>
 <p style="margin:0;font-size:13px;color:var(--mu)">No model scores, ranks or orders anything.</p></div>
-<div style="background:var(--pr);color:var(--pri);border-radius:24px;padding:24px;display:flex;flex-direction:column;gap:12px"><b style="font-size:17px;font-weight:600">Data sources</b><div style="display:grid;grid-template-columns:1fr 1fr;gap:12px"><div><div style="font-size:30px;font-weight:800">36</div><div style="font-size:13px;opacity:.85">signals</div></div><div><div style="font-size:30px;font-weight:800">30</div><div style="font-size:13px;opacity:.85">roles</div></div><div><div style="font-size:30px;font-weight:800">46</div><div style="font-size:13px;opacity:.85">courses</div></div><div><div style="font-size:30px;font-weight:800">17</div><div style="font-size:13px;opacity:.85">SDGs</div></div></div></div>
-<div style="background:var(--sf);border:1px solid var(--ln);border-radius:24px;padding:24px;display:flex;flex-direction:column;gap:8px"><b style="font-size:17px;font-weight:600">Fairness</b><p style="margin:0;font-size:14px;line-height:1.5;color:var(--mu)">Age, gender, ethnicity, religion and contact details are never scoring inputs. An automated test checks identical rankings.</p></div>
-<div style="background:var(--sf);border:1px solid var(--ln);border-radius:24px;padding:24px;display:flex;flex-direction:column;gap:8px"><b style="font-size:17px;font-weight:600">Privacy</b><p style="margin:0;font-size:14px;line-height:1.5;color:var(--mu)">CVs are read in memory and discarded. Profiles live under a random link only you have.</p></div></section></main></sc-if>
-<sc-if value="{{ is_login }}" hint-placeholder-val="{{ false }}"><main data-screen-label="Login" style="flex:1;display:flex;flex-direction:column"><section style="flex:1;background:var(--hero);display:flex;align-items:center;justify-content:center;padding:56px clamp(16px,4vw,48px)">
-<div style="width:100%;max-width:440px;display:flex;flex-direction:column;gap:20px">
-<div style="background:var(--sf);border:1px solid var(--ln);border-radius:24px;box-shadow:var(--sh);padding:clamp(24px,4vw,36px);display:flex;flex-direction:column;gap:20px">
-<div style="text-align:center;display:flex;flex-direction:column;gap:8px;align-items:center"><span style="font-weight:800;font-size:22px;letter-spacing:-.04em">future<span style="color:var(--pr)">path</span></span><h1 style="margin:8px 0 0;font-size:28px;line-height:1.15;letter-spacing:-.03em;font-weight:700">{{ authTitle }}</h1><p style="margin:0;font-size:15px;line-height:1.5;color:var(--mu)">{{ authSub }}</p></div>
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;background:var(--sf2);border:1px solid var(--ln);border-radius:12px;padding:4px"><button onClick="{{ setLogin }}" style="border:0;border-radius:9px;padding:10px;font:600 14px Geist;cursor:pointer;background:{{ loginBg }};color:{{ loginFg }}">Log in</button><button onClick="{{ setRegister }}" style="border:0;border-radius:9px;padding:10px;font:600 14px Geist;cursor:pointer;background:{{ regBg }};color:{{ regFg }}">Create account</button></div>
-<button style="display:flex;align-items:center;justify-content:center;gap:10px;background:var(--sf);border:1.5px solid var(--ln);color:var(--ink);border-radius:12px;padding:12px 20px;font:600 15px Geist;cursor:pointer"><span style="font:800 16px Geist;color:#4285F4">G</span>Continue with Google</button>
-<div style="display:flex;align-items:center;gap:12px;font-size:13px;color:var(--mu)"><span style="flex:1;height:1px;background:var(--ln)"></span>or with email<span style="flex:1;height:1px;background:var(--ln)"></span></div>
-<sc-if value="{{ isRegister }}" hint-placeholder-val="{{ false }}"><label style="display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:500">Profile name<input placeholder="A nickname is fine" style="width:100%;border:1px solid var(--ln);border-radius:12px;padding:13px 14px;font:400 15px Geist;background:var(--bg);color:var(--ink)"></label></sc-if>
-<label style="display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:500">Email<input type="email" placeholder="you@example.com" style="width:100%;border:1px solid var(--ln);border-radius:12px;padding:13px 14px;font:400 15px Geist;background:var(--bg);color:var(--ink)"></label>
-<label style="display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:500"><span style="display:flex;justify-content:space-between;align-items:baseline">Password<sc-if value="{{ isLogin }}" hint-placeholder-val="{{ true }}"><a style="color:var(--pr);font-weight:600;font-size:13px">Forgot?</a></sc-if></span><span style="position:relative;display:block"><input type="{{ pwType }}" placeholder="Enter password" style="width:100%;border:1px solid var(--ln);border-radius:12px;padding:13px 14px;font:400 15px Geist;background:var(--bg);color:var(--ink);padding-right:64px"><button onClick="{{ togglePw }}" style="position:absolute;right:8px;top:50%;transform:translateY(-50%);border:0;background:none;color:var(--pr);font:600 13px Geist;cursor:pointer;padding:6px">{{ pwLbl }}</button></span></label>
-<sc-if value="{{ isRegister }}" hint-placeholder-val="{{ false }}"><label style="display:flex;gap:8px;align-items:flex-start;font-size:13px;color:var(--mu);line-height:1.45"><input type="checkbox" style="margin-top:2px">Email me when new signals change my ranking.</label></sc-if>
-<a onClick="{{ goResults }}" style="background:var(--pr);color:var(--pri);border-radius:12px;padding:14px 20px;font-size:15px;font-weight:600;text-align:center">{{ authCta }}</a>
-<p style="margin:0;font-size:14px;color:var(--mu);text-align:center">{{ authSwitchText }} <a onClick="{{ switchAuth }}" style="color:var(--pr);font-weight:600">{{ authSwitchLink }}</a></p></div>
-<p style="margin:0;text-align:center;font-size:13px;line-height:1.5;color:var(--mu)">No account needed to explore. <a onClick="{{ goIntake }}" style="color:var(--pr);font-weight:600">Start without one →</a></p></div></section></main></sc-if>
+<div style="background:var(--pr);color:var(--pri);border-radius:24px;padding:24px;display:flex;flex-direction:column;gap:12px"><b style="font-size:17px;font-weight:600">Data sources</b><div style="display:grid;grid-template-columns:1fr 1fr;gap:12px"><div><div style="font-size:30px;font-weight:800">{{ sigTotal }}</div><div style="font-size:13px;opacity:.85">signals</div></div><div><div style="font-size:30px;font-weight:800">12</div><div style="font-size:13px;opacity:.85">roles</div></div><div><div style="font-size:30px;font-weight:800">{{ courseTotal }}</div><div style="font-size:13px;opacity:.85">courses</div></div><div><div style="font-size:30px;font-weight:800">17</div><div style="font-size:13px;opacity:.85">SDGs</div></div></div></div>
+<div style="background:var(--sf);border:1px solid var(--ln);border-radius:24px;padding:24px;display:flex;flex-direction:column;gap:8px"><b style="font-size:17px;font-weight:600">Fairness</b><p style="margin:0;font-size:14px;line-height:1.5;color:var(--mu)">Age, gender, ethnicity, religion and contact details are never collected as scoring inputs; scores use only confirmed skills, demand signals and optional interests.</p></div>
+<div style="background:var(--sf);border:1px solid var(--ln);border-radius:24px;padding:24px;display:flex;flex-direction:column;gap:8px"><b style="font-size:17px;font-weight:600">Privacy</b><p style="margin:0;font-size:14px;line-height:1.5;color:var(--mu)">CVs are read in memory and discarded. This demo keeps one shared profile on the server, so use a fictional CV.</p></div></section></main></sc-if>
+
 <footer style="margin-top:auto;padding:28px max(clamp(20px,4vw,48px),calc((100% - 1200px)/2));border-top:1px solid var(--ln);display:flex;flex-wrap:wrap;gap:12px 24px;font-size:13px;color:var(--mu)"><a onClick="{{ goHome }}" style="font-weight:800;font-size:16px;letter-spacing:-.04em;color:var(--ink)">future<span style="color:var(--pr)">path</span></a><span>© 2026 Team KitaHack · Apache 2.0</span><a onClick="{{ goAbout }}" style="margin-left:auto">AI disclosure</a><a onClick="{{ goSignals }}">Signals</a><span>Source code ↗</span></footer>
 </div>
 </x-dc>
@@ -165,15 +176,13 @@ const DECL = [
   { id: "cs", title: "Customer Service Worker", sector: "Services", skill: 71, demand: 27, fast: 19, pm: 8, sdg: [8], have: ["Customer service", "Communication"], gap: ["CRM tools"], sig: 3, why: "Signals point to shrinking demand.", declining: true }
 ];
 
-const SK = [
-  ["Office administration", "Six years supporting an operations manager", 3],
-  ["Scheduling & coordination", "Managed calendar and meetings", 3],
-  ["Spreadsheets", "Excel VLOOKUP and pivot tables; Google Sheets member list", 2],
-  ["Customer service", "Answered customer and driver calls", 2],
-  ["No-code tools", "Built sign-up forms with Google Forms", 1]
-];
-const PAGES = ["home","intake","results","pathway","signals","about","login"];
-const T = { en: { home: "Home", intake: "Start", results: "Results", pathway: "Pathway", signals: "Signals", about: "About", login: "Log in", cta: "Start free →" }, ms: { home: "Utama", intake: "Mula", results: "Keputusan", pathway: "Laluan", signals: "Isyarat", about: "Perihal", login: "Log masuk", cta: "Mula percuma →" } };
+const PAGES = ["home","start","results","pathway","signals","about"];
+const PAGE_PATH = { home: "/", start: "/start", results: "/results", pathway: "/pathway", signals: "/signals", about: "/about" };
+const pageFromPath = () => { try { const p = location.pathname.replace(/\/+$/, "") || "/"; return PAGES.find(k => PAGE_PATH[k] === p); } catch (e) { return undefined; } };
+const T = { en: { home: "Home", start: "Start", results: "Results", pathway: "Pathway", signals: "Signals", about: "About", cta: "Start free →" }, ms: { home: "Utama", start: "Mula", results: "Keputusan", pathway: "Laluan", signals: "Isyarat", about: "Perihal", cta: "Mula percuma →" } };
+// Saved people: 'demo' is the original shared profile; other ids come from POST /api/profiles.
+const profileUrl = id => !id || id === 'demo' ? '/api/profile' : '/api/profiles/' + encodeURIComponent(id);
+const savedActiveProfile = () => { try { return localStorage.getItem('fp.activeProfile') || null; } catch (e) { return null; } };
 /* FuturePath backend adapter. This file changes DATA only, never the v2 layout.
    All APIs use the user's active local FastAPI server and synthetic demo evidence. */
 const FP_API = {
@@ -182,28 +191,38 @@ const FP_API = {
     if (!response.ok) throw new Error(`FuturePath API ${response.status}: ${path}`);
     return await response.json();
   },
+  async send(path, options) {
+    const response = await fetch(path, { credentials: 'same-origin', ...options, headers: { Accept: 'application/json', ...(options.headers || {}) } });
+    const body = await response.json().catch(() => ({}));
+    if (!response.ok) throw new Error(typeof body.detail === 'string' ? body.detail : `FuturePath API ${response.status}: ${path}`);
+    return body;
+  },
   num(value) { return Number.isFinite(Number(value)) ? Math.max(0, Math.min(100, Number(value))) : 0; },
   card(rec, ws, wd) {
-    const components = rec.components || {};
-    const skill = this.num(components.skills), demand = this.num(components.trends);
-    const interest = this.num(components.interests), feasibility = this.num(components.feasibility);
-    const weightSum = (ws + wd) || 1;
-    // User slider: redistribute only the official 65% skills-and-trends share.
-    // 20% interests + 15% feasibility stay fixed. This is a PREVIEW, not a saved score.
-    const score = Math.round(0.65 * (ws / weightSum * skill + wd / weightSum * demand) + 0.2 * interest + 0.15 * feasibility);
+    // Same formula as backend/engine.py; the sliders only redistribute the skills/demand share (interest stays 20%).
+    // This is a live PREVIEW of the published formula, recomputed in the browser.
+    const m = rec.match || {};
+    const skill = this.num(m.skill), demand = this.num(m.demand), hasInterest = m.interest !== null && m.interest !== undefined;
+    const interest = hasInterest ? this.num(m.interest) : 0, wi = hasInterest ? 0.2 : 0, share = (ws + wd) || 1;
+    const wS = (1 - wi) * ws / share, wD = (1 - wi) * wd / share;
+    const exact = wS * skill + wD * demand + wi * interest, score = Math.round(exact), spread = wD * (m.demand_band || 18);
     const gaps = Array.isArray(rec.gaps) ? rec.gaps : [];
+    const f = x => x.toFixed(2).replace(/0$/, '');
     return {
-      id: rec.role_id, title: rec.title, sector: rec.sector, score,
-      skill: Math.round(skill), demand: Math.round(demand), pm: 0,
-      completeness: Math.round(this.num(rec.completeness)), provisional: !!rec.provisional,
+      id: rec.role_id, title: rec.title, sector: rec.sector, score, exact,
+      lo: Math.max(0, Math.round(exact - spread)), hi: Math.min(100, Math.round(exact + spread)),
+      skill: Math.round(skill), demand: Math.round(demand), band: m.demand_band || 18,
       skillW: `${Math.round(skill)}%`, demW: `${Math.round(demand)}%`,
       demC: demand >= 50 ? 'var(--up)' : 'var(--dn)',
       ring: `conic-gradient(var(--pr) ${score*3.6}deg, var(--sf2) 0)`,
       sdgs: (rec.sdgs || []).map(n => ({n,c:(typeof SDG !== 'undefined' && SDG[n]) || 'var(--pr)'})),
-      have: gaps.filter(g => g.status === 'satisfied').slice(0, 3).map(g => g.name),
-      gap: gaps.filter(g => g.status !== 'satisfied').slice(0, 3).map(g => g.name),
-      formula: `Skills ${skill} · Trends ${demand} · Interests ${interest} · Feasibility ${feasibility}`,
-      goPathway: null, source: rec, lo: score, hi: score,
+      have: gaps.filter(g => g.status === 'satisfied').map(g => g.name),
+      gap: gaps.filter(g => g.status !== 'satisfied').map(g => g.name),
+      formula: `${f(wS)} × ${Math.round(skill)} + ${f(wD)} × ${Math.round(demand)}` + (hasInterest ? ` + 0.2 × ${Math.round(interest)}` : '') + ` = ${score}`,
+      why: (rec.signals?.cited || []).map(c => ({ t: c.title, src: `${c.source} · ${c.date} · ${c.direction} · ${c.via}`, url: c.url })),
+      signalLine: rec.signals ? `${rec.signals.signal_count} dated signal${rec.signals.signal_count === 1 ? '' : 's'} behind demand (${rec.signals.confidence} confidence).` : 'Demand uses the synthetic snapshot value.',
+      interestWhy: m.interest_why || '', topSource: rec.signals?.cited?.[0] ? `${rec.signals.cited[0].source} · ${rec.signals.cited[0].date}` : '',
+      goPathway: null, source: rec,
     };
   },
   summary(result) {
@@ -225,40 +244,87 @@ const FP_API = {
   },
 };
 class Component extends DCLogic {
-  state = { theme: this.props.defaultTheme ?? "light", lang: "en", page: this.props.startPage ?? "home", fast: false, ws: 69, wd: 31, liveStatus: "loading", liveError: "", liveModerate: [], liveRapid: [], selectedRole: "data-analyst", scenarioComparison: null, profileDemo: null, incDecl: false, removed: [], sig: "all", auth: "login", showPw: false };
+  state = { theme: this.props.defaultTheme ?? "light", lang: "en", page: pageFromPath() ?? this.props.startPage ?? "home", fast: false, ws: 55, wd: 45, liveStatus: "loading", liveError: "", liveModerate: [], liveRapid: [], selectedRole: "data-analyst", scenarioComparison: null, profileDemo: null, sig: "all",
+    // Start flow (/start): choose -> cv | form -> check -> quiz -> results. Nothing is saved until the quiz step ends.
+    startStep: "choose", cvName: "", extracting: false, startError: "", catalog: [],
+    form: { role: "", years: 0, qualification: "", languages: "", goals: "" }, formPicked: [], formQuery: "",
+    draft: null, draftSource: "", scannedCv: false, addOpen: false, formOpen: false, meta: { name: "My profile", headline: "", years: 0, hours: 6 }, approved: false, addQuery: "",
+    quizQuestions: [], quizLikert: [], quizAnswers: {}, saving: false, confirmError: "",
+    // Saved people: each finished Start run is a person; activeProfileId is whose results are shown (remembered in this browser).
+    people: [], activeProfileId: savedActiveProfile(), editingId: null, confirmDeleteId: null,
+    // Trend signals (/api/signals): curated reports plus refreshed feeds; whatChanged explains the latest refresh.
+    liveSignals: [], signalRuns: [], whatChanged: null, refreshing: false, refreshMsg: "", skillOutlook: { rising: [], declining: [], updated_at: null, auto_refresh_hours: 0 } };
   componentDidUpdate(p) {
     const q = this.props, u = {};
     if (q.defaultTheme !== p.defaultTheme && q.defaultTheme) u.theme = q.defaultTheme;
-    if (q.startPage !== p.startPage && q.startPage) u.page = q.startPage;
+    if (q.startPage !== p.startPage && q.startPage && !pageFromPath()) u.page = q.startPage;
     if (Object.keys(u).length) this.setState(u);
   }
   componentDidMount() {
     this._alive = true;
     this._t = setInterval(() => this.setState(s => ({ tick: (s.tick || 0) + 1 })), 1000);
+    this._onPop = () => { const p = pageFromPath(); if (p) this.setState({ page: p }); };
+    try { window.addEventListener("popstate", this._onPop); } catch (e) {}
     this.refreshLiveCareers();
+    this.loadCatalog();
+    this.loadSignals();
+    this.loadQuiz();
+    this.loadPeople();
+  }
+  async loadSignals() {
+    try {
+      const [liveSignals, signalRuns, whatChanged, meta, skillOutlook] = await Promise.all([FP_API.json('/api/signals'), FP_API.json('/api/signals/runs'), FP_API.json('/api/what-changed' + this.profileQuery('?')), FP_API.json('/api/meta'), FP_API.json('/api/skill-outlook')]);
+      if (this._alive) this.setState({ liveSignals, signalRuns, whatChanged, courseTotal: meta.courses_count, skillOutlook });
+    } catch (e) { console.warn('FuturePath: could not load trend signals', e); }
+  }
+  async refreshSignals() {
+    if (this.state.refreshing) return;
+    this.setState({ refreshing: true, refreshMsg: 'Fetching feeds and tagging new items… this can take a minute.' });
+    try {
+      const r = await FP_API.send('/api/signals/refresh', { method: 'POST' });
+      if (!this._alive) return;
+      this.setState({ refreshing: false, refreshMsg: `Refresh ${r.status}: checked ${r.checked} items, ${r.accepted} new signals, ${r.rejected} rejected, ${r.failed} failed (tagged by ${r.tagger}).` });
+      await Promise.all([this.loadSignals(), this.refreshLiveCareers()]);
+    } catch (err) {
+      if (this._alive) this.setState({ refreshing: false, refreshMsg: 'Refresh failed: ' + String(err.message || err) });
+    }
   }
   async refreshLiveCareers() {
     this.setState({liveStatus: 'loading', liveError: ''});
     try {
       const [moderate, rapid, profile] = await Promise.all([
-        FP_API.json('/api/matches?scenario=moderate'),
-        FP_API.json('/api/matches?scenario=rapid'),
-        FP_API.json('/api/profile'),
+        FP_API.json('/api/matches?scenario=moderate' + this.profileQuery('&')),
+        FP_API.json('/api/matches?scenario=rapid' + this.profileQuery('&')),
+        FP_API.json(profileUrl(this.state.activeProfileId)),
       ]);
       if (!Array.isArray(moderate) || !Array.isArray(rapid) || !moderate.length || moderate.length !== rapid.length) throw new Error('Invalid career data');
       if (!this._alive) return;
       this.setState({liveModerate: moderate, liveRapid: rapid, profileDemo: profile, liveStatus: 'connected', liveError: ''});
       this.loadScenarioPair(this.state.selectedRole);
     } catch (err) {
+      // A remembered person that no longer exists (e.g. a reset database): fall back to the shared profile once.
+      if (this.state.activeProfileId && String(err.message).includes(' 404')) { this.setActivePerson(null); return this.refreshLiveCareers(); }
       if (this._alive) this.setState({liveStatus: 'error', liveError: String(err.message || err)});
     }
+  }
+  profileQuery(sep) { return this.state.activeProfileId ? sep + 'profile=' + encodeURIComponent(this.state.activeProfileId) : ''; }
+  setActivePerson(id) { try { id ? localStorage.setItem('fp.activeProfile', id) : localStorage.removeItem('fp.activeProfile'); } catch (e) {} this.setState({ activeProfileId: id }); }
+  async loadPeople() {
+    try { const people = await FP_API.json('/api/profiles'); if (this._alive) this.setState({ people }); } catch (e) {}
+  }
+  // Show another saved person's results.
+  async switchPerson(id) {
+    if (!id || id === this.state.activeProfileId) return;
+    this.setActivePerson(id);
+    await Promise.all([this.refreshLiveCareers(), this.loadSignals()]);
+    if (this.state.page !== 'results') { this.go('start'); this.setStep('results'); }
   }
   async loadScenarioPair(roleId) {
     const token = (this._scenarioRequest || 0) + 1;
     this._scenarioRequest = token;
     this.setState({selectedRole: roleId, scenarioComparison: null});
     try {
-      const comparison = await FP_API.json('/api/scenarios/' + encodeURIComponent(roleId));
+      const comparison = await FP_API.json('/api/scenarios/' + encodeURIComponent(roleId) + this.profileQuery('?'));
       if (this._alive && token === this._scenarioRequest) this.setState({scenarioComparison: comparison});
     } catch (err) {
       if (this._alive && token === this._scenarioRequest) this.setState({liveError: String(err.message || err)});
@@ -269,37 +335,209 @@ class Component extends DCLogic {
     this.loadScenarioPair(roleId);
     if (openPathway) this.go('pathway');
   }
-  componentWillUnmount() { this._alive = false; clearInterval(this._t); }
-  go(p) { this.setState({ page: p }); try { window.scrollTo(0, 0); } catch (e) {} }
+  componentWillUnmount() { this._alive = false; clearInterval(this._t); try { window.removeEventListener("popstate", this._onPop); } catch (e) {} }
+  go(p) {
+    this.setState({ page: p });
+    try { if (location.pathname !== PAGE_PATH[p]) history.pushState({ page: p }, "", PAGE_PATH[p]); window.scrollTo(0, 0); } catch (e) {}
+  }
+  setStep(step) { this.setState({ startStep: step, startError: '', confirmError: '' }); try { window.scrollTo(0, 0); } catch (e) {} }
+  // A new person: nothing is overwritten; finishing Start saves them alongside the others.
+  startOver() { this._cvFile = null; this.setState(s => ({ draft: null, cvName: '', formPicked: [], quizAnswers: {}, approved: false, editingId: null,
+    form: { role: '', years: 0, qualification: '', languages: '', goals: '' }, meta: { name: '', headline: '', years: 0, hours: 6 } })); this.go('start'); this.setStep('choose'); }
+  async loadCatalog() {
+    try {
+      const skills = await FP_API.json('/api/skills');
+      if (this._alive) this.setState({ catalog: Array.isArray(skills) ? skills : [] });
+    } catch (e) {}
+  }
+  async loadQuiz() {
+    try {
+      const quiz = await FP_API.json('/api/interest-quiz');
+      if (this._alive) this.setState({ quizQuestions: quiz.questions, quizLikert: quiz.likert });
+    } catch (e) {}
+  }
+  skillName(id) { return (this.state.catalog.find(s => s.id === id) || {}).name || id; }
+  // Lowest unused "Person N": people saved under their own names (e.g. a real nickname) don't use up a number.
+  newPersonName() {
+    if (this.state.editingId) return this.state.meta.name;
+    const taken = new Set(this.state.people.map(x => x.name));
+    let n = 1; while (taken.has('Person ' + n)) n++;
+    return 'Person ' + n;
+  }
+  // Called from the in-page "Yes, delete" confirmation (native confirm() dialogs are blocked in some browsers, e.g. the app's browser pane).
+  async deletePerson(id) {
+    this.setState({ confirmDeleteId: null });
+    try {
+      await FP_API.send('/api/profiles/' + encodeURIComponent(id), { method: 'DELETE' });
+      if (!this._alive) return;
+      if ((this.state.activeProfileId || 'demo') === id) this.setActivePerson(null);
+      await Promise.all([this.loadPeople(), this.refreshLiveCareers(), this.loadSignals()]);
+    } catch (err) { if (this._alive) this.setState({ startError: 'Could not delete: ' + String(err.message || err) }); }
+  }
+  toCheck(draft, draftSource, meta = {}) {
+    this.setState(s => ({ draft, draftSource, approved: false, meta: { ...s.meta, ...meta } }));
+    this.setStep('check');
+  }
+  onCvFile(e) {
+    const file = e.target.files && e.target.files[0];
+    this._cvFile = file || null;
+    this.setState({ cvName: file ? file.name : '', startError: '' });
+  }
+  async readCv() {
+    if (!this._cvFile) return this.setState({ startError: 'Choose a PDF first.' });
+    this.setState({ extracting: true, startError: '' });
+    try {
+      const body = new FormData(); body.append('file', this._cvFile); body.append('provider', 'auto');
+      const result = await FP_API.send('/api/extract', { method: 'POST', body });
+      if (!this._alive) return;
+      // A scanned PDF is flagged so the person checks the quotes carefully.
+      this.setState({ extracting: false, scannedCv: !!result.scanned });
+      this.toCheck((result.candidates || []).map(c => ({ id: c.skill_id, name: c.name, ev: 'Your CV mentions “' + c.excerpt + '”', level: 2 })),
+        result.provider === 'dictionary' ? 'keywords' : 'ai', { name: this.newPersonName() });
+    } catch (err) {
+      if (this._alive) this.setState({ extracting: false, startError: String(err.message || err) });
+    }
+  }
+  useForm() {
+    const st = this.state;
+    this.setState({ scannedCv: false });
+    if (!st.formPicked.length) return this.setState({ startError: 'Add at least one skill.' });
+    this.toCheck(st.formPicked.map(id => ({ id, name: this.skillName(id), ev: 'Added in the form', level: 2 })), 'form',
+      { name: this.newPersonName(), headline: st.form.role, years: Number(st.form.years) || 0 });
+  }
+  // Re-open the saved profile at a step (e.g. "Take the quiz" from the results page).
+  editProfile(step) {
+    const p = this.state.profileDemo || {};
+    this.setState(s => ({ draft: Object.entries(p.skills || {}).map(([id, level]) => ({ id, name: this.skillName(id), ev: 'Saved in your profile', level })),
+      draftSource: 'saved', approved: true, quizAnswers: p.quiz_answers || {}, editingId: this.state.activeProfileId || 'demo',
+      meta: { name: p.name || 'My profile', headline: p.headline || '', years: p.years_experience || 0, hours: p.study_hours || 6 },
+      form: { ...s.form, role: p.current_role || '', qualification: p.qualification || '', languages: (p.languages || []).join(', '), goals: p.goals || '' } }));
+    this.go('start');
+    this.setStep(step);
+  }
+  toQuiz() {
+    const st = this.state;
+    if (!(st.draft || []).length) return this.setState({ confirmError: 'Add at least one skill.' });
+    if (!st.approved) return this.setState({ confirmError: 'Tick the box to confirm these skills describe you.' });
+    this.setStep('quiz');
+  }
+  async saveProfile(withQuiz) {
+    const st = this.state, base = st.profileDemo || {}, langs = st.form.languages.split(',').map(x => x.trim()).filter(Boolean).slice(0, 10);
+    const payload = { user_type: base.user_type || 'student', country: base.country || 'Malaysia', interests: base.interests || [], mode: base.mode || 'discover',
+      skills: Object.fromEntries(st.draft.map(d => [d.id, d.level])), name: st.meta.name.slice(0, 80), headline: st.meta.headline.slice(0, 160),
+      years_experience: Math.max(0, Math.min(60, Number(st.meta.years) || 0)), study_hours: Math.max(1, Math.min(60, Number(st.meta.hours) || 6)),
+      current_role: st.form.role.slice(0, 160), qualification: st.form.qualification.slice(0, 160), languages: langs, goals: st.form.goals.slice(0, 1000),
+      quiz_answers: withQuiz ? st.quizAnswers : null };
+    this.setState({ saving: true, confirmError: '' });
+    try {
+      // Editing a saved person updates them; otherwise this is a new person, saved alongside the others.
+      const editing = st.editingId, json = { headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) };
+      const saved = editing ? await FP_API.send(profileUrl(editing), { method: 'PUT', ...json }) : await FP_API.send('/api/profiles', { method: 'POST', ...json });
+      if (!this._alive) return;
+      this.setActivePerson(saved.id);
+      this.setState({ saving: false, editingId: null });
+      await Promise.all([this.refreshLiveCareers(), this.loadPeople(), this.loadSignals()]);
+      this.setStep('results');
+    } catch (err) {
+      if (this._alive) this.setState({ saving: false, confirmError: String(err.message || err) });
+    }
+  }
   renderVals() {
     const st = this.state, out = {};
     PAGES.forEach(p => { const a = st.page === p; out["is_" + p] = a; out["go_" + p] = () => this.go(p); out["nb_" + p] = a ? "var(--sf)" : "transparent"; out["nc_" + p] = a ? "var(--ink)" : "var(--mu)"; out["t_" + p] = T[st.lang][p]; });
-    out.t_cta = T[st.lang].cta; out.t_login = T[st.lang].login;
+    out.t_cta = T[st.lang].cta;
     const sum = (st.ws + st.wd) || 1, ws = st.ws / sum, wd = st.wd / sum;
     const liveRecords = st.fast ? st.liveRapid : st.liveModerate;
     const ranked = (st.liveStatus === 'connected' ? liveRecords : []).map(r => FP_API.card(r, st.ws, st.wd))
-      .sort((a,b)=>b.score-a.score).map((r,i)=>({...r,rank:i+1,
+      .sort((a,b)=>b.exact-a.exact).map((r,i)=>({...r,rank:i+1,
         goPathway:()=>this.selectCareer(r.id,true)}));
-    const on = { bg: "var(--sf)", fg: "var(--ink)" }, off = { bg: "transparent", fg: "var(--mu)" };
+    const on = { bg: "var(--pr)", fg: "var(--pri)" }, off = { bg: "transparent", fg: "var(--ink)" };
     const m = st.fast ? off : on, f2 = st.fast ? on : off;
-const lvl = (a, b) => a === b ? { b: "var(--pr)", c: "var(--pri)" } : { b: "transparent", c: "var(--mu)" };
-    const skills = SK.filter(s => !st.removed.includes(s[0])).map(([name, ev, lv]) => {
-      const a = lvl(lv, 1), b = lvl(lv, 2), c = lvl(lv, 3);
-      return { name, ev, b1: a.b, c1: a.c, b2: b.b, c2: b.c, b3: c.b, c3: c.c, remove: () => this.setState(s => ({ removed: [...s.removed, name] })) };
-    });
-    const SIG = [
-      { up: true, t: "Solar installation roles and vocational teachers expected to grow", src: "WEF Future of Jobs Report 2025 · Jan 2025", type: "Report", tag: "Curated & verified", s: 4, roles: "Solar PV Installation & Systems Technician, Vocational & Digital Skills Trainer" },
-      { up: false, t: "Data entry, secretarial and bookkeeping roles declining in every edition since 2016", src: "WEF Future of Jobs Report 2025 · Jan 2025", type: "Report", tag: "Curated & verified", s: 5, roles: "Data Entry Clerk, Administrative Assistant / Executive Secretary" },
-      { up: true, t: "Malaysia launches National AI Office to coordinate AI adoption, governance and talent", src: "Google News · Dec 2024", type: "News", tag: "Tagged by Claude", s: 3, roles: "Responsible AI & Governance Specialist" },
-      { up: true, t: "Anthropic Economic Index: learning-focused AI conversations rising", src: "Anthropic Economic Index · Sep 2025", type: "Dataset", tag: "Keyword fallback", s: 2, roles: "Vocational & Digital Skills Trainer" }
-    ];
-    const tagC = { "Curated & verified": ["var(--upbg)", "var(--up)"], "Tagged by Claude": ["var(--soft)", "var(--pr)"], "Keyword fallback": ["var(--sf2)", "var(--mu)"] };
-    const signals = SIG.filter(x => st.sig === "all" || (st.sig === "up") === x.up).map(x => ({ ...x,
-      dir: x.up ? "↑ Emerging" : "↓ Declining", dc: x.up ? "var(--sky)" : "var(--dn)", db: x.up ? "var(--skybg)" : "var(--dnbg)",
-      tb: tagC[x.tag][0], tc: tagC[x.tag][1], dots: "●".repeat(x.s) + "○".repeat(5 - x.s) }));
+    // Start (/start): choose -> cv | form -> check -> quiz -> results (results.html renders step 4).
+    const LEVELS = [[2, "Basic"], [3, "Working"], [4, "Strong"]];
+    const pick = on => on ? { b: "var(--pr)", c: "var(--pri)" } : { b: "transparent", c: "var(--mu)" };
+    const match = (s, q) => !q || s.name.toLowerCase().includes(q) || (s.aliases || []).some(a => a.toLowerCase().includes(q));
+    const step = st.startStep, stepNo = { choose: 1, cv: 1, form: 1, check: 2, quiz: 3, results: 4 }[step];
+    const STEP_LABELS = ["Choose start", "Check profile", "Interest quiz", "Results"];
+    const stepper = STEP_LABELS.map((label, i) => { const n = i + 1, done = n < stepNo, active = n === stepNo;
+      return { label, mark: done ? "✓" : String(n), c: done ? "var(--up)" : active ? "var(--pr)" : "var(--mu)",
+        bg: done ? "var(--upbg)" : active ? "var(--pr)" : "transparent", fg: active ? "var(--pri)" : "inherit", bd: done || active ? "0" : "1.5px solid var(--ln)",
+        line: n < 4, lineC: n < stepNo ? "var(--up)" : "var(--ln)" }; });
+    const startTiles = [
+      { icon: "PDF", t: "Upload a CV", d: "PDF, up to 2 MB. Skills are matched to our catalog for you to check.", choose: () => this.setStep("cv") },
+      { icon: "✎", t: "Fill a short form", d: "Pick your skills from a list. Takes about 3 minutes.", choose: () => this.setStep("form") }];
+    const prof = st.profileDemo || {};
+    // Saved people (/api/profiles), newest first; "See results" switches the active person.
+    const fmtDay = d => { try { return new Date(d).toLocaleDateString("en-GB", { day: "numeric", month: "short" }); } catch (e) { return ""; } };
+    const peopleRows = st.people.map(x => ({ name: x.name, sub: [x.headline, x.skills + " skills", x.has_quiz ? "quiz done" : "no quiz", x.updated_at ? "saved " + fmtDay(x.updated_at) : ""].filter(Boolean).join(" · "),
+      open: () => { this.switchPerson(x.id); this.go("start"); this.setStep("results"); }, asking: st.confirmDeleteId === x.id, notAsking: st.confirmDeleteId !== x.id,
+      ask: () => this.setState({ confirmDeleteId: x.id }), cancel: () => this.setState({ confirmDeleteId: null }), confirm: () => this.deletePerson(x.id) }));
+    const setForm = k => e => { const v = e.target.value; this.setState(x => ({ form: { ...x.form, [k]: v }, startError: "" })); };
+    const setMeta = k => e => { const v = e.target.value; this.setState(x => ({ meta: { ...x.meta, [k]: v } })); };
+    const fq = st.formQuery.trim().toLowerCase();
+    const formChosen = st.formPicked.map(id => ({ name: this.skillName(id), remove: () => this.setState(x => ({ formPicked: x.formPicked.filter(i => i !== id) })) }));
+    // Clicking a "+ Search skills…" box opens the whole catalogue (A-Z); typing filters it. It stays open to add several.
+    const byName = (a, b) => a.name.localeCompare(b.name);
+    const formResults = st.formOpen || fq ? st.catalog.filter(s => match(s, fq) && !st.formPicked.includes(s.id)).sort(byName).map(s => ({ name: s.name,
+      add: () => this.setState(x => ({ formPicked: [...x.formPicked, s.id], formQuery: "", startError: "" })) })) : [];
+    const draft = st.draft || [];
+    const setLevel = (id, level) => this.setState(x => ({ draft: x.draft.map(d => d.id === id ? { ...d, level } : d), approved: false }));
+    const draftRows = draft.map(d => ({ name: d.name, ev: d.ev,
+      levels: LEVELS.map(([v, label]) => { const c = pick(d.level === v); return { label, b: c.b, c: c.c, set: () => setLevel(d.id, v) }; }),
+      remove: () => this.setState(x => ({ draft: x.draft.filter(k => k.id !== d.id), approved: false })) }));
+    const aq = st.addQuery.trim().toLowerCase();
+    const addOptions = st.addOpen || aq ? st.catalog.filter(s => match(s, aq) && !draft.some(d => d.id === s.id)).sort(byName).map(s => ({ name: s.name,
+      add: () => this.setState(x => ({ draft: [...(x.draft || []), { id: s.id, name: s.name, ev: "Added by you", level: 2 }], addQuery: "", approved: false })) })) : [];
+    const draftNote = { ai: st.scannedCv ? "Your PDF looked scanned, so Claude read the page images. Each skill quotes the text it came from; please check them carefully." : "Skills suggested by Claude from your CV. Each one quotes the line it came from. Please check them.",
+      keywords: "Claude is not configured, so skills were matched by keywords. Please check them carefully.",
+      form: "Skills you added in the form. Set how strong each one is.", saved: "These are the skills saved in your profile." }[st.draftSource] || "Add the skills you have.";
+    const quizDone = st.quizQuestions.filter(q => st.quizAnswers[q.id]).length, quizTotal = st.quizQuestions.length || 18;
+    const quizRows = st.quizQuestions.map((q, i) => ({ n: i + 1, text: q.text, options: st.quizLikert.map(l => { const on = st.quizAnswers[q.id] === l.value;
+      return { label: l.label, b: on ? "var(--pr)" : "var(--sf)", c: on ? "var(--pri)" : "var(--ink)", bd: on ? "var(--pr)" : "var(--ln)",
+        pick: () => this.setState(x => ({ quizAnswers: { ...x.quizAnswers, [q.id]: l.value }, confirmError: "" })) }; }) }));
+    const quizComplete = st.quizQuestions.length > 0 && quizDone === st.quizQuestions.length;
+    const startBindings = { showStartFlow: st.page === "start" && step !== "results", stepNo, stepper, startTiles,
+      isChoose: step === "choose", isCvStep: step === "cv", isFormStep: step === "form", isCheckStep: step === "check", isQuizStep: step === "quiz",
+      hasPeople: peopleRows.length > 0, peopleCount: peopleRows.length, peopleRows, backToChoose: () => this.setStep("choose"),
+      cvPickLbl: st.cvName || "Choose a PDF", onCvFile: e => this.onCvFile(e), readCv: () => { if (!st.extracting && st.cvName) this.readCv(); },
+      readLbl: st.extracting ? "Reading your CV…" : "Read my CV", readOp: st.cvName && !st.extracting ? "1" : ".45",
+      fRole: st.form.role, fYears: st.form.years, fQual: st.form.qualification, fLangs: st.form.languages, fGoals: st.form.goals,
+      onFRole: setForm("role"), onFYears: setForm("years"), onFQual: setForm("qualification"), onFLangs: setForm("languages"), onFGoals: setForm("goals"),
+      formEmpty: !st.formPicked.length, formChosen, formResults, hasFormResults: formResults.length > 0, formListOpen: st.formOpen, openFormList: () => this.setState({ formOpen: true }), closeFormList: () => this.setState({ formOpen: false, formQuery: "" }),
+      formNoMatch: (st.formOpen || !!fq) && !formResults.length, formQuery: st.formQuery, onFormQuery: e => this.setState({ formQuery: e.target.value }),
+      useForm: () => this.useForm(), formOp: st.formPicked.length ? "1" : ".45",
+      draftNote, draftRows, hasAddOptions: addOptions.length > 0, addListOpen: st.addOpen, openAddList: () => this.setState({ addOpen: true }), closeAddList: () => this.setState({ addOpen: false, addQuery: "" }),
+      addNoMatch: (st.addOpen || !!aq) && !addOptions.length, draftCount: draft.length, addQuery: st.addQuery, onAddQuery: e => this.setState({ addQuery: e.target.value }), addOptions,
+      mName: st.meta.name, mHeadline: st.meta.headline, mYears: st.meta.years, mHours: st.meta.hours,
+      onMName: setMeta("name"), onMHeadline: setMeta("headline"), onMYears: setMeta("years"), onMHours: setMeta("hours"),
+      approved: st.approved, toggleApproved: () => this.setState(x => ({ approved: !x.approved, confirmError: "" })),
+      backFromCheck: () => this.setStep(st.draftSource === "form" ? "form" : st.draftSource === "saved" ? "choose" : "cv"),
+      toQuiz: () => this.toQuiz(), quizOp: st.approved && draft.length ? "1" : ".45",
+      quizRows, quizDone, quizTotal, quizPct: Math.round(100 * quizDone / quizTotal) + "%", backToCheck: () => this.setStep("check"),
+      skipQuiz: () => { if (!st.saving) this.saveProfile(false); }, finishQuiz: () => { if (!st.saving && quizComplete) this.saveProfile(true); },
+      finishLbl: st.saving ? "Saving…" : "See my results →", finishOp: quizComplete && !st.saving ? "1" : ".45",
+      confirmError: st.confirmError, hasConfirmError: !!st.confirmError, startError: st.startError, hasStartError: !!st.startError };
+    // Signals page: stored trend signals from /api/signals (curated reports + refreshed feeds), newest first.
+    const TAG = { curated: ["Curated & verified", "var(--upbg)", "var(--up)"], claude: ["Tagged by Claude", "var(--soft)", "var(--pr)"], keyword: ["Keyword fallback", "var(--sf2)", "var(--mu)"] };
+    const fmtDate = d => { try { return new Date(d + (d.length === 10 ? "T00:00:00" : "")).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" }); } catch (e) { return d; } };
+    const signals = st.liveSignals.filter(x => st.sig === "all" || (st.sig === "up") === (x.direction === "emerging")).map(x => { const tag = TAG[x.tagged_by] || TAG.keyword;
+      return { t: x.title, summary: x.summary === x.title ? "" : x.summary, url: x.url, type: x.source_type[0].toUpperCase() + x.source_type.slice(1),
+        dir: x.direction === "emerging" ? "↑ Emerging" : "↓ Declining", dc: x.direction === "emerging" ? "var(--sky)" : "var(--dn)", db: x.direction === "emerging" ? "var(--skybg)" : "var(--dnbg)",
+        tag: tag[0], tb: tag[1], tc: tag[2], dots: "●".repeat(x.strength) + "○".repeat(5 - x.strength),
+        roles: x.role_titles.length ? x.role_titles.join(", ") : (x.skill_ids.length ? "Linked through skills only" : "General context"),
+        src: x.source_name + " · " + new Date(x.published_date + "T00:00:00").toLocaleDateString("en-GB", { month: "short", year: "numeric" }) }; });
     const f = k => st.sig === k ? { b: "var(--pr)", c: "var(--pri)" } : { b: "var(--sf)", c: "var(--ink)" };
-    
-    const FEED = [
+    const lastRun = st.signalRuns[0];
+    const sigUpdated = st.liveSignals.length ? fmtDate(st.liveSignals.map(x => x.fetched_at).sort().slice(-1)[0]) : "—";
+    const sigLastRun = lastRun ? (lastRun.status === "ok" ? "● OK" : lastRun.status === "running" ? "● Running" : "● " + lastRun.status[0].toUpperCase() + lastRun.status.slice(1)) + " · " + lastRun.accepted + " accepted · " + fmtDate((lastRun.finished_at || lastRun.started_at).slice(0, 10)) : "Not refreshed yet";
+    const sigLastRunC = !lastRun ? "var(--mu)" : lastRun.status === "ok" ? "var(--up)" : lastRun.status === "failed" ? "var(--dn)" : "var(--am)";
+    const sigFeeds = lastRun ? lastRun.feeds.map(x => ({ name: x.name, state: x.ok ? x.items + " items" : "failed: " + (x.error || "error"), c: x.ok ? "var(--mu)" : "var(--dn)" })) : [];
+    // What changed (Results): the latest refresh's effect on the current profile's ranking.
+    const wc = st.whatChanged;
+    const wcMoves = (wc?.moves || []).slice(0, 3).map(m => ({ text: m.after_rank < m.before_rank ? `${m.title} moved up from #${m.before_rank} to #${m.after_rank}` : m.after_rank > m.before_rank ? `${m.title} moved down from #${m.before_rank} to #${m.after_rank}` : `${m.title} stayed at #${m.after_rank}`,
+      why: `Trends ${m.before_trend} → ${m.after_trend} from ${m.new_signals} new signal${m.new_signals === 1 ? "" : "s"}` }));
+    const wcSummary = wc?.has_change ? `${wc.new_signal_count} new signals from the refresh on ${fmtDate((wc.run.finished_at || wc.run.started_at).slice(0, 10))}.` : "No earlier ranking to compare yet. When new signals arrive, changes to your ranking will show here.";
+    const SAMPLE_FEED = [
       { dir: "↑", kind: "Emerging", t: "Solar installation roles and vocational teachers expected to grow", src: "Demo · synthetic", roles: "Solar PV Technician, Skills Trainer", c: "var(--up)", bg: "var(--upbg)" },
       { dir: "↓", kind: "Declining", t: "Data entry, secretarial and bookkeeping roles declining in every edition since 2016", src: "Demo · synthetic", roles: "Data Entry Clerk, Admin Assistant", c: "var(--dn)", bg: "var(--dnbg)" },
       { dir: "↑", kind: "Emerging", t: "Malaysia launches National AI Office to coordinate AI adoption, governance and talent", src: "Demo · synthetic", roles: "Responsible AI Specialist", c: "var(--up)", bg: "var(--upbg)" },
@@ -307,90 +545,103 @@ const lvl = (a, b) => a === b ? { b: "var(--pr)", c: "var(--pri)" } : { b: "tran
       { dir: "↑", kind: "Emerging", t: "Care economy jobs expected to grow significantly as populations age", src: "Demo · synthetic", roles: "Elderly & Personal Care Aide", c: "var(--up)", bg: "var(--upbg)" },
       { dir: "↓", kind: "Declining", t: "Client information and customer service workers among largest-declining jobs", src: "Demo · synthetic", roles: "Customer Service Worker", c: "var(--dn)", bg: "var(--dnbg)" }
     ];
+    // Latest stored trend signals (newest first); the sample list only shows until /api/signals has loaded.
+    const FEED = st.liveSignals.length ? st.liveSignals.slice(0, 6).map(x => ({ dir: x.direction === "emerging" ? "↑" : "↓", kind: x.direction === "emerging" ? "Emerging" : "Declining", t: x.title,
+      src: x.source_name + " · " + new Date(x.published_date + "T00:00:00").toLocaleDateString("en-GB", { month: "short", year: "numeric" }), roles: x.role_titles.join(", ") || "General context", c: x.direction === "emerging" ? "var(--up)" : "var(--dn)", bg: x.direction === "emerging" ? "var(--upbg)" : "var(--dnbg)" })) : SAMPLE_FEED;
     const tk = st.tick || 0, CYC = 5, li = Math.floor(tk / CYC) % FEED.length;
     const now = new Date();
     let clock = ""; try { clock = now.toLocaleTimeString("en-GB", { timeZone: "Asia/Kuala_Lumpur", hour: "2-digit", minute: "2-digit", second: "2-digit" }); } catch (e) { clock = now.toTimeString().slice(0, 8); }
-    const mins = 12 + Math.floor(tk / 60);
+    // Feed stats: signals fetched in the last 7 days, and hours since the last refresh run finished.
+    const weekAgo = new Date(Date.now() - 7 * 86400000).toISOString().slice(0, 10);
+    const sigNewWeek = st.liveSignals.filter(x => x.tagged_by !== "curated" && x.fetched_at >= weekAgo).length;  // added by feed refreshes, not the curated baseline
+    const lastFetch = st.signalRuns.find(r => r.finished_at);
+    const sinceFetch = lastFetch ? Math.max(0, Math.round((Date.now() - new Date(lastFetch.finished_at).getTime()) / 3600000)) + "h" : "—";
     const GOALS = [["No Poverty","#E5243B"],["Zero Hunger","#DDA63A"],["Good Health","#4C9F38"],["Quality Education","#C5192D"],["Gender Equality","#FF3A21"],["Clean Water","#26BDE2"],["Clean Energy","#FCC30B"],["Decent Work","#A21942"],["Industry & Innovation","#FD6925"],["Reduced Inequalities","#DD1367"],["Sustainable Cities","#FD9D24"],["Responsible Consumption","#BF8B2E"],["Climate Action","#3F7E44"],["Life Below Water","#0A97D9"],["Life on Land","#56C02B"],["Peace & Justice","#00689D"],["Partnerships","#19486A"]];
-    const LIT = [3, 4, 5, 7, 8, 9, 10, 11, 12, 13, 16];
-    const sdgTiles = GOALS.map(([name, c], i) => { const n = i + 1, on = LIT.includes(n), dk = n === 2 || n === 7 || n === 11;
+    // Goals linked to at least one career in the catalogue (role sdgs from the matching API).
+    const LIT = [...new Set(st.liveModerate.flatMap(r => r.sdgs || []))];
+    const sdgLinkedCount = LIT.length || "—";
+    const sdgTiles = GOALS.map(([name, c], i) => { const n = i + 1, on = LIT.includes(n);
       return { n, name, bgImg: "url(assets/sdg/E-WEB-Goal-" + String(n).padStart(2, "0") + ".png) center/cover no-repeat", filter: on ? "none" : "grayscale(1)", op: on ? 1 : 0.35, note: on ? " · linked" : " · not linked yet" }; });
-    // These results come from Python/FastAPI, not from the original static mockup arrays.
+    // Pathway (/pathway) for the selected career, from Python/FastAPI results for the active scenario.
     const fpMod = st.scenarioComparison?.moderate || st.liveModerate.find(r => r.role_id === st.selectedRole) || null;
     const fpRapid = st.scenarioComparison?.rapid || st.liveRapid.find(r => r.role_id === st.selectedRole) || null;
-    const fpModView = FP_API.summary(fpMod), fpRapidView = FP_API.summary(fpRapid);
     const fpActive = st.fast ? fpRapid : fpMod;
-    const fpActiveView = st.fast ? fpRapidView : fpModView;
-    const fpTasks = fpModView.tasks.map((task,i) => ({
-      name: task.task,
-      moderate: task.adoption_impact,
-      rapid: fpRapidView.tasks[i]?.adoption_impact || 'Not available',
-      oversight: `${task.human_oversight}/100 (assumption)`,
-    }));
-    const fpSteps = (fpActive?.pathway || []).slice(0,6).map((item,i) => ({
-      n:i+1, w:`Priority ${i+1}`, cost:'Resource unverified', cb:'var(--sf2)', cc:'var(--mu)',
-      h:'Duration unknown', t:(item.status === 'unknown' ? 'Assess: ' : 'Build: ')+item.skill,
+    // The date each course's provider page was checked (catalogue field verification_status: 'checked YYYY-MM-DD').
+    const fpCheckedIso = r => ((r && r.verification_status) || '').replace('checked ', '');
+    const fpDay = iso => iso ? new Date(iso + 'T00:00:00').toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }) : '';
+    // Checked courses only (they have a URL), cheapest and shortest first; the rest are listed as alternatives.
+    const fpSteps = (fpActive?.pathway || []).slice(0,6).map((item,i) => { const checked = (item.resources || []).filter(r => r.url), course = checked[0];
+      return {
+      n:i+1, w:`Priority ${i+1}`, cost: course ? course.cost : 'No checked course yet', cb: course && course.cost === 'Free' ? 'var(--upbg)' : 'var(--sf2)', cc: course && course.cost === 'Free' ? 'var(--up)' : 'var(--mu)',
+      h: course ? course.duration : 'Duration unknown', hours: course ? course.hours : 0, t:(item.status === 'unknown' ? 'Assess: ' : 'Build: ')+item.skill,
       p:item.status === 'unknown' ? 'Confirm proficiency before treating this as a gap' : 'Learning priority from the current scenario',
-      covers:item.why || 'Review skill requirements', lang:'—',
-    }));
-    const fpOptions = st.liveModerate.map(r => ({id:r.role_id,title:r.title,selected:r.role_id === st.selectedRole}));
-    const radarUp = [["AI & big data", 92], ["Cybersecurity", 84], ["Technological literacy", 80], ["Creative thinking", 71], ["Environmental stewardship", 66]].map(([t, v]) => ({ t, w: v + "%" }));
-    const radarDn = [["Data entry", 88], ["Bookkeeping", 74], ["Manual dexterity", 61], ["Reading & writing tasks", 52]].map(([t, v]) => ({ t, w: v + "%" }));
-    return { ...out, theme: st.theme, sdgReady: true, sdgTiles, radarUp, radarDn, live: FEED[li], liveNext: [1, 2, 3].map(k => FEED[(li + k) % FEED.length]), liveProg: (((tk % CYC) + 1) / CYC * 100) + "%", clock, refreshAgo: mins + "m", accent: this.props.accent ?? "violet", lbl: st.theme === "dark" ? "Light" : "Dark",
+      covers:item.why || 'Review skill requirements', lang: course ? course.provider : '—',
+      alternatives: checked.slice(1).map(r => ({ title: r.title + ' · ' + r.provider, url: r.url, info: r.cost + ' · ' + r.duration + (fpCheckedIso(r) ? ' · checked ' + fpDay(fpCheckedIso(r)) : '') })), hasAlternatives: checked.length > 1,
+      hasCourse: !!course, noCourse: !course, course: course ? course.title : '', checked: course && fpCheckedIso(course) ? 'checked ' + fpDay(fpCheckedIso(course)) : '', checkedIsos: checked.map(fpCheckedIso).filter(Boolean), courseUrl: course ? course.url : '', skill: item.skill,
+    }; });
+    const studyHours = Math.max(1, Number(st.profileDemo?.study_hours) || 6);
+    const pathHoursNum = Math.round(fpSteps.reduce((s, x) => s + x.hours, 0));
+    const pathCostSet = new Set(fpSteps.filter(x => x.hasCourse).map(x => x.cost));
+    const pathMissing = fpSteps.filter(x => !x.hasCourse).map(x => x.skill);
+    const pathChecked = [...new Set(fpSteps.flatMap(x => x.checkedIsos))].sort();
+    // Home "What's rising, what's fading": net skill outlook from stored signals (/api/skill-outlook).
+    const radarUp = st.skillOutlook.rising.map(k => ({ t: k.name, w: k.width + "%" }));
+    const radarDn = st.skillOutlook.declining.map(k => ({ t: k.name, w: k.width + "%" }));
+    // When the live feeds were last pulled, and the automatic schedule (SIGNALS_REFRESH_HOURS on the server).
+    const fpWhen = iso => new Date(iso).toLocaleString("en-GB", { day: "numeric", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit" });
+    const fpEvery = st.skillOutlook.auto_refresh_hours ? (st.skillOutlook.auto_refresh_hours === 24 ? "daily" : `every ${st.skillOutlook.auto_refresh_hours} h`) : "";
+    const radarUpdated = (st.skillOutlook.updated_at ? `Live feeds last checked ${fpWhen(st.skillOutlook.updated_at)}` : "Live feeds not checked yet; showing dated reports only")
+      + (fpEvery ? ` · refreshes automatically ${fpEvery}` : " · refreshed manually");
+    // Results (step 4 of /start; /results opens the same view directly).
+    const fmtMonth = d => { try { return new Date(d + "T00:00:00").toLocaleDateString("en-GB", { month: "short", year: "numeric" }); } catch (e) { return d; } };
+    const byDemand = [...ranked].sort((a, b) => b.demand - a.demand);
+    const roleBar = r => ({ title: r.title, w: r.demand + "%", src: r.source.signals?.cited?.[0] ? r.source.signals.cited[0].source + " · " + fmtMonth(r.source.signals.cited[0].date) : "No dated signal" });
+    const risingRoles = byDemand.filter(r => r.demand >= 50).slice(0, 5).map(roleBar);
+    const decliningRoles = byDemand.filter(r => r.demand < 50).reverse().slice(0, 5).map(roleBar);
+    const hasQuiz = !!st.profileDemo?.riasec;
+    return { ...out, ...startBindings, theme: st.theme, sdgReady: true, sdgTiles, sdgLinkedCount, radarUp, radarDn, radarUpdated, live: FEED[li], liveNext: [1, 2, 3].map(k => FEED[(li + k) % FEED.length]), liveProg: (((tk % CYC) + 1) / CYC * 100) + "%", clock, accent: this.props.accent ?? "violet", lbl: st.theme === "dark" ? "Light" : "Dark",
       toggle: () => this.setState(s => ({ theme: s.theme === "dark" ? "light" : "dark" })),
       langLbl: st.lang === "en" ? "EN | BM" : "BM | EN", toggleLang: () => this.setState(s => ({ lang: s.lang === "en" ? "ms" : "en" })),
-      goHome: () => this.go("home"), goIntake: () => this.go("intake"), goResults: () => this.go("results"), goPathway: () => this.go("pathway"), goSignals: () => this.go("signals"), goAbout: () => this.go("about"), goLogin: () => this.go("login"),
-      isLogin: st.auth === "login", isRegister: st.auth === "register",
-      setLogin: () => this.setState({ auth: "login" }), setRegister: () => this.setState({ auth: "register" }),
-      switchAuth: () => this.setState(s => ({ auth: s.auth === "login" ? "register" : "login" })),
-      loginBg: st.auth === "login" ? "var(--sf)" : "transparent", loginFg: st.auth === "login" ? "var(--ink)" : "var(--mu)",
-      regBg: st.auth === "register" ? "var(--sf)" : "transparent", regFg: st.auth === "register" ? "var(--ink)" : "var(--mu)",
-      authTitle: st.auth === "login" ? "Welcome back" : "Save your path",
-      authSub: st.auth === "login" ? "Log in to see your saved forecast and pathway." : "Create an account to keep your profile, track courses and get re-ranked as signals change.",
-      authCta: st.auth === "login" ? "Log in" : "Create account",
-      authSwitchText: st.auth === "login" ? "New to FuturePath?" : "Already have an account?",
-      authSwitchLink: st.auth === "login" ? "Create an account" : "Log in",
-      pwType: st.showPw ? "text" : "password", pwLbl: st.showPw ? "Hide" : "Show", togglePw: () => this.setState(s => ({ showPw: !s.showPw })),
-      ticker: [
-        { dir: "↑", t: "Solar installation roles and vocational teachers expected to grow", src: "WEF · Jan 2025", c: "var(--up)", bg: "var(--upbg)" },
-        { dir: "↓", t: "Data entry, secretarial and bookkeeping roles declining in every edition since 2016", src: "WEF · Jan 2025", c: "var(--dn)", bg: "var(--dnbg)" },
-        { dir: "↑", t: "Malaysia's green jobs expected to grow about tenfold by 2050, mostly in solar", src: "NETR · 2023", c: "var(--up)", bg: "var(--upbg)" },
-        { dir: "↑", t: "Care economy jobs expected to grow significantly as populations age", src: "WEF · Jan 2025", c: "var(--up)", bg: "var(--upbg)" }
-      ],
-      top4: ranked.slice(0, 4), rest: ranked.slice(4), count: ranked.length,
-      declining: DECL.map(r => ({ title: r.title, demand: st.fast ? r.fast : r.demand })),
+      goHome: () => this.go("home"), goStart: () => this.startOver(), goSignals: () => this.go("signals"), goAbout: () => this.go("about"),
+      go_start: () => this.startOver(),
+      feedLabel: st.liveSignals.length ? "LIVE " + "SIGNAL FEED" : "SAMPLE SIGNAL FEED",  // "live" only once real stored signals have loaded
+      sigTotal: st.liveSignals.length || "—", courseTotal: st.courseTotal || "—", sigNewWeek, sinceFetch,
+      showResults: st.page === "results" || (st.page === "start" && st.startStep === "results"),
+      resultsProfileName: st.profileDemo?.name || "My profile",
+      resultsStepper: ["Choose start", "Check profile", "Interest quiz", "Results"].map((label, i) => ({ label, mark: i < 3 ? "✓" : "4", line: i < 3,
+        c: i < 3 ? "var(--up)" : "var(--pr)", bg: i < 3 ? "var(--upbg)" : "var(--pr)", fg: i < 3 ? "var(--up)" : "var(--pri)" })),
+      startOver: () => this.startOver(),
+      hasOtherPeople: st.people.length > 1, personChips: st.people.map(x => { const on = x.id === (st.activeProfileId || "demo");
+        return { name: x.name, b: on ? "var(--pr)" : "var(--sf)", c: on ? "var(--pri)" : "var(--ink)", bd: on ? "var(--pr)" : "var(--ln)", open: () => this.switchPerson(x.id) }; }),
+      top4: ranked.slice(0, 4), rest: ranked.slice(4), count: ranked.length, risingRoles, decliningRoles, noDeclining: !decliningRoles.length,
       ws: st.ws, wd: st.wd, wsPct: Math.round(ws * 100), wdPct: Math.round(wd * 100),
       onWs: e => this.setState({ ws: +e.target.value, wd: 100 - (+e.target.value) }), onWd: e => this.setState({ wd: +e.target.value, ws: 100 - (+e.target.value) }),
-      reset: () => this.setState({ ws: 69, wd: 31, incDecl: false }),
-      incDecl: st.incDecl, toggleDecl: () => this.setState(s => ({ incDecl: !s.incDecl })),
+      reset: () => this.setState({ ws: 55, wd: 45 }),
+      noQuiz: !hasQuiz, takeQuiz: () => this.editProfile("quiz"),
+      interestNote: hasQuiz ? `Interest fit counts for 20%. Your strongest interests: ${st.profileDemo.riasec_code}.` : "Interest fit: Take the optional RIASEC interest quiz to add it.",
       setMod: () => this.setState({ fast: false }), setFast: () => this.setState({ fast: true }),
       modBg: m.bg, modFg: m.fg, fastBg: f2.bg, fastFg: f2.fg,
-      scenarioDesc: fpActiveView.assumption || 'Synthetic what-if assumptions from the backend; not labour-market forecasts.',
-      liveStatus: st.liveStatus === 'connected' ? 'Connected to Python matching engine · SYNTHETIC EVIDENCE' : (st.liveStatus === 'loading' ? 'Connecting to the matching engine…' : 'API ERROR: ' + st.liveError),
-      isLiveConnected: st.liveStatus === 'connected',
-      refreshLive: () => this.refreshLiveCareers(),
-      demoUserLabel: st.profileDemo?.user_type === 'professional' ? 'Professional demo profile' : 'Student demo profile',
-      scenarioSelectedCareer: fpActiveView.title,
-      scenarioSelectedMode: st.fast ? 'Rapid AI' : 'Moderate AI',
-      roleOptions: fpOptions,
-      changeScenarioRole: e => this.selectCareer(e.target.value),
-      selectedRole: st.selectedRole,
-      scenarioTasks: fpTasks,
-      scenarioMod: fpModView, scenarioRapid: fpRapidView,
-      hasScenario: !!(fpMod && fpRapid),
-      scenarioScoreDelta: (fpMod && fpRapid) ? (fpRapid.suitability - fpMod.suitability).toFixed(1) : '—',
-      activeScenarioAction: fpActiveView.recommended_action,
-      currentSnapshot: fpActive?.snapshot_id || '—',
-      pathTitle: fpActive?.title || 'Select a career on the Results page',
-      pathIntroduction: `Scenario: ${st.fast?'Rapid':'Moderate'} AI · Synthetic demo evidence · Ordered skill gaps`,
-      pathHours: '—', pathWeeks: '—', pathCost: 'Unknown',
-      pathNote: 'Resource links, course duration, fees, and qualification claims have not been verified. These are skill-learning priorities, not purchased courses.',
-
-      skills, skillCount: skills.length, signals, sigCount: signals.length,
-      fAll: () => this.setState({ sig: "all" }), fUp: () => this.setState({ sig: "up" }), fDn: () => this.setState({ sig: "dn" }),
-      fAllB: f("all").b, fAllC: f("all").c, fUpB: f("up").b, fUpC: f("up").c, fDnB: f("dn").b, fDnC: f("dn").c,
+      scenarioText: st.fast ? "AI adoption speeds up. Careers whose tasks are more exposed to AI have their demand shifted by up to 11 points; the others are unchanged."
+        : "AI adoption continues at roughly the pace employers reported in the WEF Future of Jobs Report 2025. Signals are used as they are.",
+      scenarioNote: st.fast ? "A modelling assumption chosen by the FuturePath team, not a forecast. Your skill match is unchanged." : "Baseline estimate, not a prediction.",
+      wcMoves, wcSummary, hasWcMoves: wcMoves.length > 0,
+      // Pathway (/pathway) for the selected career.
+      backToResults: () => { if (st.startStep === "results") { this.go("start"); } else { this.go("results"); } },
+      pathTitle: fpActive?.title || 'Choose a career on the results page',
+      pathIntroduction: `${st.fast ? 'Fast' : 'Moderate'} AI disruption · ${studyHours} h a week · free, low-cost and HRD Corp claimable courses`,
+      pathSdgs: (fpActive?.sdgs || []).map(n => ({ n, c: (typeof SDG !== 'undefined' && SDG[n]) || 'var(--pr)' })),
+      pathHours: pathHoursNum || '—', pathWeeks: pathHoursNum ? Math.ceil(pathHoursNum / studyHours) : '—',
+      pathCost: !pathCostSet.size ? '—' : pathCostSet.has('Free') && pathCostSet.size === 1 ? 'Free' : [...pathCostSet].some(c => c.startsWith('HRD')) ? 'HRD Corp' : 'Low cost',
+      pathCostNote: !pathChecked.length ? 'No checked course yet' : 'Checked ' + fpDay(pathChecked[0]) + (pathChecked.length > 1 ? ' – ' + fpDay(pathChecked[pathChecked.length - 1]) : ''),
+      pathMissingText: pathMissing.length ? `No checked course yet for: ${pathMissing.join(', ')}.` : 'Every step has a checked course.',
+      pathNote: 'Course titles, costs, hours and links were read from each provider\'s page on the date shown with each course. HRD Corp approval is per run, so confirm before applying. Weeks assume your study hours per week.',
       steps: fpSteps,
-      weeks: [1, 2, 3, 4, 5, 6].map(w => ({ w, bg: w <= 4 ? (w <= 2 ? "var(--pr)" : "color-mix(in oklch, var(--pr) 60%, var(--sf))") : (w <= 7 ? "var(--sky)" : "var(--up)") }))
+      weeks: [1, 2, 3, 4, 5, 6].map(w => ({ w, bg: w <= 4 ? (w <= 2 ? "var(--pr)" : "color-mix(in oklch, var(--pr) 60%, var(--sf))") : (w <= 7 ? "var(--sky)" : "var(--up)") })),
+      // Signals page.
+      signals, sigCount: signals.length, sigUpdated, sigLastRun, sigLastRunC, sigFeeds,
+      refreshSignals: () => this.refreshSignals(), refreshLbl: st.refreshing ? "Refreshing…" : "Refresh signals", refreshMsg: st.refreshMsg, hasRefreshMsg: !!st.refreshMsg,
+      fAll: () => this.setState({ sig: "all" }), fUp: () => this.setState({ sig: "up" }), fDn: () => this.setState({ sig: "dn" }),
+      fAllB: f("all").b, fAllC: f("all").c, fUpB: f("up").b, fUpC: f("up").c, fDnB: f("dn").b, fDnC: f("dn").c
     };
   }
 }

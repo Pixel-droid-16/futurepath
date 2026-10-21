@@ -1,12 +1,20 @@
-    const SIG = [
-      { up: true, t: "Solar installation roles and vocational teachers expected to grow", src: "WEF Future of Jobs Report 2025 · Jan 2025", type: "Report", tag: "Curated & verified", s: 4, roles: "Solar PV Installation & Systems Technician, Vocational & Digital Skills Trainer" },
-      { up: false, t: "Data entry, secretarial and bookkeeping roles declining in every edition since 2016", src: "WEF Future of Jobs Report 2025 · Jan 2025", type: "Report", tag: "Curated & verified", s: 5, roles: "Data Entry Clerk, Administrative Assistant / Executive Secretary" },
-      { up: true, t: "Malaysia launches National AI Office to coordinate AI adoption, governance and talent", src: "Google News · Dec 2024", type: "News", tag: "Tagged by Claude", s: 3, roles: "Responsible AI & Governance Specialist" },
-      { up: true, t: "Anthropic Economic Index: learning-focused AI conversations rising", src: "Anthropic Economic Index · Sep 2025", type: "Dataset", tag: "Keyword fallback", s: 2, roles: "Vocational & Digital Skills Trainer" }
-    ];
-    const tagC = { "Curated & verified": ["var(--upbg)", "var(--up)"], "Tagged by Claude": ["var(--soft)", "var(--pr)"], "Keyword fallback": ["var(--sf2)", "var(--mu)"] };
-    const signals = SIG.filter(x => st.sig === "all" || (st.sig === "up") === x.up).map(x => ({ ...x,
-      dir: x.up ? "↑ Emerging" : "↓ Declining", dc: x.up ? "var(--sky)" : "var(--dn)", db: x.up ? "var(--skybg)" : "var(--dnbg)",
-      tb: tagC[x.tag][0], tc: tagC[x.tag][1], dots: "●".repeat(x.s) + "○".repeat(5 - x.s) }));
+    // Signals page: stored trend signals from /api/signals (curated reports + refreshed feeds), newest first.
+    const TAG = { curated: ["Curated & verified", "var(--upbg)", "var(--up)"], claude: ["Tagged by Claude", "var(--soft)", "var(--pr)"], keyword: ["Keyword fallback", "var(--sf2)", "var(--mu)"] };
+    const fmtDate = d => { try { return new Date(d + (d.length === 10 ? "T00:00:00" : "")).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" }); } catch (e) { return d; } };
+    const signals = st.liveSignals.filter(x => st.sig === "all" || (st.sig === "up") === (x.direction === "emerging")).map(x => { const tag = TAG[x.tagged_by] || TAG.keyword;
+      return { t: x.title, summary: x.summary === x.title ? "" : x.summary, url: x.url, type: x.source_type[0].toUpperCase() + x.source_type.slice(1),
+        dir: x.direction === "emerging" ? "↑ Emerging" : "↓ Declining", dc: x.direction === "emerging" ? "var(--sky)" : "var(--dn)", db: x.direction === "emerging" ? "var(--skybg)" : "var(--dnbg)",
+        tag: tag[0], tb: tag[1], tc: tag[2], dots: "●".repeat(x.strength) + "○".repeat(5 - x.strength),
+        roles: x.role_titles.length ? x.role_titles.join(", ") : (x.skill_ids.length ? "Linked through skills only" : "General context"),
+        src: x.source_name + " · " + new Date(x.published_date + "T00:00:00").toLocaleDateString("en-GB", { month: "short", year: "numeric" }) }; });
     const f = k => st.sig === k ? { b: "var(--pr)", c: "var(--pri)" } : { b: "var(--sf)", c: "var(--ink)" };
-    
+    const lastRun = st.signalRuns[0];
+    const sigUpdated = st.liveSignals.length ? fmtDate(st.liveSignals.map(x => x.fetched_at).sort().slice(-1)[0]) : "—";
+    const sigLastRun = lastRun ? (lastRun.status === "ok" ? "● OK" : lastRun.status === "running" ? "● Running" : "● " + lastRun.status[0].toUpperCase() + lastRun.status.slice(1)) + " · " + lastRun.accepted + " accepted · " + fmtDate((lastRun.finished_at || lastRun.started_at).slice(0, 10)) : "Not refreshed yet";
+    const sigLastRunC = !lastRun ? "var(--mu)" : lastRun.status === "ok" ? "var(--up)" : lastRun.status === "failed" ? "var(--dn)" : "var(--am)";
+    const sigFeeds = lastRun ? lastRun.feeds.map(x => ({ name: x.name, state: x.ok ? x.items + " items" : "failed: " + (x.error || "error"), c: x.ok ? "var(--mu)" : "var(--dn)" })) : [];
+    // What changed (Results): the latest refresh's effect on the current profile's ranking.
+    const wc = st.whatChanged;
+    const wcMoves = (wc?.moves || []).slice(0, 3).map(m => ({ text: m.after_rank < m.before_rank ? `${m.title} moved up from #${m.before_rank} to #${m.after_rank}` : m.after_rank > m.before_rank ? `${m.title} moved down from #${m.before_rank} to #${m.after_rank}` : `${m.title} stayed at #${m.after_rank}`,
+      why: `Trends ${m.before_trend} → ${m.after_trend} from ${m.new_signals} new signal${m.new_signals === 1 ? "" : "s"}` }));
+    const wcSummary = wc?.has_change ? `${wc.new_signal_count} new signals from the refresh on ${fmtDate((wc.run.finished_at || wc.run.started_at).slice(0, 10))}.` : "No earlier ranking to compare yet. When new signals arrive, changes to your ranking will show here.";
