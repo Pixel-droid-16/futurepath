@@ -1,0 +1,635 @@
+[
+  {
+    "id": "SK001",
+    "name": "SQL querying",
+    "category": "technical",
+    "aliases": [
+      "SQL",
+      "Structured Query Language"
+    ]
+  },
+  {
+    "id": "SK002",
+    "name": "Statistics",
+    "category": "analytical",
+    "aliases": [
+      "statistical analysis"
+    ]
+  },
+  {
+    "id": "SK003",
+    "name": "Data cleaning",
+    "category": "analytical",
+    "aliases": [
+      "data preprocessing"
+    ]
+  },
+  {
+    "id": "SK004",
+    "name": "Data visualisation",
+    "category": "technical",
+    "aliases": [
+      "data visualization",
+      "Power BI",
+      "Tableau"
+    ]
+  },
+  {
+    "id": "SK005",
+    "name": "Python programming",
+    "category": "technical",
+    "aliases": [
+      "Python"
+    ]
+  },
+  {
+    "id": "SK006",
+    "name": "Data modelling",
+    "category": "technical",
+    "aliases": [
+      "data modeling"
+    ]
+  },
+  {
+    "id": "SK007",
+    "name": "Communication",
+    "category": "transferable",
+    "aliases": [
+      "presentation",
+      "communication skills"
+    ]
+  },
+  {
+    "id": "SK008",
+    "name": "Business analysis",
+    "category": "domain",
+    "aliases": [
+      "business understanding"
+    ]
+  },
+  {
+    "id": "SK009",
+    "name": "AI output validation",
+    "category": "ai",
+    "aliases": [
+      "AI verification"
+    ]
+  },
+  {
+    "id": "SK010",
+    "name": "Network security",
+    "category": "technical",
+    "aliases": [
+      "network defense"
+    ]
+  },
+  {
+    "id": "SK011",
+    "name": "Security fundamentals",
+    "category": "technical",
+    "aliases": [
+      "cybersecurity foundations"
+    ]
+  },
+  {
+    "id": "SK012",
+    "name": "Incident response",
+    "category": "technical",
+    "aliases": [
+      "security incident handling"
+    ]
+  },
+  {
+    "id": "SK013",
+    "name": "Threat analysis",
+    "category": "analytical",
+    "aliases": [
+      "threat intelligence"
+    ]
+  },
+  {
+    "id": "SK014",
+    "name": "SIEM operations",
+    "category": "technical",
+    "aliases": [
+      "SIEM"
+    ]
+  },
+  {
+    "id": "SK015",
+    "name": "Scripting",
+    "category": "technical",
+    "aliases": [
+      "automation scripting"
+    ]
+  },
+  {
+    "id": "SK016",
+    "name": "Risk assessment",
+    "category": "analytical",
+    "aliases": [
+      "risk analysis"
+    ]
+  },
+  {
+    "id": "SK017",
+    "name": "AI security awareness",
+    "category": "ai",
+    "aliases": [
+      "AI threat detection"
+    ]
+  },
+  {
+    "id": "SK018",
+    "name": "Financial modelling",
+    "category": "domain",
+    "aliases": [
+      "financial modeling"
+    ]
+  },
+  {
+    "id": "SK019",
+    "name": "Accounting fundamentals",
+    "category": "domain",
+    "aliases": [
+      "accounting"
+    ]
+  },
+  {
+    "id": "SK020",
+    "name": "Spreadsheet analysis",
+    "category": "technical",
+    "aliases": [
+      "Excel",
+      "spreadsheets"
+    ]
+  },
+  {
+    "id": "SK021",
+    "name": "Financial reporting",
+    "category": "domain",
+    "aliases": [
+      "financial statements"
+    ]
+  },
+  {
+    "id": "SK022",
+    "name": "Forecasting",
+    "category": "analytical",
+    "aliases": [
+      "forecast analysis"
+    ]
+  },
+  {
+    "id": "SK023",
+    "name": "Financial regulation awareness",
+    "category": "domain",
+    "aliases": [
+      "finance compliance"
+    ]
+  },
+  {
+    "id": "SK024",
+    "name": "Stakeholder communication",
+    "category": "transferable",
+    "aliases": [
+      "stakeholder engagement"
+    ]
+  },
+  {
+    "id": "SK025",
+    "name": "Data warehousing",
+    "category": "technical",
+    "aliases": [
+      "data warehouse"
+    ]
+  },
+  {
+    "id": "SK026",
+    "name": "ETL pipelines",
+    "category": "technical",
+    "aliases": [
+      "ETL"
+    ]
+  },
+  {
+    "id": "SK027",
+    "name": "Dashboard design",
+    "category": "technical",
+    "aliases": [
+      "BI dashboard"
+    ]
+  },
+  {
+    "id": "SK028",
+    "name": "KPI design",
+    "category": "analytical",
+    "aliases": [
+      "performance metrics"
+    ]
+  },
+  {
+    "id": "SK029",
+    "name": "Requirements gathering",
+    "category": "transferable",
+    "aliases": [
+      "requirements analysis"
+    ]
+  },
+  {
+    "id": "SK030",
+    "name": "Health information systems",
+    "category": "domain",
+    "aliases": [
+      "health IT",
+      "EHR"
+    ]
+  },
+  {
+    "id": "SK031",
+    "name": "Health data governance",
+    "category": "domain",
+    "aliases": [
+      "health information governance"
+    ]
+  },
+  {
+    "id": "SK032",
+    "name": "Healthcare workflows",
+    "category": "domain",
+    "aliases": [
+      "clinical workflows"
+    ]
+  },
+  {
+    "id": "SK033",
+    "name": "Interoperability standards",
+    "category": "domain",
+    "aliases": [
+      "HL7",
+      "FHIR"
+    ]
+  },
+  {
+    "id": "SK034",
+    "name": "Data privacy",
+    "category": "domain",
+    "aliases": [
+      "privacy protection"
+    ]
+  },
+  {
+    "id": "SK035",
+    "name": "Clinical terminology",
+    "category": "domain",
+    "aliases": [
+      "clinical coding"
+    ]
+  },
+  {
+    "id": "SK036",
+    "name": "Clinical research protocols",
+    "category": "domain",
+    "aliases": [
+      "study protocols"
+    ]
+  },
+  {
+    "id": "SK037",
+    "name": "Research ethics",
+    "category": "domain",
+    "aliases": [
+      "research ethics and consent"
+    ]
+  },
+  {
+    "id": "SK038",
+    "name": "Clinical documentation",
+    "category": "domain",
+    "aliases": [
+      "trial documentation"
+    ]
+  },
+  {
+    "id": "SK039",
+    "name": "Research data management",
+    "category": "analytical",
+    "aliases": [
+      "study data management"
+    ]
+  },
+  {
+    "id": "SK040",
+    "name": "Participant coordination",
+    "category": "transferable",
+    "aliases": [
+      "trial coordination"
+    ]
+  },
+  {
+    "id": "SK041",
+    "name": "Good Clinical Practice",
+    "category": "domain",
+    "aliases": [
+      "GCP"
+    ]
+  },
+  {
+    "id": "SK042",
+    "name": "Study monitoring",
+    "category": "analytical",
+    "aliases": [
+      "clinical study monitoring"
+    ]
+  },
+  {
+    "id": "SK043",
+    "name": "Sustainability reporting",
+    "category": "domain",
+    "aliases": [
+      "ESG reporting"
+    ]
+  },
+  {
+    "id": "SK044",
+    "name": "Environmental metrics",
+    "category": "domain",
+    "aliases": [
+      "environmental measurement"
+    ]
+  },
+  {
+    "id": "SK045",
+    "name": "Carbon accounting",
+    "category": "domain",
+    "aliases": [
+      "GHG accounting"
+    ]
+  },
+  {
+    "id": "SK046",
+    "name": "Environmental regulation awareness",
+    "category": "domain",
+    "aliases": [
+      "environmental compliance"
+    ]
+  },
+  {
+    "id": "SK047",
+    "name": "Lifecycle assessment",
+    "category": "analytical",
+    "aliases": [
+      "LCA"
+    ]
+  },
+  {
+    "id": "SK048",
+    "name": "Energy systems",
+    "category": "engineering",
+    "aliases": [
+      "renewable energy systems"
+    ]
+  },
+  {
+    "id": "SK049",
+    "name": "Electrical engineering fundamentals",
+    "category": "engineering",
+    "aliases": [
+      "electrical engineering"
+    ]
+  },
+  {
+    "id": "SK050",
+    "name": "Technical design",
+    "category": "engineering",
+    "aliases": [
+      "engineering design"
+    ]
+  },
+  {
+    "id": "SK051",
+    "name": "Energy simulation",
+    "category": "technical",
+    "aliases": [
+      "power simulation"
+    ]
+  },
+  {
+    "id": "SK052",
+    "name": "Grid integration",
+    "category": "engineering",
+    "aliases": [
+      "power grid integration"
+    ]
+  },
+  {
+    "id": "SK053",
+    "name": "Engineering safety",
+    "category": "engineering",
+    "aliases": [
+      "safety engineering"
+    ]
+  },
+  {
+    "id": "SK054",
+    "name": "Control systems",
+    "category": "engineering",
+    "aliases": [
+      "industrial controls"
+    ]
+  },
+  {
+    "id": "SK055",
+    "name": "PLC programming",
+    "category": "engineering",
+    "aliases": [
+      "PLC"
+    ]
+  },
+  {
+    "id": "SK056",
+    "name": "Industrial automation",
+    "category": "engineering",
+    "aliases": [
+      "factory automation"
+    ]
+  },
+  {
+    "id": "SK057",
+    "name": "Robotics fundamentals",
+    "category": "engineering",
+    "aliases": [
+      "industrial robotics"
+    ]
+  },
+  {
+    "id": "SK058",
+    "name": "Equipment troubleshooting",
+    "category": "engineering",
+    "aliases": [
+      "maintenance troubleshooting"
+    ]
+  },
+  {
+    "id": "SK059",
+    "name": "Quality management systems",
+    "category": "engineering",
+    "aliases": [
+      "QMS",
+      "ISO 9001"
+    ]
+  },
+  {
+    "id": "SK060",
+    "name": "Root cause analysis",
+    "category": "analytical",
+    "aliases": [
+      "RCA"
+    ]
+  },
+  {
+    "id": "SK061",
+    "name": "Testing methodology",
+    "category": "engineering",
+    "aliases": [
+      "test planning"
+    ]
+  },
+  {
+    "id": "SK062",
+    "name": "Statistical process control",
+    "category": "analytical",
+    "aliases": [
+      "SPC"
+    ]
+  },
+  {
+    "id": "SK063",
+    "name": "Process improvement",
+    "category": "engineering",
+    "aliases": [
+      "continuous improvement"
+    ]
+  },
+  {
+    "id": "SK064",
+    "name": "Inspection automation",
+    "category": "ai",
+    "aliases": [
+      "AI inspection"
+    ]
+  },
+  {
+    "id": "SK065",
+    "name": "Learning design",
+    "category": "domain",
+    "aliases": [
+      "instructional design"
+    ]
+  },
+  {
+    "id": "SK066",
+    "name": "Assessment design",
+    "category": "domain",
+    "aliases": [
+      "learning assessment"
+    ]
+  },
+  {
+    "id": "SK067",
+    "name": "Content development",
+    "category": "domain",
+    "aliases": [
+      "educational content"
+    ]
+  },
+  {
+    "id": "SK068",
+    "name": "Learning technologies",
+    "category": "technical",
+    "aliases": [
+      "LMS"
+    ]
+  },
+  {
+    "id": "SK069",
+    "name": "Accessibility design",
+    "category": "transferable",
+    "aliases": [
+      "inclusive design"
+    ]
+  },
+  {
+    "id": "SK070",
+    "name": "Learning analytics",
+    "category": "analytical",
+    "aliases": [
+      "education analytics"
+    ]
+  },
+  {
+    "id": "SK071",
+    "name": "User research",
+    "category": "analytical",
+    "aliases": [
+      "UX research"
+    ]
+  },
+  {
+    "id": "SK072",
+    "name": "Interaction design",
+    "category": "domain",
+    "aliases": [
+      "UX design"
+    ]
+  },
+  {
+    "id": "SK073",
+    "name": "Prototyping",
+    "category": "technical",
+    "aliases": [
+      "Figma",
+      "wireframing"
+    ]
+  },
+  {
+    "id": "SK074",
+    "name": "Usability testing",
+    "category": "analytical",
+    "aliases": [
+      "usability research"
+    ]
+  },
+  {
+    "id": "SK075",
+    "name": "Information architecture",
+    "category": "domain",
+    "aliases": [
+      "IA"
+    ]
+  },
+  {
+    "id": "SK076",
+    "name": "Visual design",
+    "category": "domain",
+    "aliases": [
+      "interface design"
+    ]
+  },
+  {
+    "id": "SK077",
+    "name": "AI literacy",
+    "category": "ai",
+    "aliases": [
+      "generative AI literacy"
+    ]
+  },
+  {
+    "id": "SK078",
+    "name": "Project management",
+    "category": "transferable",
+    "aliases": [
+      "project planning"
+    ]
+  }
+]

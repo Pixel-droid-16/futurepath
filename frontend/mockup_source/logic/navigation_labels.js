@@ -1,0 +1,2 @@
+const PAGES = ["home","intake","results","pathway","signals","about","login"];
+const T = { en: { home: "Home", intake: "Start", results: "Results", pathway: "Pathway", signals: "Signals", about: "About", login: "Log in", cta: "Start free →" }, ms: { home: "Utama", intake: "Mula", results: "Keputusan", pathway: "Laluan", signals: "Isyarat", about: "Perihal", login: "Log masuk", cta: "Mula percuma →" } };

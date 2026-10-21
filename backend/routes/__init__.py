@@ -1,0 +1,1 @@
+"""FuturePath routes package."""

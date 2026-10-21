@@ -1,0 +1,48 @@
+[
+  {
+    "id": "S1",
+    "status": "published",
+    "observed_period": "SYNTHETIC DEMONSTRATION PERIOD",
+    "country": "Malaysia (fictional demo)",
+    "source": "SYNTHETIC ONLY - not observed labour-market data",
+    "quality": "demo only",
+    "role_trend": {
+      "data-analyst": 68,
+      "cybersecurity-analyst": 75,
+      "financial-analyst": 82,
+      "bi-analyst": 89,
+      "health-informatics": 71,
+      "clinical-research": 78,
+      "sustainability-analyst": 85,
+      "renewable-engineer": 92,
+      "automation-engineer": 74,
+      "quality-engineer": 81,
+      "instructional-designer": 88,
+      "ux-designer": 70
+    },
+    "notes": "Prepared snapshot for illustrating the curator approval and refresh workflow. NOT real evidence."
+  },
+  {
+    "id": "S2",
+    "status": "draft",
+    "observed_period": "SYNTHETIC DEMONSTRATION PERIOD",
+    "country": "Malaysia (fictional demo)",
+    "source": "SYNTHETIC ONLY - not observed labour-market data",
+    "quality": "demo only",
+    "role_trend": {
+      "data-analyst": 76,
+      "cybersecurity-analyst": 83,
+      "financial-analyst": 83,
+      "bi-analyst": 86,
+      "health-informatics": 72,
+      "clinical-research": 79,
+      "sustainability-analyst": 93,
+      "renewable-engineer": 93,
+      "automation-engineer": 75,
+      "quality-engineer": 78,
+      "instructional-designer": 89,
+      "ux-designer": 71
+    },
+    "notes": "Prepared snapshot for illustrating the curator approval and refresh workflow. NOT real evidence."
+  }
+]

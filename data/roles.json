@@ -1,0 +1,809 @@
+[
+  {
+    "id": "data-analyst",
+    "title": "Data Analyst",
+    "sector": "Technology & AI",
+    "skills": [
+      {
+        "skill_id": "SK001",
+        "required": 4,
+        "importance": 3,
+        "category": "essential"
+      },
+      {
+        "skill_id": "SK002",
+        "required": 3,
+        "importance": 3,
+        "category": "essential"
+      },
+      {
+        "skill_id": "SK003",
+        "required": 4,
+        "importance": 3,
+        "category": "essential"
+      },
+      {
+        "skill_id": "SK004",
+        "required": 3,
+        "importance": 3,
+        "category": "essential"
+      },
+      {
+        "skill_id": "SK005",
+        "required": 3,
+        "importance": 2,
+        "category": "supporting"
+      },
+      {
+        "skill_id": "SK006",
+        "required": 3,
+        "importance": 2,
+        "category": "supporting"
+      },
+      {
+        "skill_id": "SK007",
+        "required": 3,
+        "importance": 2,
+        "category": "supporting"
+      },
+      {
+        "skill_id": "SK008",
+        "required": 3,
+        "importance": 2,
+        "category": "supporting"
+      },
+      {
+        "skill_id": "SK009",
+        "required": 2,
+        "importance": 1,
+        "category": "emerging"
+      }
+    ],
+    "sdgs": [
+      8
+    ],
+    "description": "Data Analyst applies specialised knowledge and transferable capabilities to solve practical sector challenges.",
+    "sdg_justification": "Illustrative connection to SDG 8; assess real work outcomes before claiming impact.",
+    "qualification_note": "Check country-specific legal and employer requirements; this demo does not verify professional eligibility."
+  },
+  {
+    "id": "cybersecurity-analyst",
+    "title": "Cybersecurity Analyst",
+    "sector": "Technology & AI",
+    "skills": [
+      {
+        "skill_id": "SK010",
+        "required": 4,
+        "importance": 3,
+        "category": "essential"
+      },
+      {
+        "skill_id": "SK011",
+        "required": 4,
+        "importance": 3,
+        "category": "essential"
+      },
+      {
+        "skill_id": "SK012",
+        "required": 3,
+        "importance": 3,
+        "category": "essential"
+      },
+      {
+        "skill_id": "SK013",
+        "required": 3,
+        "importance": 3,
+        "category": "essential"
+      },
+      {
+        "skill_id": "SK014",
+        "required": 3,
+        "importance": 2,
+        "category": "supporting"
+      },
+      {
+        "skill_id": "SK015",
+        "required": 2,
+        "importance": 2,
+        "category": "supporting"
+      },
+      {
+        "skill_id": "SK016",
+        "required": 3,
+        "importance": 2,
+        "category": "supporting"
+      },
+      {
+        "skill_id": "SK007",
+        "required": 3,
+        "importance": 2,
+        "category": "supporting"
+      },
+      {
+        "skill_id": "SK017",
+        "required": 2,
+        "importance": 1,
+        "category": "emerging"
+      }
+    ],
+    "sdgs": [
+      9
+    ],
+    "description": "Cybersecurity Analyst applies specialised knowledge and transferable capabilities to solve practical sector challenges.",
+    "sdg_justification": "Illustrative connection to SDG 9; assess real work outcomes before claiming impact.",
+    "qualification_note": "Check country-specific legal and employer requirements; this demo does not verify professional eligibility."
+  },
+  {
+    "id": "financial-analyst",
+    "title": "Financial Analyst",
+    "sector": "Business & Finance",
+    "skills": [
+      {
+        "skill_id": "SK018",
+        "required": 4,
+        "importance": 3,
+        "category": "essential"
+      },
+      {
+        "skill_id": "SK019",
+        "required": 4,
+        "importance": 3,
+        "category": "essential"
+      },
+      {
+        "skill_id": "SK020",
+        "required": 4,
+        "importance": 3,
+        "category": "essential"
+      },
+      {
+        "skill_id": "SK021",
+        "required": 3,
+        "importance": 3,
+        "category": "essential"
+      },
+      {
+        "skill_id": "SK022",
+        "required": 3,
+        "importance": 2,
+        "category": "supporting"
+      },
+      {
+        "skill_id": "SK002",
+        "required": 3,
+        "importance": 2,
+        "category": "supporting"
+      },
+      {
+        "skill_id": "SK007",
+        "required": 3,
+        "importance": 2,
+        "category": "supporting"
+      },
+      {
+        "skill_id": "SK023",
+        "required": 2,
+        "importance": 2,
+        "category": "supporting"
+      },
+      {
+        "skill_id": "SK009",
+        "required": 2,
+        "importance": 1,
+        "category": "emerging"
+      }
+    ],
+    "sdgs": [
+      8
+    ],
+    "description": "Financial Analyst applies specialised knowledge and transferable capabilities to solve practical sector challenges.",
+    "sdg_justification": "Illustrative connection to SDG 8; assess real work outcomes before claiming impact.",
+    "qualification_note": "Check country-specific legal and employer requirements; this demo does not verify professional eligibility."
+  },
+  {
+    "id": "bi-analyst",
+    "title": "Business Intelligence Analyst",
+    "sector": "Business & Finance",
+    "skills": [
+      {
+        "skill_id": "SK001",
+        "required": 4,
+        "importance": 3,
+        "category": "essential"
+      },
+      {
+        "skill_id": "SK025",
+        "required": 3,
+        "importance": 3,
+        "category": "essential"
+      },
+      {
+        "skill_id": "SK026",
+        "required": 3,
+        "importance": 3,
+        "category": "essential"
+      },
+      {
+        "skill_id": "SK027",
+        "required": 4,
+        "importance": 3,
+        "category": "essential"
+      },
+      {
+        "skill_id": "SK028",
+        "required": 3,
+        "importance": 2,
+        "category": "supporting"
+      },
+      {
+        "skill_id": "SK029",
+        "required": 3,
+        "importance": 2,
+        "category": "supporting"
+      },
+      {
+        "skill_id": "SK002",
+        "required": 3,
+        "importance": 2,
+        "category": "supporting"
+      },
+      {
+        "skill_id": "SK007",
+        "required": 3,
+        "importance": 2,
+        "category": "supporting"
+      },
+      {
+        "skill_id": "SK009",
+        "required": 2,
+        "importance": 1,
+        "category": "emerging"
+      }
+    ],
+    "sdgs": [
+      9
+    ],
+    "description": "Business Intelligence Analyst applies specialised knowledge and transferable capabilities to solve practical sector challenges.",
+    "sdg_justification": "Illustrative connection to SDG 9; assess real work outcomes before claiming impact.",
+    "qualification_note": "Check country-specific legal and employer requirements; this demo does not verify professional eligibility."
+  },
+  {
+    "id": "health-informatics",
+    "title": "Health Informatics Specialist",
+    "sector": "Healthcare & Life Sciences",
+    "skills": [
+      {
+        "skill_id": "SK030",
+        "required": 4,
+        "importance": 3,
+        "category": "essential"
+      },
+      {
+        "skill_id": "SK031",
+        "required": 4,
+        "importance": 3,
+        "category": "essential"
+      },
+      {
+        "skill_id": "SK032",
+        "required": 3,
+        "importance": 3,
+        "category": "essential"
+      },
+      {
+        "skill_id": "SK001",
+        "required": 3,
+        "importance": 3,
+        "category": "essential"
+      },
+      {
+        "skill_id": "SK034",
+        "required": 4,
+        "importance": 2,
+        "category": "supporting"
+      },
+      {
+        "skill_id": "SK033",
+        "required": 3,
+        "importance": 2,
+        "category": "supporting"
+      },
+      {
+        "skill_id": "SK035",
+        "required": 3,
+        "importance": 2,
+        "category": "supporting"
+      },
+      {
+        "skill_id": "SK004",
+        "required": 3,
+        "importance": 2,
+        "category": "supporting"
+      },
+      {
+        "skill_id": "SK009",
+        "required": 2,
+        "importance": 1,
+        "category": "emerging"
+      }
+    ],
+    "sdgs": [
+      3
+    ],
+    "description": "Health Informatics Specialist applies specialised knowledge and transferable capabilities to solve practical sector challenges.",
+    "sdg_justification": "Illustrative connection to SDG 3; assess real work outcomes before claiming impact.",
+    "qualification_note": "Check country-specific legal and employer requirements; this demo does not verify professional eligibility."
+  },
+  {
+    "id": "clinical-research",
+    "title": "Clinical Research Coordinator",
+    "sector": "Healthcare & Life Sciences",
+    "skills": [
+      {
+        "skill_id": "SK036",
+        "required": 4,
+        "importance": 3,
+        "category": "essential"
+      },
+      {
+        "skill_id": "SK037",
+        "required": 4,
+        "importance": 3,
+        "category": "essential"
+      },
+      {
+        "skill_id": "SK038",
+        "required": 4,
+        "importance": 3,
+        "category": "essential"
+      },
+      {
+        "skill_id": "SK039",
+        "required": 3,
+        "importance": 3,
+        "category": "essential"
+      },
+      {
+        "skill_id": "SK040",
+        "required": 3,
+        "importance": 2,
+        "category": "supporting"
+      },
+      {
+        "skill_id": "SK041",
+        "required": 4,
+        "importance": 2,
+        "category": "supporting"
+      },
+      {
+        "skill_id": "SK042",
+        "required": 3,
+        "importance": 2,
+        "category": "supporting"
+      },
+      {
+        "skill_id": "SK007",
+        "required": 3,
+        "importance": 2,
+        "category": "supporting"
+      },
+      {
+        "skill_id": "SK077",
+        "required": 2,
+        "importance": 1,
+        "category": "emerging"
+      }
+    ],
+    "sdgs": [
+      3
+    ],
+    "description": "Clinical Research Coordinator applies specialised knowledge and transferable capabilities to solve practical sector challenges.",
+    "sdg_justification": "Illustrative connection to SDG 3; assess real work outcomes before claiming impact.",
+    "qualification_note": "Check country-specific legal and employer requirements; this demo does not verify professional eligibility."
+  },
+  {
+    "id": "sustainability-analyst",
+    "title": "Sustainability Analyst",
+    "sector": "Sustainability & Green Economy",
+    "skills": [
+      {
+        "skill_id": "SK043",
+        "required": 4,
+        "importance": 3,
+        "category": "essential"
+      },
+      {
+        "skill_id": "SK044",
+        "required": 3,
+        "importance": 3,
+        "category": "essential"
+      },
+      {
+        "skill_id": "SK045",
+        "required": 3,
+        "importance": 3,
+        "category": "essential"
+      },
+      {
+        "skill_id": "SK002",
+        "required": 3,
+        "importance": 3,
+        "category": "essential"
+      },
+      {
+        "skill_id": "SK004",
+        "required": 3,
+        "importance": 2,
+        "category": "supporting"
+      },
+      {
+        "skill_id": "SK046",
+        "required": 3,
+        "importance": 2,
+        "category": "supporting"
+      },
+      {
+        "skill_id": "SK047",
+        "required": 3,
+        "importance": 2,
+        "category": "supporting"
+      },
+      {
+        "skill_id": "SK007",
+        "required": 3,
+        "importance": 2,
+        "category": "supporting"
+      },
+      {
+        "skill_id": "SK077",
+        "required": 2,
+        "importance": 1,
+        "category": "emerging"
+      }
+    ],
+    "sdgs": [
+      12,
+      13
+    ],
+    "description": "Sustainability Analyst applies specialised knowledge and transferable capabilities to solve practical sector challenges.",
+    "sdg_justification": "Illustrative connection to SDG 12, 13; assess real work outcomes before claiming impact.",
+    "qualification_note": "Check country-specific legal and employer requirements; this demo does not verify professional eligibility."
+  },
+  {
+    "id": "renewable-engineer",
+    "title": "Renewable Energy Engineer",
+    "sector": "Sustainability & Green Economy",
+    "skills": [
+      {
+        "skill_id": "SK048",
+        "required": 4,
+        "importance": 3,
+        "category": "essential"
+      },
+      {
+        "skill_id": "SK049",
+        "required": 4,
+        "importance": 3,
+        "category": "essential"
+      },
+      {
+        "skill_id": "SK050",
+        "required": 4,
+        "importance": 3,
+        "category": "essential"
+      },
+      {
+        "skill_id": "SK051",
+        "required": 3,
+        "importance": 3,
+        "category": "essential"
+      },
+      {
+        "skill_id": "SK052",
+        "required": 3,
+        "importance": 2,
+        "category": "supporting"
+      },
+      {
+        "skill_id": "SK053",
+        "required": 4,
+        "importance": 2,
+        "category": "supporting"
+      },
+      {
+        "skill_id": "SK002",
+        "required": 3,
+        "importance": 2,
+        "category": "supporting"
+      },
+      {
+        "skill_id": "SK078",
+        "required": 3,
+        "importance": 2,
+        "category": "supporting"
+      },
+      {
+        "skill_id": "SK077",
+        "required": 2,
+        "importance": 1,
+        "category": "emerging"
+      }
+    ],
+    "sdgs": [
+      7,
+      13
+    ],
+    "description": "Renewable Energy Engineer applies specialised knowledge and transferable capabilities to solve practical sector challenges.",
+    "sdg_justification": "Illustrative connection to SDG 7, 13; assess real work outcomes before claiming impact.",
+    "qualification_note": "Check country-specific legal and employer requirements; this demo does not verify professional eligibility."
+  },
+  {
+    "id": "automation-engineer",
+    "title": "Automation Engineer",
+    "sector": "Engineering & Manufacturing",
+    "skills": [
+      {
+        "skill_id": "SK054",
+        "required": 4,
+        "importance": 3,
+        "category": "essential"
+      },
+      {
+        "skill_id": "SK055",
+        "required": 4,
+        "importance": 3,
+        "category": "essential"
+      },
+      {
+        "skill_id": "SK056",
+        "required": 4,
+        "importance": 3,
+        "category": "essential"
+      },
+      {
+        "skill_id": "SK057",
+        "required": 3,
+        "importance": 3,
+        "category": "essential"
+      },
+      {
+        "skill_id": "SK015",
+        "required": 3,
+        "importance": 2,
+        "category": "supporting"
+      },
+      {
+        "skill_id": "SK058",
+        "required": 3,
+        "importance": 2,
+        "category": "supporting"
+      },
+      {
+        "skill_id": "SK053",
+        "required": 4,
+        "importance": 2,
+        "category": "supporting"
+      },
+      {
+        "skill_id": "SK078",
+        "required": 3,
+        "importance": 2,
+        "category": "supporting"
+      },
+      {
+        "skill_id": "SK009",
+        "required": 2,
+        "importance": 1,
+        "category": "emerging"
+      }
+    ],
+    "sdgs": [
+      9
+    ],
+    "description": "Automation Engineer applies specialised knowledge and transferable capabilities to solve practical sector challenges.",
+    "sdg_justification": "Illustrative connection to SDG 9; assess real work outcomes before claiming impact.",
+    "qualification_note": "Check country-specific legal and employer requirements; this demo does not verify professional eligibility."
+  },
+  {
+    "id": "quality-engineer",
+    "title": "Quality Assurance Engineer",
+    "sector": "Engineering & Manufacturing",
+    "skills": [
+      {
+        "skill_id": "SK059",
+        "required": 4,
+        "importance": 3,
+        "category": "essential"
+      },
+      {
+        "skill_id": "SK060",
+        "required": 4,
+        "importance": 3,
+        "category": "essential"
+      },
+      {
+        "skill_id": "SK061",
+        "required": 4,
+        "importance": 3,
+        "category": "essential"
+      },
+      {
+        "skill_id": "SK062",
+        "required": 3,
+        "importance": 3,
+        "category": "essential"
+      },
+      {
+        "skill_id": "SK063",
+        "required": 3,
+        "importance": 2,
+        "category": "supporting"
+      },
+      {
+        "skill_id": "SK016",
+        "required": 3,
+        "importance": 2,
+        "category": "supporting"
+      },
+      {
+        "skill_id": "SK007",
+        "required": 3,
+        "importance": 2,
+        "category": "supporting"
+      },
+      {
+        "skill_id": "SK064",
+        "required": 2,
+        "importance": 2,
+        "category": "supporting"
+      },
+      {
+        "skill_id": "SK078",
+        "required": 3,
+        "importance": 1,
+        "category": "emerging"
+      }
+    ],
+    "sdgs": [
+      9,
+      12
+    ],
+    "description": "Quality Assurance Engineer applies specialised knowledge and transferable capabilities to solve practical sector challenges.",
+    "sdg_justification": "Illustrative connection to SDG 9, 12; assess real work outcomes before claiming impact.",
+    "qualification_note": "Check country-specific legal and employer requirements; this demo does not verify professional eligibility."
+  },
+  {
+    "id": "instructional-designer",
+    "title": "Instructional Designer",
+    "sector": "Education & Creative",
+    "skills": [
+      {
+        "skill_id": "SK065",
+        "required": 4,
+        "importance": 3,
+        "category": "essential"
+      },
+      {
+        "skill_id": "SK066",
+        "required": 4,
+        "importance": 3,
+        "category": "essential"
+      },
+      {
+        "skill_id": "SK067",
+        "required": 4,
+        "importance": 3,
+        "category": "essential"
+      },
+      {
+        "skill_id": "SK068",
+        "required": 3,
+        "importance": 3,
+        "category": "essential"
+      },
+      {
+        "skill_id": "SK069",
+        "required": 3,
+        "importance": 2,
+        "category": "supporting"
+      },
+      {
+        "skill_id": "SK070",
+        "required": 2,
+        "importance": 2,
+        "category": "supporting"
+      },
+      {
+        "skill_id": "SK007",
+        "required": 3,
+        "importance": 2,
+        "category": "supporting"
+      },
+      {
+        "skill_id": "SK078",
+        "required": 3,
+        "importance": 2,
+        "category": "supporting"
+      },
+      {
+        "skill_id": "SK077",
+        "required": 2,
+        "importance": 1,
+        "category": "emerging"
+      }
+    ],
+    "sdgs": [
+      4
+    ],
+    "description": "Instructional Designer applies specialised knowledge and transferable capabilities to solve practical sector challenges.",
+    "sdg_justification": "Illustrative connection to SDG 4; assess real work outcomes before claiming impact.",
+    "qualification_note": "Check country-specific legal and employer requirements; this demo does not verify professional eligibility."
+  },
+  {
+    "id": "ux-designer",
+    "title": "UX Designer",
+    "sector": "Education & Creative",
+    "skills": [
+      {
+        "skill_id": "SK071",
+        "required": 4,
+        "importance": 3,
+        "category": "essential"
+      },
+      {
+        "skill_id": "SK072",
+        "required": 4,
+        "importance": 3,
+        "category": "essential"
+      },
+      {
+        "skill_id": "SK073",
+        "required": 4,
+        "importance": 3,
+        "category": "essential"
+      },
+      {
+        "skill_id": "SK074",
+        "required": 3,
+        "importance": 3,
+        "category": "essential"
+      },
+      {
+        "skill_id": "SK075",
+        "required": 3,
+        "importance": 2,
+        "category": "supporting"
+      },
+      {
+        "skill_id": "SK076",
+        "required": 3,
+        "importance": 2,
+        "category": "supporting"
+      },
+      {
+        "skill_id": "SK069",
+        "required": 3,
+        "importance": 2,
+        "category": "supporting"
+      },
+      {
+        "skill_id": "SK007",
+        "required": 3,
+        "importance": 2,
+        "category": "supporting"
+      },
+      {
+        "skill_id": "SK077",
+        "required": 2,
+        "importance": 1,
+        "category": "emerging"
+      }
+    ],
+    "sdgs": [
+      10
+    ],
+    "description": "UX Designer applies specialised knowledge and transferable capabilities to solve practical sector challenges.",
+    "sdg_justification": "Illustrative connection to SDG 10; assess real work outcomes before claiming impact.",
+    "qualification_note": "Check country-specific legal and employer requirements; this demo does not verify professional eligibility."
+  }
+]
