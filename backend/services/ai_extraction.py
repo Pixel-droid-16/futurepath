@@ -11,9 +11,10 @@ def integration_status():
             'provider_order':['runpod','claude','dictionary'],
             'disclaimer':'Configured does not prove a successful API connection.'}
 
-async def extract_suggestions(content,provider,pdf=None):
+async def extract_suggestions(content,provider,pdf=None,pages=None):
     """Skill suggestions from CV text. With `pdf` (the uploaded file's bytes), Claude reads the PDF itself, so
-    scanned or multi-column CVs still work; RunPod and the dictionary only ever see the extracted text."""
+    scanned or multi-column CVs still work; `pages` is that PDF's per-page text layer, which Claude uses for
+    page-level evidence. RunPod and the dictionary only ever see the extracted text."""
     if provider not in ('auto','claude','runpod','dictionary'):
         raise HTTPException(400,'Unknown AI provider')
     choices=([provider] if provider!='auto' else ['runpod','claude','dictionary'])
@@ -32,7 +33,7 @@ async def extract_suggestions(content,provider,pdf=None):
             if choice=='runpod':
                 found={'candidates':await runpod_extract(content,SKILLS),'scanned':False}
             else:
-                found=await (claude_extract_pdf(pdf,content,SKILLS) if pdf else claude_extract(content,SKILLS))
+                found=await (claude_extract_pdf(pdf,pages,SKILLS) if pdf else claude_extract(content,SKILLS))
             return {'provider':choice,**found,'warnings':issues,'requires_confirmation':True,'stored':False}
         except (IntegrationError,ValueError,httpx.HTTPError) as e:
             issues.append(f'{choice}: '+str(e))

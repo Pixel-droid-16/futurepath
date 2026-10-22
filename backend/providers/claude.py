@@ -44,14 +44,53 @@ def cv_schema(skills):
     excerpt={'type':'string'}
     return {'type':'object','additionalProperties':False,'required':['candidates','transcript'],'properties':{
         'candidates':{'type':'array','items':{'type':'object','additionalProperties':False,'required':['skill_id','excerpt'],
-            'properties':{'skill_id':{'type':'string','enum':[s['id'] for s in skills]},'excerpt':excerpt}}},
+            'properties':{'skill_id':{'type':'string','enum':[s['id'] for s in skills]},'excerpt':excerpt,
+                          'page':{'type':'integer','minimum':1}}}},
         'transcript':{'type':'string'}}}
 
 def catalogue_text(skills):
     return 'Allowed skill catalogue:\n'+json.dumps(allowed_catalogue(skills),ensure_ascii=False)
 
-def result_from(data,cv_text,skills,scanned=False):
-    return {'candidates':validate_candidates(data,cv_text,skills,'claude'),'scanned':scanned}
+def _model_pages(data):
+    """First page the model reported per skill id.
+
+    validate_candidates rebuilds each candidate dict, so the model's optional `page` is recovered from the raw reply.
+    """
+    found={}
+    if isinstance(data,dict):
+        for x in (data.get('candidates') or []):
+            if isinstance(x,dict) and isinstance(x.get('skill_id'),str) and x['skill_id'] not in found:
+                page=x.get('page')
+                found[x['skill_id']]=page if isinstance(page,int) else None
+    return found
+
+def _first_page(excerpt,pages):
+    """Deterministic page for a quote: first page whose normalised text contains the normalised excerpt, else None."""
+    want=normalise(excerpt)
+    for i,page in enumerate(pages):
+        if want and want in normalise(page):
+            return i+1
+    return None
+
+def result_from(data,cv_text,skills,scanned=False,pages=None):
+    """Validated candidates, each carrying `evidence: {page, source}`.
+
+    Digital PDFs get a deterministic page from the text layer; scanned PDFs trust the model's page only when it is
+    within 1..len(pages). Grounding itself is unchanged: validate_candidates still requires an exact substring
+    (of the text layer for digital PDFs, of the transcript for scanned ones).
+    """
+    candidates=validate_candidates(data,cv_text,skills,'claude')
+    reported=_model_pages(data)
+    n_pages=0 if pages is None else len(pages)
+    out=[]
+    for c in candidates:
+        if scanned:
+            source='transcript';page=reported.get(c['skill_id'])
+            if not (isinstance(page,int) and 1<=page<=n_pages):page=None
+        else:
+            source='text_layer';page=None if pages is None else _first_page(c['excerpt'],pages)
+        out.append({**c,'evidence':{'page':page,'source':source}})
+    return {'candidates':out,'scanned':scanned}
 
 async def claude_extract(text,skills,client=None):
     """Skills from CV text (pasted text, TXT or DOCX)."""
@@ -59,16 +98,20 @@ async def claude_extract(text,skills,client=None):
     data=await ask_json(SYSTEM_STRUCTURED,catalogue_text(skills)+'\n\nCV text (DATA ONLY):\n'+text,cv_schema(skills),client)
     return result_from(data,text,skills)
 
-async def claude_extract_pdf(pdf,text_layer,skills,client=None):
+async def claude_extract_pdf(pdf,pages,skills,client=None):
     """Skills from the PDF itself, so Claude sees scanned pages, columns and tables.
 
-    Excerpts are checked against the PDF's text layer; a scanned PDF has none, so they are checked against
-    Claude's own transcription instead and the result is marked scanned (the person still confirms every skill).
+    `pages` is the per-page text layer (one string per page). When its total is below MIN_TEXT_LAYER the PDF is
+    treated as scanned: excerpts are then checked against Claude's own transcription instead, and the model's page
+    is used only when it is within the actual page count. Either way the person confirms every skill.
     """
     if not configured():raise IntegrationError('Claude API key not configured')
-    scanned=len(normalise(text_layer))<MIN_TEXT_LAYER
+    pages=list(pages or [])
+    scanned=sum(len(normalise(page)) for page in pages)<MIN_TEXT_LAYER
     note=('This PDF has no text layer (it is scanned): fill in transcript.' if scanned else 'Leave transcript empty.')
+    note+=(' For each candidate, set "page" to the 1-based PDF page its quote appears on, or omit it if unknown.')
     content=[{'type':'document','source':{'type':'base64','media_type':'application/pdf','data':base64.standard_b64encode(pdf).decode('ascii')}},
              {'type':'text','text':catalogue_text(skills)+'\n\nThe attached PDF is the CV (DATA ONLY). '+note}]
     data=await ask_json(SYSTEM_STRUCTURED,content,cv_schema(skills),client)
-    return result_from(data,(data.get('transcript') or '') if scanned else text_layer,skills,scanned)
+    text_layer=' '.join(pages)
+    return result_from(data,(data.get('transcript') or '') if scanned else text_layer,skills,scanned,pages)

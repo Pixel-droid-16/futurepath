@@ -32,25 +32,43 @@ async def test_claude_live_adapter_with_mock(monkeypatch):
     assert sent['model']=='claude-opus-5-5' and sent['fallbacks']=='default' and sent['betas']==['server-side-fallback-2026-07-01']
     schema=sent['output_config']['format']['schema']
     assert schema['properties']['candidates']['items']['properties']['skill_id']['enum']==['sql']  # only catalogue ids are possible
+    assert result['candidates'][0]['evidence']=={'page':None,'source':'text_layer'}
+    assert schema['properties']['candidates']['items']['properties']['page']=={'type':'integer','minimum':1}
 
 @pytest.mark.asyncio
 async def test_claude_reads_the_pdf_itself(monkeypatch):
     monkeypatch.setenv('ANTHROPIC_API_KEY','test-only')
-    text_layer='Data officer. Wrote SQL queries for monthly reports and led a team of four volunteers. '*4
+    # Pages 2 and 3 both repeat the achievement line; the page must resolve to the first hit.
+    para='Data officer. Wrote SQL queries for monthly reports and led a team of four volunteers. '
+    pages=['Cover letter: applying for a data role. '*8, para*5, para*2+'Coursework and references. '*6]
     fake=FakeClaude({'candidates':[{'skill_id':'sql','excerpt':'Wrote SQL  queries'}],'transcript':''})  # spacing differs from the text layer
-    result=await claude_extract_pdf(b'%PDF-fake',text_layer,SK,fake)
+    result=await claude_extract_pdf(b'%PDF-fake',pages,SK,fake)
     assert [c['skill_id'] for c in result['candidates']]==['sql'] and set(result)=={'candidates','scanned'}
+    assert result['candidates'][0]['evidence']=={'page':2,'source':'text_layer'}
     doc=fake.requests[0]['messages'][0]['content'][0]
     assert doc['type']=='document' and doc['source']['media_type']=='application/pdf'
-    assert 'other_skills' not in fake.requests[0]['output_config']['format']['schema']['properties']
+    schema=fake.requests[0]['output_config']['format']['schema']['properties']
+    assert 'other_skills' not in schema and schema['candidates']['items']['properties']['page']=={'type':'integer','minimum':1}
+    assert '1-based' in fake.requests[0]['messages'][0]['content'][1]['text']
 
 @pytest.mark.asyncio
 async def test_scanned_pdf_is_checked_against_claudes_transcript(monkeypatch):
     monkeypatch.setenv('ANTHROPIC_API_KEY','test-only')
     fake=FakeClaude({'candidates':[{'skill_id':'sql','excerpt':'SQL reports'}],'transcript':'Clerk. Built SQL reports weekly.'})
-    result=await claude_extract_pdf(b'%PDF-scan','',SK,fake)
+    result=await claude_extract_pdf(b'%PDF-scan',[''],SK,fake)
     assert result['scanned'] is True and result['candidates'][0]['excerpt']=='SQL reports'
-    assert 'no text layer' in fake.requests[0]['messages'][0]['content'][1]['text']
+    assert result['candidates'][0]['evidence']=={'page':None,'source':'transcript'}
+    prompt=fake.requests[0]['messages'][0]['content'][1]['text']
+    assert 'no text layer' in prompt and '1-based' in prompt
+
+@pytest.mark.asyncio
+async def test_scanned_page_is_trusted_only_within_page_count(monkeypatch):
+    monkeypatch.setenv('ANTHROPIC_API_KEY','test-only')
+    reply=lambda page:{'candidates':[{'skill_id':'sql','excerpt':'SQL reports','page':page}],'transcript':'Clerk. Built SQL reports weekly.'}
+    in_range=await claude_extract_pdf(b'%PDF-scan',['','',''],SK,FakeClaude(reply(2)))
+    assert in_range['candidates'][0]['evidence']=={'page':2,'source':'transcript'}
+    out_of_range=await claude_extract_pdf(b'%PDF-scan',['','',''],SK,FakeClaude(reply(99)))
+    assert out_of_range['candidates'][0]['evidence']=={'page':None,'source':'transcript'}
 
 @pytest.mark.asyncio
 async def test_claude_refusal_becomes_integration_error(monkeypatch):
