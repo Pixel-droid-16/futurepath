@@ -986,4 +986,565 @@
     },
     "riasec_source": "O*NET 31.0 career interest types (via LaluanKu seed): 15-1255.00 Web and Digital Interface Designers"
   }
+  [
+  {
+    "id": "ev-powertrain-engineer",
+    "title": "EV Powertrain & Battery Engineer",
+    "sector": "Engineering & Manufacturing",
+    "skills": [
+      { "skill_id": "SK054", "required": 4, "importance": 3, "category": "essential" },
+      { "skill_id": "SK050", "required": 4, "importance": 3, "category": "essential" },
+      { "skill_id": "SK091", "required": 3, "importance": 3, "category": "essential" },
+      { "skill_id": "SK053", "required": 3, "importance": 2, "category": "supporting" },
+      { "skill_id": "SK078", "required": 3, "importance": 2, "category": "supporting" }
+    ],
+    "sdgs": [ 7, 9 ],
+    "description": "Designs electric motor drive units, battery management systems (BMS), and power electronics for Malaysia's national EV automotive transition.",
+    "sdg_justification": "Supports clean mobility transition and sustainable automotive manufacturing (SDG 7 & 9).",
+    "qualification_note": "B.Eng in Electrical, Mechanical, or Automotive Engineering registered with BEM.",
+    "riasec": { "R": 0.85, "I": 0.75, "A": 0.1, "S": 0.05, "E": 0.2, "C": 0.55 },
+    "riasec_source": "O*NET 31.0: 17-2141.00 Mechanical Engineers"
+  },
+  {
+    "id": "data-center-facility-engineer",
+    "title": "Data Center Facilities Engineer",
+    "sector": "Technology & AI",
+    "skills": [
+      { "skill_id": "SK086", "required": 4, "importance": 3, "category": "essential" },
+      { "skill_id": "SK050", "required": 4, "importance": 3, "category": "essential" },
+      { "skill_id": "SK088", "required": 3, "importance": 3, "category": "essential" },
+      { "skill_id": "SK060", "required": 3, "importance": 2, "category": "supporting" },
+      { "skill_id": "SK007", "required": 3, "importance": 2, "category": "supporting" }
+    ],
+    "sdgs": [ 9, 12 ],
+    "description": "Manages mission-critical power distribution, liquid cooling infrastructure, and uptime operations for hyperscale data centers in Johor and Cyberjaya.",
+    "sdg_justification": "Ensures energy-efficient operations for critical digital infrastructure (SDG 9 & 12).",
+    "qualification_note": "Certified Data Center Professional (CDCP) or BEM registered Engineer preferred.",
+    "riasec": { "R": 0.8, "I": 0.65, "A": 0.05, "S": 0.1, "E": 0.3, "C": 0.7 },
+    "riasec_source": "O*NET 31.0: 17-2071.00 Electrical Engineers"
+  },
+  {
+    "id": "ai-prompt-ethicist",
+    "title": "AI Governance & Ethics Officer",
+    "sector": "Technology & AI",
+    "skills": [
+      { "skill_id": "SK089", "required": 4, "importance": 3, "category": "essential" },
+      { "skill_id": "SK007", "required": 4, "importance": 3, "category": "essential" },
+      { "skill_id": "SK095", "required": 3, "importance": 3, "category": "essential" },
+      { "skill_id": "SK001", "required": 3, "importance": 2, "category": "supporting" },
+      { "skill_id": "SK009", "required": 3, "importance": 1, "category": "emerging" }
+    ],
+    "sdgs": [ 9, 16 ],
+    "description": "Evaluates algorithmic bias, data privacy, and ethical compliance for AI system deployments aligned with MOSTI AI Ethics Guidelines.",
+    "sdg_justification": "Ensures responsible and transparent technological innovation (SDG 9 & 16).",
+    "qualification_note": "Background in Data Governance, Law, Computer Science, or Information Systems.",
+    "riasec": { "R": 0.1, "I": 0.85, "A": 0.3, "S": 0.4, "E": 0.45, "C": 0.6 },
+    "riasec_source": "O*NET 31.0: 15-2051.00 Data Scientists"
+  },
+  {
+    "id": "devops-platform-engineer",
+    "title": "DevOps & Site Reliability Engineer",
+    "sector": "Technology & AI",
+    "skills": [
+      { "skill_id": "SK087", "required": 4, "importance": 3, "category": "essential" },
+      { "skill_id": "SK086", "required": 4, "importance": 3, "category": "essential" },
+      { "skill_id": "SK003", "required": 4, "importance": 3, "category": "essential" },
+      { "skill_id": "SK013", "required": 3, "importance": 2, "category": "supporting" },
+      { "skill_id": "SK082", "required": 3, "importance": 1, "category": "supporting" }
+    ],
+    "sdgs": [ 9 ],
+    "description": "Automates CI/CD pipelines, container orchestration (Kubernetes), and system reliability for digital banks and enterprise software.",
+    "sdg_justification": "Strengthens software infrastructure resilience for digital services (SDG 9).",
+    "qualification_note": "Kubernetes CKA/CKAD or Docker/AWS certifications highly valued.",
+    "riasec": { "R": 0.3, "I": 0.8, "A": 0.1, "S": 0.05, "E": 0.25, "C": 0.75 },
+    "riasec_source": "O*NET 31.0: 15-1252.00 Computer Network Architects"
+  },
+  {
+    "id": "fullstack-software-engineer",
+    "title": "Full-Stack Web & Applications Developer",
+    "sector": "Technology & AI",
+    "skills": [
+      { "skill_id": "SK003", "required": 4, "importance": 3, "category": "essential" },
+      { "skill_id": "SK001", "required": 4, "importance": 3, "category": "essential" },
+      { "skill_id": "SK071", "required": 3, "importance": 3, "category": "essential" },
+      { "skill_id": "SK007", "required": 3, "importance": 2, "category": "supporting" },
+      { "skill_id": "SK082", "required": 3, "importance": 1, "category": "supporting" }
+    ],
+    "sdgs": [ 8, 9 ],
+    "description": "Engineers scalable front-end and back-end web applications using modern web frameworks for local enterprise and fintech ecosystems.",
+    "sdg_justification": "Drives digital economy growth and tech enterprise capabilities (SDG 8 & 9).",
+    "qualification_note": "Diploma/Degree in Computer Science or Software Engineering.",
+    "riasec": { "R": 0.2, "I": 0.85, "A": 0.3, "S": 0.1, "E": 0.2, "C": 0.65 },
+    "riasec_source": "O*NET 31.0: 15-1256.00 Software Developers"
+  },
+  {
+    "id": "database-administrator",
+    "title": "Enterprise Database & Data Engineer",
+    "sector": "Technology & AI",
+    "skills": [
+      { "skill_id": "SK001", "required": 4, "importance": 3, "category": "essential" },
+      { "skill_id": "SK087", "required": 4, "importance": 3, "category": "essential" },
+      { "skill_id": "SK013", "required": 3, "importance": 3, "category": "essential" },
+      { "skill_id": "SK003", "required": 3, "importance": 2, "category": "supporting" },
+      { "skill_id": "SK082", "required": 3, "importance": 1, "category": "supporting" }
+    ],
+    "sdgs": [ 9 ],
+    "description": "Designs relational and NoSQL database architecture, ETL pipelines, and performance tuning for regional shared service centers.",
+    "sdg_justification": "Optimizes enterprise data infrastructure across critical economic sectors (SDG 9).",
+    "qualification_note": "Oracle, PostgreSQL, or SQL Server certifications advantageous.",
+    "riasec": { "R": 0.15, "I": 0.8, "A": 0.05, "S": 0.05, "E": 0.25, "C": 0.85 },
+    "riasec_source": "O*NET 31.0: 15-1242.00 Database Administrators"
+  },
+  {
+    "id": "network-infrastructure-engineer",
+    "title": "5G & Telecommunications Network Engineer",
+    "sector": "Technology & AI",
+    "skills": [
+      { "skill_id": "SK086", "required": 4, "importance": 3, "category": "essential" },
+      { "skill_id": "SK010", "required": 4, "importance": 3, "category": "essential" },
+      { "skill_id": "SK088", "required": 3, "importance": 3, "category": "essential" },
+      { "skill_id": "SK053", "required": 3, "importance": 2, "category": "supporting" },
+      { "skill_id": "SK007", "required": 3, "importance": 2, "category": "supporting" }
+    ],
+    "sdgs": [ 9 ],
+    "description": "Deploys and maintains 5G RAN, fiber backhaul, and enterprise private networks supporting Digital Nasional Berhad (DNB) infrastructure.",
+    "sdg_justification": "Expands high-speed connectivity essential for digital transformation (SDG 9).",
+    "qualification_note": "CCNA/CCNP or vendor specific 5G network certifications preferred.",
+    "riasec": { "R": 0.55, "I": 0.75, "A": 0.05, "S": 0.1, "E": 0.25, "C": 0.7 },
+    "riasec_source": "O*NET 31.0: 15-1244.00 Network and Computer Systems Administrators"
+  },
+  {
+    "id": "wafer-fab-process-engineer",
+    "title": "Wafer Fabrication Process Engineer",
+    "sector": "Engineering & Manufacturing",
+    "skills": [
+      { "skill_id": "SK083", "required": 4, "importance": 3, "category": "essential" },
+      { "skill_id": "SK060", "required": 4, "importance": 3, "category": "essential" },
+      { "skill_id": "SK092", "required": 3, "importance": 3, "category": "essential" },
+      { "skill_id": "SK001", "required": 3, "importance": 2, "category": "supporting" },
+      { "skill_id": "SK078", "required": 3, "importance": 1, "category": "supporting" }
+    ],
+    "sdgs": [ 9 ],
+    "description": "Controls chemical vapor deposition, photolithography, and yield optimization in semiconductor wafer foundries in Penang and Kulim.",
+    "sdg_justification": "Advances high-value semiconductor manufacturing capabilities under NIMP 2030 (SDG 9).",
+    "qualification_note": "Degree in Chemical, Material Science, Microelectronics, or Physics.",
+    "riasec": { "R": 0.7, "I": 0.85, "A": 0.05, "S": 0.05, "E": 0.2, "C": 0.65 },
+    "riasec_source": "O*NET 31.0: 17-2041.00 Chemical Engineers"
+  },
+  {
+    "id": "chip-packaging-engineer",
+    "title": "Advanced Semiconductor Packaging Engineer",
+    "sector": "Engineering & Manufacturing",
+    "skills": [
+      { "skill_id": "SK083", "required": 4, "importance": 3, "category": "essential" },
+      { "skill_id": "SK056", "required": 4, "importance": 3, "category": "essential" },
+      { "skill_id": "SK059", "required": 3, "importance": 3, "category": "essential" },
+      { "skill_id": "SK053", "required": 3, "importance": 2, "category": "supporting" },
+      { "skill_id": "SK082", "required": 3, "importance": 1, "category": "supporting" }
+    ],
+    "sdgs": [ 9 ],
+    "description": "Develops 2.5D/3D chiplet packaging, wire bonding, and thermal management for OSAT semiconductor packaging houses.",
+    "sdg_justification": "Strengthens Malaysia's global OSAT backend semiconductor footprint (SDG 9).",
+    "qualification_note": "B.Eng in Mechanical, Materials, or Electronics Engineering.",
+    "riasec": { "R": 0.75, "I": 0.8, "A": 0.1, "S": 0.05, "E": 0.15, "C": 0.6 },
+    "riasec_source": "O*NET 31.0: 17-2112.00 Industrial Engineers"
+  },
+  {
+    "id": "industrial-robotics-technician",
+    "title": "Smart Factory & Robotics Technician",
+    "sector": "Engineering & Manufacturing",
+    "skills": [
+      { "skill_id": "SK054", "required": 4, "importance": 3, "category": "essential" },
+      { "skill_id": "SK091", "required": 4, "importance": 3, "category": "essential" },
+      { "skill_id": "SK058", "required": 3, "importance": 3, "category": "essential" },
+      { "skill_id": "SK078", "required": 3, "importance": 2, "category": "supporting" }
+    ],
+    "sdgs": [ 8, 9 ],
+    "description": "Maintains, calibrates, and troubleshoots robotic arms, AGVs, and automated conveyor systems in automated manufacturing plants.",
+    "sdg_justification": "Sustains smart factory operations and skilled TVET employment growth (SDG 8 & 9).",
+    "qualification_note": "Malaysian Skills Certificate (SKM Level 3/4/5) or Diploma in Industrial Automation.",
+    "riasec": { "R": 0.9, "I": 0.55, "A": 0.05, "S": 0.1, "E": 0.1, "C": 0.6 },
+    "riasec_source": "O*NET 31.0: 17-3024.00 Electro-Mechanical and Mechatronics Technologists"
+  },
+  {
+    "id": "chemical-process-engineer",
+    "title": "Chemical & Oleochemical Process Engineer",
+    "sector": "Engineering & Manufacturing",
+    "skills": [
+      { "skill_id": "SK092", "required": 4, "importance": 3, "category": "essential" },
+      { "skill_id": "SK060", "required": 4, "importance": 3, "category": "essential" },
+      { "skill_id": "SK043", "required": 3, "importance": 3, "category": "essential" },
+      { "skill_id": "SK007", "required": 3, "importance": 2, "category": "supporting" }
+    ],
+    "sdgs": [ 9, 12 ],
+    "description": "Optimizes chemical reactions and palm oil downstream refining processes in oleochemical complexes and refineries.",
+    "sdg_justification": "Drives sustainable bio-based manufacturing and chemical export value (SDG 9 & 12).",
+    "qualification_note": "Degree in Chemical Engineering registered with BEM.",
+    "riasec": { "R": 0.65, "I": 0.85, "A": 0.05, "S": 0.1, "E": 0.2, "C": 0.6 },
+    "riasec_source": "O*NET 31.0: 17-2041.00 Chemical Engineers"
+  },
+  {
+    "id": "precision-machining-engineer",
+    "title": "CNC Precision Tooling Engineer",
+    "sector": "Engineering & Manufacturing",
+    "skills": [
+      { "skill_id": "SK056", "required": 4, "importance": 3, "category": "essential" },
+      { "skill_id": "SK053", "required": 4, "importance": 3, "category": "essential" },
+      { "skill_id": "SK059", "required": 3, "importance": 3, "category": "essential" },
+      { "skill_id": "SK078", "required": 3, "importance": 2, "category": "supporting" }
+    ],
+    "sdgs": [ 9 ],
+    "description": "Programs multi-axis CNC machines and designs precision molds and dies for aerospace component manufacturing and tooling export.",
+    "sdg_justification": "Advances high-precision engineering manufacturing capabilities (SDG 9).",
+    "qualification_note": "Diploma/Degree in Mechanical, Manufacturing, or Precision Engineering.",
+    "riasec": { "R": 0.85, "I": 0.6, "A": 0.1, "S": 0.05, "E": 0.15, "C": 0.65 },
+    "riasec_source": "O*NET 31.0: 17-2141.00 Mechanical Engineers"
+  },
+  {
+    "id": "e-invoicing-tax-consultant",
+    "title": "Digital Tax & LHDN e-Invoicing Consultant",
+    "sector": "Business & Finance",
+    "skills": [
+      { "skill_id": "SK097", "required": 4, "importance": 3, "category": "essential" },
+      { "skill_id": "SK018", "required": 4, "importance": 3, "category": "essential" },
+      { "skill_id": "SK027", "required": 3, "importance": 3, "category": "essential" },
+      { "skill_id": "SK002", "required": 3, "importance": 2, "category": "supporting" },
+      { "skill_id": "SK082", "required": 3, "importance": 1, "category": "supporting" }
+    ],
+    "sdgs": [ 8, 16 ],
+    "description": "Advises corporate clients on ERP system API integrations to comply with LHDN MyInvois mandatory e-invoicing standards.",
+    "sdg_justification": "Modernizes national tax administration and corporate reporting transparency (SDG 8 & 16).",
+    "qualification_note": "MIA / CTIM membership or ERP implementation background (SAP, Oracle, Navision).",
+    "riasec": { "R": 0.0, "I": 0.7, "A": 0.05, "S": 0.2, "E": 0.55, "C": 0.85 },
+    "riasec_source": "O*NET 31.0: 13-2011.00 Accountants and Auditors"
+  },
+  {
+    "id": "risk-modelling-analyst",
+    "title": "Enterprise Risk & Quantitative Analyst",
+    "sector": "Business & Finance",
+    "skills": [
+      { "skill_id": "SK018", "required": 4, "importance": 3, "category": "essential" },
+      { "skill_id": "SK001", "required": 4, "importance": 3, "category": "essential" },
+      { "skill_id": "SK020", "required": 4, "importance": 3, "category": "essential" },
+      { "skill_id": "SK002", "required": 3, "importance": 2, "category": "supporting" },
+      { "skill_id": "SK082", "required": 3, "importance": 1, "category": "supporting" }
+    ],
+    "sdgs": [ 8, 16 ],
+    "description": "Builds credit, market, and operational risk models for financial institutions under Bank Negara Malaysia stress-testing requirements.",
+    "sdg_justification": "Ensures stability and resilience in the national banking sector (SDG 8 & 16).",
+    "qualification_note": "Degree in Actuarial Science, Financial Mathematics, or Statistics.",
+    "riasec": { "R": 0.0, "I": 0.9, "A": 0.1, "S": 0.1, "E": 0.4, "C": 0.8 },
+    "riasec_source": "O*NET 31.0: 15-2099.01 Financial Quantitative Analysts"
+  },
+  {
+    "id": "supply-chain-procurement-manager",
+    "title": "Global Procurement & Sourcing Specialist",
+    "sector": "Business & Finance",
+    "skills": [
+      { "skill_id": "SK104", "required": 4, "importance": 3, "category": "essential" },
+      { "skill_id": "SK018", "required": 3, "importance": 3, "category": "essential" },
+      { "skill_id": "SK007", "required": 4, "importance": 3, "category": "essential" },
+      { "skill_id": "SK002", "required": 3, "importance": 2, "category": "supporting" },
+      { "skill_id": "SK082", "required": 3, "importance": 1, "category": "supporting" }
+    ],
+    "sdgs": [ 8, 12 ],
+    "description": "Manages vendor contracts, raw material sourcing, and supplier ESG compliance for multinational shared services and manufacturers.",
+    "sdg_justification": "Promotes fair trade practices and supply chain sustainability (SDG 8 & 12).",
+    "qualification_note": "CIPS certification or Degree in Supply Chain / Business Management.",
+    "riasec": { "R": 0.1, "I": 0.55, "A": 0.05, "S": 0.25, "E": 0.8, "C": 0.75 },
+    "riasec_source": "O*NET 31.0: 13-1023.00 Purchasing Agents"
+  },
+  {
+    "id": "actuarial-valuation-specialist",
+    "title": "Actuarial Valuation Specialist",
+    "sector": "Business & Finance",
+    "skills": [
+      { "skill_id": "SK020", "required": 4, "importance": 3, "category": "essential" },
+      { "skill_id": "SK018", "required": 4, "importance": 3, "category": "essential" },
+      { "skill_id": "SK001", "required": 4, "importance": 3, "category": "essential" },
+      { "skill_id": "SK002", "required": 3, "importance": 2, "category": "supporting" },
+      { "skill_id": "SK082", "required": 3, "importance": 1, "category": "supporting" }
+    ],
+    "sdgs": [ 8 ],
+    "description": "Performs liability valuations, insurance product pricing, and solvency capital calculations for life and general insurance/takaful operators.",
+    "sdg_justification": "Sustains national financial security and risk management mechanisms (SDG 8).",
+    "qualification_note": "Progress towards SOA, IFoA, or ASM professional actuarial examinations.",
+    "riasec": { "R": 0.0, "I": 0.95, "A": 0.1, "S": 0.1, "E": 0.35, "C": 0.8 },
+    "riasec_source": "O*NET 31.0: 15-2011.00 Actuaries"
+  },
+  {
+    "id": "corporate-governance-officer",
+    "title": "Corporate Governance & AML/CFT Officer",
+    "sector": "Business & Finance",
+    "skills": [
+      { "skill_id": "SK097", "required": 4, "importance": 3, "category": "essential" },
+      { "skill_id": "SK012", "required": 3, "importance": 3, "category": "essential" },
+      { "skill_id": "SK007", "required": 4, "importance": 3, "category": "essential" },
+      { "skill_id": "SK002", "required": 3, "importance": 2, "category": "supporting" }
+    ],
+    "sdgs": [ 16 ],
+    "description": "Monitors Anti-Money Laundering (AML) and Countering Financing of Terrorism (CFT) compliance under Bank Negara and SC guidelines.",
+    "sdg_justification": "Upholds financial institution integrity and fights illicit financial flows (SDG 16).",
+    "qualification_note": "Certified Anti-Money Laundering Specialist (CAMS) credential preferred.",
+    "riasec": { "R": 0.0, "I": 0.65, "A": 0.05, "S": 0.3, "E": 0.6, "C": 0.85 },
+    "riasec_source": "O*NET 31.0: 13-1041.00 Compliance Officers"
+  },
+  {
+    "id": "bioprocess-engineer",
+    "title": "Bioprocess & Biopharmaceutical Engineer",
+    "sector": "Healthcare & Life Sciences",
+    "skills": [
+      { "skill_id": "SK092", "required": 4, "importance": 3, "category": "essential" },
+      { "skill_id": "SK036", "required": 4, "importance": 3, "category": "essential" },
+      { "skill_id": "SK060", "required": 3, "importance": 3, "category": "essential" },
+      { "skill_id": "SK007", "required": 3, "importance": 2, "category": "supporting" }
+    ],
+    "sdgs": [ 3, 9 ],
+    "description": "Scales fermentation, cell culture, and purification processes for vaccine and biopharmaceutical production under National Biotechnology Policy 2.0.",
+    "sdg_justification": "Enhances domestic biomanufacturing self-reliance and healthcare innovation (SDG 3 & 9).",
+    "qualification_note": "Degree in Bioprocess Engineering, Biotechnology, or Chemical Engineering.",
+    "riasec": { "R": 0.55, "I": 0.85, "A": 0.05, "S": 0.1, "E": 0.2, "C": 0.65 },
+    "riasec_source": "O*NET 31.0: 17-2031.00 Bioengineers and Biomedical Engineers"
+  },
+  {
+    "id": "medical-device-qa-engineer",
+    "title": "Medical Device Quality Assurance Engineer",
+    "sector": "Healthcare & Life Sciences",
+    "skills": [
+      { "skill_id": "SK059", "required": 4, "importance": 3, "category": "essential" },
+      { "skill_id": "SK060", "required": 4, "importance": 3, "category": "essential" },
+      { "skill_id": "SK098", "required": 3, "importance": 3, "category": "essential" },
+      { "skill_id": "SK007", "required": 3, "importance": 2, "category": "supporting" }
+    ],
+    "sdgs": [ 3, 9 ],
+    "description": "Ensures ISO 13485 quality system compliance and biocompatibility testing for medical glove, catheter, and surgical instrument manufacturing.",
+    "sdg_justification": "Guarantees medical equipment quality standards for local and export healthcare markets (SDG 3 & 9).",
+    "qualification_note": "Knowledge of Medical Device Authority (MDA) regulations required.",
+    "riasec": { "R": 0.6, "I": 0.75, "A": 0.05, "S": 0.1, "E": 0.25, "C": 0.75 },
+    "riasec_source": "O*NET 31.0: 17-2112.00 Industrial Engineers"
+  },
+  {
+    "id": "clinical-pharmacist",
+    "title": "Industrial & Clinical Pharmacist",
+    "sector": "Healthcare & Life Sciences",
+    "skills": [
+      { "skill_id": "SK098", "required": 4, "importance": 3, "category": "essential" },
+      { "skill_id": "SK036", "required": 4, "importance": 3, "category": "essential" },
+      { "skill_id": "SK030", "required": 3, "importance": 3, "category": "essential" },
+      { "skill_id": "SK007", "required": 3, "importance": 2, "category": "supporting" }
+    ],
+    "sdgs": [ 3 ],
+    "description": "Oversees drug formulations, batch release, and Good Manufacturing Practice (GMP) compliance in pharmaceutical manufacturing facilities.",
+    "sdg_justification": "Protects public health by verifying pharmaceutical product quality and safety (SDG 3).",
+    "qualification_note": "Registered Pharmacist with the Pharmacy Board of Malaysia (Lembaga Farmasi Malaysia).",
+    "riasec": { "R": 0.2, "I": 0.85, "A": 0.05, "S": 0.65, "E": 0.25, "C": 0.7 },
+    "riasec_source": "O*NET 31.0: 29-1051.00 Pharmacists"
+  },
+  {
+    "id": "environmental-impact-assessor",
+    "title": "Environmental Impact Assessment Consultant",
+    "sector": "Sustainability & Green Economy",
+    "skills": [
+      { "skill_id": "SK043", "required": 4, "importance": 3, "category": "essential" },
+      { "skill_id": "SK045", "required": 4, "importance": 3, "category": "essential" },
+      { "skill_id": "SK046", "required": 3, "importance": 3, "category": "essential" },
+      { "skill_id": "SK007", "required": 3, "importance": 2, "category": "supporting" }
+    ],
+    "sdgs": [ 12, 15 ],
+    "description": "Conducts EIA studies, biodiversity assessments, and effluent monitoring reports for development projects approved by the Department of Environment.",
+    "sdg_justification": "Protects terrestrial ecosystems and natural habitats from industrial encroachment (SDG 12 & 15).",
+    "qualification_note": "Registered EIA Consultant with DOE (Jabatan Alam Sekitar) Malaysia.",
+    "riasec": { "R": 0.4, "I": 0.85, "A": 0.15, "S": 0.25, "E": 0.35, "C": 0.6 },
+    "riasec_source": "O*NET 31.0: 19-2041.00 Environmental Scientists and Specialists"
+  },
+  {
+    "id": "hydrogen-energy-specialist",
+    "title": "Hydrogen Energy & Fuel Cell Engineer",
+    "sector": "Sustainability & Green Economy",
+    "skills": [
+      { "skill_id": "SK048", "required": 4, "importance": 3, "category": "essential" },
+      { "skill_id": "SK092", "required": 4, "importance": 3, "category": "essential" },
+      { "skill_id": "SK050", "required": 3, "importance": 3, "category": "essential" },
+      { "skill_id": "SK078", "required": 3, "importance": 2, "category": "supporting" }
+    ],
+    "sdgs": [ 7, 13 ],
+    "description": "Designs green hydrogen electrolyzers, fuel cell storage, and transport infrastructure for Sarawak's H2 export projects under NETR.",
+    "sdg_justification": "Pioneers zero-emission fuel technologies for regional energy exports (SDG 7 & 13).",
+    "qualification_note": "B.Eng in Chemical, Mechanical, or Energy Engineering.",
+    "riasec": { "R": 0.75, "I": 0.8, "A": 0.1, "S": 0.05, "E": 0.3, "C": 0.5 },
+    "riasec_source": "O*NET 31.0: 17-2199.03 Energy Engineers"
+  },
+  {
+    "id": "biomass-energy-engineer",
+    "title": "Biomass & Bioenergy Specialist",
+    "sector": "Sustainability & Green Economy",
+    "skills": [
+      { "skill_id": "SK048", "required": 4, "importance": 3, "category": "essential" },
+      { "skill_id": "SK043", "required": 4, "importance": 3, "category": "essential" },
+      { "skill_id": "SK092", "required": 3, "importance": 3, "category": "essential" },
+      { "skill_id": "SK002", "required": 3, "importance": 2, "category": "supporting" }
+    ],
+    "sdgs": [ 7, 12 ],
+    "description": "Converts oil palm empty fruit bunches (EFB) and agricultural waste into biogas, pellets, and bio-coal power generation.",
+    "sdg_justification": "Promotes circular economy solutions for Malaysia's palm oil sector (SDG 7 & 12).",
+    "qualification_note": "Degree in Bioenergy, Agricultural Engineering, or Chemical Engineering.",
+    "riasec": { "R": 0.7, "I": 0.75, "A": 0.1, "S": 0.1, "E": 0.25, "C": 0.55 },
+    "riasec_source": "O*NET 31.0: 17-2199.03 Energy Engineers"
+  },
+  {
+    "id": "grid-integration-engineer",
+    "title": "Renewable Grid Integration Engineer",
+    "sector": "Sustainability & Green Economy",
+    "skills": [
+      { "skill_id": "SK050", "required": 4, "importance": 3, "category": "essential" },
+      { "skill_id": "SK100", "required": 4, "importance": 3, "category": "essential" },
+      { "skill_id": "SK054", "required": 3, "importance": 3, "category": "essential" },
+      { "skill_id": "SK078", "required": 3, "importance": 2, "category": "supporting" }
+    ],
+    "sdgs": [ 7, 9 ],
+    "description": "Models grid stability, BESS (Battery Energy Storage Systems), and high-voltage interconnectors for Tenaga Nasional Berhad (TNB).",
+    "sdg_justification": "Modernizes grid infrastructure to absorb higher variable renewable energy load (SDG 7 & 9).",
+    "qualification_note": "Electrical Engineering Degree registered with BEM.",
+    "riasec": { "R": 0.8, "I": 0.75, "A": 0.05, "S": 0.05, "E": 0.25, "C": 0.6 },
+    "riasec_source": "O*NET 31.0: 17-2071.00 Electrical Engineers"
+  },
+  {
+    "id": "animation-vfx-pipeline-td",
+    "title": "Animation & VFX Pipeline Technical Director",
+    "sector": "Education & Creative",
+    "skills": [
+      { "skill_id": "SK103", "required": 4, "importance": 3, "category": "essential" },
+      { "skill_id": "SK003", "required": 4, "importance": 3, "category": "essential" },
+      { "skill_id": "SK071", "required": 3, "importance": 3, "category": "essential" },
+      { "skill_id": "SK069", "required": 3, "importance": 2, "category": "supporting" }
+    ],
+    "sdgs": [ 8, 9 ],
+    "description": "Develops custom Python scripts, Maya/Unreal plugins, and rendering pipelines for local animation and visual effects studios.",
+    "sdg_justification": "Boosts technical productivity for high-export digital content industries (SDG 8 & 9).",
+    "qualification_note": "Strong Python/C++ skills and experience with CG production software.",
+    "riasec": { "R": 0.25, "I": 0.7, "A": 0.8, "S": 0.1, "E": 0.2, "C": 0.5 },
+    "riasec_source": "O*NET 31.0: 27-1014.00 Multimedia Artists and Animators"
+  },
+  {
+    "id": "fintech-product-manager",
+    "title": "Digital Banking & Fintech Product Manager",
+    "sector": "Business & Finance",
+    "skills": [
+      { "skill_id": "SK027", "required": 4, "importance": 3, "category": "essential" },
+      { "skill_id": "SK071", "required": 4, "importance": 3, "category": "essential" },
+      { "skill_id": "SK018", "required": 3, "importance": 3, "category": "essential" },
+      { "skill_id": "SK007", "required": 3, "importance": 2, "category": "supporting" },
+      { "skill_id": "SK082", "required": 3, "importance": 1, "category": "supporting" }
+    ],
+    "sdgs": [ 8, 9 ],
+    "description": "Leads product feature roadmaps, e-KYC integration, and mobile UX design for Bank Negara licensed digital banking applications.",
+    "sdg_justification": "Drives financial inclusion for unbanked and underbanked populations (SDG 8 & 9).",
+    "qualification_note": "Agile/Scrum certifications (PSPO/CSPO) highly preferred.",
+    "riasec": { "R": 0.0, "I": 0.6, "A": 0.3, "S": 0.3, "E": 0.85, "C": 0.65 },
+    "riasec_source": "O*NET 31.0: 11-9199.00 Managers, All Other"
+  },
+  {
+    "id": "e-commerce-growth-specialist",
+    "title": "E-Commerce Strategy & Operations Specialist",
+    "sector": "Education & Creative",
+    "skills": [
+      { "skill_id": "SK001", "required": 4, "importance": 3, "category": "essential" },
+      { "skill_id": "SK105", "required": 3, "importance": 3, "category": "essential" },
+      { "skill_id": "SK002", "required": 3, "importance": 2, "category": "supporting" },
+      { "skill_id": "SK007", "required": 3, "importance": 2, "category": "supporting" },
+      { "skill_id": "SK082", "required": 3, "importance": 1, "category": "supporting" }
+    ],
+    "sdgs": [ 8 ],
+    "description": "Manages multi-channel storefront operations, digital performance marketing, and fulfillment strategy for regional e-commerce brands.",
+    "sdg_justification": "Facilitates SME digitisation and cross-border e-commerce growth (SDG 8).",
+    "qualification_note": "Hands-on experience with Shopee, Lazada, TikTok Shop enterprise seller tools.",
+    "riasec": { "R": 0.0, "I": 0.55, "A": 0.25, "S": 0.2, "E": 0.8, "C": 0.7 },
+    "riasec_source": "O*NET 31.0: 13-1161.00 Market Research Analysts"
+  },
+  {
+    "id": "civil-infrastructure-engineer",
+    "title": "Mega Infrastructure Civil Engineer",
+    "sector": "Engineering & Manufacturing",
+    "skills": [
+      { "skill_id": "SK107", "required": 4, "importance": 3, "category": "essential" },
+      { "skill_id": "SK106", "required": 4, "importance": 3, "category": "essential" },
+      { "skill_id": "SK053", "required": 3, "importance": 3, "category": "essential" },
+      { "skill_id": "SK007", "required": 3, "importance": 2, "category": "supporting" },
+      { "skill_id": "SK078", "required": 3, "importance": 1, "category": "supporting" }
+    ],
+    "sdgs": [ 9, 11 ],
+    "description": "Oversees structural design, tunneling, and viaduct construction for railway (ECRL, MRT3) and highway mega infrastructure.",
+    "sdg_justification": "Expands resilient public transit infrastructure connecting urban and rural corridors (SDG 9 & 11).",
+    "qualification_note": "B.Eng in Civil Engineering with BEM Graduate/Professional Engineer registration.",
+    "riasec": { "R": 0.75, "I": 0.75, "A": 0.1, "S": 0.1, "E": 0.3, "C": 0.6 },
+    "riasec_source": "O*NET 31.0: 17-2051.00 Civil Engineers"
+  },
+  {
+    "id": "geotechnical-engineer",
+    "title": "Geotechnical & Slope Safety Engineer",
+    "sector": "Engineering & Manufacturing",
+    "skills": [
+      { "skill_id": "SK107", "required": 4, "importance": 3, "category": "essential" },
+      { "skill_id": "SK053", "required": 4, "importance": 3, "category": "essential" },
+      { "skill_id": "SK060", "required": 3, "importance": 3, "category": "essential" },
+      { "skill_id": "SK078", "required": 3, "importance": 2, "category": "supporting" }
+    ],
+    "sdgs": [ 9, 11 ],
+    "description": "Performs soil mechanics analysis, slope stabilization, and foundation engineering under Jabatan Kerja Raya (JKR) safety guidelines.",
+    "sdg_justification": "Prevents landslide disasters and ensures infrastructure resilience in hilly terrains (SDG 9 & 11).",
+    "qualification_note": "Civil/Geotechnical Engineering degree registered with BEM.",
+    "riasec": { "R": 0.7, "I": 0.8, "A": 0.05, "S": 0.1, "E": 0.25, "C": 0.6 },
+    "riasec_source": "O*NET 31.0: 17-2051.00 Civil Engineers"
+  },
+  {
+    "id": "halal-auditor-consultant",
+    "title": "External Halal Auditor & Standards Specialist",
+    "sector": "Business & Finance",
+    "skills": [
+      { "skill_id": "SK108", "required": 4, "importance": 3, "category": "essential" },
+      { "skill_id": "SK059", "required": 4, "importance": 3, "category": "essential" },
+      { "skill_id": "SK007", "required": 3, "importance": 3, "category": "essential" },
+      { "skill_id": "SK002", "required": 3, "importance": 2, "category": "supporting" }
+    ],
+    "sdgs": [ 8, 12 ],
+    "description": "Conducts third-party Halal supply chain audits and advisory services for multinational food and cosmetics exporters seeking JAKIM certification.",
+    "sdg_justification": "Sustains international compliance and export trade confidence in Halal goods (SDG 8 & 12).",
+    "qualification_note": "Certified Halal Auditor recognized by the Halal Professional Board (HPB, JAKIM).",
+    "riasec": { "R": 0.2, "I": 0.65, "A": 0.05, "S": 0.35, "E": 0.5, "C": 0.85 },
+    "riasec_source": "O*NET 31.0: 13-1041.00 Compliance Officers"
+  },
+  {
+    "id": "tvet-technical-trainer",
+    "title": "Industrial TVET Technical Instructor",
+    "sector": "Education & Creative",
+    "skills": [
+      { "skill_id": "SK065", "required": 4, "importance": 3, "category": "essential" },
+      { "skill_id": "SK054", "required": 3, "importance": 3, "category": "essential" },
+      { "skill_id": "SK068", "required": 3, "importance": 3, "category": "essential" },
+      { "skill_id": "SK007", "required": 3, "importance": 2, "category": "supporting" }
+    ],
+    "sdgs": [ 4, 8 ],
+    "description": "Delivers practical technical training and VTO (Vocational Trainer Officer) modules for SKM diploma students at ILP/IKTBN institutes.",
+    "sdg_justification": "Upskills national youth labor force under the National TVET Policy (SDG 4 & 8).",
+    "qualification_note": "Vocational Trainer Officer (VTO) certification and SKM Level 4/5 qualification.",
+    "riasec": { "R": 0.5, "I": 0.4, "A": 0.15, "S": 0.85, "E": 0.35, "C": 0.5 },
+    "riasec_source": "O*NET 31.0: 25-1194.00 Career/Technical Education Teachers"
+  },
+  {
+    "id": "maritime-port-logistics-planner",
+    "title": "Maritime Port & Shipping Operations Planner",
+    "sector": "Education & Creative",
+    "skills": [
+      { "skill_id": "SK104", "required": 4, "importance": 3, "category": "essential" },
+      { "skill_id": "SK105", "required": 4, "importance": 3, "category": "essential" },
+      { "skill_id": "SK001", "required": 3, "importance": 3, "category": "essential" },
+      { "skill_id": "SK007", "required": 3, "importance": 2, "category": "supporting" }
+    ],
+    "sdgs": [ 9, 14 ],
+    "description": "Schedules container vessel berths, yard crane movements, and intermodal transport connections at Port Klang and Port of Tanjung Pelepas (PTP).",
+    "sdg_justification": "Optimizes efficiency for major international shipping lanes in the Malacca Strait (SDG 9 & 14).",
+    "qualification_note": "Degree in Maritime Studies, Logistics, or Supply Chain Management.",
+    "riasec": { "R": 0.3, "I": 0.65, "A": 0.05, "S": 0.15, "E": 0.65, "C": 0.8 },
+    "riasec_source": "O*NET 31.0: 13-1081.00 Logisticians"
+  }
 ]

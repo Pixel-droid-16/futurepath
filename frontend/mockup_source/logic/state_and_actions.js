@@ -104,9 +104,12 @@ class Component extends DCLogic {
   componentWillUnmount() { this._alive = false; clearInterval(this._t); if (this._translationObserver) this._translationObserver.disconnect(); try { window.removeEventListener("popstate", this._onPop); } catch (e) {} }
   changeLanguage() {
     const current = this.state.lang;
-    const next = FP_LOCALES[(FP_LOCALES.indexOf(current) + 1) % FP_LOCALES.length];
-    try { localStorage.setItem("fp-lang", next); } catch (e) {}
-    this.setState({ lang: next });
+    this.setLanguage(FP_LOCALES[(FP_LOCALES.indexOf(current) + 1) % FP_LOCALES.length]);
+  }
+  setLanguage(locale) {
+    if (!FP_LOCALES.includes(locale)) return;
+    try { localStorage.setItem("fp-lang", locale); } catch (e) {}
+    this.setState({ lang: locale });
   }
   go(p) {
     this.setState({ page: p });

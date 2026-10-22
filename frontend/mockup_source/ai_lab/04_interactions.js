@@ -1,9 +1,11 @@
 
 const $=id=>document.getElementById(id);let candidates=[];
 const labLanguage=()=>{try{const lang=localStorage.getItem('fp-lang');return FP_LOCALES.includes(lang)?lang:'en'}catch(e){return'en'}};
-const localizeLab=()=>{const lang=labLanguage();fpTranslateTree(document.body,lang);document.title=fpTranslation('FuturePath · Live AI Skill Review',lang);$('languageToggle').textContent=lang==='en'?'EN':lang==='ms'?'BM':'简体中文'};
+const localizeLab=()=>{const lang=labLanguage();fpTranslateTree(document.body,lang);document.title=fpTranslation('FuturePath · Live AI Skill Review',lang);$('languageToggle').textContent=lang==='en'?'EN':lang==='ms'?'BM':'简体中文';$('languageSelect').value=lang};
 const languageToggle=$('languageToggle');
 languageToggle.onclick=()=>{const current=labLanguage();const next=FP_LOCALES[(FP_LOCALES.indexOf(current)+1)%FP_LOCALES.length];try{localStorage.setItem('fp-lang',next)}catch(e){}localizeLab()};
+const languageSelect=$('languageSelect');
+languageSelect.onchange=()=>{const next=languageSelect.value;try{localStorage.setItem('fp-lang',next)}catch(e){}localizeLab()};
 const labObserver=new MutationObserver(localizeLab);labObserver.observe(document.body,{childList:true,subtree:true,characterData:true});
 localizeLab();
 async function request(url,opts){let r=await fetch(url,opts);let b=await r.json();if(!r.ok)throw Error(b.detail||'Request failed');return b}
