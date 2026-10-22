@@ -131,3 +131,9 @@ python -m pytest -q
 | You changed `.env` but nothing happened | Restart the server; settings are read only at start-up |
 | A page change doesn't show | Run `python scripts/build_frontend.py`, then hard-refresh the browser (Ctrl+Shift+R) |
 | `scripts/verify_integrity.py` reports `runpod_worker/...` as CHANGED on Windows | Git converts line endings on Windows; this is expected and harmless |
+
+run code:
+
+cd /home/maestro05/Downloads/futurepath
+source .venv/bin/activate
+python -m uvicorn backend.app:app --reload --env-file .env
