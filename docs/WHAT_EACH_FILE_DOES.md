@@ -7,12 +7,13 @@
 5. `backend/engine.py`: deterministic role scoring and gap prioritisation. A user-confirmed skill can contribute; unknown is separate from zero.
 6. `backend/scenarios.py`: documents per-role fictional task exposure/oversight assumptions; has distinct moderate and rapid descriptions and action plans.
 7. `data/roles.json`: twelve careers, with nine role-skill requirements each and SDG justifications.
-8. `data/skills.json`: 82 canonical skills with aliases (SK079-SK082 are transferable skills: leadership, teamwork, event management, problem solving).
+8. `data/skills.json`: 82 canonical skills with aliases and SDG tags/explanations (SK079-SK082 are transferable skills: leadership, teamwork, event management, problem solving).
 9. `data/snapshots.json`: prepared synthetic S1 (published) and S2 (draft). Approving S2 does not rewrite previously saved recommendations.
-10. `data/learning_resources.json`: 30 course **placeholders**. Do not claim verification. They are shown only for skills with no checked course.
-    `data/courses.json` (imported from LaluanKu) and `data/extra_courses.json` (56 courses added by hand, each with the date its provider page was checked) are the checked courses: real links, cost and hours from the provider's page. Only Energy simulation and Content development still lack one.
+10. `data/learning_resources.json`: course **placeholders**. Do not claim verification. They are shown only for skills with no linked course.
+    `data/courses.json` contains imported catalogue entries; `data/extra_courses.json` entries record provider-page check dates. The pathway distinguishes provider-page dates from the imported catalogue snapshot date. Confirm current course details with providers. Energy simulation and Content development lack a checked course.
 11. `tests/`: verifies API and engine invariants, including scenario differences without changing the user profile.
 12. `requirements.txt`: Python libraries needed to run.
+13. `frontend/mockup_source/logic/translations.js`: shared English, Bahasa Melayu and Simplified Chinese text catalogue and localization helper. Change this file when adding or correcting app copy translations; rebuild both generated pages with `python scripts/build_frontend.py`.
 
 ## The four key explanations
 

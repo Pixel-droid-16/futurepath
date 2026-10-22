@@ -1,24 +1,23 @@
 """Regression checks for the module layout and preservation of v2 design."""
-import hashlib,json
 from pathlib import Path
 from fastapi.testclient import TestClient
 from backend.app import app
 from scripts.build_frontend import assemble_home,assemble_ai_lab
 
 ROOT=Path(__file__).resolve().parents[1]
-BASELINE=json.loads((ROOT/'docs'/'ORIGINAL_FILE_HASHES.json').read_text(encoding='utf8'))
 
 def test_results_layout_compiles_from_editable_v2_source():
     html=assemble_home()
     assert html==(ROOT/'frontend'/'index.html').read_text(encoding='utf8')
     assert 'AI disruption scenario' in html and 'What do you enjoy? (optional)' in html
     assert 'The world of work is changing.' in html
-    assert 'LIVE SIGNAL FEED' not in html  # Sample signals must be explicitly labelled
+    assert 'SAMPLE SIGNAL FEED' in html
 
-def test_original_ai_lab_layout_identical():
+def test_ai_lab_is_generated_with_shared_localization():
     html=assemble_ai_lab()
     assert html==(ROOT/'frontend'/'ai-lab.html').read_text(encoding='utf8')
-    assert hashlib.sha256(html.encode()).hexdigest()==BASELINE['frontend/ai-lab.html']
+    assert 'FP_SKILL_SDG_TEXT' in html
+    assert 'id="languageToggle"' in html
 
 def test_backend_endpoint_compatibility():
     api=TestClient(app)

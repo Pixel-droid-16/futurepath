@@ -6,7 +6,11 @@
     "aliases": [
       "SQL",
       "Structured Query Language"
-    ]
+    ],
+    "sdgs": [
+      9
+    ],
+    "sdg_justification": "Can support SDG 9 when reliable queries help build or improve data systems used for industry, research, or public services."
   },
   {
     "id": "SK002",
@@ -14,7 +18,11 @@
     "category": "analytical",
     "aliases": [
       "statistical analysis"
-    ]
+    ],
+    "sdgs": [
+      9
+    ],
+    "sdg_justification": "Can support SDG 9 when sound statistical analysis informs evidence-based research, technology, or infrastructure decisions."
   },
   {
     "id": "SK003",
@@ -22,7 +30,11 @@
     "category": "analytical",
     "aliases": [
       "data preprocessing"
-    ]
+    ],
+    "sdgs": [
+      9
+    ],
+    "sdg_justification": "Can support SDG 9 when accurate, well-prepared data improves the reliability of digital systems and analysis."
   },
   {
     "id": "SK004",
@@ -32,7 +44,11 @@
       "data visualization",
       "Power BI",
       "Tableau"
-    ]
+    ],
+    "sdgs": [
+      9
+    ],
+    "sdg_justification": "Can support SDG 9 when clear visualisations help people understand evidence used to improve systems or services."
   },
   {
     "id": "SK005",
@@ -40,7 +56,11 @@
     "category": "technical",
     "aliases": [
       "Python"
-    ]
+    ],
+    "sdgs": [
+      9
+    ],
+    "sdg_justification": "Can support SDG 9 when software built with Python contributes to useful, reliable technological innovation."
   },
   {
     "id": "SK006",
@@ -48,7 +68,11 @@
     "category": "technical",
     "aliases": [
       "data modeling"
-    ]
+    ],
+    "sdgs": [
+      9
+    ],
+    "sdg_justification": "Can support SDG 9 when well-designed data models enable reliable information systems and analysis."
   },
   {
     "id": "SK007",
@@ -57,7 +81,11 @@
     "aliases": [
       "presentation",
       "communication skills"
-    ]
+    ],
+    "sdgs": [
+      8
+    ],
+    "sdg_justification": "Can support SDG 8 when clear communication helps people collaborate, make informed decisions, and participate effectively at work."
   },
   {
     "id": "SK008",
@@ -65,7 +93,12 @@
     "category": "domain",
     "aliases": [
       "business understanding"
-    ]
+    ],
+    "sdgs": [
+      8,
+      9
+    ],
+    "sdg_justification": "Can support SDG 8 through better-informed work and SDG 9 when analysis helps organisations improve useful systems or processes."
   },
   {
     "id": "SK009",
@@ -73,7 +106,11 @@
     "category": "ai",
     "aliases": [
       "AI verification"
-    ]
+    ],
+    "sdgs": [
+      9
+    ],
+    "sdg_justification": "Can support SDG 9 when checking AI outputs helps make technology more reliable, accountable, and useful."
   },
   {
     "id": "SK010",
@@ -81,7 +118,11 @@
     "category": "technical",
     "aliases": [
       "network defense"
-    ]
+    ],
+    "sdgs": [
+      9
+    ],
+    "sdg_justification": "Can support SDG 9 when protecting networks improves the security and reliability of digital infrastructure."
   },
   {
     "id": "SK011",
@@ -89,7 +130,11 @@
     "category": "technical",
     "aliases": [
       "cybersecurity foundations"
-    ]
+    ],
+    "sdgs": [
+      9
+    ],
+    "sdg_justification": "Can support SDG 9 when security fundamentals help maintain dependable digital systems and infrastructure."
   },
   {
     "id": "SK012",
@@ -97,7 +142,11 @@
     "category": "technical",
     "aliases": [
       "security incident handling"
-    ]
+    ],
+    "sdgs": [
+      9
+    ],
+    "sdg_justification": "Can support SDG 9 when timely incident response restores the security and reliability of digital infrastructure."
   },
   {
     "id": "SK013",
@@ -105,7 +154,11 @@
     "category": "analytical",
     "aliases": [
       "threat intelligence"
-    ]
+    ],
+    "sdgs": [
+      9
+    ],
+    "sdg_justification": "Can support SDG 9 when threat analysis helps protect technology systems and the services that depend on them."
   },
   {
     "id": "SK014",
@@ -113,7 +166,11 @@
     "category": "technical",
     "aliases": [
       "SIEM"
-    ]
+    ],
+    "sdgs": [
+      9
+    ],
+    "sdg_justification": "Can support SDG 9 when SIEM operations help detect threats and maintain reliable digital infrastructure."
   },
   {
     "id": "SK015",
@@ -121,7 +178,11 @@
     "category": "technical",
     "aliases": [
       "automation scripting"
-    ]
+    ],
+    "sdgs": [
+      9
+    ],
+    "sdg_justification": "Can support SDG 9 when scripts automate or strengthen useful, maintainable digital systems."
   },
   {
     "id": "SK016",
@@ -129,7 +190,11 @@
     "category": "analytical",
     "aliases": [
       "risk analysis"
-    ]
+    ],
+    "sdgs": [
+      9
+    ],
+    "sdg_justification": "Can support SDG 9 when risk assessment helps identify and reduce risks to technology, infrastructure, or service delivery."
   },
   {
     "id": "SK017",
@@ -137,7 +202,11 @@
     "category": "ai",
     "aliases": [
       "AI threat detection"
-    ]
+    ],
+    "sdgs": [
+      9
+    ],
+    "sdg_justification": "Can support SDG 9 when awareness of AI security risks informs safer design and use of digital technologies."
   },
   {
     "id": "SK018",
@@ -145,7 +214,11 @@
     "category": "domain",
     "aliases": [
       "financial modeling"
-    ]
+    ],
+    "sdgs": [
+      8
+    ],
+    "sdg_justification": "Can support SDG 8 when responsible financial models help organisations assess performance and make informed economic decisions."
   },
   {
     "id": "SK019",
@@ -153,7 +226,12 @@
     "category": "domain",
     "aliases": [
       "accounting"
-    ]
+    ],
+    "sdgs": [
+      8,
+      12
+    ],
+    "sdg_justification": "Can support SDG 8 through trustworthy financial records and SDG 12 when accounting helps organisations understand resource use and obligations."
   },
   {
     "id": "SK020",
@@ -162,7 +240,11 @@
     "aliases": [
       "Excel",
       "spreadsheets"
-    ]
+    ],
+    "sdgs": [
+      8
+    ],
+    "sdg_justification": "Can support SDG 8 when accurate spreadsheet analysis helps people make informed workplace and financial decisions."
   },
   {
     "id": "SK021",
@@ -170,7 +252,11 @@
     "category": "domain",
     "aliases": [
       "financial statements"
-    ]
+    ],
+    "sdgs": [
+      8
+    ],
+    "sdg_justification": "Can support SDG 8 when transparent financial reporting supports accountability and informed economic decisions."
   },
   {
     "id": "SK022",
@@ -178,7 +264,12 @@
     "category": "analytical",
     "aliases": [
       "forecast analysis"
-    ]
+    ],
+    "sdgs": [
+      8,
+      9
+    ],
+    "sdg_justification": "Can support SDG 8 through better-informed planning and SDG 9 when forecasts help organisations plan investment in systems or innovation."
   },
   {
     "id": "SK023",
@@ -186,7 +277,11 @@
     "category": "domain",
     "aliases": [
       "finance compliance"
-    ]
+    ],
+    "sdgs": [
+      8
+    ],
+    "sdg_justification": "Can support SDG 8 when understanding financial regulation helps organisations make responsible, compliant decisions."
   },
   {
     "id": "SK024",
@@ -194,7 +289,11 @@
     "category": "transferable",
     "aliases": [
       "stakeholder engagement"
-    ]
+    ],
+    "sdgs": [
+      8
+    ],
+    "sdg_justification": "Can support SDG 8 when constructive stakeholder communication enables informed, collaborative workplace decisions."
   },
   {
     "id": "SK025",
@@ -202,7 +301,11 @@
     "category": "technical",
     "aliases": [
       "data warehouse"
-    ]
+    ],
+    "sdgs": [
+      9
+    ],
+    "sdg_justification": "Can support SDG 9 when a reliable data warehouse provides a sound foundation for analysis and digital services."
   },
   {
     "id": "SK026",
@@ -210,7 +313,11 @@
     "category": "technical",
     "aliases": [
       "ETL"
-    ]
+    ],
+    "sdgs": [
+      9
+    ],
+    "sdg_justification": "Can support SDG 9 when dependable data pipelines connect information needed for research, services, or innovation."
   },
   {
     "id": "SK027",
@@ -218,7 +325,11 @@
     "category": "technical",
     "aliases": [
       "BI dashboard"
-    ]
+    ],
+    "sdgs": [
+      9
+    ],
+    "sdg_justification": "Can support SDG 9 when useful dashboards make operational evidence accessible for improving systems and services."
   },
   {
     "id": "SK028",
@@ -226,7 +337,12 @@
     "category": "analytical",
     "aliases": [
       "performance metrics"
-    ]
+    ],
+    "sdgs": [
+      8,
+      9
+    ],
+    "sdg_justification": "Can support SDG 8 when meaningful measures inform work and organisational decisions, and SDG 9 when they track system improvement."
   },
   {
     "id": "SK029",
@@ -234,7 +350,11 @@
     "category": "transferable",
     "aliases": [
       "requirements analysis"
-    ]
+    ],
+    "sdgs": [
+      9
+    ],
+    "sdg_justification": "Can support SDG 9 when carefully gathered requirements help teams build technology that addresses real user and service needs."
   },
   {
     "id": "SK030",
@@ -243,7 +363,11 @@
     "aliases": [
       "health IT",
       "EHR"
-    ]
+    ],
+    "sdgs": [
+      3
+    ],
+    "sdg_justification": "Can support SDG 3 when health information systems help care teams access and manage information for health services."
   },
   {
     "id": "SK031",
@@ -251,7 +375,11 @@
     "category": "domain",
     "aliases": [
       "health information governance"
-    ]
+    ],
+    "sdgs": [
+      3
+    ],
+    "sdg_justification": "Can support SDG 3 when responsible health-data governance helps protect information and support trustworthy health services."
   },
   {
     "id": "SK032",
@@ -259,7 +387,11 @@
     "category": "domain",
     "aliases": [
       "clinical workflows"
-    ]
+    ],
+    "sdgs": [
+      3
+    ],
+    "sdg_justification": "Can support SDG 3 when understanding healthcare workflows helps improve the coordination and delivery of health services."
   },
   {
     "id": "SK033",
@@ -268,7 +400,12 @@
     "aliases": [
       "HL7",
       "FHIR"
-    ]
+    ],
+    "sdgs": [
+      3,
+      9
+    ],
+    "sdg_justification": "Can support SDG 3 when health systems exchange information safely, and SDG 9 when interoperability strengthens digital infrastructure."
   },
   {
     "id": "SK034",
@@ -276,7 +413,11 @@
     "category": "domain",
     "aliases": [
       "privacy protection"
-    ]
+    ],
+    "sdgs": [
+      3
+    ],
+    "sdg_justification": "Can support SDG 3 when privacy practices protect sensitive health information and help maintain trust in health services."
   },
   {
     "id": "SK035",
@@ -284,7 +425,11 @@
     "category": "domain",
     "aliases": [
       "clinical coding"
-    ]
+    ],
+    "sdgs": [
+      3
+    ],
+    "sdg_justification": "Can support SDG 3 when consistent clinical terminology helps health professionals interpret and exchange patient information."
   },
   {
     "id": "SK036",
@@ -292,7 +437,11 @@
     "category": "domain",
     "aliases": [
       "study protocols"
-    ]
+    ],
+    "sdgs": [
+      3
+    ],
+    "sdg_justification": "Can support SDG 3 when sound research protocols help produce ethical, reliable evidence relevant to health."
   },
   {
     "id": "SK037",
@@ -300,7 +449,11 @@
     "category": "domain",
     "aliases": [
       "research ethics and consent"
-    ]
+    ],
+    "sdgs": [
+      3
+    ],
+    "sdg_justification": "Can support SDG 3 when research ethics protects participants and supports trustworthy health research."
   },
   {
     "id": "SK038",
@@ -308,7 +461,11 @@
     "category": "domain",
     "aliases": [
       "trial documentation"
-    ]
+    ],
+    "sdgs": [
+      3
+    ],
+    "sdg_justification": "Can support SDG 3 when accurate clinical documentation supports continuity, safety, and accountability in care."
   },
   {
     "id": "SK039",
@@ -316,7 +473,11 @@
     "category": "analytical",
     "aliases": [
       "study data management"
-    ]
+    ],
+    "sdgs": [
+      3
+    ],
+    "sdg_justification": "Can support SDG 3 when well-managed research data improves the integrity and reusability of health evidence."
   },
   {
     "id": "SK040",
@@ -324,7 +485,11 @@
     "category": "transferable",
     "aliases": [
       "trial coordination"
-    ]
+    ],
+    "sdgs": [
+      3
+    ],
+    "sdg_justification": "Can support SDG 3 when respectful participant coordination helps people take part safely in health research."
   },
   {
     "id": "SK041",
@@ -332,7 +497,11 @@
     "category": "domain",
     "aliases": [
       "GCP"
-    ]
+    ],
+    "sdgs": [
+      3
+    ],
+    "sdg_justification": "Can support SDG 3 when Good Clinical Practice is applied to protect participants and support reliable clinical research."
   },
   {
     "id": "SK042",
@@ -340,7 +509,11 @@
     "category": "analytical",
     "aliases": [
       "clinical study monitoring"
-    ]
+    ],
+    "sdgs": [
+      3
+    ],
+    "sdg_justification": "Can support SDG 3 when careful study monitoring helps protect participants and maintain the quality of health research."
   },
   {
     "id": "SK043",
@@ -348,7 +521,12 @@
     "category": "domain",
     "aliases": [
       "ESG reporting"
-    ]
+    ],
+    "sdgs": [
+      12,
+      13
+    ],
+    "sdg_justification": "Can support SDG 12 through transparent reporting of organisational impacts and SDG 13 when climate impacts are measured and disclosed."
   },
   {
     "id": "SK044",
@@ -356,7 +534,12 @@
     "category": "domain",
     "aliases": [
       "environmental measurement"
-    ]
+    ],
+    "sdgs": [
+      12,
+      13
+    ],
+    "sdg_justification": "Can support SDG 12 when environmental metrics inform resource use and SDG 13 when they track climate-related impacts."
   },
   {
     "id": "SK045",
@@ -364,7 +547,11 @@
     "category": "domain",
     "aliases": [
       "GHG accounting"
-    ]
+    ],
+    "sdgs": [
+      13
+    ],
+    "sdg_justification": "Can support SDG 13 when accurate carbon accounting helps organisations measure and manage greenhouse-gas emissions."
   },
   {
     "id": "SK046",
@@ -372,7 +559,12 @@
     "category": "domain",
     "aliases": [
       "environmental compliance"
-    ]
+    ],
+    "sdgs": [
+      12,
+      13
+    ],
+    "sdg_justification": "Can support SDG 12 through responsible environmental compliance and SDG 13 when regulation addresses climate impacts."
   },
   {
     "id": "SK047",
@@ -380,7 +572,12 @@
     "category": "analytical",
     "aliases": [
       "LCA"
-    ]
+    ],
+    "sdgs": [
+      12,
+      13
+    ],
+    "sdg_justification": "Can support SDG 12 when lifecycle assessment identifies resource and waste impacts, and SDG 13 when it evaluates emissions across a product lifecycle."
   },
   {
     "id": "SK048",
@@ -388,7 +585,12 @@
     "category": "engineering",
     "aliases": [
       "renewable energy systems"
-    ]
+    ],
+    "sdgs": [
+      7,
+      13
+    ],
+    "sdg_justification": "Can support SDG 7 when applied to reliable, affordable clean-energy systems and SDG 13 when those systems help reduce emissions."
   },
   {
     "id": "SK049",
@@ -396,7 +598,12 @@
     "category": "engineering",
     "aliases": [
       "electrical engineering"
-    ]
+    ],
+    "sdgs": [
+      7,
+      9
+    ],
+    "sdg_justification": "Can support SDG 7 when electrical engineering enables safe, efficient energy systems and SDG 9 when it strengthens infrastructure."
   },
   {
     "id": "SK050",
@@ -404,7 +611,11 @@
     "category": "engineering",
     "aliases": [
       "engineering design"
-    ]
+    ],
+    "sdgs": [
+      9
+    ],
+    "sdg_justification": "Can support SDG 9 when technical designs solve practical engineering needs and contribute to useful infrastructure or innovation."
   },
   {
     "id": "SK051",
@@ -412,7 +623,12 @@
     "category": "technical",
     "aliases": [
       "power simulation"
-    ]
+    ],
+    "sdgs": [
+      7,
+      13
+    ],
+    "sdg_justification": "Can support SDG 7 when simulations help evaluate clean-energy systems and SDG 13 when they inform lower-emission designs."
   },
   {
     "id": "SK052",
@@ -420,7 +636,12 @@
     "category": "engineering",
     "aliases": [
       "power grid integration"
-    ]
+    ],
+    "sdgs": [
+      7,
+      9
+    ],
+    "sdg_justification": "Can support SDG 7 when grid integration connects renewable energy reliably and SDG 9 when it strengthens energy infrastructure."
   },
   {
     "id": "SK053",
@@ -428,7 +649,11 @@
     "category": "engineering",
     "aliases": [
       "safety engineering"
-    ]
+    ],
+    "sdgs": [
+      9
+    ],
+    "sdg_justification": "Can support SDG 9 when engineering safety practices help protect people and maintain dependable infrastructure and systems."
   },
   {
     "id": "SK054",
@@ -436,7 +661,11 @@
     "category": "engineering",
     "aliases": [
       "industrial controls"
-    ]
+    ],
+    "sdgs": [
+      9
+    ],
+    "sdg_justification": "Can support SDG 9 when well-designed control systems improve the reliable operation of industrial infrastructure."
   },
   {
     "id": "SK055",
@@ -444,7 +673,11 @@
     "category": "engineering",
     "aliases": [
       "PLC"
-    ]
+    ],
+    "sdgs": [
+      9
+    ],
+    "sdg_justification": "Can support SDG 9 when safe, reliable PLC programming supports useful industrial systems and infrastructure."
   },
   {
     "id": "SK056",
@@ -452,7 +685,11 @@
     "category": "engineering",
     "aliases": [
       "factory automation"
-    ]
+    ],
+    "sdgs": [
+      9
+    ],
+    "sdg_justification": "Can support SDG 9 when responsibly designed automation improves industrial capability and system reliability."
   },
   {
     "id": "SK057",
@@ -460,7 +697,11 @@
     "category": "engineering",
     "aliases": [
       "industrial robotics"
-    ]
+    ],
+    "sdgs": [
+      9
+    ],
+    "sdg_justification": "Can support SDG 9 when robotics is applied to useful, safe industrial innovation and infrastructure."
   },
   {
     "id": "SK058",
@@ -468,7 +709,11 @@
     "category": "engineering",
     "aliases": [
       "maintenance troubleshooting"
-    ]
+    ],
+    "sdgs": [
+      9
+    ],
+    "sdg_justification": "Can support SDG 9 when equipment troubleshooting helps maintain reliable industrial systems and infrastructure."
   },
   {
     "id": "SK059",
@@ -477,7 +722,12 @@
     "aliases": [
       "QMS",
       "ISO 9001"
-    ]
+    ],
+    "sdgs": [
+      9,
+      12
+    ],
+    "sdg_justification": "Can support SDG 9 through reliable industrial processes and SDG 12 when quality systems help reduce defects, waste, and rework."
   },
   {
     "id": "SK060",
@@ -485,7 +735,12 @@
     "category": "analytical",
     "aliases": [
       "RCA"
-    ]
+    ],
+    "sdgs": [
+      9,
+      12
+    ],
+    "sdg_justification": "Can support SDG 9 by improving system reliability and SDG 12 when root-cause fixes prevent recurring defects and material waste."
   },
   {
     "id": "SK061",
@@ -493,7 +748,11 @@
     "category": "engineering",
     "aliases": [
       "test planning"
-    ]
+    ],
+    "sdgs": [
+      9
+    ],
+    "sdg_justification": "Can support SDG 9 when rigorous testing helps ensure that engineered products and systems work reliably."
   },
   {
     "id": "SK062",
@@ -501,7 +760,12 @@
     "category": "analytical",
     "aliases": [
       "SPC"
-    ]
+    ],
+    "sdgs": [
+      9,
+      12
+    ],
+    "sdg_justification": "Can support SDG 9 through more reliable production and SDG 12 when process controls help reduce defects and wasted materials."
   },
   {
     "id": "SK063",
@@ -509,7 +773,12 @@
     "category": "engineering",
     "aliases": [
       "continuous improvement"
-    ]
+    ],
+    "sdgs": [
+      9,
+      12
+    ],
+    "sdg_justification": "Can support SDG 9 when process improvements strengthen industrial capability and SDG 12 when they use resources more efficiently."
   },
   {
     "id": "SK064",
@@ -517,7 +786,12 @@
     "category": "ai",
     "aliases": [
       "AI inspection"
-    ]
+    ],
+    "sdgs": [
+      9,
+      12
+    ],
+    "sdg_justification": "Can support SDG 9 when carefully validated inspection automation improves industrial systems and SDG 12 when it prevents defects and waste."
   },
   {
     "id": "SK065",
@@ -525,7 +799,11 @@
     "category": "domain",
     "aliases": [
       "instructional design"
-    ]
+    ],
+    "sdgs": [
+      4
+    ],
+    "sdg_justification": "Can support SDG 4 when learning design creates inclusive, relevant opportunities for people to build knowledge and skills."
   },
   {
     "id": "SK066",
@@ -533,7 +811,11 @@
     "category": "domain",
     "aliases": [
       "learning assessment"
-    ]
+    ],
+    "sdgs": [
+      4
+    ],
+    "sdg_justification": "Can support SDG 4 when fair, well-aligned assessments help learners demonstrate and develop their knowledge."
   },
   {
     "id": "SK067",
@@ -541,7 +823,11 @@
     "category": "domain",
     "aliases": [
       "educational content"
-    ]
+    ],
+    "sdgs": [
+      4
+    ],
+    "sdg_justification": "Can support SDG 4 when accurate, accessible learning content helps people participate in quality education."
   },
   {
     "id": "SK068",
@@ -549,7 +835,11 @@
     "category": "technical",
     "aliases": [
       "LMS"
-    ]
+    ],
+    "sdgs": [
+      4
+    ],
+    "sdg_justification": "Can support SDG 4 when learning technologies are accessible and effectively support teaching and learning."
   },
   {
     "id": "SK069",
@@ -557,7 +847,12 @@
     "category": "transferable",
     "aliases": [
       "inclusive design"
-    ]
+    ],
+    "sdgs": [
+      4,
+      10
+    ],
+    "sdg_justification": "Can support SDG 4 by making learning accessible and SDG 10 when inclusive design reduces barriers for people with different needs."
   },
   {
     "id": "SK070",
@@ -565,7 +860,11 @@
     "category": "analytical",
     "aliases": [
       "education analytics"
-    ]
+    ],
+    "sdgs": [
+      4
+    ],
+    "sdg_justification": "Can support SDG 4 when responsible learning analytics help educators identify barriers and improve learning experiences."
   },
   {
     "id": "SK071",
@@ -573,7 +872,12 @@
     "category": "analytical",
     "aliases": [
       "UX research"
-    ]
+    ],
+    "sdgs": [
+      9,
+      10
+    ],
+    "sdg_justification": "Can support SDG 9 when user research informs better digital products and SDG 10 when research includes people whose needs are often overlooked."
   },
   {
     "id": "SK072",
@@ -581,7 +885,12 @@
     "category": "domain",
     "aliases": [
       "UX design"
-    ]
+    ],
+    "sdgs": [
+      9,
+      10
+    ],
+    "sdg_justification": "Can support SDG 9 through useful digital-product innovation and SDG 10 when interaction design makes products more inclusive."
   },
   {
     "id": "SK073",
@@ -590,7 +899,11 @@
     "aliases": [
       "Figma",
       "wireframing"
-    ]
+    ],
+    "sdgs": [
+      9
+    ],
+    "sdg_justification": "Can support SDG 9 when prototypes help teams test and improve practical products, services, or infrastructure."
   },
   {
     "id": "SK074",
@@ -598,7 +911,12 @@
     "category": "analytical",
     "aliases": [
       "usability research"
-    ]
+    ],
+    "sdgs": [
+      9,
+      10
+    ],
+    "sdg_justification": "Can support SDG 9 when usability testing improves digital products and SDG 10 when testing includes users with diverse needs."
   },
   {
     "id": "SK075",
@@ -606,7 +924,11 @@
     "category": "domain",
     "aliases": [
       "IA"
-    ]
+    ],
+    "sdgs": [
+      9
+    ],
+    "sdg_justification": "Can support SDG 9 when clear information architecture makes digital services and information easier to navigate."
   },
   {
     "id": "SK076",
@@ -614,7 +936,12 @@
     "category": "domain",
     "aliases": [
       "interface design"
-    ]
+    ],
+    "sdgs": [
+      9,
+      10
+    ],
+    "sdg_justification": "Can support SDG 9 through useful product communication and SDG 10 when visual design is accessible and represents diverse users."
   },
   {
     "id": "SK077",
@@ -622,7 +949,12 @@
     "category": "ai",
     "aliases": [
       "generative AI literacy"
-    ]
+    ],
+    "sdgs": [
+      4,
+      8
+    ],
+    "sdg_justification": "Can support SDG 4 through responsible AI learning and SDG 8 when AI literacy helps people adapt to changes in work."
   },
   {
     "id": "SK078",
@@ -630,7 +962,12 @@
     "category": "transferable",
     "aliases": [
       "project planning"
-    ]
+    ],
+    "sdgs": [
+      8,
+      9
+    ],
+    "sdg_justification": "Can support SDG 8 through organised, responsible work and SDG 9 when projects deliver useful infrastructure or innovation."
   },
   {
     "id": "SK079",
@@ -640,7 +977,11 @@
       "team leadership",
       "led a team",
       "team lead"
-    ]
+    ],
+    "sdgs": [
+      8
+    ],
+    "sdg_justification": "Can support SDG 8 when responsible leadership promotes safe, fair, and productive work."
   },
   {
     "id": "SK080",
@@ -650,7 +991,11 @@
       "team player",
       "collaboration",
       "teamwork skills"
-    ]
+    ],
+    "sdgs": [
+      8
+    ],
+    "sdg_justification": "Can support SDG 8 when respectful teamwork supports collaboration and decent working conditions."
   },
   {
     "id": "SK081",
@@ -661,7 +1006,12 @@
       "event organization",
       "event planning",
       "event coordination"
-    ]
+    ],
+    "sdgs": [
+      8,
+      12
+    ],
+    "sdg_justification": "Can support SDG 8 through well-managed event work and SDG 12 when planning reduces unnecessary materials and waste."
   },
   {
     "id": "SK082",
@@ -670,6 +1020,11 @@
     "aliases": [
       "problem-solving",
       "solving problems"
-    ]
+    ],
+    "sdgs": [
+      8,
+      9
+    ],
+    "sdg_justification": "Can support SDG 8 when practical problem-solving improves work and SDG 9 when it helps develop or improve useful systems."
   }
 ]
