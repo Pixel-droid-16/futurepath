@@ -1,12 +1,12 @@
     // Signals page: stored trend signals from /api/signals (curated reports + refreshed feeds), newest first.
     const TAG = { curated: ["Curated & verified", "var(--upbg)", "var(--up)"], claude: ["Tagged by Claude", "var(--soft)", "var(--pr)"], keyword: ["Keyword fallback", "var(--sf2)", "var(--mu)"] };
-    const fmtDate = d => { try { return new Date(d + (d.length === 10 ? "T00:00:00" : "")).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" }); } catch (e) { return d; } };
+    const fmtDate = d => { try { return new Date(d + (d.length === 10 ? "T00:00:00" : "")).toLocaleDateString(fpIntlLocale(st.lang), { day: "numeric", month: "short", year: "numeric" }); } catch (e) { return d; } };
     const signals = st.liveSignals.filter(x => st.sig === "all" || (st.sig === "up") === (x.direction === "emerging")).map(x => { const tag = TAG[x.tagged_by] || TAG.keyword;
       return { t: x.title, summary: x.summary === x.title ? "" : x.summary, url: x.url, type: x.source_type[0].toUpperCase() + x.source_type.slice(1),
         dir: x.direction === "emerging" ? "↑ Emerging" : "↓ Declining", dc: x.direction === "emerging" ? "var(--sky)" : "var(--dn)", db: x.direction === "emerging" ? "var(--skybg)" : "var(--dnbg)",
         tag: tag[0], tb: tag[1], tc: tag[2], dots: "●".repeat(x.strength) + "○".repeat(5 - x.strength),
         roles: x.role_titles.length ? x.role_titles.join(", ") : (x.skill_ids.length ? "Linked through skills only" : "General context"),
-        src: x.source_name + " · " + new Date(x.published_date + "T00:00:00").toLocaleDateString("en-GB", { month: "short", year: "numeric" }) }; });
+        src: x.source_name + " · " + new Date(x.published_date + "T00:00:00").toLocaleDateString(fpIntlLocale(st.lang), { month: "short", year: "numeric" }) }; });
     const f = k => st.sig === k ? { b: "var(--pr)", c: "var(--pri)" } : { b: "var(--sf)", c: "var(--ink)" };
     const lastRun = st.signalRuns[0];
     const sigUpdated = st.liveSignals.length ? fmtDate(st.liveSignals.map(x => x.fetched_at).sort().slice(-1)[0]) : "—";

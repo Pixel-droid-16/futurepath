@@ -8,10 +8,10 @@
     ];
     // Latest stored trend signals (newest first); the sample list only shows until /api/signals has loaded.
     const FEED = st.liveSignals.length ? st.liveSignals.slice(0, 6).map(x => ({ dir: x.direction === "emerging" ? "↑" : "↓", kind: x.direction === "emerging" ? "Emerging" : "Declining", t: x.title,
-      src: x.source_name + " · " + new Date(x.published_date + "T00:00:00").toLocaleDateString("en-GB", { month: "short", year: "numeric" }), roles: x.role_titles.join(", ") || "General context", c: x.direction === "emerging" ? "var(--up)" : "var(--dn)", bg: x.direction === "emerging" ? "var(--upbg)" : "var(--dnbg)" })) : SAMPLE_FEED;
+      src: x.source_name + " · " + new Date(x.published_date + "T00:00:00").toLocaleDateString(fpIntlLocale(st.lang), { month: "short", year: "numeric" }), roles: x.role_titles.join(", ") || "General context", c: x.direction === "emerging" ? "var(--up)" : "var(--dn)", bg: x.direction === "emerging" ? "var(--upbg)" : "var(--dnbg)" })) : SAMPLE_FEED;
     const tk = st.tick || 0, CYC = 5, li = Math.floor(tk / CYC) % FEED.length;
     const now = new Date();
-    let clock = ""; try { clock = now.toLocaleTimeString("en-GB", { timeZone: "Asia/Kuala_Lumpur", hour: "2-digit", minute: "2-digit", second: "2-digit" }); } catch (e) { clock = now.toTimeString().slice(0, 8); }
+    let clock = ""; try { clock = now.toLocaleTimeString(fpIntlLocale(st.lang), { timeZone: "Asia/Kuala_Lumpur", hour: "2-digit", minute: "2-digit", second: "2-digit" }); } catch (e) { clock = now.toTimeString().slice(0, 8); }
     // Feed stats: signals fetched in the last 7 days, and hours since the last refresh run finished.
     const weekAgo = new Date(Date.now() - 7 * 86400000).toISOString().slice(0, 10);
     const sigNewWeek = st.liveSignals.filter(x => x.tagged_by !== "curated" && x.fetched_at >= weekAgo).length;  // added by feed refreshes, not the curated baseline

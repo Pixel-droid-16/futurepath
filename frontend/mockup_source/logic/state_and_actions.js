@@ -1,5 +1,5 @@
 class Component extends DCLogic {
-  state = { theme: this.props.defaultTheme ?? "light", lang: "en", page: pageFromPath() ?? this.props.startPage ?? "home", fast: false, ws: 55, wd: 45, liveStatus: "loading", liveError: "", liveModerate: [], liveRapid: [], selectedRole: "data-analyst", scenarioComparison: null, profileDemo: null, sig: "all",
+  state = { theme: this.props.defaultTheme ?? "light", lang: savedLanguage(), page: pageFromPath() ?? this.props.startPage ?? "home", fast: false, ws: 55, wd: 45, liveStatus: "loading", liveError: "", liveModerate: [], liveRapid: [], selectedRole: "data-analyst", scenarioComparison: null, profileDemo: null, sig: "all",
     // Start flow (/start): choose -> cv | form -> check -> quiz -> results. Nothing is saved until the quiz step ends.
     startStep: "choose", cvName: "", extracting: false, startError: "", catalog: [],
     form: { role: "", years: 0, qualification: "", languages: "", goals: "" }, formPicked: [], formQuery: "",
@@ -14,9 +14,20 @@ class Component extends DCLogic {
     if (q.defaultTheme !== p.defaultTheme && q.defaultTheme) u.theme = q.defaultTheme;
     if (q.startPage !== p.startPage && q.startPage && !pageFromPath()) u.page = q.startPage;
     if (Object.keys(u).length) this.setState(u);
+    if (this._translatedLanguage !== this.state.lang) {
+      this._translatedLanguage = this.state.lang;
+      fpTranslateTree(document.getElementById("dc-root"), this.state.lang);
+    }
   }
   componentDidMount() {
     this._alive = true;
+    const root = document.getElementById("dc-root");
+    if (root && typeof MutationObserver !== "undefined") {
+      this._translationObserver = new MutationObserver(() => fpTranslateTree(root, this.state.lang));
+      this._translationObserver.observe(root, { childList: true, subtree: true, characterData: true });
+      fpTranslateTree(root, this.state.lang);
+    }
+    this._translatedLanguage = this.state.lang;
     this._t = setInterval(() => this.setState(s => ({ tick: (s.tick || 0) + 1 })), 1000);
     this._onPop = () => { const p = pageFromPath(); if (p) this.setState({ page: p }); };
     try { window.addEventListener("popstate", this._onPop); } catch (e) {}
@@ -90,7 +101,13 @@ class Component extends DCLogic {
     this.loadScenarioPair(roleId);
     if (openPathway) this.go('pathway');
   }
-  componentWillUnmount() { this._alive = false; clearInterval(this._t); try { window.removeEventListener("popstate", this._onPop); } catch (e) {} }
+  componentWillUnmount() { this._alive = false; clearInterval(this._t); if (this._translationObserver) this._translationObserver.disconnect(); try { window.removeEventListener("popstate", this._onPop); } catch (e) {} }
+  changeLanguage() {
+    const current = this.state.lang;
+    const next = FP_LOCALES[(FP_LOCALES.indexOf(current) + 1) % FP_LOCALES.length];
+    try { localStorage.setItem("fp-lang", next); } catch (e) {}
+    this.setState({ lang: next });
+  }
   go(p) {
     this.setState({ page: p });
     try { if (location.pathname !== PAGE_PATH[p]) history.pushState({ page: p }, "", PAGE_PATH[p]); window.scrollTo(0, 0); } catch (e) {}

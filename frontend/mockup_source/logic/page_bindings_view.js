@@ -1,5 +1,5 @@
     // Results (step 4 of /start; /results opens the same view directly).
-    const fmtMonth = d => { try { return new Date(d + "T00:00:00").toLocaleDateString("en-GB", { month: "short", year: "numeric" }); } catch (e) { return d; } };
+    const fmtMonth = d => { try { return new Date(d + "T00:00:00").toLocaleDateString(fpIntlLocale(st.lang), { month: "short", year: "numeric" }); } catch (e) { return d; } };
     const byDemand = [...ranked].sort((a, b) => b.demand - a.demand);
     const roleBar = r => ({ title: r.title, w: r.demand + "%", src: r.source.signals?.cited?.[0] ? r.source.signals.cited[0].source + " · " + fmtMonth(r.source.signals.cited[0].date) : "No dated signal" });
     const risingRoles = byDemand.filter(r => r.demand >= 50).slice(0, 5).map(roleBar);
@@ -7,7 +7,7 @@
     const hasQuiz = !!st.profileDemo?.riasec;
     return { ...out, ...startBindings, theme: st.theme, sdgReady: true, sdgTiles, sdgLinkedCount, radarUp, radarDn, radarUpdated, live: FEED[li], liveNext: [1, 2, 3].map(k => FEED[(li + k) % FEED.length]), liveProg: (((tk % CYC) + 1) / CYC * 100) + "%", clock, accent: this.props.accent ?? "violet", lbl: st.theme === "dark" ? "Light" : "Dark",
       toggle: () => this.setState(s => ({ theme: s.theme === "dark" ? "light" : "dark" })),
-      langLbl: st.lang === "en" ? "EN | BM" : "BM | EN", toggleLang: () => this.setState(s => ({ lang: s.lang === "en" ? "ms" : "en" })),
+      langLbl: st.lang === "en" ? "EN" : st.lang === "ms" ? "BM" : "简体中文", toggleLang: () => this.changeLanguage(),
       goHome: () => this.go("home"), goStart: () => this.startOver(), goSignals: () => this.go("signals"), goAbout: () => this.go("about"),
       go_start: () => this.startOver(),
       feedLabel: st.liveSignals.length ? "LIVE " + "SIGNAL FEED" : "SAMPLE SIGNAL FEED",  // "live" only once real stored signals have loaded
@@ -35,12 +35,13 @@
       backToResults: () => { if (st.startStep === "results") { this.go("start"); } else { this.go("results"); } },
       pathTitle: fpActive?.title || 'Choose a career on the results page',
       pathIntroduction: `${st.fast ? 'Fast' : 'Moderate'} AI disruption · ${studyHours} h a week · free, low-cost and HRD Corp claimable courses`,
-      pathSdgs: (fpActive?.sdgs || []).map(n => ({ n, c: (typeof SDG !== 'undefined' && SDG[n]) || 'var(--pr)' })),
+      pathSdgs: (fpActive?.sdgs || []).map(n => ({ n, label:`SDG ${n} · ${SDG_GOALS[n] || 'Sustainable Development Goal'}`, c: SDG[n] || 'var(--pr)' })),
+      pathSdgJustification: fpActive?.sdg_justification || 'Select a career to see its SDG connection.',
       pathHours: pathHoursNum || '—', pathWeeks: pathHoursNum ? Math.ceil(pathHoursNum / studyHours) : '—',
       pathCost: !pathCostSet.size ? '—' : pathCostSet.has('Free') && pathCostSet.size === 1 ? 'Free' : [...pathCostSet].some(c => c.startsWith('HRD')) ? 'HRD Corp' : 'Low cost',
-      pathCostNote: !pathChecked.length ? 'No checked course yet' : 'Checked ' + fpDay(pathChecked[0]) + (pathChecked.length > 1 ? ' – ' + fpDay(pathChecked[pathChecked.length - 1]) : ''),
+      pathCostNote: !pathChecked.length ? 'No course verification dates recorded' : [...new Set(pathChecked)].join(' · '),
       pathMissingText: pathMissing.length ? `No checked course yet for: ${pathMissing.join(', ')}.` : 'Every step has a checked course.',
-      pathNote: 'Course titles, costs, hours and links were read from each provider\'s page on the date shown with each course. HRD Corp approval is per run, so confirm before applying. Weeks assume your study hours per week.',
+      pathNote: 'Provider-page dates are shown for individually checked courses; imported entries show their catalogue snapshot date. Confirm current costs, hours and HRD Corp eligibility with the provider. Weeks assume your study hours per week.',
       steps: fpSteps,
       weeks: [1, 2, 3, 4, 5, 6].map(w => ({ w, bg: w <= 4 ? (w <= 2 ? "var(--pr)" : "color-mix(in oklch, var(--pr) 60%, var(--sf))") : (w <= 7 ? "var(--sky)" : "var(--up)") })),
       // Signals page.

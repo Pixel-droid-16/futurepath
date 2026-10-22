@@ -13,7 +13,7 @@
       { icon: "✎", t: "Fill a short form", d: "Pick your skills from a list. Takes about 3 minutes.", choose: () => this.setStep("form") }];
     const prof = st.profileDemo || {};
     // Saved people (/api/profiles), newest first; "See results" switches the active person.
-    const fmtDay = d => { try { return new Date(d).toLocaleDateString("en-GB", { day: "numeric", month: "short" }); } catch (e) { return ""; } };
+    const fmtDay = d => { try { return new Date(d).toLocaleDateString(fpIntlLocale(st.lang), { day: "numeric", month: "short" }); } catch (e) { return ""; } };
     const peopleRows = st.people.map(x => ({ name: x.name, sub: [x.headline, x.skills + " skills", x.has_quiz ? "quiz done" : "no quiz", x.updated_at ? "saved " + fmtDay(x.updated_at) : ""].filter(Boolean).join(" · "),
       open: () => { this.switchPerson(x.id); this.go("start"); this.setStep("results"); }, asking: st.confirmDeleteId === x.id, notAsking: st.confirmDeleteId !== x.id,
       ask: () => this.setState({ confirmDeleteId: x.id }), cancel: () => this.setState({ confirmDeleteId: null }), confirm: () => this.deletePerson(x.id) }));
