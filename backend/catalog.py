@@ -16,7 +16,8 @@ COST_LABEL={'free':'Free','low':'Low cost (paid certificate)','hrdc_claimable':'
 def _course_resources():
     rows=[{'id':c['id'],'title':c['title'],'provider':c['provider'],'url':c['url'],'skill_id':sid,'level':None,'hours':c['hours'],
            'duration':f"{c['hours']:g} h"+(' (estimated)' if c['hours_estimated'] else ''),'cost':COST_LABEL.get(c['cost'],c['cost']),
-           'verification_status':'checked '+c.get('checked','2026-10-20'),'notes':c['notes']} for c in COURSES for sid in c['skill_ids']]
+           'verification_status':('provider page checked '+c['checked']) if c.get('checked') else 'source catalogue snapshot checked 2026-10-20',
+           'notes':c['notes']} for c in COURSES for sid in c['skill_ids']]
     return sorted(rows,key=lambda r:(list(COST_LABEL.values()).index(r['cost']) if r['cost'] in COST_LABEL.values() else 9,r['hours']))
 # Pathway resources: checked courses first; placeholders only for skills no checked course teaches.
 _covered={r['skill_id'] for r in _course_resources()}
