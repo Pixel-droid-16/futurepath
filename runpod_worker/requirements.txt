@@ -1,5 +1,5 @@
 runpod>=1.7,<3
 transformers>=4.46,<5
-torch==2.5.1
+torch==2.7.1
 accelerate>=1.1,<2
 safetensors>=0.4,<1
