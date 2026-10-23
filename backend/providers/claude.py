@@ -45,7 +45,8 @@ def cv_schema(skills):
     return {'type':'object','additionalProperties':False,'required':['candidates','transcript'],'properties':{
         'candidates':{'type':'array','items':{'type':'object','additionalProperties':False,'required':['skill_id','excerpt'],
             'properties':{'skill_id':{'type':'string','enum':[s['id'] for s in skills]},'excerpt':excerpt,
-                          'page':{'type':'integer','minimum':1}}}},
+                          # No 'minimum': structured output rejects it on integers. result_from() checks 1..pages instead.
+                          'page':{'type':'integer'}}}},
         'transcript':{'type':'string'}}}
 
 def catalogue_text(skills):

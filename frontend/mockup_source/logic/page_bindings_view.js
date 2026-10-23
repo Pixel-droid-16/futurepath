@@ -42,7 +42,6 @@
       pathHours: pathHoursNum || '—', pathWeeks: pathHoursNum ? Math.ceil(pathHoursNum / studyHours) : '—',
       pathCost: !pathCostSet.size ? '—' : pathCostSet.has('Free') && pathCostSet.size === 1 ? 'Free' : [...pathCostSet].some(c => c.startsWith('HRD')) ? 'HRD Corp' : 'Low cost',
       pathCostNote: !pathChecked.length ? 'No course verification dates recorded' : [...new Set(pathChecked)].join(' · '),
-      pathMissingText: pathMissing.length ? `No checked course yet for: ${pathMissing.join(', ')}.` : 'Every step has a checked course.',
       pathNote: 'Provider-page dates are shown for individually checked courses; imported entries show their catalogue snapshot date. Confirm current costs, hours and HRD Corp eligibility with the provider. Weeks assume your study hours per week.',
       steps: fpSteps,
       weeks: [1, 2, 3, 4, 5, 6].map(w => ({ w, bg: w <= 4 ? (w <= 2 ? "var(--pr)" : "color-mix(in oklch, var(--pr) 60%, var(--sf))") : (w <= 7 ? "var(--sky)" : "var(--up)") })),

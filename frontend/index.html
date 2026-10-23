@@ -125,7 +125,6 @@
 <p style="margin:0 0 0 56px;font-size:13px;color:var(--mu);line-height:1.5">{{ pathNote }}</p><p style="margin:0 0 0 56px;font-size:12px;color:var(--mu)">Source titles and course names are shown in their original language.</p></div></div>
 <aside style="flex:1 1 300px;min-width:0;display:flex;flex-direction:column;gap:16px">
 <div style="background:var(--sf);border:1px solid var(--ln);border-radius:24px;padding:24px;display:flex;flex-direction:column;gap:14px"><b style="font-size:17px;font-weight:600">How this career may contribute to the SDGs</b><div style="display:flex;flex-wrap:wrap;gap:6px"><sc-for list="{{ pathSdgs }}" as="g"><span style="background:{{ g.c }};color:#fff;border-radius:8px;padding:4px 10px;font-size:12px;font-weight:600">{{ g.label }}</span></sc-for></div><p style="margin:0;font-size:14px;line-height:1.5;color:var(--mu)">{{ pathSdgJustification }}</p><p style="margin:0;font-size:12px;line-height:1.5;color:var(--mu)">Potential alignment only; real contribution depends on how the work is carried out and its outcomes.</p></div>
-<div style="background:var(--sf);border:1px solid var(--ln);border-radius:24px;padding:24px;font-size:14px;line-height:1.5"><b style="display:block;font-size:17px;font-weight:600;margin-bottom:6px;color:var(--am)">Not in our catalog yet</b>{{ pathMissingText }}</div>
 <div style="background:var(--sf);border:1px solid var(--ln);border-radius:24px;padding:24px;font-size:14px;line-height:1.5"><b style="display:block;font-size:17px;font-weight:600;margin-bottom:6px">Build through practice</b>Practice verified skills and ask for feedback as you learn.</div></aside></section></main></sc-if>
 <sc-if value="{{ is_signals }}" hint-placeholder-val="{{ false }}"><main data-screen-label="Signals" style="flex:1;display:flex;flex-direction:column"><section style="background:var(--hero);border-bottom:1px solid var(--ln);padding:56px max(clamp(20px,4vw,48px),calc((100% - 1200px)/2)) 44px;display:flex;flex-wrap:wrap;gap:24px 40px;align-items:flex-end"><div style="flex:1 1 480px"><span style="font:600 12px 'Geist Mono',monospace;letter-spacing:.06em;color:var(--pr)">TREND SIGNALS</span><h1 style="margin:8px 0 0;font-size:clamp(34px,4.5vw,52px);line-height:1.05;letter-spacing:-.035em;font-weight:700">The evidence behind every score</h1><p style="margin:12px 0 0;font-size:17px;line-height:1.55;color:var(--mu);max-width:640px">Curated reports form the baseline; new items arrive from news, research and dataset feeds, each dated and sourced.</p></div>
 <div style="display:flex;flex-wrap:wrap;gap:12px"><div style="background:var(--sf);border:1px solid var(--ln);border-radius:16px;padding:14px 18px"><div style="font:600 12px 'Geist Mono';letter-spacing:.06em;color:var(--mu)">LAST UPDATED</div><b style="font-size:15px;font-weight:600">{{ sigUpdated }}</b></div><div style="background:var(--sf);border:1px solid var(--ln);border-radius:16px;padding:14px 18px"><div style="font:600 12px 'Geist Mono';letter-spacing:.06em;color:var(--mu)">LAST REFRESH</div><b style="font-size:15px;font-weight:600;color:{{ sigLastRunC }}">{{ sigLastRun }}</b></div></div></section>
@@ -191,7 +190,6 @@ const FP_TEXT = {
   "600,000+": ["600,000+", "600,000+", "60 万+"],
   "Hays Asia Salary Guide 2025": ["Hays Asia Salary Guide 2025", "Hays Asia Salary Guide 2025", "Hays 亚洲薪酬指南 2025"],
   "MOSTI": ["MOSTI", "MOSTI", "MOSTI"],
-  "No checked course yet for:": ["No checked course yet for:", "Belum ada kursus yang disemak untuk:", "以下技能暂无已核查课程："],
   "No course verification dates recorded": ["No course verification dates recorded", "Tiada tarikh pengesahan kursus direkodkan", "未记录课程核查日期"],
   "Provisional": ["Provisional", "Sementara", "暂定"],
   "Readiness unknown": ["Readiness unknown", "Tahap kesiapsiagaan tidak diketahui", "准备度未知"],
@@ -235,7 +233,6 @@ const FP_TEXT = {
   "Other options:": ["Other options:", "Pilihan lain:", "其他选项："],
   "How this career may contribute to the SDGs": ["How this career may contribute to the SDGs", "Cara kerjaya ini boleh menyumbang kepada SDG", "此职业可能如何为可持续发展目标作出贡献"],
   "Potential alignment only; real contribution depends on how the work is carried out and its outcomes.": ["Potential alignment only; real contribution depends on how the work is carried out and its outcomes.", "Ini hanya potensi penjajaran; sumbangan sebenar bergantung pada cara kerja dilakukan dan hasilnya.", "这仅表示潜在关联；实际贡献取决于工作方式及其成果。"],
-  "Not in our catalog yet": ["Not in our catalog yet", "Belum ada dalam katalog kami", "尚未收录在目录中"],
   "Build through practice": ["Build through practice", "Bina kemahiran melalui latihan", "通过实践提升"],
   "Practice verified skills and ask for feedback as you learn.": ["Practice verified skills and ask for feedback as you learn.", "Amalkan kemahiran yang telah disahkan dan minta maklum balas semasa belajar.", "练习已确认的技能，并在学习过程中征求反馈。"],
   "STEP 4 OF 4": ["STEP 4 OF 4", "LANGKAH 4 DARIPADA 4", "第 4 步，共 4 步"],
@@ -387,7 +384,6 @@ const FP_TEXT = {
   "Low cost (paid certificate)": ["Low cost (paid certificate)", "Kos rendah (sijil berbayar)", "低价（付费证书）"],
   "HRD Corp claimable (confirm per run)": ["HRD Corp claimable (confirm per run)", "Boleh dituntut melalui HRD Corp (sahkan bagi setiap pengambilan)", "可申请 HRD Corp 资助（每期开课前请确认）"],
   "Duration unknown": ["Duration unknown", "Tempoh tidak diketahui", "时长未知"],
-  "Every step has a checked course.": ["Every step has a checked course.", "Setiap langkah mempunyai kursus yang telah disemak.", "每个步骤都有已核查的课程。"],
   "Review skill requirements": ["Review skill requirements", "Semak keperluan kemahiran", "查看技能要求"],
   "No dated signal": ["No dated signal", "Tiada isyarat bertarikh", "没有带日期的趋势信号"],
   "OK": ["OK", "OK", "正常"],
@@ -896,11 +892,6 @@ const fpTranslation = (text, locale) => {
     const names = text.split(", ");
     if (names.every(name => FP_TEXT[name])) return names.map(name => fpTranslation(name, locale)).join(locale === "zh" ? "、" : ", ");
   }
-  const missingCourses = text.match(/^No checked course yet for: (.+)\.$/);
-  if (missingCourses) {
-    const skills = missingCourses[1].split(", ").map(skill => fpTranslation(skill, locale)).join(", ");
-    return locale === "zh" ? `以下技能暂无已核查课程：${skills}。` : `Belum ada kursus yang disemak untuk: ${skills}.`;
-  }
   const skillSdgSuffix = text.match(/^(.+) These are potential links, not guaranteed outcomes\.$/);
   if (skillSdgSuffix) return `${fpTranslation(skillSdgSuffix[1], locale)} ${fpTranslation("These are potential links, not guaranteed outcomes.", locale)}`;
   const goal = text.match(/^SDG (\d+) · (.+)$/);
@@ -1382,14 +1373,14 @@ class Component extends DCLogic {
     const f = k => st.sig === k ? { b: "var(--pr)", c: "var(--pri)" } : { b: "var(--sf)", c: "var(--ink)" };
     const lastRun = st.signalRuns[0];
     const sigUpdated = st.liveSignals.length ? fmtDate(st.liveSignals.map(x => x.fetched_at).sort().slice(-1)[0]) : "—";
-    const sigLastRun = lastRun ? (lastRun.status === "ok" ? "● OK" : lastRun.status === "running" ? "● Running" : "● " + lastRun.status[0].toUpperCase() + lastRun.status.slice(1)) + " · " + lastRun.accepted + " accepted · " + fmtDate((lastRun.finished_at || lastRun.started_at).slice(0, 10)) : "Not refreshed yet";
+    const sigLastRun = lastRun ? (lastRun.status === "ok" ? "● OK" : lastRun.status === "running" ? "● Running" : "● " + lastRun.status[0].toUpperCase() + lastRun.status.slice(1)) + " · " + lastRun.accepted + " accepted · " + fmtDate(lastRun.finished_at || lastRun.started_at) : "Not refreshed yet";
     const sigLastRunC = !lastRun ? "var(--mu)" : lastRun.status === "ok" ? "var(--up)" : lastRun.status === "failed" ? "var(--dn)" : "var(--am)";
     const sigFeeds = lastRun ? lastRun.feeds.map(x => ({ name: x.name, state: x.ok ? x.items + " items" : "failed: " + (x.error || "error"), c: x.ok ? "var(--mu)" : "var(--dn)" })) : [];
     // What changed (Results): the latest refresh's effect on the current profile's ranking.
     const wc = st.whatChanged;
     const wcMoves = (wc?.moves || []).slice(0, 3).map(m => ({ text: m.after_rank < m.before_rank ? `${m.title} moved up from #${m.before_rank} to #${m.after_rank}` : m.after_rank > m.before_rank ? `${m.title} moved down from #${m.before_rank} to #${m.after_rank}` : `${m.title} stayed at #${m.after_rank}`,
       why: `Trends ${m.before_trend} → ${m.after_trend} from ${m.new_signals} new signal${m.new_signals === 1 ? "" : "s"}` }));
-    const wcSummary = wc?.has_change ? `${wc.new_signal_count} new signals from the refresh on ${fmtDate((wc.run.finished_at || wc.run.started_at).slice(0, 10))}.` : "No earlier ranking to compare yet. When new signals arrive, changes to your ranking will show here.";
+    const wcSummary = wc?.has_change ? `${wc.new_signal_count} new signals from the refresh on ${fmtDate(wc.run.finished_at || wc.run.started_at)}.` : "No earlier ranking to compare yet. When new signals arrive, changes to your ranking will show here.";
     const SAMPLE_FEED = [
       { dir: "↑", kind: "Emerging", t: "Solar installation roles and vocational teachers expected to grow", src: "Demo · synthetic", roles: "Solar PV Technician, Skills Trainer", c: "var(--up)", bg: "var(--upbg)" },
       { dir: "↓", kind: "Declining", t: "Data entry, secretarial and bookkeeping roles declining in every edition since 2016", src: "Demo · synthetic", roles: "Data Entry Clerk, Admin Assistant", c: "var(--dn)", bg: "var(--dnbg)" },
@@ -1443,7 +1434,6 @@ class Component extends DCLogic {
     const studyHours = Math.max(1, Number(st.profileDemo?.study_hours) || 6);
     const pathHoursNum = Math.round(fpSteps.reduce((s, x) => s + x.hours, 0));
     const pathCostSet = new Set(fpSteps.filter(x => x.hasCourse).map(x => x.cost));
-    const pathMissing = fpSteps.filter(x => !x.hasCourse).map(x => x.skill);
     const pathChecked = [...new Set(fpSteps.filter(x => x.hasCourse).map(x => x.checked))];
     // Home "What's rising, what's fading": net skill outlook from stored signals (/api/skill-outlook).
     const radarUp = st.skillOutlook.rising.map(k => ({ t: k.name, w: k.width + "%" }));
@@ -1497,7 +1487,6 @@ class Component extends DCLogic {
       pathHours: pathHoursNum || '—', pathWeeks: pathHoursNum ? Math.ceil(pathHoursNum / studyHours) : '—',
       pathCost: !pathCostSet.size ? '—' : pathCostSet.has('Free') && pathCostSet.size === 1 ? 'Free' : [...pathCostSet].some(c => c.startsWith('HRD')) ? 'HRD Corp' : 'Low cost',
       pathCostNote: !pathChecked.length ? 'No course verification dates recorded' : [...new Set(pathChecked)].join(' · '),
-      pathMissingText: pathMissing.length ? `No checked course yet for: ${pathMissing.join(', ')}.` : 'Every step has a checked course.',
       pathNote: 'Provider-page dates are shown for individually checked courses; imported entries show their catalogue snapshot date. Confirm current costs, hours and HRD Corp eligibility with the provider. Weeks assume your study hours per week.',
       steps: fpSteps,
       weeks: [1, 2, 3, 4, 5, 6].map(w => ({ w, bg: w <= 4 ? (w <= 2 ? "var(--pr)" : "color-mix(in oklch, var(--pr) 60%, var(--sf))") : (w <= 7 ? "var(--sky)" : "var(--up)") })),

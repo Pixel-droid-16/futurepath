@@ -34,7 +34,6 @@ const FP_TEXT = {
   "600,000+": ["600,000+", "600,000+", "60 万+"],
   "Hays Asia Salary Guide 2025": ["Hays Asia Salary Guide 2025", "Hays Asia Salary Guide 2025", "Hays 亚洲薪酬指南 2025"],
   "MOSTI": ["MOSTI", "MOSTI", "MOSTI"],
-  "No checked course yet for:": ["No checked course yet for:", "Belum ada kursus yang disemak untuk:", "以下技能暂无已核查课程："],
   "No course verification dates recorded": ["No course verification dates recorded", "Tiada tarikh pengesahan kursus direkodkan", "未记录课程核查日期"],
   "Provisional": ["Provisional", "Sementara", "暂定"],
   "Readiness unknown": ["Readiness unknown", "Tahap kesiapsiagaan tidak diketahui", "准备度未知"],
@@ -78,7 +77,6 @@ const FP_TEXT = {
   "Other options:": ["Other options:", "Pilihan lain:", "其他选项："],
   "How this career may contribute to the SDGs": ["How this career may contribute to the SDGs", "Cara kerjaya ini boleh menyumbang kepada SDG", "此职业可能如何为可持续发展目标作出贡献"],
   "Potential alignment only; real contribution depends on how the work is carried out and its outcomes.": ["Potential alignment only; real contribution depends on how the work is carried out and its outcomes.", "Ini hanya potensi penjajaran; sumbangan sebenar bergantung pada cara kerja dilakukan dan hasilnya.", "这仅表示潜在关联；实际贡献取决于工作方式及其成果。"],
-  "Not in our catalog yet": ["Not in our catalog yet", "Belum ada dalam katalog kami", "尚未收录在目录中"],
   "Build through practice": ["Build through practice", "Bina kemahiran melalui latihan", "通过实践提升"],
   "Practice verified skills and ask for feedback as you learn.": ["Practice verified skills and ask for feedback as you learn.", "Amalkan kemahiran yang telah disahkan dan minta maklum balas semasa belajar.", "练习已确认的技能，并在学习过程中征求反馈。"],
   "STEP 4 OF 4": ["STEP 4 OF 4", "LANGKAH 4 DARIPADA 4", "第 4 步，共 4 步"],
@@ -230,7 +228,6 @@ const FP_TEXT = {
   "Low cost (paid certificate)": ["Low cost (paid certificate)", "Kos rendah (sijil berbayar)", "低价（付费证书）"],
   "HRD Corp claimable (confirm per run)": ["HRD Corp claimable (confirm per run)", "Boleh dituntut melalui HRD Corp (sahkan bagi setiap pengambilan)", "可申请 HRD Corp 资助（每期开课前请确认）"],
   "Duration unknown": ["Duration unknown", "Tempoh tidak diketahui", "时长未知"],
-  "Every step has a checked course.": ["Every step has a checked course.", "Setiap langkah mempunyai kursus yang telah disemak.", "每个步骤都有已核查的课程。"],
   "Review skill requirements": ["Review skill requirements", "Semak keperluan kemahiran", "查看技能要求"],
   "No dated signal": ["No dated signal", "Tiada isyarat bertarikh", "没有带日期的趋势信号"],
   "OK": ["OK", "OK", "正常"],
@@ -738,11 +735,6 @@ const fpTranslation = (text, locale) => {
   if (text.includes(", ")) {
     const names = text.split(", ");
     if (names.every(name => FP_TEXT[name])) return names.map(name => fpTranslation(name, locale)).join(locale === "zh" ? "、" : ", ");
-  }
-  const missingCourses = text.match(/^No checked course yet for: (.+)\.$/);
-  if (missingCourses) {
-    const skills = missingCourses[1].split(", ").map(skill => fpTranslation(skill, locale)).join(", ");
-    return locale === "zh" ? `以下技能暂无已核查课程：${skills}。` : `Belum ada kursus yang disemak untuk: ${skills}.`;
   }
   const skillSdgSuffix = text.match(/^(.+) These are potential links, not guaranteed outcomes\.$/);
   if (skillSdgSuffix) return `${fpTranslation(skillSdgSuffix[1], locale)} ${fpTranslation("These are potential links, not guaranteed outcomes.", locale)}`;

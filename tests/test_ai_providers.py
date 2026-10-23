@@ -33,7 +33,7 @@ async def test_claude_live_adapter_with_mock(monkeypatch):
     schema=sent['output_config']['format']['schema']
     assert schema['properties']['candidates']['items']['properties']['skill_id']['enum']==['sql']  # only catalogue ids are possible
     assert result['candidates'][0]['evidence']=={'page':None,'source':'text_layer'}
-    assert schema['properties']['candidates']['items']['properties']['page']=={'type':'integer','minimum':1}
+    assert schema['properties']['candidates']['items']['properties']['page']=={'type':'integer'}
 
 @pytest.mark.asyncio
 async def test_claude_reads_the_pdf_itself(monkeypatch):
@@ -48,7 +48,7 @@ async def test_claude_reads_the_pdf_itself(monkeypatch):
     doc=fake.requests[0]['messages'][0]['content'][0]
     assert doc['type']=='document' and doc['source']['media_type']=='application/pdf'
     schema=fake.requests[0]['output_config']['format']['schema']['properties']
-    assert 'other_skills' not in schema and schema['candidates']['items']['properties']['page']=={'type':'integer','minimum':1}
+    assert 'other_skills' not in schema and schema['candidates']['items']['properties']['page']=={'type':'integer'}
     assert '1-based' in fake.requests[0]['messages'][0]['content'][1]['text']
 
 @pytest.mark.asyncio
@@ -105,3 +105,16 @@ def test_transferable_skills_are_in_the_catalogue_and_scored():
     needs=lambda sid:{r['id'] for r in ROLES if any(x['skill_id']==sid for x in r['skills'])}
     assert 'clinical-research' in needs('SK079') and 'cybersecurity-analyst' in needs('SK082') and needs('SK081')=={'instructional-designer'}
     assert all(x['importance']==1 for r in ROLES for x in r['skills'] if x['skill_id'] in ('SK079','SK080','SK081','SK082'))
+
+def test_cv_schema_uses_only_keywords_claude_structured_output_accepts():
+    # The fake client accepts any schema; the real API rejects e.g. 'minimum' on integers (HTTP 400), which made
+    # every Claude CV reading fail silently into keyword matching.
+    from backend.providers.claude import cv_schema
+    unsupported={'minimum','maximum','exclusiveMinimum','exclusiveMaximum','multipleOf','minLength','maxLength','pattern','format'}
+    def walk(node):
+        if isinstance(node,dict):
+            assert not unsupported & set(node), node
+            for v in node.values():walk(v)
+        elif isinstance(node,list):
+            for v in node:walk(v)
+    walk(cv_schema([{'id':'sql','name':'SQL'}]))

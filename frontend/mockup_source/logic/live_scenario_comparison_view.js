@@ -26,5 +26,4 @@
     const studyHours = Math.max(1, Number(st.profileDemo?.study_hours) || 6);
     const pathHoursNum = Math.round(fpSteps.reduce((s, x) => s + x.hours, 0));
     const pathCostSet = new Set(fpSteps.filter(x => x.hasCourse).map(x => x.cost));
-    const pathMissing = fpSteps.filter(x => !x.hasCourse).map(x => x.skill);
     const pathChecked = [...new Set(fpSteps.filter(x => x.hasCourse).map(x => x.checked))];
