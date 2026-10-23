@@ -1,5 +1,6 @@
 """RunPod Serverless adapter with bounded queue polling and grounded skill validation."""
 import asyncio
+import logging
 import json
 import os
 import re
@@ -99,7 +100,21 @@ async def _extract_with_client(client, url, headers, body, cv, skills):
 
     if payload.get("status") != "COMPLETED":
         raise IntegrationError("RunPod job did not complete: " + str(payload.get("status", "unknown")))
-    return validate_candidates(payload.get("output"), cv, skills, "runpod")
+    job_id = payload.get("id", "unknown")
+    output = payload.get("output")
+
+    try:
+        return validate_candidates(output, cv, skills, "runpod")
+    except IntegrationError:
+        logger = logging.getLogger(__name__)
+        logger.error(
+            "RunPod extraction validation failed: job_id=%s, "
+            "output_type=%s, output_length=%s",
+            job_id,
+            type(output).__name__,
+            len(str(output)) if output is not None else 0,
+        )
+        raise
 
 
 async def runpod_extract(text, skills, client=None):
