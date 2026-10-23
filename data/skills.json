@@ -1026,5 +1026,260 @@
       9
     ],
     "sdg_justification": "Can support SDG 8 when practical problem-solving improves work and SDG 9 when it helps develop or improve useful systems."
+  },
+  {
+    "id": "SK083",
+    "name": "Semiconductor manufacturing processes",
+    "category": "engineering",
+    "aliases": [
+      "wafer fabrication",
+      "semiconductor process technology",
+      "chip fabrication and packaging"
+    ],
+    "sdgs": [
+      9
+    ],
+    "sdg_justification": "Can support SDG 9 when reliable semiconductor processes help manufacture the chips that power industry, research, and public services."
+  },
+  {
+    "id": "SK086",
+    "name": "Infrastructure management",
+    "category": "technical",
+    "aliases": [
+      "IT infrastructure management",
+      "data center operations",
+      "systems administration"
+    ],
+    "sdgs": [
+      9
+    ],
+    "sdg_justification": "Can support SDG 9 when dependable IT and data-center operations keep critical digital services running for industry and the public."
+  },
+  {
+    "id": "SK087",
+    "name": "Platform engineering",
+    "category": "technical",
+    "aliases": [
+      "DevOps",
+      "CI/CD pipelines",
+      "site reliability engineering"
+    ],
+    "sdgs": [
+      9
+    ],
+    "sdg_justification": "Can support SDG 9 when automated delivery pipelines make software and platform services more reliable and responsive."
+  },
+  {
+    "id": "SK088",
+    "name": "Infrastructure monitoring",
+    "category": "technical",
+    "aliases": [
+      "network monitoring",
+      "system monitoring",
+      "uptime monitoring"
+    ],
+    "sdgs": [
+      9
+    ],
+    "sdg_justification": "Can support SDG 9 when proactive monitoring keeps networks and systems reliable and prevents service disruption."
+  },
+  {
+    "id": "SK089",
+    "name": "Responsible AI practices",
+    "category": "ai",
+    "aliases": [
+      "AI ethics",
+      "AI governance",
+      "responsible AI",
+      "algorithmic fairness"
+    ],
+    "sdgs": [
+      9,
+      16
+    ],
+    "sdg_justification": "Can support SDG 9 through responsible, transparent AI innovation and SDG 16 when systems are governed fairly and accountably."
+  },
+  {
+    "id": "SK091",
+    "name": "Mechatronic systems",
+    "category": "engineering",
+    "aliases": [
+      "electro-mechanical systems",
+      "power electronics and drives",
+      "embedded control hardware"
+    ],
+    "sdgs": [
+      7,
+      9
+    ],
+    "sdg_justification": "Can support SDG 7 when efficient electro-mechanical systems reduce energy use in mobility and industry, and SDG 9 when they advance manufacturing automation."
+  },
+  {
+    "id": "SK092",
+    "name": "Process engineering",
+    "category": "engineering",
+    "aliases": [
+      "chemical process control",
+      "unit operations",
+      "production process optimisation"
+    ],
+    "sdgs": [
+      7,
+      9
+    ],
+    "sdg_justification": "Can support SDG 7 when efficient production processes reduce energy use, and SDG 9 when they make manufacturing and industrial systems more reliable."
+  },
+  {
+    "id": "SK095",
+    "name": "Algorithm auditing",
+    "category": "ai",
+    "aliases": [
+      "algorithmic bias testing",
+      "AI fairness evaluation",
+      "model auditing"
+    ],
+    "sdgs": [
+      9,
+      16
+    ],
+    "sdg_justification": "Can support SDG 9 when auditing algorithms makes AI systems more trustworthy, and SDG 16 when it helps keep automated decisions fair and accountable."
+  },
+  {
+    "id": "SK097",
+    "name": "Regulatory compliance",
+    "category": "domain",
+    "aliases": [
+      "compliance management",
+      "regulatory reporting",
+      "AML/CFT compliance"
+    ],
+    "sdgs": [
+      8,
+      16
+    ],
+    "sdg_justification": "Can support SDG 8 through fair, compliant business practice and SDG 16 when transparent reporting strengthens accountable institutions."
+  },
+  {
+    "id": "SK098",
+    "name": "Good Manufacturing Practice (GMP)",
+    "category": "domain",
+    "aliases": [
+      "GMP compliance",
+      "pharmaceutical quality assurance",
+      "medical device regulation",
+      "ISO 13485"
+    ],
+    "sdgs": [
+      3,
+      9
+    ],
+    "sdg_justification": "Can support SDG 3 when quality manufacturing protects patient safety, and SDG 9 through reliable production and quality infrastructure."
+  },
+  {
+    "id": "SK100",
+    "name": "Energy storage systems",
+    "category": "engineering",
+    "aliases": [
+      "battery energy storage",
+      "BESS",
+      "grid-scale storage"
+    ],
+    "sdgs": [
+      7,
+      9
+    ],
+    "sdg_justification": "Can support SDG 7 when grid-scale storage makes renewable energy more usable, and SDG 9 through a more resilient electricity grid."
+  },
+  {
+    "id": "SK103",
+    "name": "Graphics pipeline engineering",
+    "category": "technical",
+    "aliases": [
+      "CG pipeline development",
+      "render pipeline automation",
+      "DCC plugin development",
+      "Maya/Unreal scripting"
+    ],
+    "sdgs": [
+      8,
+      9
+    ],
+    "sdg_justification": "Can support SDG 8 through productive digital-content work and SDG 9 when pipeline tooling improves how creative software is produced."
+  },
+  {
+    "id": "SK104",
+    "name": "Supply chain management",
+    "category": "domain",
+    "aliases": [
+      "procurement and sourcing",
+      "logistics planning",
+      "inventory management"
+    ],
+    "sdgs": [
+      8,
+      9
+    ],
+    "sdg_justification": "Can support SDG 8 through efficient, well-managed supply chains and SDG 9 when better logistics planning improves industry infrastructure."
+  },
+  {
+    "id": "SK105",
+    "name": "Operations planning",
+    "category": "analytical",
+    "aliases": [
+      "operations management",
+      "demand planning",
+      "capacity planning",
+      "workflow optimisation"
+    ],
+    "sdgs": [
+      8,
+      9
+    ],
+    "sdg_justification": "Can support SDG 8 when well-planned operations make work more efficient, and SDG 9 when optimisation improves the systems that deliver products and services."
+  },
+  {
+    "id": "SK106",
+    "name": "Structural engineering",
+    "category": "engineering",
+    "aliases": [
+      "structural analysis",
+      "structural design",
+      "BIM for infrastructure"
+    ],
+    "sdgs": [
+      9,
+      11
+    ],
+    "sdg_justification": "Can support SDG 9 through durable engineering design and SDG 11 when safe structural work helps build resilient communities and infrastructure."
+  },
+  {
+    "id": "SK107",
+    "name": "Geotechnical engineering",
+    "category": "engineering",
+    "aliases": [
+      "soil mechanics",
+      "foundation engineering",
+      "slope stability analysis"
+    ],
+    "sdgs": [
+      9,
+      11
+    ],
+    "sdg_justification": "Can support SDG 9 through sound foundation engineering and SDG 11 when managing ground risk protects people and infrastructure."
+  },
+  {
+    "id": "SK108",
+    "name": "Halal compliance & certification",
+    "category": "domain",
+    "aliases": [
+      "halal certification",
+      "JAKIM standards",
+      "halal supply chain auditing"
+    ],
+    "sdgs": [
+      8,
+      12
+    ],
+    "sdg_justification": "Can support SDG 8 through fair, certified trade and SDG 12 when auditing standards support responsible production and consumption."
   }
 ]

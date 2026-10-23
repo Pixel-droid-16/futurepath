@@ -37,7 +37,7 @@ CV or form              edit + approve skills      18 RIASEC questions      matc
 1. **Choose start:** upload a fictional CV (PDF), or fill a short form (role, experience, qualification, languages, skills, goals).
 2. **Check profile:** set each skill to Basic (2/5), Working (3/5) or Strong (4/5), remove or add skills, set study hours per week, then tick the approval box.
 3. **Interest quiz (optional):** 18 Holland RIASEC questions. They add a 20% interest-fit score and never hide a career.
-4. **Results:** 12 careers ranked by a visible formula, `0.55 × skills + 0.45 × demand` (or `0.45 / 0.35 / 0.20` with interest fit), with a ± range from signal confidence, a Moderate/Fast AI disruption toggle, weight sliders, **What changed**, and a Future Skills Radar of rising and declining careers. **See pathway** opens a course plan built from your weekly study hours.
+4. **Results:** every career in `data/roles.json` ranked by a visible formula, `0.55 × skills + 0.45 × demand` (or `0.45 / 0.35 / 0.20` with interest fit), with a ± range from signal confidence, a Moderate/Fast AI disruption toggle, weight sliders, **What changed**, and a Future Skills Radar of rising and declining careers. **See pathway** opens a course plan built from your weekly study hours.
 **Saved people:** every finished Start run is saved as its own person ("Person 1", "Person 2", … or the name you give). **+ Analyse a different CV** starts a new person without overwriting anyone; the **Saved people** buttons on Results, or the list on Start, switch back to anyone's results. **Delete** in the Start list removes a person after you confirm (the original shared profile is reset instead). New people get the lowest unused "Person N" name. The browser remembers who you were last viewing. There are no accounts, so everyone using the same server sees the same list: use fictional CVs.
 
 5. Open **/signals** to see the dated, sourced trend signals behind every demand score, and press **Refresh signals** to pull new items from live feeds.
@@ -52,7 +52,7 @@ The Moderate/Rapid scenarios use explicit, hand-authored assumptions about task 
 | Start flow (choose, check, quiz, results) | Connected end to end |
 | Career matching | Python API connected to Results |
 | Moderate/Rapid scenario comparison | Backend-connected on Results |
-| Interest fit | RIASEC quiz against O*NET interest profiles for all 12 careers (sources in data/roles.json) |
+| Interest fit | RIASEC quiz against O*NET interest profiles for every career (sources in data/roles.json) |
 | Learning pathway | /pathway, every checked course (free, low-cost, HRD Corp claimable) with alternatives per step; weeks from study hours |
 | Skill taxonomy and role catalogue | Local JSON datasets |
 | AI-trend signal layer | 36 curated report signals plus refreshable Google News, arXiv and Anthropic Economic Index feeds; Claude tagging with keyword fallback |

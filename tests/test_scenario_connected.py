@@ -5,11 +5,11 @@ from backend.app import app
 
 ROOT=Path(__file__).resolve().parents[1]
 
-def test_twelve_careers_from_backend_have_two_real_scenarios():
+def test_all_careers_from_backend_have_two_real_scenarios():
     client=TestClient(app)
     m=client.get('/api/matches?scenario=moderate').json()
     r=client.get('/api/matches?scenario=rapid').json()
-    assert len(m)==12==len(r)
+    assert len(m)==44==len(r)
     by_m={x['role_id']:x for x in m};by_r={x['role_id']:x for x in r}
     assert by_m.keys()==by_r.keys()
     for key in by_m:

@@ -6,8 +6,8 @@
 4. `backend/app.py`: exposes FastAPI routes for data, profile updates, CV text extraction, AI candidate-skill suggestions, recommendation results, history, and evidence review.
 5. `backend/engine.py`: deterministic role scoring and gap prioritisation. A user-confirmed skill can contribute; unknown is separate from zero.
 6. `backend/scenarios.py`: documents per-role fictional task exposure/oversight assumptions; has distinct moderate and rapid descriptions and action plans.
-7. `data/roles.json`: twelve careers, with nine role-skill requirements each and SDG justifications.
-8. `data/skills.json`: 82 canonical skills with aliases and SDG tags/explanations (SK079-SK082 are transferable skills: leadership, teamwork, event management, problem solving).
+7. `data/roles.json`: every career in the catalogue, with role-skill requirements, importance levels and SDG justifications.
+8. `data/skills.json`: canonical skills with aliases and SDG tags/explanations (SK079-SK082 are transferable skills: leadership, teamwork, event management, problem solving).
 9. `data/snapshots.json`: prepared synthetic S1 (published) and S2 (draft). Approving S2 does not rewrite previously saved recommendations.
 10. `data/learning_resources.json`: course **placeholders**. Do not claim verification. They are shown only for skills with no linked course.
     `data/courses.json` contains imported catalogue entries; `data/extra_courses.json` entries record provider-page check dates. The pathway distinguishes provider-page dates from the imported catalogue snapshot date. Confirm current course details with providers. Energy simulation and Content development lack a checked course.

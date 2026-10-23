@@ -8,7 +8,7 @@ def test_demo_flow():
  # Restore synthetic baseline on each run, so repeated test runs are deterministic.
  assert c.post('/api/curator/approve/S1').status_code==200
  roles=c.get('/api/roles').json()
- assert len(roles)==12
+ assert len(roles)==44
  assert c.get('/api/meta').json()['ai_status'].startswith('manual')
  original=c.get('/api/radar').json()['snapshot']['id']
  assert original=='S1'
