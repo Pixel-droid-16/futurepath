@@ -7,7 +7,6 @@
     const hasQuiz = !!st.profileDemo?.riasec;
     return { ...out, ...startBindings, theme: st.theme, sdgReady: true, sdgTiles, sdgLinkedCount, radarUp, radarDn, radarUpdated, live: FEED[li], liveNext: [1, 2, 3].map(k => FEED[(li + k) % FEED.length]), liveProg: (((tk % CYC) + 1) / CYC * 100) + "%", clock, accent: this.props.accent ?? "violet", lbl: st.theme === "dark" ? "Light" : "Dark",
       toggle: () => this.setState(s => ({ theme: s.theme === "dark" ? "light" : "dark" })),
-      langLbl: st.lang === "en" ? "EN" : st.lang === "ms" ? "BM" : "简体中文", toggleLang: () => this.changeLanguage(),
       langEn: st.lang === "en", langMs: st.lang === "ms", langZh: st.lang === "zh",
       onLangChange: e => this.setLanguage(e.target.value),
       goHome: () => this.go("home"), goStart: () => this.startOver(), goSignals: () => this.go("signals"), goAbout: () => this.go("about"),
