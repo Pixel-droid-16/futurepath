@@ -33,8 +33,10 @@ def rank_role(role, profile, snapshot, skill_index, resources, scenario='moderat
     base_trend=demand['score'] if demand else snapshot['role_trend'].get(role['id'],50)
     # SCENARIO EFFECTS: explicit illustrative policy changes trend factor AND task and skill priorities.
     # Cap numerical change to avoid interpreting assumptions as observed occupational forecasts.
-    exposed=sum(t[1] for t in TASKS[role['id']])/3
-    adoption_shift=(round((exposed-50)*.22,1) if scenario=='rapid' else 0)
+    # Roles without curated scenario tasks keep their snapshot trend: no fabricated exposure data.
+    tasks=TASKS.get(role['id'])
+    exposed=sum(t[1] for t in tasks)/3 if tasks else None
+    adoption_shift=(round((exposed-50)*.22,1) if scenario=='rapid' and exposed is not None else 0)
     trend=round(max(0,min(100,base_trend+adoption_shift)),1)
     user_riasec=profile.get('riasec')
     interest=round(100*interest_fit(user_riasec,role['riasec']),1) if user_riasec and role.get('riasec') else None

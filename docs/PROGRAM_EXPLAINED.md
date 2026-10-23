@@ -2,7 +2,7 @@
 
 ## The 30-second explanation
 
-"FuturePath is a career intelligence web prototype. Users confirm their skills and proficiency, then a rules-based engine compares those skills against 12 career profiles. We show separate readiness and assessment completeness, future scenarios, skill gaps and learning suggestions. Our evidence approval demo uses two synthetic versions to prove that new data can't silently overwrite an old recommendation."
+"FuturePath is a career intelligence web prototype. Users confirm their skills and proficiency, then a rules-based engine compares those skills against every career profile in `data/roles.json`. We show separate readiness and assessment completeness, future scenarios, skill gaps and learning suggestions. Our evidence approval demo uses two synthetic versions to prove that new data can't silently overwrite an old recommendation."
 
 ## Step by step: what the files do
 
@@ -12,7 +12,7 @@
 4. `backend/app.py` — The **reception desk/API**: accepts UI requests, reads/writes records in SQLite, parses uploaded synthetic CVs, checks which snapshot is approved, and sends structured answers back.
 5. `backend/engine.py` — The **career calculator**. It receives a profile, career requirements, an approved snapshot, skill definitions and learning resource candidates. It returns scores, skill gaps and ranked learning priorities. It does not ask generative AI to invent scores.
 6. `data/skills.json` — The **skill dictionary**. Each skill has a stable ID; aliases help reconcile different spellings and CV expressions.
-7. `data/roles.json` — The **career requirements handbook**. Each of 12 roles has nine required skills, a proficiency target, importance, classification and an illustrative SDG connection.
+7. `data/roles.json` — The **career requirements handbook**. Every role lists its required skills with a proficiency target, importance, classification and an illustrative SDG connection.
 8. `data/demo_profile.json` — A **fictional learner**, useful for classroom demonstrations.
 9. `data/snapshots.json` — Two **fictional evidence states**. S1 begins published; S2 needs manual approval. Never tell judges these are genuine published statistics.
 10. `data/learning_resources.json` — 30 **unverified sample records** illustrating the planned course schema; real providers and links must be checked before a final submission.

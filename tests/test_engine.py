@@ -7,9 +7,9 @@ def setup():
  skills=data('skills.json');return data('roles.json'),data('demo_profile.json'),data('snapshots.json'),{s['id']:s for s in skills},data('learning_resources.json')
 def test_catalogue_and_role_skills():
  roles,_,_,skills,resources=setup()
- assert len(roles)==12
+ assert len(roles)==44
  assert len(set(r['sector'] for r in roles))==6
- assert all(8<=len(r['skills'])<=10 for r in roles)
+ assert all(4<=len(r['skills'])<=10 for r in roles)
  assert all(a['skill_id'] in skills for r in roles for a in r['skills'])
  assert len(resources)==30
 

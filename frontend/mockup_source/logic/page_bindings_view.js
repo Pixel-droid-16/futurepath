@@ -13,7 +13,7 @@
       goHome: () => this.go("home"), goStart: () => this.startOver(), goSignals: () => this.go("signals"), goAbout: () => this.go("about"),
       go_start: () => this.startOver(),
       feedLabel: st.liveSignals.length ? "LIVE " + "SIGNAL FEED" : "SAMPLE SIGNAL FEED",  // "live" only once real stored signals have loaded
-      sigTotal: st.liveSignals.length || "—", courseTotal: st.courseTotal || "—", sigNewWeek, sinceFetch,
+      sigTotal: st.liveSignals.length || "—", courseTotal: st.courseTotal || "—", roleCount: st.liveModerate?.length || "—", sigNewWeek, sinceFetch,
       showResults: st.page === "results" || (st.page === "start" && st.startStep === "results"),
       resultsProfileName: st.profileDemo?.name || "My profile",
       resultsStepper: ["Choose start", "Check profile", "Interest quiz", "Results"].map((label, i) => ({ label, mark: i < 3 ? "✓" : "4", line: i < 3,
