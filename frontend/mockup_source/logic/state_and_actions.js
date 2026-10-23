@@ -1,14 +1,19 @@
+// Completed pathway steps per person and career, kept in this browser only.
+const savedPathDone = () => { try { return JSON.parse(localStorage.getItem('fp.pathDone') || '{}') || {}; } catch (e) { return {}; } };
 class Component extends DCLogic {
   state = { theme: this.props.defaultTheme ?? "light", lang: savedLanguage(), page: pageFromPath() ?? this.props.startPage ?? "home", fast: false, ws: 55, wd: 45, liveStatus: "loading", liveError: "", liveModerate: [], liveRapid: [], selectedRole: "data-analyst", scenarioComparison: null, profileDemo: null, sig: "all",
     // Start flow (/start): choose -> cv | form -> check -> quiz -> results. Nothing is saved until the quiz step ends.
     startStep: "choose", cvName: "", extracting: false, startError: "", catalog: [],
-    form: { role: "", years: 0, qualification: "", languages: "", goals: "" }, formPicked: [], formQuery: "",
+    form: { role: "", years: 0, qualification: "", qualificationLegacy: "", industry: "", interests: "", languages: "", goals: "", aiComfort: "", workArrangement: "", motivation: "" }, formPicked: [], formQuery: "",
     draft: null, draftSource: "", scannedCv: false, addOpen: false, formOpen: false, meta: { name: "My profile", headline: "", years: 0, hours: 6 }, approved: false, addQuery: "",
     quizQuestions: [], quizLikert: [], quizAnswers: {}, saving: false, confirmError: "",
     // Saved people: each finished Start run is a person; activeProfileId is whose results are shown (remembered in this browser).
     people: [], activeProfileId: savedActiveProfile(), editingId: null, confirmDeleteId: null,
     // Trend signals (/api/signals): curated reports plus refreshed feeds; whatChanged explains the latest refresh.
-    liveSignals: [], signalRuns: [], whatChanged: null, refreshing: false, refreshMsg: "", skillOutlook: { rising: [], declining: [], updated_at: null, auto_refresh_hours: 0 } };
+    liveSignals: [], signalRuns: [], whatChanged: null, refreshing: false, refreshMsg: "", skillOutlook: { rising: [], declining: [], updated_at: null, auto_refresh_hours: 0 },
+    // Signals page cards: rising and declining skills (and declining jobs) from stored signals (/api/skill-trends).
+    skillTrends: null, trendsAll: false, sigView: "trends",
+    pathDone: savedPathDone() };
   componentDidUpdate(p) {
     const q = this.props, u = {};
     if (q.defaultTheme !== p.defaultTheme && q.defaultTheme) u.theme = q.defaultTheme;
@@ -42,6 +47,8 @@ class Component extends DCLogic {
       const [liveSignals, signalRuns, whatChanged, meta, skillOutlook] = await Promise.all([FP_API.json('/api/signals'), FP_API.json('/api/signals/runs'), FP_API.json('/api/what-changed' + this.profileQuery('?')), FP_API.json('/api/meta'), FP_API.json('/api/skill-outlook')]);
       if (this._alive) this.setState({ liveSignals, signalRuns, whatChanged, courseTotal: meta.courses_count, skillOutlook });
     } catch (e) { console.warn('FuturePath: could not load trend signals', e); }
+    try { const skillTrends = await FP_API.json('/api/skill-trends'); if (this._alive) this.setState({ skillTrends }); }
+    catch (e) { console.warn('FuturePath: could not load skill trends', e); }
   }
   async refreshSignals() {
     if (this.state.refreshing) return;
@@ -102,6 +109,13 @@ class Component extends DCLogic {
     if (openPathway) this.go('pathway');
   }
   componentWillUnmount() { this._alive = false; clearInterval(this._t); if (this._translationObserver) this._translationObserver.disconnect(); try { window.removeEventListener("popstate", this._onPop); } catch (e) {} }
+  togglePathStep(key, id) {
+    const cur = new Set((this.state.pathDone || {})[key] || []);
+    cur.has(id) ? cur.delete(id) : cur.add(id);
+    const pathDone = { ...(this.state.pathDone || {}), [key]: [...cur] };
+    try { localStorage.setItem('fp.pathDone', JSON.stringify(pathDone)); } catch (e) {}
+    this.setState({ pathDone });
+  }
   setLanguage(locale) {
     if (!FP_LOCALES.includes(locale)) return;
     try { localStorage.setItem("fp-lang", locale); } catch (e) {}
@@ -114,7 +128,7 @@ class Component extends DCLogic {
   setStep(step) { this.setState({ startStep: step, startError: '', confirmError: '' }); try { window.scrollTo(0, 0); } catch (e) {} }
   // A new person: nothing is overwritten; finishing Start saves them alongside the others.
   startOver() { this._cvFile = null; this.setState(s => ({ draft: null, cvName: '', formPicked: [], quizAnswers: {}, approved: false, editingId: null,
-    form: { role: '', years: 0, qualification: '', languages: '', goals: '' }, meta: { name: '', headline: '', years: 0, hours: 6 } })); this.go('start'); this.setStep('choose'); }
+    form: { role: '', years: 0, qualification: '', qualificationLegacy: '', industry: '', interests: '', languages: '', goals: '', aiComfort: '', workArrangement: '', motivation: '' }, meta: { name: '', headline: '', years: 0, hours: 6 } })); this.go('start'); this.setStep('choose'); }
   async loadCatalog() {
     try {
       const skills = await FP_API.json('/api/skills');
@@ -179,10 +193,22 @@ class Component extends DCLogic {
   // Re-open the saved profile at a step (e.g. "Take the quiz" from the results page).
   editProfile(step) {
     const p = this.state.profileDemo || {};
+    const qualificationAliases = { "No qualification": "No formal qualification", "No qualificiation": "No formal qualification",
+      "Bachelor Degree": "Bachelor's Degree", "Bachelor's degree": "Bachelor's Degree", "Master": "Master's Degree",
+      "Master degree": "Master's Degree", "PhD": "Doctoral Degree (PhD)", "Doctorate": "Doctoral Degree (PhD)" };
+    const qualificationLevels = ["No formal qualification", "Primary School Achievement Test (UPSR)", "Lower Secondary Assessment (PT3)",
+      "Malaysian Certificate of Education (SPM)", "Malaysian Skills Certificate (SKM)", "Malaysian Vocational Certificate (SVM)",
+      "Malaysian Higher School Certificate (STPM)", "Malaysian Matriculation Certificate", "Foundation / Matriculation / equivalent",
+      "Certificate", "Diploma", "Advanced Diploma", "Bachelor's Degree", "Postgraduate Certificate / Diploma", "Master's Degree",
+      "Doctoral Degree (PhD)", "Other qualification / equivalent"];
+    const rawQualification = p.qualification || '', savedQualification = qualificationAliases[rawQualification] || rawQualification;
+    const qualification = savedQualification && !qualificationLevels.includes(savedQualification) ? "Other qualification / equivalent" : savedQualification;
     this.setState(s => ({ draft: Object.entries(p.skills || {}).map(([id, level]) => ({ id, name: this.skillName(id), ev: 'Saved in your profile', level })),
       draftSource: 'saved', approved: true, quizAnswers: p.quiz_answers || {}, editingId: this.state.activeProfileId || 'demo',
       meta: { name: p.name || 'My profile', headline: p.headline || '', years: p.years_experience || 0, hours: p.study_hours || 6 },
-      form: { ...s.form, role: p.current_role || '', qualification: p.qualification || '', languages: (p.languages || []).join(', '), goals: p.goals || '' } }));
+      form: { ...s.form, role: p.current_role || '', qualification, qualificationLegacy: qualification === "Other qualification / equivalent" ? rawQualification : '',
+        industry: p.industry || '', interests: (p.interests || []).join(', '),
+        languages: (p.languages || []).join(', '), goals: p.goals || '', aiComfort: p.ai_comfort || '', workArrangement: p.work_arrangement || '', motivation: p.career_motivation || '' } }));
     this.go('start');
     this.setStep(step);
   }
@@ -193,11 +219,15 @@ class Component extends DCLogic {
     this.setStep('quiz');
   }
   async saveProfile(withQuiz) {
-    const st = this.state, base = st.profileDemo || {}, langs = st.form.languages.split(',').map(x => x.trim()).filter(Boolean).slice(0, 10);
-    const payload = { user_type: base.user_type || 'student', country: base.country || 'Malaysia', interests: base.interests || [], mode: base.mode || 'discover',
+    const st = this.state, base = st.profileDemo || {}, langs = st.form.languages.split(',').map(x => x.trim()).filter(Boolean).slice(0, 10),
+      interests = st.form.interests.split(',').map(x => x.trim()).filter(Boolean).slice(0, 20);
+    const payload = { user_type: base.user_type || 'student', country: base.country || 'Malaysia', mode: base.mode || 'discover',
       skills: Object.fromEntries(st.draft.map(d => [d.id, d.level])), name: st.meta.name.slice(0, 80), headline: st.meta.headline.slice(0, 160),
       years_experience: Math.max(0, Math.min(60, Number(st.meta.years) || 0)), study_hours: Math.max(1, Math.min(60, Number(st.meta.hours) || 6)),
-      current_role: st.form.role.slice(0, 160), qualification: st.form.qualification.slice(0, 160), languages: langs, goals: st.form.goals.slice(0, 1000),
+      current_role: st.form.role.slice(0, 160), qualification: (st.form.qualification === "Other qualification / equivalent" && st.form.qualificationLegacy
+        ? st.form.qualificationLegacy : st.form.qualification).slice(0, 160), industry: st.form.industry.slice(0, 120),
+      interests, ai_comfort: st.form.aiComfort, work_arrangement: st.form.workArrangement, career_motivation: st.form.motivation.slice(0, 200),
+      languages: langs, goals: st.form.goals.slice(0, 1000),
       quiz_answers: withQuiz ? st.quizAnswers : null };
     this.setState({ saving: true, confirmError: '' });
     try {

@@ -84,7 +84,6 @@ Leave this terminal open. `--reload` restarts the server when you save a Python 
 Open:
 
 - **App:** http://127.0.0.1:8000 (start at **Start** in the top bar)
-- **AI Lab (CV extraction test):** http://127.0.0.1:8000/ai-lab
 - **API documentation:** http://127.0.0.1:8000/docs
 
 Stop the server with **Ctrl+C**.

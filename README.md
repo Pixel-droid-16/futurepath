@@ -20,7 +20,6 @@ python -m uvicorn backend.app:app --reload --env-file .env
 Open:
 
 - **Website:** http://127.0.0.1:8000
-- **AI extraction test page:** http://127.0.0.1:8000/ai-lab
 - **API documentation:** http://127.0.0.1:8000/docs
 
 If port 8000 is in use, stop the previous local server before starting this one.
@@ -40,8 +39,8 @@ CV or form              edit + approve skills      18 RIASEC questions      matc
 4. **Results:** every career in `data/roles.json` ranked by a visible formula, `0.55 × skills + 0.45 × demand` (or `0.45 / 0.35 / 0.20` with interest fit), with a ± range from signal confidence, a Moderate/Fast AI disruption toggle, weight sliders, **What changed**, and a Future Skills Radar of rising and declining careers. **See pathway** opens a course plan built from your weekly study hours.
 **Saved people:** every finished Start run is saved as its own person ("Person 1", "Person 2", … or the name you give). **+ Analyse a different CV** starts a new person without overwriting anyone; the **Saved people** buttons on Results, or the list on Start, switch back to anyone's results. **Delete** in the Start list removes a person after you confirm (the original shared profile is reset instead). New people get the lowest unused "Person N" name. The browser remembers who you were last viewing. There are no accounts, so everyone using the same server sees the same list: use fictional CVs.
 
-5. Open **/signals** to see the dated, sourced trend signals behind every demand score, and press **Refresh signals** to pull new items from live feeds.
-6. Open **AI Lab** (`/ai-lab`) to test skill extraction on its own. CV reading uses Claude when `ANTHROPIC_API_KEY` is set, and falls back to keyword matching otherwise.
+5. Open **/signals** to see **Rising skills** and **Declining skills & jobs** cards (each with a 3-year signal trend line, signal count, source, date and SDGs; declining also lists jobs that WEF and ILO reports name as declining), then the dated, sourced signals behind them. Press **Refresh signals** to pull new items from live feeds.
+6. CV reading uses Claude when `ANTHROPIC_API_KEY` is set, and falls back to keyword matching otherwise. To check the key, run `python scripts/check_claude_key.py`.
 
 The Moderate/Rapid scenarios use explicit, hand-authored assumptions about task change and human oversight. **They are not measured probabilities, job-loss forecasts or verified labour-market predictions.** Score adjustments are intentionally bounded; the more visible differences are in task impacts and learning priorities.
 
@@ -84,13 +83,13 @@ data/
   roles.json             Career requirements
   skills.json            Canonical skill catalogue
   signals.json           36 curated trend signals (imported from LaluanKu)
+  declining_jobs.json    Declining jobs for the Signals page cards, each linked to the curated reports that name it
   courses.json           Checked courses for pathways (imported from LaluanKu)
   extra_courses.json     56 more checked courses, added by hand (79 of 81 required skills covered)
   snapshots.json         Prepared evidence versions (fallback Trends values)
   learning_resources.json  Placeholders for skills without a checked course
 frontend/
   index.html             Generated v2 application page
-  ai-lab.html            Standalone extraction test page
   mockup_source/
     pages/               Editable v2 screen markup
     logic/               Screen-specific interaction code

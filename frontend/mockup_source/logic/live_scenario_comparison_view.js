@@ -23,6 +23,12 @@
       alternatives: checked.slice(1).map(r => ({ title: r.title + ' · ' + r.provider, url: r.url, info: r.cost + ' · ' + r.duration + ' · ' + fpVerificationLabel(r) })), hasAlternatives: checked.length > 1,
       hasCourse: !!course, noCourse: !course, course: course ? course.title : '', checked: course ? fpVerificationLabel(course) : '', checkedIsos: checked.map(fpCheckedIso).filter(Boolean), courseUrl: course ? course.url : '', skill: item.skill,
     }; });
+    // Completed steps, remembered in this browser per person and career (fp.pathDone).
+    const fpDoneKey = `${st.activeProfileId || 'demo'}:${fpActive?.role_id || st.selectedRole}`, fpDone = new Set((st.pathDone || {})[fpDoneKey] || []);
+    fpSteps.forEach((x, i) => { const id = (fpActive?.pathway || [])[i]?.skill_id || x.skill, d = fpDone.has(id);
+      Object.assign(x, { done: d, mark: d ? '✓' : String(x.n), numB: d ? 'var(--up)' : 'var(--sf)', numC: d ? '#fff' : 'var(--pr)',
+        doneLbl: d ? '✓ Completed' : 'Mark as completed', pressed: String(d), doneBg: d ? 'var(--upbg)' : 'var(--sf)', doneC: d ? 'var(--up)' : 'var(--ink)', doneLine: d ? 'var(--up)' : 'var(--ln)',
+        td: d ? 'line-through' : 'none', op: d ? '.65' : '1', toggleDone: () => this.togglePathStep(fpDoneKey, id) }); });
     const studyHours = Math.max(1, Number(st.profileDemo?.study_hours) || 6);
     const pathHoursNum = Math.round(fpSteps.reduce((s, x) => s + x.hours, 0));
     const pathCostSet = new Set(fpSteps.filter(x => x.hasCourse).map(x => x.cost));

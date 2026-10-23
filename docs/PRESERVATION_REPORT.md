@@ -28,3 +28,5 @@
 - Production-ready user login, secure multiuser isolation or curator authentication.
 
 Run `python scripts/verify_integrity.py` to recheck the original-asset hashes and `python -m pytest -q` for behavioural regression tests.
+
+> Later change: the separate AI Lab page (`frontend/ai-lab.html`, `/ai-lab`) has since been removed; CV extraction now runs from the Start page.

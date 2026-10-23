@@ -146,3 +146,18 @@ def test_scheduler_runs_refresh_when_due(temp_db,monkeypatch):
     monkeypatch.delenv('SIGNALS_REFRESH_HOURS',raising=False)
     with pytest.raises(asyncio.CancelledError):asyncio.run(schedule.run_forever())
     assert calls==[1]
+
+def test_skill_trend_cards(temp_db):
+    from backend.catalog import load
+    curated={s['external_id']:s for s in load('signals.json')}
+    for job in load('declining_jobs.json'):  # every declining job is backed only by curated declining reports
+        assert job['signal_ids'] and all(curated[i]['direction']=='declining' for i in job['signal_ids'])
+    d=TestClient(app).get('/api/skill-trends').json()
+    assert d['rising'] and d['declining'] and len(d['months'])==36
+    assert all(c['net']>0 and c['kind']=='skill' for c in d['rising'])
+    assert all(c['net']<0 for c in d['declining']) and any(c['kind']=='job' for c in d['declining'])
+    nets=[c['net'] for c in d['rising']];assert nets==sorted(nets,reverse=True)
+    for c in d['rising']+d['declining']:
+        assert c['latest']['url'] and c['latest']['date'] and c['signal_count']>=1 and len(c['line'])==36
+    data_entry=next(c for c in d['declining'] if c['title']=='Data entry clerks')
+    assert 'data entry' in data_entry['latest']['title'].lower()  # leads with the report naming the job

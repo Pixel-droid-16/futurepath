@@ -11,8 +11,12 @@ class ProfilePayload(BaseModel):
     headline:str=Field('',max_length=160)
     current_role:str=Field('',max_length=160)
     qualification:str=Field('',max_length=160)
+    industry:str=Field('',max_length=120)
     languages:list[str]=Field(default_factory=list,max_length=10)
     goals:str=Field('',max_length=1000)
+    ai_comfort:str=Field('',max_length=40)
+    work_arrangement:str=Field('',max_length=40)
+    career_motivation:str=Field('',max_length=200)
     years_experience:int=Field(0,ge=0,le=60)
     study_hours:int=Field(6,ge=1,le=60)
     quiz_answers:dict[int,int]|None=None  # RIASEC item id -> 1..5; omitted when the quiz is skipped

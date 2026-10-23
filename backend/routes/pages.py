@@ -9,8 +9,6 @@ def homepage():return FileResponse(ROOT/'frontend'/'index.html')
 APP_PATHS=('start','results','pathway','signals','about')
 for _path in APP_PATHS:
     router.add_api_route('/'+_path,homepage,methods=['GET'],include_in_schema=False)
-@router.get('/ai-lab')
-def ai_lab():return FileResponse(ROOT/'frontend'/'ai-lab.html')
 @router.get('/support.js')
 def original_support():
     return FileResponse(ROOT/'frontend'/'support.js',media_type='application/javascript')

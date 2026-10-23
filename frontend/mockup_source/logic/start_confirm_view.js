@@ -17,8 +17,13 @@
     const peopleRows = st.people.map(x => ({ name: x.name, sub: [x.headline, x.skills + " skills", x.has_quiz ? "quiz done" : "no quiz", x.updated_at ? "saved " + fmtDay(x.updated_at) : ""].filter(Boolean).join(" · "),
       open: () => { this.switchPerson(x.id); this.go("start"); this.setStep("results"); }, asking: st.confirmDeleteId === x.id, notAsking: st.confirmDeleteId !== x.id,
       ask: () => this.setState({ confirmDeleteId: x.id }), cancel: () => this.setState({ confirmDeleteId: null }), confirm: () => this.deletePerson(x.id) }));
-    const setForm = k => e => { const v = e.target.value; this.setState(x => ({ form: { ...x.form, [k]: v }, startError: "" })); };
+    const setForm = k => e => { const v = e.target.value; this.setState(x => ({ form: { ...x.form, [k]: v, ...(k === "qualification" ? { qualificationLegacy: "" } : {}) }, startError: "" })); };
     const setMeta = k => e => { const v = e.target.value; this.setState(x => ({ meta: { ...x.meta, [k]: v } })); };
+    const commonStudyHours = [3, 6, 10, 15], selectedHours = Number(st.meta.hours) || 6;
+    const studyHourOptions = [...new Set([...commonStudyHours, selectedHours])].sort((a, b) => a - b)
+      .map(value => { const selected = selectedHours === value; return { value, label: `${value} hours/week${commonStudyHours.includes(value) ? "" : " (current)"}`, pressed: selected ? "true" : "false",
+        b: selected ? "var(--pr)" : "var(--sf)", c: selected ? "var(--pri)" : "var(--ink)", bd: selected ? "var(--pr)" : "var(--ln)",
+        select: () => this.setState(x => ({ meta: { ...x.meta, hours: value } })) }; });
     const fq = st.formQuery.trim().toLowerCase();
     const formChosen = st.formPicked.map(id => ({ name: this.skillName(id), remove: () => this.setState(x => ({ formPicked: x.formPicked.filter(i => i !== id) })) }));
     // Clicking a "+ Search skills…" box opens the whole catalogue (A-Z); typing filters it. It stays open to add several.
@@ -46,15 +51,20 @@
       hasPeople: peopleRows.length > 0, peopleCount: peopleRows.length, peopleRows, backToChoose: () => this.setStep("choose"),
       cvPickLbl: st.cvName || "Choose a PDF", onCvFile: e => this.onCvFile(e), readCv: () => { if (!st.extracting && st.cvName) this.readCv(); },
       readLbl: st.extracting ? "Reading your CV…" : "Read my CV", readOp: st.cvName && !st.extracting ? "1" : ".45",
-      fRole: st.form.role, fYears: st.form.years, fQual: st.form.qualification, fLangs: st.form.languages, fGoals: st.form.goals,
-      onFRole: setForm("role"), onFYears: setForm("years"), onFQual: setForm("qualification"), onFLangs: setForm("languages"), onFGoals: setForm("goals"),
+      fRole: st.form.role, fYears: st.form.years, fQual: st.form.qualification, fIndustry: st.form.industry, fInterests: st.form.interests,
+      fAiComfort: st.form.aiComfort, fArrangement: st.form.workArrangement, fMotivation: st.form.motivation,
+      fLangs: st.form.languages, fGoals: st.form.goals, studyHourOptions,
+      onFRole: setForm("role"), onFYears: setForm("years"), onFQual: setForm("qualification"), onFIndustry: setForm("industry"),
+      onFInterests: setForm("interests"), onFAiComfort: setForm("aiComfort"), onFArrangement: setForm("workArrangement"),
+      onFMotivation: setForm("motivation"), onFLangs: setForm("languages"), onFGoals: setForm("goals"),
       formEmpty: !st.formPicked.length, formChosen, formResults, hasFormResults: formResults.length > 0, formListOpen: st.formOpen, openFormList: () => this.setState({ formOpen: true }), closeFormList: () => this.setState({ formOpen: false, formQuery: "" }),
       formNoMatch: (st.formOpen || !!fq) && !formResults.length, formQuery: st.formQuery, onFormQuery: e => this.setState({ formQuery: e.target.value }),
       useForm: () => this.useForm(), formOp: st.formPicked.length ? "1" : ".45",
       draftNote, draftRows, hasAddOptions: addOptions.length > 0, addListOpen: st.addOpen, openAddList: () => this.setState({ addOpen: true }), closeAddList: () => this.setState({ addOpen: false, addQuery: "" }),
       addNoMatch: (st.addOpen || !!aq) && !addOptions.length, draftCount: draft.length, addQuery: st.addQuery, onAddQuery: e => this.setState({ addQuery: e.target.value }), addOptions,
-      mName: st.meta.name, mHeadline: st.meta.headline, mYears: st.meta.years, mHours: st.meta.hours,
-      onMName: setMeta("name"), onMHeadline: setMeta("headline"), onMYears: setMeta("years"), onMHours: setMeta("hours"),
+      mName: st.meta.name, mYears: st.meta.years,
+      isCvDraft: st.draftSource !== "form",
+      onMName: setMeta("name"), onMYears: setMeta("years"),
       approved: st.approved, toggleApproved: () => this.setState(x => ({ approved: !x.approved, confirmError: "" })),
       backFromCheck: () => this.setStep(st.draftSource === "form" ? "form" : st.draftSource === "saved" ? "choose" : "cv"),
       toQuiz: () => this.toQuiz(), quizOp: st.approved && draft.length ? "1" : ".45",

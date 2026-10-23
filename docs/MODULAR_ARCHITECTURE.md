@@ -10,12 +10,10 @@ The earlier app had one FastAPI file containing nearly every HTTP endpoint and o
 FuturePath_v2_Modular_Organized/
 ├── frontend/
 │   ├── index.html                  generated output; identical to original v2
-│   ├── ai-lab.html                 generated output; identical to original AI Lab
 │   ├── mockup_source/
 │   │   ├── pages/                   home, intake, results, pathway, signals, about, login
 │   │   ├── styles/                  shared v2 theme
 │   │   ├── logic/                   separated v2 sample data + view interactions
-│   │   ├── ai_lab/                  editable AI Lab HTML, CSS, JavaScript
 │   │   └── shell/                   navbar, HTML wrapper, footer
 │   ├── assets/ and uploads/        original group images
 │   └── support.js, image-slot.js   original custom mockup runtime
@@ -54,7 +52,7 @@ FuturePath_v2_Modular_Organized/
 
 Browser → FastAPI `backend/app.py` → matching `backend/routes/<feature>.py` → service → `backend/storage.py`, `backend/engine.py` or `backend/providers/<provider>.py`.
 
-**Existing URLs remain the same**, including `/api/matches`, `/api/scenarios/<career>`, `/api/ai/skills`, `/api/history`, `/api/curator/approve/<snapshot>`, and `/ai-lab`.
+**Existing URLs remain the same**, including `/api/matches`, `/api/scenarios/<career>`, `/api/ai/skills`, `/api/history`, and `/api/curator/approve/<snapshot>`. The separate `/ai-lab` page has been removed.
 
 ## How the mockup is split without changing the screen
 

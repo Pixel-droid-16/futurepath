@@ -38,10 +38,16 @@
       pathIntroduction: `${st.fast ? 'Fast' : 'Moderate'} AI disruption · ${studyHours} h a week · free, low-cost and HRD Corp claimable courses`,
       pathSdgs: (fpActive?.sdgs || []).map(n => ({ n, label:`SDG ${n} · ${SDG_GOALS[n] || 'Sustainable Development Goal'}`, c: SDG[n] || 'var(--pr)' })),
       pathSdgJustification: fpActive?.sdg_justification || 'Select a career to see its SDG connection.',
-      pathHours: pathHoursNum || '—', pathWeeks: pathHoursNum ? Math.ceil(pathHoursNum / studyHours) : '—',
+      // Hours and weeks still to go: completed steps no longer count.
+      ...(left => ({ pathHours: pathHoursNum ? left : '—', pathWeeks: pathHoursNum ? Math.ceil(left / studyHours) : '—',
+        pathHoursLbl: fpSteps.some(x => x.done) ? 'hours left' : 'hours', pathWeeksLbl: fpSteps.some(x => x.done) ? 'weeks left' : 'weeks' }))
+        (Math.max(0, pathHoursNum - Math.round(fpSteps.filter(x => x.done).reduce((a, x) => a + x.hours, 0)))),
       pathCost: !pathCostSet.size ? '—' : pathCostSet.has('Free') && pathCostSet.size === 1 ? 'Free' : [...pathCostSet].some(c => c.startsWith('HRD')) ? 'HRD Corp' : 'Low cost',
       pathCostNote: !pathChecked.length ? 'No course verification dates recorded' : [...new Set(pathChecked)].join(' · '),
       pathNote: 'Provider-page dates are shown for individually checked courses; imported entries show their catalogue snapshot date. Confirm current costs, hours and HRD Corp eligibility with the provider. Weeks assume your study hours per week.',
+      pathProgress: `${fpSteps.filter(x => x.done).length}/${fpSteps.length}`,
+      pathProgressW: fpSteps.length ? `${Math.round(100 * fpSteps.filter(x => x.done).length / fpSteps.length)}%` : '0%',
+      pathProgressNote: `steps completed · ${Math.round(fpSteps.filter(x => x.done).reduce((a, x) => a + x.hours, 0))} of ${pathHoursNum} hours done`,
       steps: fpSteps,
       weeks: [1, 2, 3, 4, 5, 6].map(w => ({ w, bg: w <= 4 ? (w <= 2 ? "var(--pr)" : "color-mix(in oklch, var(--pr) 60%, var(--sf))") : (w <= 7 ? "var(--sky)" : "var(--up)") })),
       // Signals page.

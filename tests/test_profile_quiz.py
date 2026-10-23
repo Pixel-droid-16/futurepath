@@ -17,9 +17,15 @@ def test_profile_quiz_and_score_formula(tmp_path,monkeypatch):
     api=TestClient(app)
     quiz=api.get('/api/interest-quiz').json()
     assert len(quiz['questions'])==18 and len(quiz['likert'])==5
-    base={'skills':{'SK001':4,'SK002':3},'name':'Test','study_hours':10}
+    base={'skills':{'SK001':4,'SK002':3},'name':'Test','study_hours':10,'current_role':'Operations Associate',
+          'qualification':'Malaysian Certificate of Education (SPM)','industry':'Business Operations','interests':['AI Automation','Sustainable Energy'],
+          'ai_comfort':'Intermediate','work_arrangement':'Remote','career_motivation':'Explore a different career direction'}
     saved=api.put('/api/profile',json=base).json()
     assert saved['riasec'] is None and saved['name']=='Test'
+    assert saved['current_role']=='Operations Associate' and saved['industry']=='Business Operations'
+    assert saved['qualification']=='Malaysian Certificate of Education (SPM)' and saved['interests']==['AI Automation','Sustainable Energy']
+    assert saved['ai_comfort']=='Intermediate' and saved['work_arrangement']=='Remote'
+    assert saved['career_motivation']=='Explore a different career direction'
     m=next(r for r in api.get('/api/matches').json() if r['role_id']=='data-analyst')['match']
     assert m['interest'] is None and m['weights']['skill']==0.55 and m['formula'].startswith('0.55 × ')
     assert m['low']<=m['score']<=m['high']

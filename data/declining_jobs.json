@@ -1,0 +1,9 @@
+[
+ {"id": "data-entry-clerks", "title": "Data entry clerks", "signal_ids": ["curated:wef-foj-2025-fastest-declining", "curated:wef-foj-2023-persistent-clerical-decline", "curated:ilo-wp140-2025-clerical-exposure"]},
+ {"id": "accounting-clerks", "title": "Accounting, bookkeeping and payroll clerks", "signal_ids": ["curated:wef-foj-2025-accounting-clerks", "curated:wef-foj-2023-persistent-clerical-decline", "curated:ilo-wp140-2025-clerical-exposure"]},
+ {"id": "admin-assistants", "title": "Administrative assistants and secretaries", "signal_ids": ["curated:wef-foj-2025-clerical-largest-decline", "curated:wef-foj-2023-persistent-clerical-decline", "curated:ilo-wp140-2025-clerical-exposure"]},
+ {"id": "bank-tellers", "title": "Bank tellers", "signal_ids": ["curated:wef-foj-2025-fastest-declining"]},
+ {"id": "postal-clerks", "title": "Postal service clerks", "signal_ids": ["curated:wef-foj-2025-fastest-declining"]},
+ {"id": "cashiers", "title": "Cashiers and ticket clerks", "signal_ids": ["curated:wef-foj-2025-clerical-largest-decline"]},
+ {"id": "customer-service", "title": "Customer service and client information workers", "signal_ids": ["curated:wef-foj-2025-customer-service-decline"]}
+]

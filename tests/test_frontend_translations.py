@@ -44,6 +44,22 @@ def test_every_skill_sdg_explanation_is_translated():
     assert all(skill["sdg_justification"] in translated for skill in skills)
 
 
-def test_generated_main_and_ai_lab_pages_include_translation_runtime():
-    for path in (ROOT / "frontend" / "index.html", ROOT / "frontend" / "ai-lab.html"):
+def test_generated_main_page_includes_translation_runtime():
+    for path in (ROOT / "frontend" / "index.html",):
         assert "FP_SKILL_SDG_TEXT" in path.read_text(encoding="utf-8")
+
+
+def test_start_profile_form_places_questions_in_check_step_and_uses_malaysian_education_options():
+    source = (ROOT / "frontend" / "mockup_source" / "pages" / "start.html").read_text(encoding="utf-8")
+    form_start = source.index('value="{{ isFormStep }}"')
+    check_start = source.index('value="{{ isCheckStep }}"')
+    quiz_start = source.index('value="{{ isQuizStep }}"')
+    form = source[form_start:check_start]
+    check = source[check_start:quiz_start]
+
+    assert "Quick Questionnaire" not in form
+    assert check.count("Quick Questionnaire") == 1
+    assert "Headline" not in check
+    assert 'Education Level<select' in form and 'Education Level<select' in check
+    for qualification in ("UPSR", "PT3", "SPM", "STPM", "Diploma", "Bachelor's Degree", "Master's Degree", "Doctoral Degree (PhD)"):
+        assert qualification in source

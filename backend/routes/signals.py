@@ -2,7 +2,7 @@
 import json,os,secrets
 from datetime import date
 from fastapi import APIRouter,HTTPException,Request
-from ..catalog import ROLES,SKILL_INDEX
+from ..catalog import ROLES,SKILL_INDEX,load
 from ..signals.demand import recency_decay
 from ..storage import connection,get_signals
 from ..services.recommendations import result
@@ -33,6 +33,50 @@ def skill_outlook():
             # When feeds were last pulled (None before the first refresh: curated reports only), and the automatic schedule.
             'updated_at':updated.isoformat() if updated else None,'auto_refresh_hours':interval_hours(),
             'next_refresh_at':due.isoformat(timespec='seconds') if due else None}
+
+DECLINING_JOBS=load('declining_jobs.json')
+
+TREND_MONTHS=36  # the sparkline window
+
+def months_back(today,n):
+    """First day of each of the last n months, oldest first (YYYY-MM-01)."""
+    y,m=today.year,today.month;out=[]
+    for _ in range(n):
+        out.append(f'{y:04d}-{m:02d}-01');m-=1
+        if not m:y,m=y-1,12
+    return out[::-1]
+
+def card(title,found,today,months,kind,extra=None,lead=None):
+    """One trend card: signal count, net weight (strength x recency), the source to show (lead, else the newest),
+    and a monthly cumulative line."""
+    sign=lambda g:1 if g['direction']=='emerging' else -1
+    newest=lead or max(found,key=lambda g:g['published_date'])
+    line=[sum(sign(g)*g['strength'] for g in found if g['published_date']<(months[i+1] if i+1<len(months) else '9999')) for i in range(len(months))]
+    return {'title':title,'kind':kind,'signal_count':len(found),
+            'net':round(sum(sign(g)*g['strength']*recency_decay(g['published_date'],today) for g in found),2),
+            'latest':{'title':newest['title'],'source':newest['source_name'],'date':newest['published_date'],'url':newest['url']},
+            'line':line,**(extra or {})}
+
+@router.get('/skill-trends')
+def skill_trends():
+    """Signals page cards. Rising: catalogue skills whose signals are net rising. Declining: skills whose signals are net
+    falling, plus jobs that dated reports name as declining (data/declining_jobs.json; they are not catalogue careers).
+    Every number comes from stored, dated signals; the line is the cumulative signed strength per month."""
+    signals=get_signals();today=date.today();months=months_back(today,TREND_MONTHS)
+    by_skill={}
+    for g in signals:
+        for k in g['skill_ids']:by_skill.setdefault(k,[]).append(g)
+    skills=[card(SKILL_INDEX[k]['name'],found,today,months,'skill',{'skill_id':k,'category':SKILL_INDEX[k]['category'],
+                 'sdgs':SKILL_INDEX[k].get('sdgs',[])}) for k,found in by_skill.items() if k in SKILL_INDEX]
+    by_id={g['external_id']:g for g in signals}
+    jobs=[]
+    for job in DECLINING_JOBS:
+        found=[by_id[i] for i in job['signal_ids'] if i in by_id and by_id[i]['direction']=='declining']
+        # Lead with the report that names this job specifically (listed first in declining_jobs.json).
+        if found:jobs.append(card(job['title'],found,today,months,'job',{'id':job['id'],'category':'job','sdgs':[]},lead=found[0]))
+    rising=sorted((c for c in skills if c['net']>0),key=lambda c:(-c['net'],c['title']))
+    declining=sorted([c for c in skills if c['net']<0]+jobs,key=lambda c:(c['net'],c['title']))
+    return {'rising':rising,'declining':declining,'months':months,'as_of':today.isoformat()}
 
 def run_row(r):return {**dict(r),'feeds':json.loads(r['feeds'] or '[]')}
 

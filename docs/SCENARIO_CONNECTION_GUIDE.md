@@ -12,7 +12,7 @@ This release starts from your group's confirmed **v2 mockup**, using its origina
 
 ## What is still a mockup
 
-- The original v2 Intake form is not yet connected to profile persistence or AI extraction. Use `/ai-lab` for actual Claude/RunPod extraction testing. `/api/profile` still uses the single synthetic demo profile.
+- The original v2 Intake form is not yet connected to profile persistence or AI extraction. CV extraction runs from the Start page (`/api/extract`). `/api/profile` still uses the single synthetic demo profile.
 - The original v2 Signals page and Home feed are illustrative, not an approved live labour-market feed.
 - The original v2 login screen is not an actual authentication system.
 - Evidence approval and history APIs exist, but are not yet wired into the v2 page flow.

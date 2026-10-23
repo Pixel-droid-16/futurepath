@@ -1,6 +1,6 @@
 # Explain the integrations to your group
 
-1. **Browser:** The original v2 mockup stays visually unchanged. A separate `/ai-lab` form collects a *synthetic* CV paragraph and the provider selection. It sends JSON to `/api/ai/skills`.
+1. **Browser:** The original v2 mockup stays visually unchanged. The Start page uploads a *synthetic* CV to `/api/extract`; pasted text can also be sent as JSON to `/api/ai/skills`.
 2. **Python API:** `backend/app.py` verifies the selected provider and calls `backend/ai_providers.py`. `auto` tries RunPod (only if configured), then Claude, then a local dictionary.
 3. **Claude:** Sends a system instruction and the allowed canonical skill catalogue to Anthropic's `/v1/messages`. The model suggests skill IDs and exact evidence snippets. The key stays on the server.
 4. **RunPod:** Sends the same task to an authenticated `/runsync` RunPod Serverless endpoint. A separately deployed GPU worker runs an instruction model and returns generated JSON-like text.

@@ -12,7 +12,6 @@
 | Signals / Skills Radar | `frontend/mockup_source/pages/signals.html` | `logic/signal_filters_view.js`, `logic/radar_view.js` |
 | About / SDG explanation | `frontend/mockup_source/pages/about.html` | `logic/sdg_mapping_view.js`, `logic/sdg_colors.js` |
 | Login / Signup mockup | `frontend/mockup_source/pages/login.html` | `logic/page_bindings_view.js` (**UI only, no authentication**) |
-| Separate working AI Lab | `frontend/mockup_source/ai_lab/03_document_after_css.html` | `ai_lab/04_interactions.js` |
 
 **After any change under mockup_source, run:** `python scripts/build_frontend.py`. The resulting `frontend/index.html` is compiled from these pieces. Don't edit it manually.
 
@@ -42,14 +41,14 @@
 | Ordered learning priorities | `backend/routes/matches.py` | `backend/engine.py` |
 | Saving/previewing/deleting recommendations | `backend/routes/history.py` | `backend/storage.py` |
 | SDG mapping | `backend/routes/careers.py` | `data/roles.json` / `backend/engine.py` |
-| Website pages and assets | `backend/routes/pages.py` | `frontend/index.html`, `frontend/ai-lab.html` |
+| Website pages and assets | `backend/routes/pages.py` | `frontend/index.html` |
 | API documentation | Generated automatically by FastAPI | `backend/app.py` registers routers |
 
 ## D. How data gets to users
 
-### CURRENT WORKING AI LAB (real backend flow)
+### CV EXTRACTION (real backend flow)
 
-`frontend/ai-lab.html` → POST `/api/ai/skills` → `backend/routes/ai.py` → `backend/services/ai_extraction.py` → `backend/providers/claude.py` or `backend/providers/runpod.py` → `backend/providers/validation.py` → browser suggestion review → PUT `/api/profile` → stored confirmed skill.
+Start page CV upload → POST `/api/extract` (or POST `/api/ai/skills` for pasted text) → `backend/routes/ai.py` → `backend/services/ai_extraction.py` → `backend/providers/claude.py` or `backend/providers/runpod.py` → `backend/providers/validation.py` → browser suggestion review → PUT `/api/profile` → stored confirmed skill.
 
 ### CURRENT ORIGINAL V2 HOME (design mockup flow)
 
