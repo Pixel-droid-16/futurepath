@@ -1,0 +1,19 @@
+{
+  "id": "demo",
+  "user_type": "student",
+  "country": "Malaysia",
+  "interests": [
+    "Technology & AI",
+    "Sustainability & Green Economy"
+  ],
+  "skills": {
+    "SK001": 3,
+    "SK002": 2,
+    "SK003": 4,
+    "SK004": 2,
+    "SK005": 2,
+    "SK007": 3,
+    "SK009": 1
+  },
+  "mode": "discover"
+}

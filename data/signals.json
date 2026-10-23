@@ -1,0 +1,663 @@
+[
+ {
+  "external_id": "curated:wef-foj-2025-fastest-growing-tech",
+  "title": "Big data, fintech and AI/ML specialists lead the fastest-growing jobs to 2030",
+  "source_name": "WEF Future of Jobs Report 2025",
+  "source_type": "report",
+  "url": "https://www.weforum.org/publications/the-future-of-jobs-report-2025/",
+  "published_date": "2025-01-07",
+  "fetched_at": "2026-10-20",
+  "summary": "Surveyed employers expect technology roles to grow fastest in percentage terms over 2025-2030: Big Data Specialists, FinTech Engineers, AI and Machine Learning Specialists and Software and Applications Developers top the list, with Data Analysts and Scientists, IoT Specialists, UI/UX Designers and DevOps Engineers also in the top 15 (Fig. 2.2).",
+  "direction": "emerging",
+  "strength": 5,
+  "role_ids": [
+   "data-analyst",
+   "ux-designer"
+  ],
+  "skill_ids": [
+   "SK005"
+  ],
+  "tagged_by": "curated",
+  "feed_key": null
+ },
+ {
+  "external_id": "curated:wef-foj-2025-security-roles",
+  "title": "Security roles among top fastest-growing jobs, driven partly by geopolitical fragmentation",
+  "source_name": "WEF Future of Jobs Report 2025",
+  "source_type": "report",
+  "url": "https://www.weforum.org/publications/the-future-of-jobs-report-2025/",
+  "published_date": "2025-01-07",
+  "fetched_at": "2026-10-20",
+  "summary": "Security Management Specialists rank in the top five fastest-growing roles and Information Security Analysts are also in the top 15; the report links this growth to geoeconomic fragmentation as well as technology trends.",
+  "direction": "emerging",
+  "strength": 4,
+  "role_ids": [
+   "cybersecurity-analyst"
+  ],
+  "skill_ids": [
+   "SK011",
+   "SK010",
+   "SK016"
+  ],
+  "tagged_by": "curated",
+  "feed_key": null
+ },
+ {
+  "external_id": "curated:wef-foj-2025-green-roles",
+  "title": "Green transition roles feature among the fastest-growing jobs",
+  "source_name": "WEF Future of Jobs Report 2025",
+  "source_type": "report",
+  "url": "https://www.weforum.org/publications/the-future-of-jobs-report-2025/",
+  "published_date": "2025-01-07",
+  "fetched_at": "2026-10-20",
+  "summary": "Autonomous and Electric Vehicle Specialists, Environmental Engineers and Renewable Energy Engineers are in the top 15 fastest-growing roles. Climate-change mitigation is the third most transformative trend, expected to reshape 47% of businesses by 2030.",
+  "direction": "emerging",
+  "strength": 5,
+  "role_ids": [
+   "renewable-engineer"
+  ],
+  "skill_ids": [
+   "SK048",
+   "SK049"
+  ],
+  "tagged_by": "curated",
+  "feed_key": null
+ },
+ {
+  "external_id": "curated:wef-foj-2025-care-economy",
+  "title": "Care economy jobs expected to grow significantly as populations age",
+  "source_name": "WEF Future of Jobs Report 2025",
+  "source_type": "report",
+  "url": "https://www.weforum.org/publications/the-future-of-jobs-report-2025/",
+  "published_date": "2025-01-07",
+  "fetched_at": "2026-10-20",
+  "summary": "Nursing Professionals, Social Work and Counselling Professionals and Personal Care Aides are among the 15 largest-growing jobs in absolute numbers (Fig. 2.4). The report links ageing populations to growth in healthcare roles.",
+  "direction": "emerging",
+  "strength": 5,
+  "role_ids": [],
+  "skill_ids": [],
+  "tagged_by": "curated",
+  "feed_key": null
+ },
+ {
+  "external_id": "curated:wef-foj-2025-farmworkers",
+  "title": "Farmworkers top the largest-growing jobs, with 35 million more expected by 2030",
+  "source_name": "WEF Future of Jobs Report 2025",
+  "source_type": "report",
+  "url": "https://www.weforum.org/publications/the-future-of-jobs-report-2025/",
+  "published_date": "2025-01-07",
+  "fetched_at": "2026-10-20",
+  "summary": "Farmworkers, Labourers and Other Agricultural Workers lead absolute job growth (+35 million by 2030), driven mainly by green transition trends, with broadening digital access and cost of living also contributing.",
+  "direction": "emerging",
+  "strength": 4,
+  "role_ids": [],
+  "skill_ids": [],
+  "tagged_by": "curated",
+  "feed_key": null
+ },
+ {
+  "external_id": "curated:wef-foj-2025-project-managers",
+  "title": "Project managers and software developers among biggest drivers of net job growth",
+  "source_name": "WEF Future of Jobs Report 2025",
+  "source_type": "report",
+  "url": "https://www.weforum.org/publications/the-future-of-jobs-report-2025/",
+  "published_date": "2025-01-07",
+  "fetched_at": "2026-10-20",
+  "summary": "Software and Applications Developers, General and Operations Managers and Project Managers are among the job categories driving the most net job growth in absolute terms (Fig. 2.4).",
+  "direction": "emerging",
+  "strength": 4,
+  "role_ids": [],
+  "skill_ids": [
+   "SK078",
+   "SK024"
+  ],
+  "tagged_by": "curated",
+  "feed_key": null
+ },
+ {
+  "external_id": "curated:wef-foj-2025-clerical-largest-decline",
+  "title": "Cashiers and administrative assistants face the largest job declines in absolute numbers",
+  "source_name": "WEF Future of Jobs Report 2025",
+  "source_type": "report",
+  "url": "https://www.weforum.org/publications/the-future-of-jobs-report-2025/",
+  "published_date": "2025-01-07",
+  "fetched_at": "2026-10-20",
+  "summary": "Clerical and secretarial workers, led by Cashiers and Ticket Clerks and Administrative Assistants and Executive Secretaries, are expected to see the largest decline in absolute numbers over 2025-2030 (Fig. 2.4).",
+  "direction": "declining",
+  "strength": 5,
+  "role_ids": [],
+  "skill_ids": [],
+  "tagged_by": "curated",
+  "feed_key": null
+ },
+ {
+  "external_id": "curated:wef-foj-2025-fastest-declining",
+  "title": "Postal clerks, bank tellers and data entry clerks are the fastest-declining roles",
+  "source_name": "WEF Future of Jobs Report 2025",
+  "source_type": "report",
+  "url": "https://www.weforum.org/publications/the-future-of-jobs-report-2025/",
+  "published_date": "2025-01-07",
+  "fetched_at": "2026-10-20",
+  "summary": "Employers expect Postal Service Clerks, Bank Tellers and Related Clerks, and Data Entry Clerks to decline fastest in percentage terms, followed by Cashiers and Ticket Clerks and Administrative Assistants and Executive Secretaries (Fig. 2.2).",
+  "direction": "declining",
+  "strength": 5,
+  "role_ids": [],
+  "skill_ids": [],
+  "tagged_by": "curated",
+  "feed_key": null
+ },
+ {
+  "external_id": "curated:wef-foj-2025-accounting-clerks",
+  "title": "Accounting, bookkeeping and payroll clerks among top fastest-declining jobs",
+  "source_name": "WEF Future of Jobs Report 2025",
+  "source_type": "report",
+  "url": "https://www.weforum.org/publications/the-future-of-jobs-report-2025/",
+  "published_date": "2025-01-07",
+  "fetched_at": "2026-10-20",
+  "summary": "Accounting, Bookkeeping and Payroll Clerks and Material-Recording and Stock-Keeping Clerks appear in the top 10 fastest-declining roles for 2025-2030 (Fig. 2.2).",
+  "direction": "declining",
+  "strength": 4,
+  "role_ids": [],
+  "skill_ids": [
+   "SK019"
+  ],
+  "tagged_by": "curated",
+  "feed_key": null
+ },
+ {
+  "external_id": "curated:wef-foj-2025-customer-service-decline",
+  "title": "Client information and customer service workers among largest-declining jobs",
+  "source_name": "WEF Future of Jobs Report 2025",
+  "source_type": "report",
+  "url": "https://www.weforum.org/publications/the-future-of-jobs-report-2025/",
+  "published_date": "2025-01-07",
+  "fetched_at": "2026-10-20",
+  "summary": "Client Information and Customer Service Workers are among the 15 jobs expected to decline most in absolute numbers by 2030 (Fig. 2.4). Note that service orientation as a skill is still expected to grow in importance.",
+  "direction": "declining",
+  "strength": 3,
+  "role_ids": [],
+  "skill_ids": [],
+  "tagged_by": "curated",
+  "feed_key": null
+ },
+ {
+  "external_id": "curated:wef-foj-2025-tech-skills-rising",
+  "title": "AI and big data, cybersecurity and technological literacy are the fastest-growing skills",
+  "source_name": "WEF Future of Jobs Report 2025",
+  "source_type": "report",
+  "url": "https://www.weforum.org/publications/the-future-of-jobs-report-2025/",
+  "published_date": "2025-01-07",
+  "fetched_at": "2026-10-20",
+  "summary": "Ranked by net share of employers expecting increased use, AI and big data (+87), networks and cybersecurity (+70) and technological literacy (+68) are the top three skills on the rise for 2025-2030 (Fig. 3.4).",
+  "direction": "emerging",
+  "strength": 5,
+  "role_ids": [
+   "data-analyst",
+   "cybersecurity-analyst"
+  ],
+  "skill_ids": [
+   "SK077",
+   "SK011",
+   "SK010"
+  ],
+  "tagged_by": "curated",
+  "feed_key": null
+ },
+ {
+  "external_id": "curated:wef-foj-2025-human-skills-rising",
+  "title": "Creative thinking, resilience and lifelong learning rank next among skills on the rise",
+  "source_name": "WEF Future of Jobs Report 2025",
+  "source_type": "report",
+  "url": "https://www.weforum.org/publications/the-future-of-jobs-report-2025/",
+  "published_date": "2025-01-07",
+  "fetched_at": "2026-10-20",
+  "summary": "After the technology skills, creative thinking (+66), resilience, flexibility and agility (+66), curiosity and lifelong learning (+61), leadership and social influence (+58) and analytical thinking (+55) are the skills employers expect to grow most (Fig. 3.4).",
+  "direction": "emerging",
+  "strength": 4,
+  "role_ids": [],
+  "skill_ids": [
+   "SK079"
+  ],
+  "tagged_by": "curated",
+  "feed_key": null
+ },
+ {
+  "external_id": "curated:wef-foj-2025-green-care-design-skills",
+  "title": "Environmental stewardship, empathy and UX design skills also rising",
+  "source_name": "WEF Future of Jobs Report 2025",
+  "source_type": "report",
+  "url": "https://www.weforum.org/publications/the-future-of-jobs-report-2025/",
+  "published_date": "2025-01-07",
+  "fetched_at": "2026-10-20",
+  "summary": "Environmental stewardship (+53), empathy and active listening (+46), design and user experience (+45), service orientation and customer service (+41) and teaching and mentoring (+30) are all expected to grow in importance (Fig. 3.4).",
+  "direction": "emerging",
+  "strength": 3,
+  "role_ids": [],
+  "skill_ids": [
+   "SK043",
+   "SK046",
+   "SK071"
+  ],
+  "tagged_by": "curated",
+  "feed_key": null
+ },
+ {
+  "external_id": "curated:wef-foj-2025-malaysia-short-courses",
+  "title": "Malaysian employers value short courses and online certifications twice as much as the global average",
+  "source_name": "WEF Future of Jobs Report 2025 (Malaysia findings)",
+  "source_type": "report",
+  "url": "https://www.weforum.org/publications/the-future-of-jobs-report-2025/",
+  "published_date": "2025-01-07",
+  "fetched_at": "2026-10-20",
+  "summary": "79% of employers operating in Malaysia see broadening digital access as a key driver of transformation. 35% plan to consider completed short courses and online certifications when assessing candidates, versus 14% globally, and 32% of reskilling is expected to be co-funded across industry.",
+  "direction": "emerging",
+  "strength": 4,
+  "role_ids": [],
+  "skill_ids": [],
+  "tagged_by": "curated",
+  "feed_key": null
+ },
+ {
+  "external_id": "curated:wef-foj-2025-reskilling-scale",
+  "title": "59 in every 100 workers will need training by 2030",
+  "source_name": "WEF Future of Jobs Report 2025",
+  "source_type": "report",
+  "url": "https://www.weforum.org/publications/the-future-of-jobs-report-2025/",
+  "published_date": "2025-01-07",
+  "fetched_at": "2026-10-20",
+  "summary": "Employers estimate that 59 of every 100 workers will need training by 2030 and that 39% of workers' existing skills will be transformed or outdated over 2025-2030; 85% plan to prioritise upskilling and 50% plan to move staff from declining to growing roles.",
+  "direction": "emerging",
+  "strength": 4,
+  "role_ids": [],
+  "skill_ids": [],
+  "tagged_by": "curated",
+  "feed_key": null
+ },
+ {
+  "external_id": "curated:wef-foj-2023-fastest-growing",
+  "title": "AI specialists, sustainability specialists and BI analysts top 2023-2027 growth list",
+  "source_name": "WEF Future of Jobs Report 2023",
+  "source_type": "report",
+  "url": "https://www.weforum.org/publications/the-future-of-jobs-report-2023/",
+  "published_date": "2023-04-30",
+  "fetched_at": "2026-10-20",
+  "summary": "AI and Machine Learning Specialists top the list of fast-growing jobs, followed by Sustainability Specialists, Business Intelligence Analysts and Information Security Analysts (Fig. 3.3).",
+  "direction": "emerging",
+  "strength": 4,
+  "role_ids": [
+   "sustainability-analyst",
+   "bi-analyst",
+   "cybersecurity-analyst"
+  ],
+  "skill_ids": [
+   "SK043",
+   "SK045",
+   "SK027"
+  ],
+  "tagged_by": "curated",
+  "feed_key": null
+ },
+ {
+  "external_id": "curated:wef-foj-2023-digital-commerce",
+  "title": "E-commerce, digital transformation and digital marketing specialists among fastest-growing roles",
+  "source_name": "WEF Future of Jobs Report 2023",
+  "source_type": "report",
+  "url": "https://www.weforum.org/publications/the-future-of-jobs-report-2023/",
+  "published_date": "2023-04-30",
+  "fetched_at": "2026-10-20",
+  "summary": "Digital Transformation Specialists, E-commerce Specialists and Digital Marketing and Strategy Specialists are in the fastest-growing group, and large-scale job growth is expected in digital commerce and trade.",
+  "direction": "emerging",
+  "strength": 4,
+  "role_ids": [],
+  "skill_ids": [],
+  "tagged_by": "curated",
+  "feed_key": null
+ },
+ {
+  "external_id": "curated:wef-foj-2023-automation-logistics-agri",
+  "title": "Process automation, supply chain and agricultural equipment roles growing",
+  "source_name": "WEF Future of Jobs Report 2023",
+  "source_type": "report",
+  "url": "https://www.weforum.org/publications/the-future-of-jobs-report-2023/",
+  "published_date": "2023-04-30",
+  "fetched_at": "2026-10-20",
+  "summary": "Process Automation Specialists, Supply Chain and Logistics Specialists and Agricultural Equipment Operators all appear on the list of roles employers expect to grow over 2023-2027 (Fig. 3.3).",
+  "direction": "emerging",
+  "strength": 3,
+  "role_ids": [],
+  "skill_ids": [],
+  "tagged_by": "curated",
+  "feed_key": null
+ },
+ {
+  "external_id": "curated:wef-foj-2023-solar-vocational",
+  "title": "Solar installation roles and vocational teachers expected to grow",
+  "source_name": "WEF Future of Jobs Report 2023",
+  "source_type": "report",
+  "url": "https://www.weforum.org/publications/the-future-of-jobs-report-2023/",
+  "published_date": "2023-04-30",
+  "fetched_at": "2026-10-20",
+  "summary": "Renewable Energy Engineers and Solar Energy Installation and System Engineers are relatively fast-growing as economies shift to renewables. Education jobs are expected to grow about 10%, adding about 3 million Vocational Education Teachers and University and Higher Education Teachers.",
+  "direction": "emerging",
+  "strength": 3,
+  "role_ids": [
+   "renewable-engineer"
+  ],
+  "skill_ids": [
+   "SK048"
+  ],
+  "tagged_by": "curated",
+  "feed_key": null
+ },
+ {
+  "external_id": "curated:wef-foj-2023-persistent-clerical-decline",
+  "title": "Data entry, secretarial and bookkeeping roles declining in every edition since 2016",
+  "source_name": "WEF Future of Jobs Report 2023",
+  "source_type": "report",
+  "url": "https://www.weforum.org/publications/the-future-of-jobs-report-2023/",
+  "published_date": "2023-04-30",
+  "fetched_at": "2026-10-20",
+  "summary": "Data Entry Clerks, Executive and Administrative Secretaries, and Accounting, Bookkeeping and Payroll Clerks have been flagged as declining in all four Future of Jobs reports (2016, 2018, 2020, 2023), signalling a structural shift.",
+  "direction": "declining",
+  "strength": 4,
+  "role_ids": [],
+  "skill_ids": [
+   "SK019"
+  ],
+  "tagged_by": "curated",
+  "feed_key": null
+ },
+ {
+  "external_id": "curated:ilo-wp140-2025-clerical-exposure",
+  "title": "Clerical occupations have the highest exposure to generative AI; women more exposed",
+  "source_name": "ILO Working Paper 140: Generative AI and Jobs, a refined global index of occupational exposure",
+  "source_type": "research",
+  "url": "https://www.ilo.org/publications/generative-ai-and-jobs-refined-global-index-occupational-exposure",
+  "published_date": "2025-05-20",
+  "fetched_at": "2026-10-20",
+  "summary": "About one in four workers globally is in an occupation with some generative-AI exposure, and clerical occupations are the most exposed. In the highest-exposure category, 4.7% of female employment is exposed versus 2.4% of male employment.",
+  "direction": "declining",
+  "strength": 4,
+  "role_ids": [],
+  "skill_ids": [],
+  "tagged_by": "curated",
+  "feed_key": null
+ },
+ {
+  "external_id": "curated:anthropic-aei-2025-02",
+  "title": "Anthropic Economic Index: software work leads AI use, and most use augments rather than automates",
+  "source_name": "Anthropic Economic Index",
+  "source_type": "research",
+  "url": "https://www.anthropic.com/news/the-anthropic-economic-index",
+  "published_date": "2025-02-10",
+  "fetched_at": "2026-10-20",
+  "summary": "Computer and mathematical occupations account for 37.2% of analysed Claude conversations, followed by arts, design and media (10.3%, mostly writing and editing). 57% of usage looks like augmentation (working with the user) and 43% like automation.",
+  "direction": "emerging",
+  "strength": 3,
+  "role_ids": [],
+  "skill_ids": [
+   "SK077"
+  ],
+  "tagged_by": "curated",
+  "feed_key": null
+ },
+ {
+  "external_id": "curated:anthropic-aei-2025-03",
+  "title": "Anthropic Economic Index: learning-focused AI conversations rising",
+  "source_name": "Anthropic Economic Index",
+  "source_type": "research",
+  "url": "https://www.anthropic.com/news/anthropic-economic-index-insights-from-claude-sonnet-3-7",
+  "published_date": "2025-03-27",
+  "fetched_at": "2026-10-20",
+  "summary": "Augmentation held steady at 57% of usage, while conversations where people ask for information or explanations grew from about 23% to about 28%. Coding, education and science usage rose modestly.",
+  "direction": "emerging",
+  "strength": 2,
+  "role_ids": [],
+  "skill_ids": [
+   "SK077"
+  ],
+  "tagged_by": "curated",
+  "feed_key": null
+ },
+ {
+  "external_id": "curated:anthropic-aei-2025-09",
+  "title": "Anthropic Economic Index: task delegation to AI rising fast, especially in business use",
+  "source_name": "Anthropic Economic Index",
+  "source_type": "research",
+  "url": "https://www.anthropic.com/research/anthropic-economic-index-september-2025-report",
+  "published_date": "2025-09-15",
+  "fetched_at": "2026-10-20",
+  "summary": "Directive conversations, where users hand a whole task to Claude, rose from 27% to 39% between late 2024 and August 2025. About 77% of business API traffic shows automation patterns. Adoption is uneven across countries and tracks income.",
+  "direction": "emerging",
+  "strength": 3,
+  "role_ids": [],
+  "skill_ids": [
+   "SK077"
+  ],
+  "tagged_by": "curated",
+  "feed_key": null
+ },
+ {
+  "external_id": "curated:imf-2024-01-ai-exposure",
+  "title": "IMF: almost 40% of global employment is exposed to AI",
+  "source_name": "IMF Blog (Georgieva), based on IMF Staff Discussion Note SDN/2024/001",
+  "source_type": "research",
+  "url": "https://www.imf.org/en/Blogs/Articles/2024/01/14/ai-will-transform-the-global-economy-lets-make-sure-it-benefits-humanity",
+  "published_date": "2024-01-14",
+  "fetched_at": "2026-10-20",
+  "summary": "IMF analysis finds almost 40% of global jobs exposed to AI: about 60% in advanced economies and 40% in emerging markets. In advanced economies, roughly half of exposed jobs may benefit from AI complementing workers, while the other half may see lower labour demand.",
+  "direction": "emerging",
+  "strength": 2,
+  "role_ids": [],
+  "skill_ids": [
+   "SK077"
+  ],
+  "tagged_by": "curated",
+  "feed_key": null
+ },
+ {
+  "external_id": "curated:mosti-2025-01-reskilling",
+  "title": "MOSTI: over 30% of Malaysian jobs affected by AI within 10 years; 600,000+ workers must reskill",
+  "source_name": "Malay Mail (MOSTI Minister Chang Lih Kang)",
+  "source_type": "news",
+  "url": "https://www.malaymail.com/news/malaysia/2025/01/07/mosti-ai-disruption-looms-in-malaysia-600000-workers-must-reskill-in-three-to-five-years/162368",
+  "published_date": "2025-01-07",
+  "fetched_at": "2026-10-20",
+  "summary": "Government analysis cited by the Science, Technology and Innovation Minister shows more than 30% of jobs in Malaysia will be affected by AI in the next 10 years, with more than 600,000 workers needing reskilling within three to five years.",
+  "direction": "emerging",
+  "strength": 4,
+  "role_ids": [],
+  "skill_ids": [
+   "SK077"
+  ],
+  "tagged_by": "curated",
+  "feed_key": null
+ },
+ {
+  "external_id": "curated:mohr-talentcorp-2024-10-study",
+  "title": "MOHR-TalentCorp study: about 600,000 workers in 10 strategic sectors need reskilling",
+  "source_name": "Bernama (Human Resources Minister Steven Sim)",
+  "source_type": "news",
+  "url": "https://bernama.com/en/general/news.php?id=2350085",
+  "published_date": "2024-10-10",
+  "fetched_at": "2026-10-20",
+  "summary": "The first phase of a Human Resources Ministry and TalentCorp study on AI, digitalisation and the green economy found about 600,000 workers in 10 strategic sectors (including ICT, global business services, E&E, energy and power, and wholesale and retail) need reskilling in the next three to five years. Findings feed the MyMAHIR portal.",
+  "direction": "emerging",
+  "strength": 4,
+  "role_ids": [],
+  "skill_ids": [],
+  "tagged_by": "curated",
+  "feed_key": null
+ },
+ {
+  "external_id": "curated:hays-asia-salary-guide-2025-malaysia-ai",
+  "title": "56% of Malaysian professionals use AI at work, but only 26% have formal training",
+  "source_name": "Hays Asia Salary Guide 2025, via People Matters",
+  "source_type": "news",
+  "url": "https://sea.peoplemattersglobal.com/article/strategic-hr/ai-in-malaysian-workplaces-a-strategic-outlook-46436",
+  "published_date": "2025-07-31",
+  "fetched_at": "2026-10-20",
+  "summary": "Citing the Hays Asia Salary Guide 2025: 56% of professionals in Malaysia already use AI tools in their roles, only 26% have received formal training, and 46% hold back from using AI because they lack understanding or support.",
+  "direction": "emerging",
+  "strength": 4,
+  "role_ids": [],
+  "skill_ids": [
+   "SK077"
+  ],
+  "tagged_by": "curated",
+  "feed_key": null
+ },
+ {
+  "external_id": "curated:microsoft-linkedin-wti-2024",
+  "title": "Work Trend Index: 66% of leaders wouldn't hire someone without AI skills",
+  "source_name": "Microsoft & LinkedIn Work Trend Index 2024",
+  "source_type": "report",
+  "url": "https://www.microsoft.com/en-us/worklab/work-trend-index/ai-at-work-is-here-now-comes-the-hard-part",
+  "published_date": "2024-05-08",
+  "fetched_at": "2026-10-20",
+  "summary": "75% of knowledge workers use AI at work and 78% of them bring their own tools. 66% of leaders say they would not hire someone without AI skills and 71% would prefer a less experienced candidate with AI skills, yet only 39% of AI users have had training from their company.",
+  "direction": "emerging",
+  "strength": 3,
+  "role_ids": [],
+  "skill_ids": [
+   "SK077"
+  ],
+  "tagged_by": "curated",
+  "feed_key": null
+ },
+ {
+  "external_id": "curated:netr-2023-08-launch",
+  "title": "National Energy Transition Roadmap phase 1 to create about 23,000 high-impact jobs",
+  "source_name": "Bernama (Economy Minister Rafizi Ramli)",
+  "source_type": "news",
+  "url": "https://www.bernama.com/en/general/news.php?id=2220522",
+  "published_date": "2023-08-29",
+  "fetched_at": "2026-10-20",
+  "summary": "The first phase of the NETR is estimated to create about 23,000 high-impact jobs, and the roadmap could open investment opportunities of RM435 billion to RM1.85 trillion by 2050.",
+  "direction": "emerging",
+  "strength": 4,
+  "role_ids": [
+   "renewable-engineer"
+  ],
+  "skill_ids": [
+   "SK048",
+   "SK049"
+  ],
+  "tagged_by": "curated",
+  "feed_key": null
+ },
+ {
+  "external_id": "curated:mgtc-fmt-2024-11-green-jobs",
+  "title": "Malaysia's green jobs expected to grow about tenfold by 2050, mostly in solar",
+  "source_name": "MGTC (repost of Free Malaysia Today)",
+  "source_type": "news",
+  "url": "https://mgtc.gov.my/ms/2024/11/can-malaysians-ride-the-high-paying-green-job-wave/",
+  "published_date": "2024-11-29",
+  "fetched_at": "2026-10-20",
+  "summary": "About 30,000 green jobs existed in Malaysia in 2023; the NETR is expected to create about 300,000 by 2050, most in renewable energy and especially solar. The HR minister has said green jobs could pay RM3,000 to RM16,000 a month. An economist warns TVET is not yet closely matched to green skill needs.",
+  "direction": "emerging",
+  "strength": 4,
+  "role_ids": [
+   "renewable-engineer",
+   "sustainability-analyst"
+  ],
+  "skill_ids": [
+   "SK048",
+   "SK043"
+  ],
+  "tagged_by": "curated",
+  "feed_key": null
+ },
+ {
+  "external_id": "curated:nss-2024-05-semiconductor-talent",
+  "title": "National Semiconductor Strategy aims to train and upskill 60,000 high-skilled engineers",
+  "source_name": "Malay Mail (PM Anwar Ibrahim at SEMICON SEA)",
+  "source_type": "news",
+  "url": "https://www.malaymail.com/news/malaysia/2024/05/28/pm-anwar-malaysia-to-train-upskill-60000-engineers-allocate-rm25b-in-fiscal-support-for-national-semiconductor-strategy/136918",
+  "published_date": "2024-05-28",
+  "fetched_at": "2026-10-20",
+  "summary": "Malaysia plans to train and upskill 60,000 high-skilled local engineers and allocate RM25 billion in fiscal support under the National Semiconductor Strategy.",
+  "direction": "emerging",
+  "strength": 3,
+  "role_ids": [],
+  "skill_ids": [
+   "SK058",
+   "SK059"
+  ],
+  "tagged_by": "curated",
+  "feed_key": null
+ },
+ {
+  "external_id": "curated:naio-2024-12-launch",
+  "title": "Malaysia launches National AI Office to coordinate AI adoption, governance and talent",
+  "source_name": "National AI Office (NAIO) press release",
+  "source_type": "news",
+  "url": "https://ai.gov.my/media/news-details/20241212_Press_Release_Launch_of_NAIO.pdf",
+  "published_date": "2024-12-12",
+  "fetched_at": "2026-10-20",
+  "summary": "The Prime Minister inaugurated the National AI Office under the Ministry of Digital, framing it around an AI-driven economy built on innovation, ethical governance and future-ready talent development.",
+  "direction": "emerging",
+  "strength": 3,
+  "role_ids": [],
+  "skill_ids": [
+   "SK077"
+  ],
+  "tagged_by": "curated",
+  "feed_key": null
+ },
+ {
+  "external_id": "curated:mosti-aige-2024-guidelines",
+  "title": "National Guidelines on AI Governance & Ethics set principles for responsible AI",
+  "source_name": "MOSTI National Guidelines on AI Governance & Ethics (AIGE)",
+  "source_type": "report",
+  "url": "https://www.malaysia.gov.my/en/my-initiative/whole-government-digital-services/tadbir-urus/national-guidelines-on-artificial-intelligence-governance-and-ethics-aige",
+  "published_date": "2024-09-20",
+  "fetched_at": "2026-10-20",
+  "summary": "MOSTI's voluntary AIGE guidelines give end users, policymakers and developers principles for responsible AI, such as fairness and reliability, safety and control, supporting the National AI Roadmap 2021-2025.",
+  "direction": "emerging",
+  "strength": 3,
+  "role_ids": [],
+  "skill_ids": [
+   "SK034",
+   "SK016"
+  ],
+  "tagged_by": "curated",
+  "feed_key": null
+ },
+ {
+  "external_id": "curated:dosm-2024-07-ageing",
+  "title": "DOSM: 7.7% of Malaysians are 65+, and Malaysia becomes an ageing nation by 2030",
+  "source_name": "Malay Mail (DOSM Current Population Estimates 2024)",
+  "source_type": "dataset",
+  "url": "https://www.malaymail.com/news/malaysia/2024/07/31/malaysia-set-to-become-ageing-nation-by-2030-perak-leads-senior-surge-dosm-report-says/145577",
+  "published_date": "2024-07-31",
+  "fetched_at": "2026-10-20",
+  "summary": "DOSM's Current Population Estimates 2024 put the share aged 65 and above at 7.7% (about 2.6 million people). Malaysia is projected to become an ageing nation in 2030, when people aged 60+ exceed 15% of the population.",
+  "direction": "emerging",
+  "strength": 4,
+  "role_ids": [],
+  "skill_ids": [],
+  "tagged_by": "curated",
+  "feed_key": null
+ },
+ {
+  "external_id": "curated:irena-2026-01-renewable-jobs",
+  "title": "Renewable energy employed 16.6 million people worldwide in 2024; solar PV 7.24 million",
+  "source_name": "pv magazine (IRENA & ILO Renewable Energy and Jobs Annual Review)",
+  "source_type": "news",
+  "url": "https://www.pv-magazine.com/2026/01/14/solar-accounted-for-7-24-million-jobs-in-2024/",
+  "published_date": "2026-01-14",
+  "fetched_at": "2026-10-20",
+  "summary": "The latest IRENA-ILO annual review reports 16.6 million direct and indirect renewable energy jobs in 2024, with solar PV the largest segment at 7.24 million jobs, up from 7.11 million in 2023.",
+  "direction": "emerging",
+  "strength": 3,
+  "role_ids": [
+   "renewable-engineer"
+  ],
+  "skill_ids": [
+   "SK048"
+  ],
+  "tagged_by": "curated",
+  "feed_key": null
+ }
+]
