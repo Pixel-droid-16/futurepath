@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 [
  {
   "id": "kaggle-data-cleaning",
@@ -864,3 +865,871 @@
   "checked": "2026-10-22"
  }
 ]
+=======
+[
+ {
+  "id": "kaggle-data-cleaning",
+  "title": "Data Cleaning",
+  "provider": "Kaggle Learn",
+  "url": "https://www.kaggle.com/learn/data-cleaning",
+  "cost": "free",
+  "hours": 4,
+  "hours_estimated": true,
+  "language": "en",
+  "skill_ids": [
+   "SK003"
+  ],
+  "notes": "Free certificate on completion; Kaggle states 4 hours (estimated).",
+  "checked": "2026-10-22"
+ },
+ {
+  "id": "coursera-process-data",
+  "title": "Process Data from Dirty to Clean",
+  "provider": "Google on Coursera",
+  "url": "https://www.coursera.org/learn/process-data",
+  "cost": "low",
+  "hours": 20,
+  "hours_estimated": false,
+  "language": "en",
+  "skill_ids": [
+   "SK003"
+  ],
+  "notes": "Free to enrol on Coursera; certificate is paid. 2 weeks at 10 hours a week.",
+  "checked": "2026-10-22"
+ },
+ {
+  "id": "mslearn-semantic-model",
+  "title": "Configure a semantic model",
+  "provider": "Microsoft Learn",
+  "url": "https://learn.microsoft.com/en-us/training/modules/configure-semantic-model-power-bi/",
+  "cost": "free",
+  "hours": 1.3,
+  "hours_estimated": false,
+  "language": "en",
+  "skill_ids": [
+   "SK006"
+  ],
+  "notes": "Free module (80 minutes); intermediate, assumes Power Query basics.",
+  "checked": "2026-10-22"
+ },
+ {
+  "id": "coursera-data-warehouse-fundamentals",
+  "title": "Data Warehouse Fundamentals",
+  "provider": "IBM on Coursera",
+  "url": "https://www.coursera.org/learn/data-warehouse-fundamentals",
+  "cost": "low",
+  "hours": 20,
+  "hours_estimated": false,
+  "language": "en",
+  "skill_ids": [
+   "SK025",
+   "SK006"
+  ],
+  "notes": "Free to enrol on Coursera; certificate is paid. Covers star and snowflake schemas.",
+  "checked": "2026-10-22"
+ },
+ {
+  "id": "coursera-etl-pipelines",
+  "title": "ETL and Data Pipelines with Shell, Airflow and Kafka",
+  "provider": "IBM on Coursera",
+  "url": "https://www.coursera.org/learn/etl-and-data-pipelines-shell-airflow-kafka",
+  "cost": "low",
+  "hours": 20,
+  "hours_estimated": false,
+  "language": "en",
+  "skill_ids": [
+   "SK026"
+  ],
+  "notes": "Free to enrol on Coursera; certificate is paid.",
+  "checked": "2026-10-22"
+ },
+ {
+  "id": "coursera-intro-business-analysis",
+  "title": "Introduction to Business Analysis",
+  "provider": "IBM on Coursera",
+  "url": "https://www.coursera.org/learn/introduction-to-business-analysis",
+  "cost": "low",
+  "hours": 10,
+  "hours_estimated": false,
+  "language": "en",
+  "skill_ids": [
+   "SK008",
+   "SK029"
+  ],
+  "notes": "Free to enrol on Coursera; certificate is paid.",
+  "checked": "2026-10-22"
+ },
+ {
+  "id": "coursera-requirements-gathering",
+  "title": "Requirements Gathering in Business Analysis",
+  "provider": "Microsoft on Coursera",
+  "url": "https://www.coursera.org/learn/requirements-gathering-in-business-analysis",
+  "cost": "low",
+  "hours": 20,
+  "hours_estimated": false,
+  "language": "en",
+  "skill_ids": [
+   "SK029",
+   "SK008"
+  ],
+  "notes": "Free to enrol on Coursera; certificate is paid.",
+  "checked": "2026-10-22"
+ },
+ {
+  "id": "coursera-ba-elicitation",
+  "title": "Advanced Business Analysis: Elicitation & Analysis",
+  "provider": "Starweaver on Coursera",
+  "url": "https://www.coursera.org/learn/advanced-business-analysis-elicitation-analysis",
+  "cost": "low",
+  "hours": 8,
+  "hours_estimated": false,
+  "language": "en",
+  "skill_ids": [
+   "SK029"
+  ],
+  "notes": "Free to enrol on Coursera; certificate is paid. Aimed at experienced analysts.",
+  "checked": "2026-10-22"
+ },
+ {
+  "id": "coursera-drive-kpi-reviews",
+  "title": "Drive KPI Reviews",
+  "provider": "Coursera",
+  "url": "https://www.coursera.org/learn/drive-kpi-reviews",
+  "cost": "low",
+  "hours": 1,
+  "hours_estimated": false,
+  "language": "en",
+  "skill_ids": [
+   "SK028"
+  ],
+  "notes": "Free to enrol on Coursera; certificate is paid. Builds a KPI dashboard in Tableau.",
+  "checked": "2026-10-22"
+ },
+ {
+  "id": "mslearn-responsible-genai",
+  "title": "Implement a responsible generative AI solution in Microsoft Foundry",
+  "provider": "Microsoft Learn",
+  "url": "https://learn.microsoft.com/en-us/training/modules/responsible-ai-studio/",
+  "cost": "free",
+  "hours": 0.8,
+  "hours_estimated": false,
+  "language": "en",
+  "skill_ids": [
+   "SK009"
+  ],
+  "notes": "Free module (45 minutes): map, measure and mitigate harmful AI output.",
+  "checked": "2026-10-22"
+ },
+ {
+  "id": "coursera-intro-responsible-ai",
+  "title": "Introduction to Responsible AI",
+  "provider": "Google Cloud on Coursera",
+  "url": "https://www.coursera.org/learn/introduction-to-responsible-ai",
+  "cost": "low",
+  "hours": 1,
+  "hours_estimated": false,
+  "language": "en",
+  "skill_ids": [
+   "SK009"
+  ],
+  "notes": "Free to enrol on Coursera; certificate is paid.",
+  "checked": "2026-10-22"
+ },
+ {
+  "id": "coursera-detection-response",
+  "title": "Sound the Alarm: Detection and Response",
+  "provider": "Google on Coursera",
+  "url": "https://www.coursera.org/learn/detection-and-response",
+  "cost": "low",
+  "hours": 20,
+  "hours_estimated": false,
+  "language": "en",
+  "skill_ids": [
+   "SK012",
+   "SK014"
+  ],
+  "notes": "Free to enrol on Coursera; certificate is paid. Covers incident response and SIEM tools.",
+  "checked": "2026-10-22"
+ },
+ {
+  "id": "coursera-assets-threats",
+  "title": "Assets, Threats, and Vulnerabilities",
+  "provider": "Google on Coursera",
+  "url": "https://www.coursera.org/learn/assets-threats-and-vulnerabilities",
+  "cost": "low",
+  "hours": 20,
+  "hours_estimated": false,
+  "language": "en",
+  "skill_ids": [
+   "SK013"
+  ],
+  "notes": "Free to enrol on Coursera; certificate is paid. Includes threat modelling.",
+  "checked": "2026-10-22"
+ },
+ {
+  "id": "coursera-automate-cyber-python",
+  "title": "Automate Cybersecurity Tasks with Python",
+  "provider": "Google on Coursera",
+  "url": "https://www.coursera.org/learn/automate-cybersecurity-tasks-with-python",
+  "cost": "low",
+  "hours": 30,
+  "hours_estimated": false,
+  "language": "en",
+  "skill_ids": [
+   "SK015"
+  ],
+  "notes": "Free to enrol on Coursera; certificate is paid.",
+  "checked": "2026-10-22"
+ },
+ {
+  "id": "coursera-genai-llm-security",
+  "title": "Generative AI and LLM Security",
+  "provider": "Edureka on Coursera",
+  "url": "https://www.coursera.org/learn/generative-ai-llm-security",
+  "cost": "low",
+  "hours": 10,
+  "hours_estimated": false,
+  "language": "en",
+  "skill_ids": [
+   "SK017"
+  ],
+  "notes": "Free to enrol on Coursera; certificate is paid. Prompt injection, jailbreaks, AI supply chain.",
+  "checked": "2026-10-22"
+ },
+ {
+  "id": "openlearn-bookkeeping",
+  "title": "Introduction to bookkeeping and accounting",
+  "provider": "The Open University (OpenLearn)",
+  "url": "https://www.open.edu/openlearn/money-business/introduction-bookkeeping-and-accounting/content-section-overview",
+  "cost": "free",
+  "hours": 8,
+  "hours_estimated": false,
+  "language": "en",
+  "skill_ids": [
+   "SK019"
+  ],
+  "notes": "Free Open University course with a free statement of participation.",
+  "checked": "2026-10-22"
+ },
+ {
+  "id": "openlearn-financial-statements",
+  "title": "Financial statement analysis and interpretation",
+  "provider": "The Open University (OpenLearn)",
+  "url": "https://www.open.edu/openlearn/money-business/financial-statement-analysis-and-interpretation/content-section-overview",
+  "cost": "free",
+  "hours": 12,
+  "hours_estimated": false,
+  "language": "en",
+  "skill_ids": [
+   "SK021",
+   "SK019"
+  ],
+  "notes": "Free Open University course with a free statement of participation.",
+  "checked": "2026-10-22"
+ },
+ {
+  "id": "coursera-wharton-accounting",
+  "title": "Introduction to Financial Accounting",
+  "provider": "University of Pennsylvania (Wharton) on Coursera",
+  "url": "https://www.coursera.org/learn/wharton-accounting",
+  "cost": "low",
+  "hours": 20,
+  "hours_estimated": false,
+  "language": "en",
+  "skill_ids": [
+   "SK019",
+   "SK021"
+  ],
+  "notes": "Paid enrolment on Coursera (or Coursera Plus); financial aid available.",
+  "checked": "2026-10-22"
+ },
+ {
+  "id": "coursera-wharton-spreadsheets-models",
+  "title": "Introduction to Spreadsheets and Models",
+  "provider": "University of Pennsylvania (Wharton) on Coursera",
+  "url": "https://www.coursera.org/learn/wharton-introduction-spreadsheets-models",
+  "cost": "low",
+  "hours": 8,
+  "hours_estimated": false,
+  "language": "en",
+  "skill_ids": [
+   "SK018",
+   "SK022"
+  ],
+  "notes": "Free to enrol on Coursera; certificate is paid. Cash-flow models and forecasting in spreadsheets.",
+  "checked": "2026-10-22"
+ },
+ {
+  "id": "kaggle-time-series",
+  "title": "Time Series",
+  "provider": "Kaggle Learn",
+  "url": "https://www.kaggle.com/learn/time-series",
+  "cost": "free",
+  "hours": 5,
+  "hours_estimated": true,
+  "language": "en",
+  "skill_ids": [
+   "SK022"
+  ],
+  "notes": "Free certificate on completion; builds on Intermediate Machine Learning.",
+  "checked": "2026-10-22"
+ },
+ {
+  "id": "coursera-financial-compliance-aml",
+  "title": "Mastering Financial Compliance and Anti-Money Laundering",
+  "provider": "Starweaver on Coursera",
+  "url": "https://www.coursera.org/learn/mastering-financial-compliance-and-anti-money-laundering",
+  "cost": "low",
+  "hours": 10,
+  "hours_estimated": false,
+  "language": "en",
+  "skill_ids": [
+   "SK023"
+  ],
+  "notes": "Free to enrol on Coursera; certificate is paid. AML rules, KYC and risk-based compliance.",
+  "checked": "2026-10-22"
+ },
+ {
+  "id": "coursera-health-informatics-professionals",
+  "title": "Health Informatics for Healthcare Professionals",
+  "provider": "Northeastern University on Coursera",
+  "url": "https://www.coursera.org/learn/health-informatics-for-healthcare-professionals",
+  "cost": "low",
+  "hours": 10,
+  "hours_estimated": false,
+  "language": "en",
+  "skill_ids": [
+   "SK030"
+  ],
+  "notes": "Paid enrolment on Coursera (or Coursera Plus); financial aid available.",
+  "checked": "2026-10-22"
+ },
+ {
+  "id": "coursera-electronic-health-records",
+  "title": "Electronic Health Records",
+  "provider": "MedCerts on Coursera",
+  "url": "https://www.coursera.org/learn/electronic-health-records",
+  "cost": "low",
+  "hours": 9,
+  "hours_estimated": false,
+  "language": "en",
+  "skill_ids": [
+   "SK030",
+   "SK032",
+   "SK031",
+   "SK038"
+  ],
+  "notes": "Free to enrol on Coursera; certificate is paid. Patient flow, HIPAA/HITECH and clinical documentation.",
+  "checked": "2026-10-22"
+ },
+ {
+  "id": "coursera-healthcare-data-interfaces",
+  "title": "Healthcare Data Management and Interfaces",
+  "provider": "Illinois Tech on Coursera",
+  "url": "https://www.coursera.org/learn/healthcare-data-management-and-interoperability",
+  "cost": "low",
+  "hours": 20,
+  "hours_estimated": false,
+  "language": "en",
+  "skill_ids": [
+   "SK033",
+   "SK038"
+  ],
+  "notes": "Free to enrol on Coursera; certificate is paid. HL7, FHIR, SMART on FHIR and USCDI.",
+  "checked": "2026-10-22"
+ },
+ {
+  "id": "coursera-medical-terminology-1",
+  "title": "Medical Terminology I",
+  "provider": "Rice University on Coursera",
+  "url": "https://www.coursera.org/learn/medical-terminology-1",
+  "cost": "low",
+  "hours": 20,
+  "hours_estimated": false,
+  "language": "en",
+  "skill_ids": [
+   "SK035"
+  ],
+  "notes": "Free to enrol on Coursera; certificate is paid.",
+  "checked": "2026-10-22"
+ },
+ {
+  "id": "tghn-ich-gcp-r3",
+  "title": "ICH Good Clinical Practice E6(R3)",
+  "provider": "The Global Health Network",
+  "url": "https://globalhealthtrainingcentre.tghn.org/ich-gcp-r3/",
+  "cost": "free",
+  "hours": 3,
+  "hours_estimated": false,
+  "language": "en",
+  "skill_ids": [
+   "SK041",
+   "SK037"
+  ],
+  "notes": "Free (organisations that can pay are asked for £30); certificate at 80% in the final quiz.",
+  "checked": "2026-10-22"
+ },
+ {
+  "id": "coursera-design-conduct-trials",
+  "title": "Design and Conduct of Clinical Trials",
+  "provider": "Johns Hopkins University on Coursera",
+  "url": "https://www.coursera.org/learn/design-and-conduct-clinical-trials",
+  "cost": "low",
+  "hours": 4,
+  "hours_estimated": false,
+  "language": "en",
+  "skill_ids": [
+   "SK040",
+   "SK037"
+  ],
+  "notes": "Free to enrol on Coursera; certificate is paid. Informed consent, recruitment and retention.",
+  "checked": "2026-10-22"
+ },
+ {
+  "id": "coursera-trials-advanced-operations",
+  "title": "Clinical Trials Management and Advanced Operations",
+  "provider": "Johns Hopkins University on Coursera",
+  "url": "https://www.coursera.org/learn/clinical-trials-management-and-advanced-operations",
+  "cost": "low",
+  "hours": 5,
+  "hours_estimated": false,
+  "language": "en",
+  "skill_ids": [
+   "SK036",
+   "SK038"
+  ],
+  "notes": "Free to enrol on Coursera; certificate is paid. Protocol events, IRB oversight and study documents.",
+  "checked": "2026-10-22"
+ },
+ {
+  "id": "coursera-trials-monitoring",
+  "title": "Clinical Trials Analysis, Monitoring, and Presentation",
+  "provider": "Johns Hopkins University on Coursera",
+  "url": "https://www.coursera.org/learn/clinical-trials-analysis-presentation-statistical-monitoring",
+  "cost": "low",
+  "hours": 5,
+  "hours_estimated": false,
+  "language": "en",
+  "skill_ids": [
+   "SK042"
+  ],
+  "notes": "Free to enrol on Coursera; certificate is paid.",
+  "checked": "2026-10-22"
+ },
+ {
+  "id": "coursera-clinical-trials-jhu",
+  "title": "Design and Interpretation of Clinical Trials",
+  "provider": "Johns Hopkins University on Coursera",
+  "url": "https://www.coursera.org/learn/clinical-trials",
+  "cost": "low",
+  "hours": 10,
+  "hours_estimated": false,
+  "language": "en",
+  "skill_ids": [
+   "SK037",
+   "SK036"
+  ],
+  "notes": "Paid enrolment on Coursera (or Coursera Plus); financial aid available. Covers research ethics and IRBs.",
+  "checked": "2026-10-22"
+ },
+ {
+  "id": "coursera-research-data-management",
+  "title": "Research Data Management and Sharing",
+  "provider": "UNC Chapel Hill and University of Edinburgh on Coursera",
+  "url": "https://www.coursera.org/learn/data-management",
+  "cost": "low",
+  "hours": 20,
+  "hours_estimated": false,
+  "language": "en",
+  "skill_ids": [
+   "SK039"
+  ],
+  "notes": "Paid enrolment on Coursera (or Coursera Plus); financial aid available.",
+  "checked": "2026-10-22"
+ },
+ {
+  "id": "coursera-sustainability-reporting",
+  "title": "Sustainability Reporting: From Regulation to Implementation",
+  "provider": "University of Illinois Urbana-Champaign on Coursera",
+  "url": "https://www.coursera.org/learn/sustainability-reporting-from-regulation-to-implementation",
+  "cost": "low",
+  "hours": 20,
+  "hours_estimated": false,
+  "language": "en",
+  "skill_ids": [
+   "SK044",
+   "SK046"
+  ],
+  "notes": "Paid enrolment on Coursera (or Coursera Plus); financial aid available. ESG metrics, targets and reporting rules.",
+  "checked": "2026-10-22"
+ },
+ {
+  "id": "coursera-life-cycle-assessment",
+  "title": "Life Cycle Assessment",
+  "provider": "University of Michigan on Coursera",
+  "url": "https://www.coursera.org/learn/life-cycle-assessment",
+  "cost": "low",
+  "hours": 40,
+  "hours_estimated": false,
+  "language": "en",
+  "skill_ids": [
+   "SK047"
+  ],
+  "notes": "Free to enrol on Coursera; certificate is paid.",
+  "checked": "2026-10-22"
+ },
+ {
+  "id": "coursera-solar-system-design",
+  "title": "Solar Energy System Design",
+  "provider": "The State University of New York on Coursera",
+  "url": "https://www.coursera.org/learn/solar-energy-system-design",
+  "cost": "low",
+  "hours": 20,
+  "hours_estimated": false,
+  "language": "en",
+  "skill_ids": [
+   "SK050"
+  ],
+  "notes": "Paid enrolment on Coursera (or Coursera Plus); financial aid available.",
+  "checked": "2026-10-22"
+ },
+ {
+  "id": "coursera-renewable-power-grids",
+  "title": "Renewable Power and Electricity Systems",
+  "provider": "University of Colorado Boulder on Coursera",
+  "url": "https://www.coursera.org/learn/renewable-power-electricity-systems",
+  "cost": "low",
+  "hours": 10,
+  "hours_estimated": false,
+  "language": "en",
+  "skill_ids": [
+   "SK052"
+  ],
+  "notes": "Free to enrol on Coursera; certificate is paid.",
+  "checked": "2026-10-22"
+ },
+ {
+  "id": "coursera-control-systems-analysis",
+  "title": "Control Systems Analysis: Modeling of Dynamic Systems",
+  "provider": "University of Colorado Boulder on Coursera",
+  "url": "https://www.coursera.org/learn/modeling-feedback-systems",
+  "cost": "low",
+  "hours": 20,
+  "hours_estimated": false,
+  "language": "en",
+  "skill_ids": [
+   "SK054"
+  ],
+  "notes": "Free to enrol on Coursera; certificate is paid. Intermediate; assumes differential equations.",
+  "checked": "2026-10-22"
+ },
+ {
+  "id": "coursera-micro850-plc",
+  "title": "Foundations of Micro850 PLC Programming",
+  "provider": "Packt on Coursera",
+  "url": "https://www.coursera.org/learn/packt-foundations-of-micro850-plc-programming-bdnii",
+  "cost": "low",
+  "hours": 10,
+  "hours_estimated": false,
+  "language": "en",
+  "skill_ids": [
+   "SK055"
+  ],
+  "notes": "Paid enrolment on Coursera (or Coursera Plus); financial aid available. Ladder logic and FBD with simulators.",
+  "checked": "2026-10-22"
+ },
+ {
+  "id": "coursera-ai-vision-robotics-manufacturing",
+  "title": "AI Vision and Robotics for Intelligent Manufacturing",
+  "provider": "L&T EduTech on Coursera",
+  "url": "https://www.coursera.org/learn/ai-vision-and-robotics-for-intelligent-manufacturing",
+  "cost": "low",
+  "hours": 5,
+  "hours_estimated": false,
+  "language": "en",
+  "skill_ids": [
+   "SK064",
+   "SK056"
+  ],
+  "notes": "Free to enrol on Coursera; certificate is paid. Automated optical inspection and vision-guided robots.",
+  "checked": "2026-10-22"
+ },
+ {
+  "id": "coursera-get-into-robotics",
+  "title": "How to Get Into Robotics",
+  "provider": "University of Leeds on Coursera",
+  "url": "https://www.coursera.org/learn/how-to-get-into-robotics",
+  "cost": "low",
+  "hours": 7,
+  "hours_estimated": false,
+  "language": "en",
+  "skill_ids": [
+   "SK057",
+   "SK056"
+  ],
+  "notes": "Paid enrolment on Coursera (or Coursera Plus); financial aid available. Beginner; includes industrial robotics.",
+  "checked": "2026-10-22"
+ },
+ {
+  "id": "coursera-modern-robotics-1",
+  "title": "Modern Robotics, Course 1: Foundations of Robot Motion",
+  "provider": "Northwestern University on Coursera",
+  "url": "https://www.coursera.org/learn/modernrobotics-course1",
+  "cost": "low",
+  "hours": 20,
+  "hours_estimated": false,
+  "language": "en",
+  "skill_ids": [
+   "SK057"
+  ],
+  "notes": "Free to enrol on Coursera; certificate is paid.",
+  "checked": "2026-10-22"
+ },
+ {
+  "id": "coursera-six-sigma-analyze",
+  "title": "Six Sigma Tools for Analyze",
+  "provider": "Kennesaw State University on Coursera",
+  "url": "https://www.coursera.org/learn/six-sigma-analyze",
+  "cost": "low",
+  "hours": 6,
+  "hours_estimated": false,
+  "language": "en",
+  "skill_ids": [
+   "SK060",
+   "SK063"
+  ],
+  "notes": "Free to enrol on Coursera; certificate is paid. Root-cause tools (5 whys, process mapping) and FMEA.",
+  "checked": "2026-10-22"
+ },
+ {
+  "id": "coursera-spc-stability-capability",
+  "title": "Stability and Capability in Quality Improvement",
+  "provider": "University of Colorado Boulder on Coursera",
+  "url": "https://www.coursera.org/learn/stability-and-capability-in-quality-improvement",
+  "cost": "low",
+  "hours": 10,
+  "hours_estimated": false,
+  "language": "en",
+  "skill_ids": [
+   "SK062"
+  ],
+  "notes": "Free to enrol on Coursera; certificate is paid. Control charts in R.",
+  "checked": "2026-10-22"
+ },
+ {
+  "id": "coursera-quality-spc-six-sigma-lean",
+  "title": "Master Quality Management: Apply SPC, Six Sigma & Lean",
+  "provider": "EDUCBA on Coursera",
+  "url": "https://www.coursera.org/learn/master-quality-management-apply-spc-six-sigma-lean",
+  "cost": "low",
+  "hours": 10,
+  "hours_estimated": false,
+  "language": "en",
+  "skill_ids": [
+   "SK059",
+   "SK062",
+   "SK063"
+  ],
+  "notes": "Free to enrol on Coursera; certificate is paid.",
+  "checked": "2026-10-22"
+ },
+ {
+  "id": "coursera-iso-9000",
+  "title": "Master ISO 9000: Analyze, Apply, and Achieve Certification",
+  "provider": "EDUCBA on Coursera",
+  "url": "https://www.coursera.org/learn/master-iso-9000-analyze-apply-achieve-certification",
+  "cost": "low",
+  "hours": 9,
+  "hours_estimated": false,
+  "language": "en",
+  "skill_ids": [
+   "SK059"
+  ],
+  "notes": "Free to enrol on Coursera; certificate is paid.",
+  "checked": "2026-10-22"
+ },
+ {
+  "id": "coursera-intro-software-testing",
+  "title": "Introduction to Software Testing",
+  "provider": "University of Minnesota on Coursera",
+  "url": "https://www.coursera.org/learn/introduction-software-testing",
+  "cost": "low",
+  "hours": 30,
+  "hours_estimated": false,
+  "language": "en",
+  "skill_ids": [
+   "SK061"
+  ],
+  "notes": "Free to enrol on Coursera; certificate is paid.",
+  "checked": "2026-10-22"
+ },
+ {
+  "id": "coursera-instructional-design-foundations",
+  "title": "Instructional Design Foundations and Applications",
+  "provider": "University of Illinois Urbana-Champaign on Coursera",
+  "url": "https://www.coursera.org/learn/instructional-design-foundations-applications",
+  "cost": "low",
+  "hours": 10,
+  "hours_estimated": false,
+  "language": "en",
+  "skill_ids": [
+   "SK065"
+  ],
+  "notes": "Free to enrol on Coursera; certificate is paid.",
+  "checked": "2026-10-22"
+ },
+ {
+  "id": "coursera-assessment-for-learning",
+  "title": "Assessment for Learning",
+  "provider": "University of Illinois Urbana-Champaign on Coursera",
+  "url": "https://www.coursera.org/learn/assessmentforlearning",
+  "cost": "low",
+  "hours": 10,
+  "hours_estimated": false,
+  "language": "en",
+  "skill_ids": [
+   "SK066",
+   "SK070"
+  ],
+  "notes": "Free to enrol on Coursera; certificate is paid.",
+  "checked": "2026-10-22"
+ },
+ {
+  "id": "coursera-ubiquitous-learning",
+  "title": "Ubiquitous Learning and Instructional Technologies",
+  "provider": "University of Illinois Urbana-Champaign on Coursera",
+  "url": "https://www.coursera.org/learn/ubiquitouslearning",
+  "cost": "low",
+  "hours": 10,
+  "hours_estimated": false,
+  "language": "en",
+  "skill_ids": [
+   "SK068",
+   "SK070"
+  ],
+  "notes": "Free to enrol on Coursera; certificate is paid. LMS, adaptive testing and learning analytics.",
+  "checked": "2026-10-22"
+ },
+ {
+  "id": "coursera-elearning-ecologies",
+  "title": "e-Learning Ecologies: Innovative Approaches to Teaching and Learning for the Digital Age",
+  "provider": "University of Illinois Urbana-Champaign on Coursera",
+  "url": "https://www.coursera.org/learn/elearning",
+  "cost": "low",
+  "hours": 20,
+  "hours_estimated": false,
+  "language": "en",
+  "skill_ids": [
+   "SK068"
+  ],
+  "notes": "Free to enrol on Coursera; certificate is paid.",
+  "checked": "2026-10-22"
+ },
+ {
+  "id": "w3c-digital-accessibility-foundations",
+  "title": "Digital Accessibility Foundations (Introduction to Web Accessibility)",
+  "provider": "W3C Web Accessibility Initiative on edX",
+  "url": "https://www.w3.org/WAI/courses/foundations-course/",
+  "cost": "free",
+  "hours": 18,
+  "hours_estimated": false,
+  "language": "en",
+  "skill_ids": [
+   "SK069"
+  ],
+  "notes": "Free to audit with all content; optional verified certificate USD 99. W3C states 16-20 hours.",
+  "checked": "2026-10-22"
+ },
+ {
+  "id": "coursera-input-interaction",
+  "title": "Input and Interaction",
+  "provider": "University of California San Diego on Coursera",
+  "url": "https://www.coursera.org/learn/interaction-techniques",
+  "cost": "low",
+  "hours": 9,
+  "hours_estimated": false,
+  "language": "en",
+  "skill_ids": [
+   "SK072"
+  ],
+  "notes": "Free to enrol on Coursera; certificate is paid.",
+  "checked": "2026-10-22"
+ },
+ {
+  "id": "coursera-wireframes-prototypes",
+  "title": "Build Wireframes and Low-Fidelity Prototypes",
+  "provider": "Google on Coursera",
+  "url": "https://www.coursera.org/learn/wireframes-low-fidelity-prototypes",
+  "cost": "low",
+  "hours": 10,
+  "hours_estimated": false,
+  "language": "en",
+  "skill_ids": [
+   "SK073",
+   "SK075"
+  ],
+  "notes": "Free to enrol on Coursera; certificate is paid. Includes information architecture.",
+  "checked": "2026-10-22"
+ },
+ {
+  "id": "coursera-conduct-ux-research",
+  "title": "Conduct UX Research and Test Early Concepts",
+  "provider": "Google on Coursera",
+  "url": "https://www.coursera.org/learn/conduct-ux-research",
+  "cost": "low",
+  "hours": 20,
+  "hours_estimated": false,
+  "language": "en",
+  "skill_ids": [
+   "SK074"
+  ],
+  "notes": "Free to enrol on Coursera; certificate is paid.",
+  "checked": "2026-10-22"
+ },
+ {
+  "id": "openlearn-leadership-followership",
+  "title": "Leadership and followership",
+  "provider": "The Open University (OpenLearn)",
+  "url": "https://www.open.edu/openlearn/education-development/learning/leadership-and-followership/content-section-overview",
+  "cost": "free",
+  "hours": 24,
+  "hours_estimated": false,
+  "language": "en",
+  "skill_ids": [
+   "SK079"
+  ],
+  "notes": "Free Open University course with a free statement of participation. Free digital badge.",
+  "checked": "2026-10-22"
+ },
+ {
+  "id": "openlearn-groups-teams",
+  "title": "Working in groups and teams",
+  "provider": "The Open University (OpenLearn)",
+  "url": "https://www.open.edu/openlearn/money-business/leadership-management/working-groups-and-teams/content-section-0",
+  "cost": "free",
+  "hours": 8,
+  "hours_estimated": false,
+  "language": "en",
+  "skill_ids": [
+   "SK080"
+  ],
+  "notes": "Free Open University course with a free statement of participation.",
+  "checked": "2026-10-22"
+ },
+ {
+  "id": "coursera-intro-events-management",
+  "title": "Introduction to Events Management",
+  "provider": "Coursera",
+  "url": "https://www.coursera.org/learn/introduction-to-events-management",
+  "cost": "low",
+  "hours": 2,
+  "hours_estimated": false,
+  "language": "en",
+  "skill_ids": [
+   "SK081"
+  ],
+  "notes": "Free to enrol on Coursera; certificate is paid.",
+  "checked": "2026-10-22"
+ }
+]
+>>>>>>> da0787dab49148d066631b796b12e2b882c85231
