@@ -249,3 +249,11 @@ without claiming daily reliability on sleeping deployments. An optional read-onl
 browser timer reloads stored signals only when the Signals page is visible and
 never invokes a news feed fetch or paid model. Original V2 CSS and image assets
 are unchanged. The reviewed generated-page hash is updated to the new bytes.
+
+
+## Team name metadata correction (24 October 2026)
+
+The independent README update `06fb0f8` changed the team-name placeholder
+to `KitaHack`. The exact existing README bytes are retained, and only the
+corresponding reviewed SHA256 entry was updated. The original baseline and
+all protected V2 design assets are unchanged.

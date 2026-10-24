@@ -3,7 +3,7 @@
   "requirements.txt": "f0d94b9ad97b66579cd8850fe55d824eb23fa90a0c622ddfc7ef6e0739123dc7",
   ".gitignore": "c6040ba84b52a1cff8af3c86e3a4f4d991323405be4501d76b5c4c81dbbe82e5",
   "INTEGRATION_EXPLAINED.md": "689634cf946f652d306e00f7887e3a015f9b05e44a1509963eac9686422e023d",
-  "README.md": "ac6026ecd7bc92e7a5fbcd8962e10f1e92afec5d186365f0d189f1edf4e265bf",
+  "README.md": "9c02554762d0f5f0d5c623906e5fd5c8c1d8a331894fb59d19facbe3957cabff",
   "tests/test_ai_providers.py": "22eb2302ea73989d506a1e6d1b41fa23b4909010c60d9f51461462ff01ae5f56",
   "tests/test_api.py": "71c8e74247c4016b8c75a9e8372e39f4cfbb99e75f77e26c64100baacfb65f16",
   "tests/test_engine.py": "b0e7c2b6bf16c12a75ea5bfeff39dc279e1783eed7f3f461efffcb0c81d9f1c4",
