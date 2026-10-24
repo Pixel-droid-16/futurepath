@@ -56,16 +56,11 @@ def runpod_prompt(text, skills):
     ]
 
     return (
-        "Read every CV section: technical skills, framework/tool lists, paid and "
-        "volunteer work, completed projects, awards and certifications. "
-        "Suggest ALL supported allowed skills (up to 25), not just generic soft skills. "
-        "Explicitly listed technical tools and languages count as evidence of exposure; "
-        "duties and completed projects can support closely equivalent catalogue skills. "
-        "Do not treat an interest, future goal, desired job, or mere employer name as demonstrated experience. "
-        "Return ONLY one JSON object, no markdown or explanation, with key candidates. "
-        "Each candidate is an object with skill_id (allowed catalogue ID) and excerpt "
-        "(exact copied text, maximum 300 characters). "
-        "No guessed proficiency, fabricated skills or personal contact details. "
+        "Return ONLY compact JSON: "
+        "{\"candidates\":[{\"skill_id\":\"allowed-id\",\"excerpt\":\"literal CV quote\"}]}. "
+        "At most 8 distinct skills; each quote 3-80 characters copied exactly from CV TEXT. "
+        "Prioritize demonstrated tools and work; interests/goals are not skills evidence. "
+        "Use only allowed IDs. No markdown, explanations, proficiency or contact details. "
         "If none is supported return {\"candidates\":[]}. "
         "\n\nCV TEXT:\n"
         + text
@@ -88,6 +83,8 @@ async def _extract_with_client(client, url, headers, body, cv, skills):
         payload = resp.json()
     except ValueError as e:
         raise IntegrationError("RunPod returned invalid JSON") from e
+    if not isinstance(payload,dict):
+        raise IntegrationError("RunPod returned an unexpected envelope")
 
     # runsync is allowed to return IN_QUEUE/IN_PROGRESS at its wait limit.
     start = time.monotonic()
@@ -103,20 +100,21 @@ async def _extract_with_client(client, url, headers, body, cv, skills):
             payload = resp.json()
         except ValueError as e:
             raise IntegrationError("RunPod status returned invalid JSON") from e
+        if not isinstance(payload,dict):
+            raise IntegrationError("RunPod returned an unexpected envelope")
 
     if payload.get("status") != "COMPLETED":
-        raise IntegrationError("RunPod job did not complete: " + str(payload.get("status", "unknown")))
-    job_id = payload.get("id", "unknown")
+        raise IntegrationError("RunPod job did not complete")
     output = payload.get("output")
 
     try:
         return validate_candidates(output, cv, skills, "runpod")
-    except IntegrationError:
+    except IntegrationError as error:
         logger = logging.getLogger(__name__)
         logger.error(
-            "RunPod extraction validation failed: job_id=%s, "
-            "output_type=%s, output_length=%s",
-            job_id,
+            "RunPod extraction validation failed: job_id=[MASKED], "
+            "status=COMPLETED, error_class=%s, output_type=%s, output_length=%s",
+            type(error).__name__,
             type(output).__name__,
             len(str(output)) if output is not None else 0,
         )

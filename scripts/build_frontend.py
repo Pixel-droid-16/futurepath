@@ -8,10 +8,11 @@ from pathlib import Path
 import hashlib
 ROOT=Path(__file__).resolve().parent.parent
 SOURCE=ROOT/'frontend'/'mockup_source'
-def assemble_home():
-    pieces=[SOURCE/'shell'/'document_before_css.html',SOURCE/'styles'/'v2_theme.css',SOURCE/'shell'/'document_after_css.html']
-    pieces += [SOURCE/'pages'/(name+'.html') for name in ('home','start','results','pathway','signals','about')]
-    pieces += [SOURCE/'shell'/'after_pages.html',*[SOURCE/'logic'/name for name in ('translations.js','sdg_colors.js','career_cards.js','declining_careers.js','navigation_labels.js')],SOURCE/'logic'/'live_career_adapter.js',SOURCE/'logic'/'state_and_actions.js',*[SOURCE/'logic'/name for name in ('state_values_start.js','career_ranking_view.js','start_confirm_view.js','signal_filters_view.js','skill_trends_view.js','home_signal_feed_view.js','sdg_mapping_view.js','live_scenario_comparison_view.js','page_bindings_view.js')],SOURCE/'shell'/'document_end.html']
+def assemble_home(source=None):
+    source = SOURCE if source is None else Path(source)
+    pieces=[source/'shell'/'document_before_css.html',source/'styles'/'v2_theme.css',source/'shell'/'document_after_css.html']
+    pieces += [source/'pages'/(name+'.html') for name in ('home','start','results','pathway','signals','about')]
+    pieces += [source/'shell'/'after_pages.html',*[source/'logic'/name for name in ('translations.js','sdg_colors.js','career_cards.js','declining_careers.js','navigation_labels.js')],source/'logic'/'live_career_adapter.js',source/'logic'/'state_and_actions.js',*[source/'logic'/name for name in ('state_values_start.js','career_ranking_view.js','start_confirm_view.js','signal_filters_view.js','skill_trends_view.js','home_signal_feed_view.js','sdg_mapping_view.js','live_scenario_comparison_view.js','page_bindings_view.js')],source/'shell'/'document_end.html']
     return ''.join(p.read_text(encoding='utf8') for p in pieces)
 def main():
     for out,raw in ((ROOT/'frontend'/'index.html',assemble_home()),):

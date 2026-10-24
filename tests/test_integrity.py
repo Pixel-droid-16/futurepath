@@ -2,6 +2,8 @@
 import hashlib
 import json
 import shutil
+import subprocess
+import sys
 from pathlib import Path
 
 import pytest
@@ -25,6 +27,23 @@ def tree(tmp_path):
 
 def test_reviewed_tree_passes(tree):
     assert verify(tree)
+
+
+def test_cli_rejects_reviewed_mutation(tree):
+    """Exercise the same command/exit status used by the repository check."""
+    script = tree / 'scripts' / 'verify_integrity.py'
+    script.parent.mkdir(exist_ok=True)
+    shutil.copyfile(ROOT / 'scripts/verify_integrity.py', script)
+    command = [sys.executable, str(script)]
+    before = subprocess.run(command, capture_output=True, text=True)
+    # Other release files can already be out of review. The mutation must
+    # introduce this specific failure, not merely observe an existing red check.
+    assert 'backend/app.py' not in before.stdout
+    path = tree / 'backend/app.py'
+    path.write_bytes(path.read_bytes() + b'\n# unreviewed mutation\n')
+    result = subprocess.run(command, capture_output=True, text=True)
+    assert result.returncode == 1
+    assert 'CHANGED (reviewed baseline): backend/app.py' in result.stdout
 
 
 @pytest.mark.parametrize('name', [
@@ -74,7 +93,7 @@ def test_invalid_review_manifest_fails(tree, kind):
 def test_every_override_is_a_changed_file_and_documented():
     reviewed = json.loads((ROOT / 'docs/REVIEWED_FILE_HASHES.json').read_text())
     report = (ROOT / 'docs/INTEGRITY_REVIEW.md').read_text()
-    assert len(reviewed) == 19
+    assert len(reviewed) == 20
     for name, digest in reviewed.items():
         assert f'`{name}`' in report
         assert hashlib.sha256((ROOT / name).read_bytes()).hexdigest() == digest

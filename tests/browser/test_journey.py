@@ -32,8 +32,9 @@ def finish(page, quiz=False):
     return page.request.get("/api/profiles/" + pid).json()
 
 
-def manual(page, name, quiz=False):
-    page.goto("/start")
+def manual(page, name, quiz=False, navigate=True):
+    if navigate:
+        page.goto("/start")
     page.get_by_role("button", name=re.compile("Fill a short form")).click()
     page.get_by_label("Current Job Title", exact=True).fill("Synthetic Analyst")
     page.get_by_label("Years of Relevant Experience", exact=True).fill("3")
@@ -46,6 +47,122 @@ def manual(page, name, quiz=False):
     page.get_by_role("button", name="Strong", exact=True).click()
     continue_to_quiz(page)
     return finish(page, quiz)
+
+
+def saved_person_row(page, name):
+    return page.locator("div").filter(
+        has=page.get_by_text(name, exact=True)
+    ).filter(has=page.get_by_text("See results →", exact=True)).last
+
+
+def assert_saved_people(page, *expected):
+    """Compare full records as well as membership, not just displayed names."""
+    assert {p["id"] for p in profiles(page)} == {p["id"] for p in expected}
+    for person in expected:
+        response = page.request.get("/api/profiles/" + person["id"])
+        assert response.status == 200
+        assert response.json() == person
+
+
+def test_edit_saved_person_updates_in_place(page):
+    first = manual(page, "Synthetic Original")
+    other = manual(page, "Synthetic Untouched", quiz=True)
+    page.goto("/start")
+    saved_person_row(page, first["name"]).get_by_text("See results →", exact=True).click()
+    expect(page.locator("main section").first.locator("p")).to_have_text(first["name"])
+    # The shipped edit entry point is the optional quiz; Back opens profile review.
+    page.get_by_text("Start →", exact=True).click()
+    expect(page.get_by_text("What do you enjoy? (optional)", exact=True)).to_be_visible()
+    page.get_by_text("Back", exact=True).click()
+    expect(page.get_by_label("Profile name")).to_have_value(first["name"])
+    expect(page.get_by_label("Years of relevant experience", exact=True)).to_have_value("3")
+    expect(page.get_by_text("Saved in your profile", exact=True)).to_be_visible()
+    page.get_by_label("Profile name").fill("Synthetic Edited")
+    page.get_by_label("Years of relevant experience", exact=True).fill("7")
+    page.get_by_role("button", name="Working", exact=True).click()
+    assert_saved_people(page, first, other)  # Draft changes must not persist yet.
+    continue_to_quiz(page)
+    updated = finish(page, quiz=True)
+    assert updated["id"] == first["id"]
+    assert updated["created_at"] == first["created_at"]
+    assert updated["name"] == "Synthetic Edited"
+    assert updated["years_experience"] == 7
+    assert updated["skills"] == {"SK005": 3}
+    assert updated["qualification"] == first["qualification"]
+    assert updated["current_role"] == first["current_role"]
+    assert len(updated["quiz_answers"]) == 18 and updated["riasec"]
+    assert_saved_people(page, updated, other)
+    page.goto("/results")
+    page.reload()
+    expect(page.locator("main section").first.locator("p")).to_have_text(updated["name"])
+    assert page.evaluate("localStorage.getItem('fp.activeProfile')") == first["id"]
+    page.goto("/start")
+    expect(saved_person_row(page, updated["name"])).to_be_visible()
+    expect(page.get_by_text(first["name"], exact=True)).to_have_count(0)
+    assert_saved_people(page, updated, other)
+
+
+@pytest.mark.parametrize("delete_active", [False, True])
+def test_cancel_and_confirm_saved_person_deletion(page, delete_active):
+    first = manual(page, "Synthetic First")
+    second = manual(page, "Synthetic Second", quiz=True)
+    target, survivor = (second, first) if delete_active else (first, second)
+    page.goto("/start")
+    row = saved_person_row(page, target["name"])
+    row.get_by_role("button", name="Delete", exact=True).click()
+    expect(row.get_by_text(
+        f"Delete {target['name']}? This can't be undone.", exact=True
+    )).to_be_visible()
+    assert_saved_people(page, first, second)
+    row.get_by_role("button", name="Cancel", exact=True).click()
+    expect(row.get_by_role("button", name="Yes, delete", exact=True)).to_have_count(0)
+    expect(row.get_by_role("button", name="Delete", exact=True)).to_be_visible()
+    assert_saved_people(page, first, second)
+    assert page.evaluate("localStorage.getItem('fp.activeProfile')") == second["id"]
+    row.get_by_role("button", name="Delete", exact=True).click()
+    row.get_by_role("button", name="Yes, delete", exact=True).click()
+    expect(page.get_by_text(target["name"], exact=True)).to_have_count(0)
+    expect(saved_person_row(page, survivor["name"])).to_be_visible()
+    assert page.request.get("/api/profiles/" + target["id"]).status == 404
+    assert_saved_people(page, survivor)
+    expected_active = None if delete_active else second["id"]
+    page.wait_for_function(
+        "id => localStorage.getItem('fp.activeProfile') === id", arg=expected_active
+    )
+    page.reload()
+    expect(saved_person_row(page, survivor["name"])).to_be_visible()
+    expect(page.get_by_text(target["name"], exact=True)).to_have_count(0)
+    saved_person_row(page, survivor["name"]).get_by_text("See results →", exact=True).click()
+    expect(page.locator("main section").first.locator("p")).to_have_text(survivor["name"])
+    expect(page.get_by_text("See pathway →", exact=True).first).to_be_visible()
+    assert_saved_people(page, survivor)
+
+
+def test_missing_remembered_profile_recovers_to_shared_profile(page):
+    survivor = manual(page, "Synthetic Survivor", quiz=True)
+    missing = manual(page, "Synthetic Removed Elsewhere")
+    shared = page.request.get("/api/profile").json()
+    # Simulate another browser deleting this person, leaving this browser's key stale.
+    assert page.request.delete("/api/profiles/" + missing["id"]).status == 204
+    assert page.evaluate("localStorage.getItem('fp.activeProfile')") == missing["id"]
+    page.goto("/results")
+    page.wait_for_function("localStorage.getItem('fp.activeProfile') === null")
+    expect(page.locator('main[data-screen-label="Results"]')).to_be_visible()
+    expect(page.locator("main section").first.locator("p")).to_have_text("My profile")
+    expect(page.get_by_text("See pathway →", exact=True).first).to_be_visible()
+    page.reload()
+    expect(page.locator("main section").first.locator("p")).to_have_text("My profile")
+    assert page.evaluate("localStorage.getItem('fp.activeProfile')") is None
+    assert_saved_people(page, survivor)
+    assert page.request.get("/api/profile").json() == shared
+    page.goto("/start")
+    expect(page.get_by_text(missing["name"], exact=True)).to_have_count(0)
+    saved_person_row(page, survivor["name"]).get_by_text("See results →", exact=True).click()
+    expect(page.locator("main section").first.locator("p")).to_have_text(survivor["name"])
+    page.wait_for_function(
+        "id => localStorage.getItem('fp.activeProfile') === id", arg=survivor["id"]
+    )
+    assert_saved_people(page, survivor)
 
 
 def test_manual_quiz_results_switching_and_deep_links(page):
