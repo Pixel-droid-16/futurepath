@@ -13,11 +13,11 @@ FuturePath helps students, graduates and working professionals compare their **c
 | Project name | FuturePath |
 | Team name | KitaHack |
 | Competition domain | Domain 1 |
-| Primary SDG track | **Team must select one primary SDG for the form** |
+| Primary SDG track | SDG 4 — Quality Education (target 4.4) |
 | Related SDGs | 4 (Quality Education), 8 (Decent Work), 9 (Industry/Innovation), as mapped per career |
-| Team leader | **To be confirmed** |
-| University / institutions | **To be confirmed** |
-| Team members and roles | **To be confirmed** |
+| Team leader | CHANTHIRAA CHELVAN PASUPATHY |
+| University / institutions | Universiti Teknikal Malaysia Melaka (UTeM) |
+| Team members and roles | CHANTHIRAA CHELVAN PASUPATHY (leader), HUA SOON LAI, ADAM BIN AZMI, MUHAMMAD ADAM BIN ROSLAN; individual technical roles to confirm |
 
 ## Submission links
 
@@ -86,9 +86,16 @@ Career results -> skill gaps -> learning pathway + SDGs
 
 See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for implementation boundaries. The `frontend/index.html` file is generated from `frontend/mockup_source/` and must not be edited as the only source.
 
+## SDC 2026 team and submission status
+
+Our four members have confirmed completion of the mandatory workshops. The team declares use of official SDC sponsor-provided resources (exact sponsor/provider allocation still to verify), no pre-hackathon project work, and no employment-related IP conflicts. The submission PDFs require team-leader review and signature; actual Replit and RunPod proof must use genuine sanitized screenshots. See [submission status](submission/KITAHACK_SUBMISSION_STATUS.md).
+
+The organizer's example uses `src/main.py`. We provide that path as a **thin compatibility entry point** to the existing tested `backend.app:app`, not as a replacement for the modular backend.
+
 ## Repository structure
 
 ```text
+src/              SDC template-compatible entry point (main.py), delegates to backend.app
 backend/          FastAPI entrypoint, feature-specific API routes, AI providers, matching, signals
 frontend/         V2 frontend, assets and independently editable pages / logic
 data/             Versioned skills, careers, signal and course catalogues
@@ -131,6 +138,15 @@ python -m uvicorn backend.app:app --reload --env-file .env
 ```
 
 The local default address is http://127.0.0.1:8000/start. Replit's hosted workflow **uses port 5000**, not the local default. Without RunPod or Claude credentials, use the dictionary provider for **fictional** text CVs.
+
+### Alternative SDC-style entry point
+
+```bash
+python src/main.py
+# or: python -m uvicorn src.main:app --host 0.0.0.0 --port 5000
+```
+
+This serves the same FastAPI application as the original Replit command.
 
 ### Tests
 
