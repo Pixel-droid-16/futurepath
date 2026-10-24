@@ -278,3 +278,11 @@ protected V2 design assets are unchanged.
 
 These hashes record accepted bytes, not correctness; the regression suite and
 browser checks remain the evidence for behaviour.
+
+## Submission checklist ticks (25 October 2026)
+
+`README.md` only: the Submission Checklist now ticks the completed Preliminary
+proposal and the renamed submission files, and names the actual
+`SDC2026_KitaHack_*.pdf` files instead of the `TeamName` placeholder. The demo
+video item stays unticked because no verified link exists yet. Only the README's
+reviewed SHA256 entry is updated.

@@ -224,9 +224,9 @@ The Replit application hosts the FastAPI + V2 website and connects server-side t
 - [ ] Demo video link added
 - [x] Replit used, with proof of use in `submission/`
 - [x] RunPod used, with proof of use in `submission/`
-- [ ] Preliminary submission completed (`SDC2026_TeamName_Preliminary.pdf`)
-- [x] Technology declaration completed (`SDC2026_TeamName_TechDeclaration.pdf`)
-- [ ] Submission files renamed with your team name (replace `TeamName`)
+- [x] Preliminary submission completed (`SDC2026_KitaHack_Preliminary.pdf`)
+- [x] Technology declaration completed (`SDC2026_KitaHack_TechDeclaration.pdf`)
+- [x] Submission files renamed with your team name (`SDC2026_KitaHack_*.pdf`)
 - [x] "How to Run" steps verified
 - [x] No API keys or secrets committed to the repository
 
