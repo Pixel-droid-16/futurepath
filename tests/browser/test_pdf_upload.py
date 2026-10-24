@@ -77,7 +77,7 @@ NO_TEXT = (
 
 @pytest.mark.parametrize("kind,status,message", [
     ("image", 422, NO_TEXT),
-    ("invalid_pdf", 422, NO_TEXT),
+    ("invalid_pdf", 400, "Could not read PDF. Export a valid PDF file."),
     ("invalid_docx", 400, "Could not parse DOCX"),
     ("unsupported", 400, "Supported demo file types: PDF, DOCX, TXT"),
     ("oversized", 413, "Synthetic demo files must be <=2MB"),
