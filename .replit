@@ -1,7 +1,56 @@
-# Replit FastAPI workflow. Do not enable --reload in a published app.
-run = "python -m uvicorn backend.app:app --host 0.0.0.0 --port 8000"
+# Existing FastAPI + V2 frontend; no reload in published apps.
+run = "python -m uvicorn backend.app:app --host 0.0.0.0 --port 5000"
 entrypoint = "backend/app.py"
+modules = ["web", "nodejs-20", "python-3.12"]
 
 [[ports]]
-localPort = 8000
+localPort = 5000
 externalPort = 80
+
+[nix]
+channel = "stable-25_05"
+packages = ["libxcrypt"]
+
+[agent]
+expertMode = true
+
+[userenv]
+
+[userenv.development]
+FUTUREPATH_DB = "/tmp/futurepath_development.sqlite3"
+FUTUREPATH_PUBLIC_DEMO = "0"
+SIGNALS_REFRESH_HOURS = "0"
+
+[userenv.production]
+FUTUREPATH_DB = "/tmp/futurepath_demo.sqlite3"
+FUTUREPATH_PUBLIC_DEMO = "1"
+SIGNALS_REFRESH_HOURS = "0"
+
+[deployment]
+deploymentTarget = "autoscale"
+run = ["python", "-m", "uvicorn", "backend.app:app", "--host", "0.0.0.0", "--port", "5000"]
+build = ["sh", "-c", "python -m pip install -r requirements.txt && python scripts/build_frontend.py"]
+
+[workflows]
+runButton = "Project"
+
+[[workflows.workflow]]
+name = "Project"
+mode = "parallel"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "FuturePath"
+
+[[workflows.workflow]]
+name = "FuturePath"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "python -m uvicorn backend.app:app --host 0.0.0.0 --port 5000"
+waitForPort = 5000
+
+[workflows.workflow.metadata]
+outputType = "webview"

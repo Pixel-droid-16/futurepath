@@ -1,0 +1,1 @@
+- [Imported Python runtimes](imported-python-runtimes.md) — preserve imported module metadata before dependency installation after a branch switch.
