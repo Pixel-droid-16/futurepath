@@ -60,6 +60,34 @@ or pixel rendering. Use behavioral tests for those contracts.
 
 ## Future intentional edits
 
+### Automated repository checks
+
+`.github/workflows/repository-checks.yml` runs on pushes, pull requests and manual
+dispatch. Independent jobs run `python scripts/verify_integrity.py` and
+`python scripts/check_regressions.py` on Python 3.12. The latter installs no
+browser runtime and explicitly excludes `tests/browser`; all other tests run
+without expected-failure exemptions. Dependencies use the existing
+`requirements.txt`.
+
+The regression runner creates and removes a unique temporary synthetic SQLite
+database, initializes the storage module before legacy test collection can
+redirect it to a shared path, disables scheduled refresh and local dotenv
+loading, clears provider credentials, and blocks socket connections. Provider
+tests still use their synthetic keys and mocks; live paid calls are forbidden.
+Run the same two commands locally to reproduce the checks.
+
+The CLI regression test mutates a reviewed file only in a disposable copy and
+requires exit status 1 from the actual verifier command. Neither CI nor tests
+regenerate hashes. Existing behavioral failures remain blocking failures, not
+silently skipped tests.
+
+To enforce these checks before merging, a repository administrator must require
+**Reviewed file integrity** and **Non-browser regressions** in the target
+branch's protection/ruleset. Merely adding a workflow does not prevent direct
+pushes or deployments outside that policy.
+
+### Review procedure
+
 1. Inspect the diff against the recorded baseline and identify why it is needed.
 2. Preserve protected original design files; do not auto-refresh their hashes.
 3. For evolved files, document the reason and commit provenance here, then update
