@@ -78,3 +78,15 @@ def test_status_reports_recent_github_ai_verification(monkeypatch, tmp_path):
     assert api.get('/api/signals/status').json()['external_ai_verification'] is True
     api = serve_snapshot(monkeypatch, tmp_path, last_ai_check_day=(today - timedelta(days=3)).isoformat())
     assert api.get('/api/signals/status').json()['external_ai_verification'] is False
+
+
+def test_unexpected_fetch_error_keeps_last_evidence(monkeypatch):
+    # CI and the browser server block sockets with RuntimeError; that must never break /api/signals.
+    monkeypatch.setenv('SIGNALS_REMOTE_SNAPSHOT_ENABLED', '1')
+    monkeypatch.setitem(snapshot._cache, 'time', 0.0)
+    monkeypatch.setitem(snapshot._cache, 'signals', [])
+    monkeypatch.setitem(snapshot._cache, 'meta', None)
+    def blocked(*args, **kwargs):
+        raise RuntimeError('network blocked')
+    monkeypatch.setattr(snapshot.httpx, 'get', blocked)
+    assert snapshot.read_snapshot() == ([], None)

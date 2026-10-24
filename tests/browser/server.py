@@ -8,6 +8,9 @@ os.environ["FUTUREPATH_DB"] = sys.argv[1]
 os.environ["SIGNALS_REFRESH_HOURS"] = "0"
 os.environ["FUTUREPATH_PUBLIC_DEMO"] = sys.argv[3]
 os.environ["FUTUREPATH_DEMO_PASSWORD"] = "synthetic-browser-password"
+# The public demo is open by default; these two modes exercise the optional passcode gate.
+if sys.argv[3] in ("1", "unconfigured"):
+    os.environ["FUTUREPATH_DEMO_REQUIRE_PASSWORD"] = "1"
 if sys.argv[3] == "signals":
     os.environ["FUTUREPATH_PUBLIC_DEMO"] = "0"
     os.environ["SIGNALS_REFRESH_HOURS"] = "24"

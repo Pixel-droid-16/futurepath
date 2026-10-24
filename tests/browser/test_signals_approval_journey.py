@@ -1,4 +1,6 @@
 """Offline Chromium checks: public Signals UI, protected admin API and independent paging."""
+import re
+
 import pytest
 from playwright.sync_api import expect
 
@@ -12,27 +14,24 @@ def test_read_only_signals_ui_preserves_protected_approval_api(page, server):
 
     api = page.request
     initial = api.get(server + '/api/signals').json()
+    # Legacy review items count as held evidence (quarantined_count) in the current status API.
     assert api.get(server + '/api/signals/review').status == 401
-    assert api.get(server + '/api/signals/status').json()['pending_count'] == 2
+    assert api.get(server + '/api/signals/status').json()['quarantined_count'] == 2
 
+    # Manual approval is retired: even an authorised admin cannot publish or reject held items.
     headers = {'Authorization': 'Bearer synthetic-browser-admin'}
     queue_response = api.get(server + '/api/signals/review', headers=headers)
     assert queue_response.ok
     items = queue_response.json()['items']
-    to_approve = next(i for i in items if i['signal']['title'] == 'Malaysia needs cybersecurity workers')
-    to_reject = next(i for i in items if i['signal']['title'] == 'Malaysia expands data analyst hiring')
-    approved = api.post(server + f"/api/signals/review/{to_approve['id']}/approve", headers=headers)
-    assert approved.status == 200
-    assert len(api.get(server + '/api/signals').json()) == len(initial) + 1
-    assert api.get(server + '/api/signals/status').json()['pending_count'] == 1
-
-    rejected = api.post(server + f"/api/signals/review/{to_reject['id']}/reject", headers=headers)
-    assert rejected.status == 200
-    assert api.get(server + '/api/signals/status').json()['pending_count'] == 0
+    held = next(i for i in items if i['signal']['title'] == 'Malaysia needs cybersecurity workers')
+    for action in ('approve', 'reject'):
+        assert api.post(server + f"/api/signals/review/{held['id']}/{action}", headers=headers).status == 410
+    assert api.get(server + '/api/signals').json() == initial
+    assert api.get(server + '/api/signals/status').json()['quarantined_count'] == 2
 
     page.reload()
     page.get_by_role('tablist').get_by_role('button', name='Signals', exact=True).click()
-    expect(page.get_by_role('heading', name='Malaysia needs cybersecurity workers')).to_be_visible()
+    expect(page.get_by_role('heading', name='Malaysia needs cybersecurity workers')).to_have_count(0)
     assert 'synthetic-browser-admin' not in page.evaluate(
         'JSON.stringify([Object.entries(localStorage),Object.entries(sessionStorage)])'
     )
@@ -52,7 +51,7 @@ def test_unauthorized_review_cannot_mutate_evidence(page, server):
         server + f'/api/signals/review/{review_id}/approve',
         headers={'Authorization': 'Bearer wrong-token'},
     ).status == 401
-    assert page.request.get(server + '/api/signals/status').json()['pending_count'] == 2
+    assert page.request.get(server + '/api/signals/status').json()['quarantined_count'] == 2
     expect(page.get_by_role('button', name='Review pending evidence')).to_have_count(0)
 
 
@@ -60,28 +59,28 @@ def test_signals_v2_three_independent_paginations(page, server):
     page.goto(server + '/signals')
     source = page.request.get(server + '/api/skill-trends').json()
     rising = page.get_by_role('navigation', name='Rising skills pages')
-    declining = page.get_by_role('navigation', name='Declining skills pages')
-    expect(rising.locator('button[aria-current="true"]')).to_have_text('1')
-    expect(declining.locator('button[aria-current="true"]')).to_have_text('1')
+    declining = page.get_by_role('navigation', name='Declining skills and jobs pages')
+    expect(rising.locator('button[aria-current="page"]')).to_have_text('1')
+    expect(declining.locator('button[aria-current="page"]')).to_have_text('1')
     if len(source['rising']) > 5:
-        rising.get_by_role('button', name='2', exact=True).click()
-        expect(rising.locator('button[aria-current="true"]')).to_have_text('2')
-        expect(declining.locator('button[aria-current="true"]')).to_have_text('1')
+        rising.get_by_role('button', name=re.compile(r'^Page 2 of ')).click()
+        expect(rising.locator('button[aria-current="page"]')).to_have_text('2')
+        expect(declining.locator('button[aria-current="page"]')).to_have_text('1')
     if len(source['declining']) > 5:
-        declining.get_by_role('button', name='2', exact=True).click()
-        expect(declining.locator('button[aria-current="true"]')).to_have_text('2')
+        declining.get_by_role('button', name=re.compile(r'^Page 2 of ')).click()
+        expect(declining.locator('button[aria-current="page"]')).to_have_text('2')
         if len(source['rising']) > 5:
-            expect(rising.locator('button[aria-current="true"]')).to_have_text('2')
+            expect(rising.locator('button[aria-current="page"]')).to_have_text('2')
 
     page.get_by_role('tablist').get_by_role('button', name='Signals', exact=True).click()
     saved = page.request.get(server + '/api/signals').json()
-    pager = page.get_by_role('navigation', name='Signals pages')
-    expect(pager.locator('button[aria-current="true"]')).to_have_text('1')
+    pager = page.get_by_role('navigation', name='Signal evidence pages')
+    expect(pager.locator('button[aria-current="page"]')).to_have_text('1')
     cards = page.locator('main[data-screen-label="Signals"] article')
     expect(cards).to_have_count(min(8, len(saved)))
     if len(saved) > 8:
-        pager.get_by_role('button', name='2', exact=True).click()
-        expect(pager.locator('button[aria-current="true"]')).to_have_text('2')
+        pager.get_by_role('button', name=re.compile(r'^Page 2 of ')).click()
+        expect(pager.locator('button[aria-current="page"]')).to_have_text('2')
         expect(cards).to_have_count(min(8, len(saved) - 8))
     page.get_by_role('button', name='↑ Emerging').click()
-    expect(pager.locator('button[aria-current="true"]')).to_have_text('1')
+    expect(pager.locator('button[aria-current="page"]')).to_have_text('1')

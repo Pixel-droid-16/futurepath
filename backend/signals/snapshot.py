@@ -95,6 +95,8 @@ def read_snapshot():
                 raise ValueError('Oversized public snapshot')
             rows,meta=validate_document(response.json())
             _cache['signals'],_cache['meta']=rows,meta
-        except (httpx.HTTPError,ValueError,TypeError,KeyError):
+        except Exception:
+            # Best-effort remote read: any failure (including blocked sockets in offline test runs)
+            # keeps the last validated evidence instead of failing /api/signals and career scoring.
             log.warning('Evidence snapshot unavailable; retained verified evidence')
         return _cache['signals'],_cache['meta']
