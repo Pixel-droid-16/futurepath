@@ -32,8 +32,9 @@ def finish(page, quiz=False):
     return page.request.get("/api/profiles/" + pid).json()
 
 
-def manual(page, name, quiz=False):
-    page.goto("/start")
+def manual(page, name, quiz=False, navigate=True):
+    if navigate:
+        page.goto("/start")
     page.get_by_role("button", name=re.compile("Fill a short form")).click()
     page.get_by_label("Current Job Title", exact=True).fill("Synthetic Analyst")
     page.get_by_label("Years of Relevant Experience", exact=True).fill("3")
