@@ -74,7 +74,7 @@ def test_text_cv_profile_hints_and_ongoing_education():
 def test_qwen_zero_suggestions_report_dictionary_coverage_correctly():
     async def run():
         with patch('backend.services.ai_extraction.runpod_extract',
-                   new_callable=AsyncMock, return_value=[]), \\
+                   new_callable=AsyncMock, return_value=[]), \
              patch('backend.services.ai_extraction.integration_status',
                    return_value={'runpod_enabled': True, 'claude_enabled': True}):
             return await extract_suggestions(SYNTHETIC_CV, 'runpod')
@@ -96,7 +96,7 @@ def test_qwen_and_dictionary_counts_preserve_deduplication():
     }]
     async def run():
         with patch('backend.services.ai_extraction.runpod_extract',
-                   new_callable=AsyncMock, return_value=generated), \\
+                   new_callable=AsyncMock, return_value=generated), \
              patch('backend.services.ai_extraction.integration_status',
                    return_value={'runpod_enabled': True, 'claude_enabled': True}):
             return await extract_suggestions(SYNTHETIC_CV, 'runpod')
