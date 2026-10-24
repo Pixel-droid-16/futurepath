@@ -41,20 +41,32 @@
     const hints = st.draftSource === 'ai' ? (st.profileHints || {}) : {};
     const profileHintRows = [
       ['Current role', hints.current_role],
-      ['Education (check whether completed)', hints.education],
+      ['Education (may be in progress)', hints.education],
+      ['Highest completed qualification (confirm)', hints.completed_qualification],
       ['Industry', hints.industry],
     ].filter(x => x[1]?.value).map(([title, item]) => ({
       title, value: item.value, evidence: item.excerpt,
     }));
-    const projectHints = (hints.projects || []).slice(0, 5).map(item => ({
+    const projectHints = (hints.projects || []).slice(0, 6).map(item => ({
       value: item.value, evidence: item.excerpt,
     }));
-    const hasProfileHints = profileHintRows.length > 0 || projectHints.length > 0;
+    const achievementHints = (hints.achievements || []).slice(0, 4).map(item => ({
+      value: item.value, evidence: item.excerpt,
+    }));
+    const certificationHints = (hints.certifications || []).slice(0, 4).map(item => ({
+      value: item.value, evidence: item.excerpt,
+    }));
+    const hasProfileHints = profileHintRows.length > 0 || projectHints.length > 0
+      || achievementHints.length > 0 || certificationHints.length > 0;
+    const aiCount = st.sourceCounts?.ai || 0;
+    const dictionaryCount = st.sourceCounts?.dictionary || 0;
     const draftNote = { ai: st.scannedCv
       ? "Claude reviewed a PDF with little or no extractable text, and the local dictionary checked its transcription. Verify the suggested details, skills and evidence."
       : st.extractionProvider === "runpod"
-        ? "Qwen on RunPod suggested skills, supplemented by the local dictionary. Check the evidence and choose each proficiency level."
-        : "Claude suggested skills from your CV. Check the evidence and choose each proficiency level.",
+        ? aiCount
+          ? `Qwen on RunPod suggested ${aiCount} skills; the local dictionary added ${dictionaryCount} more. Review all evidence and proficiency levels.`
+          : `Qwen completed analysis but returned no validated skill suggestions. The local dictionary found ${dictionaryCount} possible skills; review them carefully.`
+        : "Claude and the local dictionary suggested skills from your CV. Review their evidence and choose each proficiency level.",
       keywords: "Skills matched by the local dictionary, not GPU AI. Review every suggestion carefully.",
       form: "Skills you added in the form. Set how strong each one is.", saved: "These are the skills saved in your profile." }[st.draftSource] || "Add the skills you have.";
     const quizDone = st.quizQuestions.filter(q => st.quizAnswers[q.id]).length, quizTotal = st.quizQuestions.length || 18;
@@ -76,7 +88,7 @@
       formEmpty: !st.formPicked.length, formChosen, formResults, hasFormResults: formResults.length > 0, formListOpen: st.formOpen, openFormList: () => this.setState({ formOpen: true }), closeFormList: () => this.setState({ formOpen: false, formQuery: "" }),
       formNoMatch: (st.formOpen || !!fq) && !formResults.length, formQuery: st.formQuery, onFormQuery: e => this.setState({ formQuery: e.target.value }),
       useForm: () => this.useForm(), formOp: st.formPicked.length ? "1" : ".45",
-      draftNote, hasProfileHints, profileHintRows, projectHints, draftRows, hasAddOptions: addOptions.length > 0, addListOpen: st.addOpen, openAddList: () => this.setState({ addOpen: true }), closeAddList: () => this.setState({ addOpen: false, addQuery: "" }),
+      draftNote, hasProfileHints, profileHintRows, projectHints, achievementHints, certificationHints, draftRows, hasAddOptions: addOptions.length > 0, addListOpen: st.addOpen, openAddList: () => this.setState({ addOpen: true }), closeAddList: () => this.setState({ addOpen: false, addQuery: "" }),
       addNoMatch: (st.addOpen || !!aq) && !addOptions.length, draftCount: draft.length, addQuery: st.addQuery, onAddQuery: e => this.setState({ addQuery: e.target.value }), addOptions,
       mName: st.meta.name, mYears: st.meta.years,
       isCvDraft: st.draftSource !== "form",
