@@ -116,3 +116,32 @@ def test_explicit_runpod_failure_does_not_claim_ai_success():
         assert exc.status_code == 502
     else:
         raise AssertionError("Expected HTTP 502 for explicit RunPod failure")
+
+
+
+def test_dictionary_evidence_has_whole_word_boundaries():
+    from backend.services.dictionary import suggest
+
+    cv = (
+        "I developed Python applications, used SQL databases, "
+        "created dashboards in Microsoft Excel, and performed data analysis."
+    )
+
+    expected = {"SK001", "SK005", "SK020"}
+    matched = set()
+
+    for item in suggest(cv):
+        if item["skill_id"] not in expected:
+            continue
+
+        excerpt = item["excerpt"]
+        start = cv.find(excerpt)
+        assert start >= 0
+        end = start + len(excerpt)
+
+        assert start == 0 or not cv[start - 1].isalnum()
+        assert end == len(cv) or not cv[end].isalnum()
+
+        matched.add(item["skill_id"])
+
+    assert matched == expected
