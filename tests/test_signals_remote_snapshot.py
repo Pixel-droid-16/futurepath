@@ -1,7 +1,11 @@
 """Remote snapshot safety, no network or paid models."""
-from datetime import date
+from datetime import date, datetime, timedelta, timezone
 import httpx
 import pytest
+from fastapi.testclient import TestClient
+from backend import storage
+from backend.app import app
+from backend.routes import signals as signal_routes
 from backend.signals import snapshot
 
 def example():
@@ -40,3 +44,37 @@ def test_enabled_by_default_and_no_network_when_disabled(monkeypatch):
     monkeypatch.setenv('SIGNALS_REMOTE_SNAPSHOT_ENABLED','0')
     monkeypatch.setattr(snapshot.httpx,'get',lambda *a,**kw: pytest.fail('network called'))
     assert snapshot.read_snapshot()==([],None)
+
+
+def serve_snapshot(monkeypatch, tmp_path, **meta):
+    """Serve one verified snapshot row (dated yesterday) through the real API, without network."""
+    monkeypatch.setattr(storage, 'DB', tmp_path / 'snapshot-api.sqlite3')
+    monkeypatch.setenv('FUTUREPATH_PUBLIC_DEMO', '0')
+    storage.init()
+    yesterday = (date.today() - timedelta(days=1)).isoformat()
+    row = snapshot.validate_signal({**example(), 'published_date': yesterday, 'fetched_at': yesterday})
+    served = ([row], {'checked_at': None, 'last_successful_at': '2026-10-24T21:35:52+00:00', 'status': 'ok',
+                      'ai_enabled': False, 'last_ai_check_day': None, 'external_scheduler': True,
+                      'verified_count': 1, **meta})
+    monkeypatch.setattr(snapshot, 'read_snapshot', lambda: served)
+    monkeypatch.setattr(signal_routes, 'read_snapshot', lambda: served)
+    return TestClient(app)
+
+
+def test_snapshot_rows_are_labelled_ai_validated(monkeypatch, tmp_path):
+    api = serve_snapshot(monkeypatch, tmp_path, ai_enabled=True)
+    row = next(s for s in api.get('/api/signals').json() if s['external_id'] == 'fictional:verified-source')
+    assert row['provenance'] == 'live_ai_validated'
+    assert row['provenance_label'] == 'AI-validated live source'
+    assert row['verification_status'] == 'ai_and_guardrails_passed'
+
+
+def test_status_reports_recent_github_ai_verification(monkeypatch, tmp_path):
+    today = datetime.now(timezone.utc).date()
+    api = serve_snapshot(monkeypatch, tmp_path, ai_enabled=True)
+    assert api.get('/api/signals/status').json()['external_ai_verification'] is True
+    # A same-day re-run skips paid verification; the verified day still counts.
+    api = serve_snapshot(monkeypatch, tmp_path, last_ai_check_day=today.isoformat())
+    assert api.get('/api/signals/status').json()['external_ai_verification'] is True
+    api = serve_snapshot(monkeypatch, tmp_path, last_ai_check_day=(today - timedelta(days=3)).isoformat())
+    assert api.get('/api/signals/status').json()['external_ai_verification'] is False

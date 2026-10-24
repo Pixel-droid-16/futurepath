@@ -158,3 +158,6 @@ def test_status_does_not_promise_updates_while_disabled():
     bindings = (ROOT / 'frontend/mockup_source/logic/page_bindings_view.js').read_text(encoding='utf8')
     assert 'feedStatus?.schedule_guaranteed === false ? words.unavailable' in bindings
     assert 'feedStatus?.paid_verification_enabled === true' in bindings
+    # Evidence verified by the daily GitHub job counts as on, and the note under the title follows the status.
+    assert 'feedStatus?.external_ai_verification === true ? words.aiExternal : words.off' in bindings
+    assert '? words.aiOnNote : words.noPublish' in bindings

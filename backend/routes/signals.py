@@ -22,11 +22,14 @@ def signals(direction:str|None=None,limit:int=200,offset:int=0):
     with connection() as c:
         verified={r['external_id']:json.loads(r['source_item']) for r in c.execute(
             "SELECT external_id,source_item FROM signal_candidates WHERE status='published' AND verified_by='claude-verified'")}
+    # The daily GitHub snapshot only carries Claude-verified rows (snapshot.validate_signal), so it is live evidence too.
+    remote_ids={r['external_id'] for r in read_snapshot()[0]}
     rows=[s for s in get_signals() if direction in (None,s['direction'])]
     for s in rows:
         s['role_titles']=[ROLE_TITLES[r] for r in s['role_ids'] if r in ROLE_TITLES]
-        live=s['tagged_by']=='claude-verified' and s['external_id'] in verified
-        s['published_at']=verified[s['external_id']].get('published_at') if live else None
+        local=s['tagged_by']=='claude-verified' and s['external_id'] in verified
+        live=local or s['external_id'] in remote_ids
+        s['published_at']=verified[s['external_id']].get('published_at') if local else None
         s['provenance']='curated' if s['tagged_by']=='curated' else ('live_ai_validated' if live else 'stored')
         s['provenance_label']={'curated':'Curated evidence','live_ai_validated':'AI-validated live source',
                                'stored':'Stored evidence (legacy)'}[s['provenance']]
@@ -136,6 +139,18 @@ def authorise_review(request:Request):
     if scheme.lower()!='bearer' or not secrets.compare_digest(supplied,token):
         raise HTTPException(401,'Administrator bearer authorization required')
 
+def recent_ai_check(meta):
+    """True when the GitHub job's latest run, or one on this or the previous UTC day, was Claude-verified.
+
+    A same-day re-run skips paid verification, so the latest run alone can read as off while evidence is verified.
+    """
+    try:
+        day=date.fromisoformat(meta.get('last_ai_check_day') or '')
+        recent=(datetime.now(timezone.utc).date()-day).days<=1
+    except ValueError:
+        recent=False
+    return bool(meta.get('ai_enabled') or recent)
+
 @router.get('/signals/status')
 def signal_status():
     """Public metadata only: no fetch, review authorization, or scheduler mutation."""
@@ -166,7 +181,8 @@ def signal_status():
             'public_demo': public_demo(),
             'best_effort': True,
             'external_scheduler': bool(remote_meta.get('external_scheduler')),
-            'verified_count': len(remote_signals)
+            'verified_count': len(remote_signals),
+            'external_ai_verification': recent_ai_check(remote_meta)
         }
     due=next_due()
     enabled=bool(interval_hours())
@@ -186,7 +202,8 @@ def signal_status():
             'next_expected_run':None,'schedule_guaranteed':False,
             'status':row['status'] if row else 'not_checked','health':health,'message':message,
             'quarantined_count':quarantined+legacy,'paid_verification_enabled':paid,
-            'automatic_tagger':'ai-required','public_demo':public_demo(),'best_effort':True}
+            'automatic_tagger':'ai-required','public_demo':public_demo(),'best_effort':True,
+            'external_ai_verification':False}
 
 @router.get('/signals/review')
 def list_review(request:Request,status:str='pending',limit:int=200):

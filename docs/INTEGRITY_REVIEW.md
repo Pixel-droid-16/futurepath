@@ -306,3 +306,10 @@ reviewed hashes are unchanged.
 function the Signals refactor removed, and its gates no longer matched the new paid-verification
 settings, so the daily GitHub Actions job could not run or publish. These hashes record accepted
 bytes, not correctness; the regression suite remains the evidence for behaviour.
+
+## Signals status wording follows the GitHub verification (25 October 2026)
+
+`frontend/index.html` only: the status panel's note was fixed text saying AI verification is off,
+and its AI field ignored the daily GitHub job. Both now follow `/api/signals/status`, which reports
+`external_ai_verification` when the job's latest snapshot, or one from this or the previous UTC day,
+was Claude-verified. English, Malay and Chinese wording added; no layout or asset changes.

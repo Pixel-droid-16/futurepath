@@ -15,7 +15,7 @@
   "backend/engine.py": "e3ac320bbaa8e70173a9c578d1e776491a61b91b7864be3e015c8c3622608463",
   "backend/scenarios.py": "2f42cebac75aa031faec91b5d2907f851c699e2ee735b81faf533b38327cef40",
   "backend/app.py": "f940b030ed34450d1f29ffc62caf65de3c54386d174a0e6a36ebe48d0c8d1d97",
-  "frontend/index.html": "74ccb24abb058bb12e8651fd51d1757f135cbef4b07f9082762b0cc469486812",
+  "frontend/index.html": "682ad92121a3192ad788c04fe5269134962def04b597460d16ef884aa6df31a5",
   "runpod_worker/Dockerfile": "0e20b5b8358293298ff5980a7f8776178b29da59cc00ad076674ab20045f8a87",
   "runpod_worker/requirements.txt": "acb39588801a9bfb9c9068da669bd3509f3b54e2190672f6232c9c2a8a507970",
   "docs/ARCHITECTURE.md": "4b3f7796832650da5b52d07e4e74efc4ab56cf6fc6bb33c2328e95cac7453a50"

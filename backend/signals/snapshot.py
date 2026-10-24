@@ -74,6 +74,7 @@ def validate_document(data):
                    'last_successful_at':data.get('last_successful_at'),
                    'status':data['status'],
                    'ai_enabled':data.get('ai_enabled') is True,
+                   'last_ai_check_day':data.get('last_ai_check_day') if isinstance(data.get('last_ai_check_day'),str) else None,
                    'external_scheduler':True,'verified_count':len(valid)}
 
 def read_snapshot():
