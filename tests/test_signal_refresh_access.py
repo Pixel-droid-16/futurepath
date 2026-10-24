@@ -70,15 +70,27 @@ def test_refresh_access_api_endpoint_returns_no_credentials(monkeypatch):
     assert 'fictional-admin-token' not in response.text
 
 
-def test_signals_ui_requires_capability_before_showing_admin_action():
+def test_signals_v2_hides_admin_controls_but_keeps_backend_authorization():
     from pathlib import Path
-    root=Path(__file__).resolve().parents[1] / 'frontend'
-    html=(root / 'mockup_source' / 'pages' / 'signals.html').read_text(encoding='utf8')
-    logic=(root / 'mockup_source' / 'logic' / 'state_and_actions.js').read_text(encoding='utf8')
-    assembled=(root / 'index.html').read_text(encoding='utf8')
-    assert '<sc-if value="{{ adminRefreshAvailable }}"' in html
-    assert 'Reload saved signals' in (root / 'mockup_source' / 'logic' / 'page_bindings_view.js').read_text(encoding='utf8')
+    root = Path(__file__).resolve().parents[1] / 'frontend'
+    html = (root / 'mockup_source' / 'pages' / 'signals.html').read_text(encoding='utf8')
+    logic = (root / 'mockup_source' / 'logic' / 'state_and_actions.js').read_text(encoding='utf8')
+    assembled = (root / 'index.html').read_text(encoding='utf8')
+
+    # The V2 page is intentionally read-only for visitors, including admins.
+    for control in ('Reload saved signals', 'Admin: refresh live feeds',
+                    'Review pending evidence', 'Signal updates'):
+        assert control not in html
+    assert '<sc-if value="{{ adminRefreshAvailable }}"' not in html
+
+    # Internal/manual endpoints are not made public simply because buttons vanish.
     assert "'/api/signals/refresh-access'" in logic
     assert 'headers.Authorization = "Bearer "' in logic
-    assert 'localStorage.setItem' not in logic[logic.index('async refreshSignals()'):logic.index('async refreshLiveCareers()')]
-    assert html.split('<section style="padding:24px',1)[1].split('</section>',1)[0] in assembled
+    refresh_logic = logic[logic.index('async refreshSignals()'):
+                          logic.index('async refreshLiveCareers()')]
+    assert 'localStorage.setItem' not in refresh_logic
+
+    # Changes to the existing V2 source are reflected in the generated file.
+    assert html in assembled
+    for pager in ('Rising skills pages', 'Declining skills pages', 'Signals pages'):
+        assert pager in html

@@ -9,7 +9,11 @@ const FP_API = {
   async send(path, options) {
     const response = await fetch(path, { credentials: 'same-origin', ...options, headers: { Accept: 'application/json', ...(options.headers || {}) } });
     const body = await response.json().catch(() => ({}));
-    if (!response.ok) throw new Error(typeof body.detail === 'string' ? body.detail : `FuturePath API ${response.status}: ${path}`);
+    if (!response.ok) {
+      const error = new Error(typeof body.detail === 'string' ? body.detail : `FuturePath API ${response.status}: ${path}`);
+      error.status = response.status;
+      throw error;
+    }
     return body;
   },
   num(value) { return Number.isFinite(Number(value)) ? Math.max(0, Math.min(100, Number(value))) : 0; },

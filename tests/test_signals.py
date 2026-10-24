@@ -117,12 +117,19 @@ def test_refresh_pipeline_stores_audits_and_moves_ranking(temp_db,monkeypatch):
         async with httpx.AsyncClient(transport=httpx.MockTransport(lambda r:httpx.Response(200,text=rss))) as c:
             return await refresh_signals(feeds=[RSS_FEED],tagger=KeywordTagger(),client=c)
     summary=asyncio.run(run())
-    assert summary['status']=='ok' and summary['accepted']==1 and summary['rejected']==2  # one near-duplicate, one irrelevant
+    assert summary['status']=='ok' and summary['pending']==1 and summary['accepted']==0 and summary['rejected']==2
     with storage.connection() as c:
         statuses=sorted(r[0] for r in c.execute('SELECT status FROM feed_items'))
-        assert statuses==['accepted','rejected','rejected']
-        assert c.execute('SELECT accepted FROM refresh_runs').fetchone()[0]==1
+        assert statuses==['pending','rejected','rejected']
+        assert c.execute('SELECT accepted FROM refresh_runs').fetchone()[0]==0
     api=TestClient(app)
+    assert not any(s['tagged_by']=='keyword' for s in api.get('/api/signals').json())
+    assert api.get('/api/what-changed').json()['has_change'] is False
+    monkeypatch.setenv('ADMIN_TOKEN','review-test-token')
+    headers={'Authorization':'Bearer review-test-token'}
+    queued=api.get('/api/signals/review',headers=headers).json()['items']
+    assert len(queued)==1
+    assert api.post(f"/api/signals/review/{queued[0]['id']}/approve",headers=headers).status_code==200
     stored=api.get('/api/signals').json()
     assert any(s['tagged_by']=='keyword' and 'cybersecurity-analyst' in s['role_ids'] for s in stored)
     changed=api.get('/api/what-changed').json()
@@ -143,12 +150,14 @@ def test_automatic_refresh_schedule(temp_db,monkeypatch):
     from datetime import datetime,timezone
     from backend.signals import schedule
     now=datetime(2026,10,22,12,0,tzinfo=timezone.utc)
-    monkeypatch.delenv('SIGNALS_REFRESH_HOURS',raising=False)
-    assert schedule.next_due(now)==now  # never refreshed: due at once
+    monkeypatch.setenv('SIGNALS_REFRESH_HOURS','24')
+    assert schedule.next_due(now) is None  # GET never activates a schedule
+    expected=now+timedelta(hours=24)
+    assert schedule.initialize_schedule(now)==expected
     add_run('2026-10-22T02:00:00+00:00','2026-10-22T02:01:00+00:00','ok')
-    assert schedule.next_due(now)==datetime(2026,10,23,2,1,tzinfo=timezone.utc)  # a day after the last finished run
+    assert schedule.next_due(now)==expected
     add_run('2026-10-23T02:01:00+00:00','2026-10-23T02:02:00+00:00','failed')
-    assert schedule.next_due(now)==datetime(2026,10,23,3,2,tzinfo=timezone.utc)  # failed run: retry an hour later
+    assert schedule.next_due(now)==expected  # status reads never move the persisted due time
     monkeypatch.setenv('SIGNALS_REFRESH_HOURS','0')
     assert schedule.next_due(now) is None
     outlook=TestClient(app).get('/api/skill-outlook').json()
@@ -156,15 +165,18 @@ def test_automatic_refresh_schedule(temp_db,monkeypatch):
 
 def test_scheduler_runs_refresh_when_due(temp_db,monkeypatch):
     from backend.signals import schedule
-    calls=[]
-    async def fake_refresh():
-        calls.append(1);raise asyncio.CancelledError  # stop the loop after the first run
-    async def no_sleep(_):pass
+    from datetime import datetime,timezone
+    calls=[];current=[datetime(2026,10,22,12,tzinfo=timezone.utc)]
+    async def fake_refresh(**kwargs):
+        calls.append(kwargs);raise asyncio.CancelledError
+    async def no_sleep(seconds):current[0]+=timedelta(seconds=seconds)
+    monkeypatch.setattr(schedule,'clock',lambda:current[0])
     monkeypatch.setattr(schedule,'refresh_signals',fake_refresh)
     monkeypatch.setattr(schedule.asyncio,'sleep',no_sleep)
-    monkeypatch.delenv('SIGNALS_REFRESH_HOURS',raising=False)
+    monkeypatch.setenv('SIGNALS_REFRESH_HOURS','24')
     with pytest.raises(asyncio.CancelledError):asyncio.run(schedule.run_forever())
-    assert calls==[1]
+    assert calls==[{'automatic':True}]
+    assert current[0]==datetime(2026,10,23,12,tzinfo=timezone.utc)
 
 def test_skill_trend_cards(temp_db):
     from backend.catalog import load

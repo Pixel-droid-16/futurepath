@@ -10,9 +10,10 @@ class Component extends DCLogic {
     // Saved people: each finished Start run is a person; activeProfileId is whose results are shown (remembered in this browser).
     people: [], activeProfileId: savedActiveProfile(), editingId: null, confirmDeleteId: null,
     // Trend signals (/api/signals): curated reports plus refreshed feeds; whatChanged explains the latest refresh.
-    liveSignals: [], signalRuns: [], whatChanged: null, refreshing: false, refreshMsg: "", refreshAccess: { mode: "checking", can_refresh: false, requires_token: false, message: "Checking refresh permissions…" },
+     liveSignals: [], signalRuns: [], whatChanged: null, refreshing: false, refreshMsg: "", refreshAccess: { mode: "checking", can_refresh: false, requires_token: false, message: "Checking refresh permissions…" },
+     signalStatus: null, reviewItems: [], reviewTotal: 0, reviewFilter: "pending", reviewLoading: false, reviewMsg: "", reviewOpen: false,
     // Signals page cards: rising and declining skills (and declining jobs) from stored signals (/api/skill-trends).
-    skillTrends: null, trendsAll: false, rolesAll: false, sigView: "trends",
+    skillTrends: null, risingPage: 1, decliningPage: 1, signalsPage: 1, rolesAll: false, sigView: "trends",
     pathDone: savedPathDone() };
   componentDidUpdate(p) {
     const q = this.props, u = {};
@@ -49,6 +50,12 @@ class Component extends DCLogic {
       if (this._alive) this.setState({ liveSignals, signalRuns, whatChanged, courseTotal: meta.courses_count });
     } catch (e) { loaded = false; console.warn('FuturePath: could not load trend signals', e); }
     try {
+      const signalStatus = await FP_API.json('/api/signals/status');
+      if (this._alive) this.setState({ signalStatus });
+    } catch (e) {
+      if (this._alive) this.setState({ signalStatus: null });
+    }
+    try {
       const skillTrends = await FP_API.json('/api/skill-trends');
       if (this._alive) this.setState({ skillTrends });
     } catch (e) { loaded = false; console.warn('FuturePath: could not load skill trends', e); }
@@ -72,7 +79,7 @@ class Component extends DCLogic {
   async refreshSignals() {
     if (this.state.refreshing) return;
     const access = this.state.refreshAccess;
-    if (!access?.can_refresh) return this.setState({ refreshMsg: access?.message || "Live-feed refresh is not permitted here." });
+    if (!access?.can_refresh || !this.state.signalStatus || this.state.signalStatus.public_demo) return this.setState({ refreshMsg: access?.message || "Live-feed refresh is not permitted here." });
     const headers = {};
     if (access.requires_token) {
       // Never put the admin secret in app state, localStorage or a URL.
@@ -86,10 +93,84 @@ class Component extends DCLogic {
     try {
       const r = await FP_API.send('/api/signals/refresh', { method: 'POST', headers });
       if (!this._alive) return;
-      this.setState({ refreshing: false, refreshMsg: "Refresh " + r.status + ": checked " + r.checked + " items; " + r.accepted + " accepted, " + r.rejected + " rejected, " + r.failed + " failed (tagged by " + r.tagger + ")." });
-      await Promise.all([this.loadSignals(), this.refreshLiveCareers()]);
+      this.setState({ refreshing: false, refreshMsg: "Refresh " + r.status + ": checked " + r.checked + " items; " + (r.pending_count ?? r.pending ?? 0) + " pending review, " + (r.accepted ?? 0) + " approved. Unreviewed items do not affect rankings." });
+      await this.loadSignals();
     } catch (err) {
-      if (this._alive) this.setState({ refreshing: false, refreshMsg: "Live-feed refresh failed: " + String(err.message || err) });
+      if (this._alive) this.setState({ refreshing: false, refreshMsg: "Live-feed refresh failed. Check access and try again." });
+    }
+  }
+  reviewAccessAllowed() {
+    return this.state.refreshAccess?.mode === "admin" && !!this.state.signalStatus && !this.state.signalStatus.public_demo;
+  }
+  reviewErrorMessage(err) {
+    const message = String(err?.message || "");
+    const match = [401, 403, 409].includes(err?.status) ? [null, String(err.status)] : message.match(/\b(401|403|409)\b/);
+    if (match?.[1] === "401") return "Administrator authentication failed (401). Check the token and try again.";
+    if (match?.[1] === "403") return "Review access is forbidden (403). Public demo mode or administrator permissions may block this action.";
+    if (match?.[1] === "409") return "This item changed before the decision could be saved (409). Reload the queue.";
+    if (/unauthori[sz]ed|invalid token|authentication/i.test(message)) return "Administrator authentication failed (401). Check the token and try again.";
+    if (/forbidden|public demo|administrator access/i.test(message)) return "Review access is forbidden (403). Public demo mode or administrator permissions may block this action.";
+    if (/conflict|already reviewed|already decided|state changed/i.test(message)) return "This item changed before the decision could be saved (409). Reload the queue.";
+    return "The review request failed. Try again later.";
+  }
+  async loadReviewQueue() {
+    return this.loadReviewQueueFor(this.state.reviewFilter || "pending");
+  }
+  async loadReviewQueueFor(statusOverride) {
+    this.setState({ reviewOpen: true });
+    if (!this.reviewAccessAllowed()) return this.setState({ reviewMsg: "Administrator review is unavailable in this mode." });
+    const token = window.prompt("Administrator review: enter ADMIN_TOKEN (used for this request only):");
+    if (token === null) return this.setState({ reviewMsg: "Queue loading cancelled." });
+    if (!token.trim()) return this.setState({ reviewMsg: "An administrator token is required." });
+    const status = statusOverride || this.state.reviewFilter || "pending";
+    this.setState({ reviewLoading: true, reviewMsg: "Loading protected review queue…", reviewOpen: true });
+    try {
+      const result = await FP_API.send('/api/signals/review?status=' + encodeURIComponent(status), {
+        method: "GET",
+        headers: { Authorization: "Bearer " + token.trim(), Accept: "application/json" }
+      });
+      if (!this._alive) return;
+      const items = Array.isArray(result.items) ? result.items : [];
+      this.setState({ reviewItems: items, reviewTotal: Number(result.total) || 0, reviewLoading: false, reviewMsg: items.length ? "Queue loaded. Pending evidence is excluded from career rankings." : "No " + status + " evidence items in this queue." });
+    } catch (err) {
+      if (this._alive) this.setState({ reviewLoading: false, reviewItems: [], reviewTotal: 0, reviewMsg: this.reviewErrorMessage(err) });
+    }
+  }
+  async decideSignal(id, decision) {
+    if (!this.reviewAccessAllowed()) return this.setState({ reviewMsg: "Administrator review is unavailable in this mode." });
+    const token = window.prompt("Administrator review: enter ADMIN_TOKEN (used for this request only):");
+    if (token === null) return this.setState({ reviewMsg: "Decision cancelled. No change was made." });
+    if (!token.trim()) return this.setState({ reviewMsg: "An administrator token is required. No change was made." });
+    const verb = decision === "approve" ? "Approve" : "Reject";
+    if (!window.confirm(verb + " this evidence item?")) return this.setState({ reviewMsg: "Decision cancelled. No change was made." });
+    const reason = window.prompt("Optional decision reason (leave blank for none):", "");
+    if (reason === null) return this.setState({ reviewMsg: "Decision cancelled. No change was made." });
+    this.setState({ reviewLoading: true, reviewMsg: verb + "ing evidence…" });
+    try {
+      await FP_API.send('/api/signals/review/' + encodeURIComponent(id) + '/' + decision, {
+        method: "POST",
+        headers: { Authorization: "Bearer " + token.trim(), "Content-Type": "application/json" },
+        body: JSON.stringify(reason.trim() ? { reason: reason.trim().slice(0, 500) } : {})
+      });
+      if (!this._alive) return;
+      this.setState({ reviewMsg: decision === "approve" ? "Evidence approved. Refreshing stored signals and career results…" : "Evidence rejected. The queue and pending count are being refreshed." });
+      await Promise.all([this.loadReviewQueueAfterDecision(token), this.loadSignals()]);
+      if (decision === "approve") await this.refreshLiveCareers();
+    } catch (err) {
+      if (this._alive) this.setState({ reviewLoading: false, reviewMsg: this.reviewErrorMessage(err) });
+    }
+  }
+  async loadReviewQueueAfterDecision(token) {
+    // Reuse only the action's short-lived local credential; never retain it in state.
+    try {
+      const status = this.state.reviewFilter || "pending";
+      const result = await FP_API.send('/api/signals/review?status=' + encodeURIComponent(status), {
+        method: "GET",
+        headers: { Authorization: "Bearer " + token.trim(), Accept: "application/json" }
+      });
+      if (this._alive) this.setState({ reviewItems: Array.isArray(result.items) ? result.items : [], reviewTotal: Number(result.total) || 0, reviewLoading: false });
+    } catch (err) {
+      if (this._alive) this.setState({ reviewLoading: false, reviewMsg: "Decision saved, but " + this.reviewErrorMessage(err) });
     }
   }
   async refreshLiveCareers() {
