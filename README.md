@@ -230,10 +230,6 @@ The Replit application hosts the FastAPI + V2 website and connects server-side t
 - [x] "How to Run" steps verified
 - [x] No API keys or secrets committed to the repository
 
-## Team and attribution
-
-Add real members and their contribution areas when confirmed. This project combines a teammate's original V2 interface with a modular FastAPI implementation, original and imported curated datasets, and AI-assisted coding. The team is responsible for explaining, reviewing and testing its submission. Keep the real commit history intact.
-
 ## License
 
 [Apache License 2.0](LICENSE).
