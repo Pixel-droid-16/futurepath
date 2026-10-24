@@ -217,10 +217,18 @@ The Replit application hosts the FastAPI + V2 website and connects server-side t
 | ADAM BIN AZMI | Backend / AI | [Maestro05-coder](https://github.com/Maestro05-coder) |
 | MUHAMMAD ADAM BIN ROSLAN | Frontend / Backend | [dammnnnnnnnn](https://github.com/dammnnnnnnnn) |
 
-## Submission checklist
+## Submission Checklist
 
-See [submission/README.md](submission/README.md) and [docs/SDC_SUBMISSION_CHECKLIST.md](docs/SDC_SUBMISSION_CHECKLIST.md). The team must verify the actual SDC form fields, PDF filenames and any deadlines in the [participant resources folder](https://drive.google.com/drive/folders/1xw7c2aN8N-at8hPEULzkcU76e_FFb0Ef).
-
+- [ ] Team name, domain (Domain 1 / Domain 2) and SDG track filled in
+- [ ] Slide deck link added
+- [ ] Demo video link added
+- [ ] Replit used, with proof of use in `submission/`
+- [ ] RunPod used, with proof of use in `submission/`
+- [ ] Preliminary submission completed (`SDC2026_TeamName_Preliminary.pdf`)
+- [ ] Technology declaration completed (`SDC2026_TeamName_TechDeclaration.pdf`)
+- [ ] Submission files renamed with your team name (replace `TeamName`)
+- [ ] "How to Run" steps verified
+- [ ] No API keys or secrets committed to the repository
 
 ## Team and attribution
 
