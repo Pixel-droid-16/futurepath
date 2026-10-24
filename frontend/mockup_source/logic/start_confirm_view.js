@@ -38,8 +38,20 @@
     const aq = st.addQuery.trim().toLowerCase();
     const addOptions = st.addOpen || aq ? st.catalog.filter(s => match(s, aq) && !draft.some(d => d.id === s.id)).sort(byName).map(s => ({ name: s.name,
       add: () => this.setState(x => ({ draft: [...(x.draft || []), { id: s.id, name: s.name, ev: "Added by you", level: 2 }], addQuery: "", approved: false })) })) : [];
+    const hints = st.draftSource === 'ai' ? (st.profileHints || {}) : {};
+    const profileHintRows = [
+      ['Current role', hints.current_role],
+      ['Education (check whether completed)', hints.education],
+      ['Industry', hints.industry],
+    ].filter(x => x[1]?.value).map(([title, item]) => ({
+      title, value: item.value, evidence: item.excerpt,
+    }));
+    const projectHints = (hints.projects || []).slice(0, 5).map(item => ({
+      value: item.value, evidence: item.excerpt,
+    }));
+    const hasProfileHints = profileHintRows.length > 0 || projectHints.length > 0;
     const draftNote = { ai: st.scannedCv
-      ? "This PDF had no readable text layer, so Claude analysed the document. Check every skill and its evidence."
+      ? "Claude reviewed a PDF with little or no extractable text, and the local dictionary checked its transcription. Verify the suggested details, skills and evidence."
       : st.extractionProvider === "runpod"
         ? "Qwen on RunPod suggested skills, supplemented by the local dictionary. Check the evidence and choose each proficiency level."
         : "Claude suggested skills from your CV. Check the evidence and choose each proficiency level.",
@@ -64,7 +76,7 @@
       formEmpty: !st.formPicked.length, formChosen, formResults, hasFormResults: formResults.length > 0, formListOpen: st.formOpen, openFormList: () => this.setState({ formOpen: true }), closeFormList: () => this.setState({ formOpen: false, formQuery: "" }),
       formNoMatch: (st.formOpen || !!fq) && !formResults.length, formQuery: st.formQuery, onFormQuery: e => this.setState({ formQuery: e.target.value }),
       useForm: () => this.useForm(), formOp: st.formPicked.length ? "1" : ".45",
-      draftNote, draftRows, hasAddOptions: addOptions.length > 0, addListOpen: st.addOpen, openAddList: () => this.setState({ addOpen: true }), closeAddList: () => this.setState({ addOpen: false, addQuery: "" }),
+      draftNote, hasProfileHints, profileHintRows, projectHints, draftRows, hasAddOptions: addOptions.length > 0, addListOpen: st.addOpen, openAddList: () => this.setState({ addOpen: true }), closeAddList: () => this.setState({ addOpen: false, addQuery: "" }),
       addNoMatch: (st.addOpen || !!aq) && !addOptions.length, draftCount: draft.length, addQuery: st.addQuery, onAddQuery: e => this.setState({ addQuery: e.target.value }), addOptions,
       mName: st.meta.name, mYears: st.meta.years,
       isCvDraft: st.draftSource !== "form",

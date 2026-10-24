@@ -5,7 +5,7 @@ class Component extends DCLogic {
     // Start flow (/start): choose -> cv | form -> check -> quiz -> results. Nothing is saved until the quiz step ends.
     startStep: "choose", cvName: "", extracting: false, startError: "", catalog: [],
     form: { role: "", years: 0, qualification: "", qualificationLegacy: "", industry: "", interests: "", languages: "", goals: "", aiComfort: "", workArrangement: "", motivation: "" }, formPicked: [], formQuery: "",
-    draft: null, draftSource: "", scannedCv: false, extractionProvider: "", addOpen: false, formOpen: false, meta: { name: "My profile", headline: "", years: 0, hours: 6 }, approved: false, addQuery: "",
+    draft: null, draftSource: "", scannedCv: false, extractionProvider: "", profileHints: null, addOpen: false, formOpen: false, meta: { name: "My profile", headline: "", years: 0, hours: 6 }, approved: false, addQuery: "",
     quizQuestions: [], quizLikert: [], quizAnswers: {}, saving: false, confirmError: "",
     // Saved people: each finished Start run is a person; activeProfileId is whose results are shown (remembered in this browser).
     people: [], activeProfileId: savedActiveProfile(), editingId: null, confirmDeleteId: null,
@@ -127,7 +127,7 @@ class Component extends DCLogic {
   }
   setStep(step) { this.setState({ startStep: step, startError: '', confirmError: '' }); try { window.scrollTo(0, 0); } catch (e) {} }
   // A new person: nothing is overwritten; finishing Start saves them alongside the others.
-  startOver() { this._cvFile = null; this.setState(s => ({ draft: null, cvName: '', formPicked: [], quizAnswers: {}, approved: false, editingId: null, scannedCv: false, extractionProvider: "",
+  startOver() { this._cvFile = null; this.setState(s => ({ draft: null, cvName: '', formPicked: [], quizAnswers: {}, approved: false, editingId: null, scannedCv: false, extractionProvider: "", profileHints: null,
     form: { role: '', years: 0, qualification: '', qualificationLegacy: '', industry: '', interests: '', languages: '', goals: '', aiComfort: '', workArrangement: '', motivation: '' }, meta: { name: '', headline: '', years: 0, hours: 6 } })); this.go('start'); this.setStep('choose'); }
   async loadCatalog() {
     try {
@@ -176,7 +176,15 @@ class Component extends DCLogic {
       const result = await FP_API.send('/api/extract', { method: 'POST', body });
       if (!this._alive) return;
       // A scanned PDF is flagged so the person checks the quotes carefully.
-      this.setState({ extracting: false, scannedCv: !!result.scanned, extractionProvider: result.provider || "dictionary" });
+      const hints = result.profile_suggestions || {};
+      this.setState(s => ({
+        extracting: false, scannedCv: !!result.scanned,
+        extractionProvider: result.provider || "dictionary",
+        profileHints: hints,
+        // Proposed fields remain editable and are saved only after confirmation.
+        form: { ...s.form, role: hints.current_role?.value || "",
+                industry: hints.industry?.value || "" },
+      }));
       const origin = c => String(c.method || '').startsWith('runpod') ? 'Qwen AI' :
         String(c.method || '').startsWith('claude') ? 'Claude AI' : 'local dictionary';
       this.toCheck((result.candidates || []).map(c => ({
@@ -191,7 +199,7 @@ class Component extends DCLogic {
   }
   useForm() {
     const st = this.state;
-    this.setState({ scannedCv: false });
+    this.setState({ scannedCv: false, profileHints: null });
     if (!st.formPicked.length) return this.setState({ startError: 'Add at least one skill.' });
     this.toCheck(st.formPicked.map(id => ({ id, name: this.skillName(id), ev: 'Added in the form', level: 2 })), 'form',
       { name: this.newPersonName(), headline: st.form.role, years: Number(st.form.years) || 0 });
@@ -210,7 +218,7 @@ class Component extends DCLogic {
     const rawQualification = p.qualification || '', savedQualification = qualificationAliases[rawQualification] || rawQualification;
     const qualification = savedQualification && !qualificationLevels.includes(savedQualification) ? "Other qualification / equivalent" : savedQualification;
     this.setState(s => ({ draft: Object.entries(p.skills || {}).map(([id, level]) => ({ id, name: this.skillName(id), ev: 'Saved in your profile', level })),
-      draftSource: 'saved', approved: true, quizAnswers: p.quiz_answers || {}, editingId: this.state.activeProfileId || 'demo',
+      draftSource: 'saved', approved: true, profileHints: null, quizAnswers: p.quiz_answers || {}, editingId: this.state.activeProfileId || 'demo',
       meta: { name: p.name || 'My profile', headline: p.headline || '', years: p.years_experience || 0, hours: p.study_hours || 6 },
       form: { ...s.form, role: p.current_role || '', qualification, qualificationLegacy: qualification === "Other qualification / equivalent" ? rawQualification : '',
         industry: p.industry || '', interests: (p.interests || []).join(', '),

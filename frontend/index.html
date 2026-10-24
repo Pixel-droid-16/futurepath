@@ -58,6 +58,12 @@
 <sc-if value="{{ isCheckStep }}" hint-placeholder-val="{{ false }}"><div style="background:var(--sf);border:1px solid var(--ln);border-radius:24px;padding:clamp(20px,3vw,32px);display:flex;flex-direction:column;gap:20px">
 <div><b style="font-size:20px;font-weight:600">Check your profile</b><p style="margin:4px 0 0;font-size:14px;color:var(--mu)">Edit anything that's wrong. Remove skills you don't have and add any that are missing.</p></div>
 <div style="background:var(--soft);color:var(--pr);border-radius:12px;padding:12px 14px;font-size:13px;font-weight:500">{{ draftNote }}</div>
+<sc-if value="{{ hasProfileHints }}" hint-placeholder-val="{{ false }}"><div style="display:flex;flex-direction:column;gap:9px;background:var(--sf2);border:1px solid var(--ln);border-radius:14px;padding:15px">
+<b style="font-size:15px">Details suggested from this CV — review before saving</b>
+<sc-for list="{{ profileHintRows }}" as="h"><div style="display:flex;flex-direction:column;gap:3px"><span style="font-weight:600;font-size:13px">{{ h.title }}: {{ h.value }}</span><span style="color:var(--mu);font-size:12px">CV evidence: “{{ h.evidence }}”</span></div></sc-for>
+<sc-for list="{{ projectHints }}" as="p"><div style="display:flex;flex-direction:column;gap:3px"><span style="font-weight:600;font-size:13px">Project or achievement: {{ p.value }}</span><span style="color:var(--mu);font-size:12px">CV evidence: “{{ p.evidence }}”</span></div></sc-for>
+<span style="font-size:12px;color:var(--mu)">Role and industry fields below are editable. Choose your actual completed education level yourself; in-progress study is not a completed qualification. Projects are shown for review, not automatically stored or used for scoring.</span>
+</div></sc-if>
 <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:16px"><label style="display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:500">Profile name (a nickname is fine)<input value="{{ mName }}" onInput="{{ onMName }}" style="width:100%;box-sizing:border-box;border:1px solid var(--ln);border-radius:12px;padding:13px 14px;font:400 15px Geist;background:var(--bg);color:var(--ink)"></label></div>
 <div><label style="display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:500">Years of relevant experience<input type="number" min="0" max="60" value="{{ mYears }}" onInput="{{ onMYears }}" style="width:100%;box-sizing:border-box;border:1px solid var(--ln);border-radius:12px;padding:13px 14px;font:400 15px Geist;background:var(--bg);color:var(--ink)"></label></div>
 <sc-if value="{{ isCvDraft }}" hint-placeholder-val="{{ true }}"><div style="display:flex;flex-direction:column;gap:14px"><label style="display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:500">Current Job Title<input value="{{ fRole }}" onInput="{{ onFRole }}" placeholder="e.g. Operations Associate" style="width:100%;box-sizing:border-box;border:1px solid var(--ln);border-radius:12px;padding:13px 14px;font:400 15px Geist;background:var(--bg);color:var(--ink)"></label>
@@ -1201,7 +1207,7 @@ class Component extends DCLogic {
     // Start flow (/start): choose -> cv | form -> check -> quiz -> results. Nothing is saved until the quiz step ends.
     startStep: "choose", cvName: "", extracting: false, startError: "", catalog: [],
     form: { role: "", years: 0, qualification: "", qualificationLegacy: "", industry: "", interests: "", languages: "", goals: "", aiComfort: "", workArrangement: "", motivation: "" }, formPicked: [], formQuery: "",
-    draft: null, draftSource: "", scannedCv: false, extractionProvider: "", addOpen: false, formOpen: false, meta: { name: "My profile", headline: "", years: 0, hours: 6 }, approved: false, addQuery: "",
+    draft: null, draftSource: "", scannedCv: false, extractionProvider: "", profileHints: null, addOpen: false, formOpen: false, meta: { name: "My profile", headline: "", years: 0, hours: 6 }, approved: false, addQuery: "",
     quizQuestions: [], quizLikert: [], quizAnswers: {}, saving: false, confirmError: "",
     // Saved people: each finished Start run is a person; activeProfileId is whose results are shown (remembered in this browser).
     people: [], activeProfileId: savedActiveProfile(), editingId: null, confirmDeleteId: null,
@@ -1323,7 +1329,7 @@ class Component extends DCLogic {
   }
   setStep(step) { this.setState({ startStep: step, startError: '', confirmError: '' }); try { window.scrollTo(0, 0); } catch (e) {} }
   // A new person: nothing is overwritten; finishing Start saves them alongside the others.
-  startOver() { this._cvFile = null; this.setState(s => ({ draft: null, cvName: '', formPicked: [], quizAnswers: {}, approved: false, editingId: null, scannedCv: false, extractionProvider: "",
+  startOver() { this._cvFile = null; this.setState(s => ({ draft: null, cvName: '', formPicked: [], quizAnswers: {}, approved: false, editingId: null, scannedCv: false, extractionProvider: "", profileHints: null,
     form: { role: '', years: 0, qualification: '', qualificationLegacy: '', industry: '', interests: '', languages: '', goals: '', aiComfort: '', workArrangement: '', motivation: '' }, meta: { name: '', headline: '', years: 0, hours: 6 } })); this.go('start'); this.setStep('choose'); }
   async loadCatalog() {
     try {
@@ -1372,7 +1378,15 @@ class Component extends DCLogic {
       const result = await FP_API.send('/api/extract', { method: 'POST', body });
       if (!this._alive) return;
       // A scanned PDF is flagged so the person checks the quotes carefully.
-      this.setState({ extracting: false, scannedCv: !!result.scanned, extractionProvider: result.provider || "dictionary" });
+      const hints = result.profile_suggestions || {};
+      this.setState(s => ({
+        extracting: false, scannedCv: !!result.scanned,
+        extractionProvider: result.provider || "dictionary",
+        profileHints: hints,
+        // Proposed fields remain editable and are saved only after confirmation.
+        form: { ...s.form, role: hints.current_role?.value || "",
+                industry: hints.industry?.value || "" },
+      }));
       const origin = c => String(c.method || '').startsWith('runpod') ? 'Qwen AI' :
         String(c.method || '').startsWith('claude') ? 'Claude AI' : 'local dictionary';
       this.toCheck((result.candidates || []).map(c => ({
@@ -1387,7 +1401,7 @@ class Component extends DCLogic {
   }
   useForm() {
     const st = this.state;
-    this.setState({ scannedCv: false });
+    this.setState({ scannedCv: false, profileHints: null });
     if (!st.formPicked.length) return this.setState({ startError: 'Add at least one skill.' });
     this.toCheck(st.formPicked.map(id => ({ id, name: this.skillName(id), ev: 'Added in the form', level: 2 })), 'form',
       { name: this.newPersonName(), headline: st.form.role, years: Number(st.form.years) || 0 });
@@ -1406,7 +1420,7 @@ class Component extends DCLogic {
     const rawQualification = p.qualification || '', savedQualification = qualificationAliases[rawQualification] || rawQualification;
     const qualification = savedQualification && !qualificationLevels.includes(savedQualification) ? "Other qualification / equivalent" : savedQualification;
     this.setState(s => ({ draft: Object.entries(p.skills || {}).map(([id, level]) => ({ id, name: this.skillName(id), ev: 'Saved in your profile', level })),
-      draftSource: 'saved', approved: true, quizAnswers: p.quiz_answers || {}, editingId: this.state.activeProfileId || 'demo',
+      draftSource: 'saved', approved: true, profileHints: null, quizAnswers: p.quiz_answers || {}, editingId: this.state.activeProfileId || 'demo',
       meta: { name: p.name || 'My profile', headline: p.headline || '', years: p.years_experience || 0, hours: p.study_hours || 6 },
       form: { ...s.form, role: p.current_role || '', qualification, qualificationLegacy: qualification === "Other qualification / equivalent" ? rawQualification : '',
         industry: p.industry || '', interests: (p.interests || []).join(', '),
@@ -1498,8 +1512,20 @@ class Component extends DCLogic {
     const aq = st.addQuery.trim().toLowerCase();
     const addOptions = st.addOpen || aq ? st.catalog.filter(s => match(s, aq) && !draft.some(d => d.id === s.id)).sort(byName).map(s => ({ name: s.name,
       add: () => this.setState(x => ({ draft: [...(x.draft || []), { id: s.id, name: s.name, ev: "Added by you", level: 2 }], addQuery: "", approved: false })) })) : [];
+    const hints = st.draftSource === 'ai' ? (st.profileHints || {}) : {};
+    const profileHintRows = [
+      ['Current role', hints.current_role],
+      ['Education (check whether completed)', hints.education],
+      ['Industry', hints.industry],
+    ].filter(x => x[1]?.value).map(([title, item]) => ({
+      title, value: item.value, evidence: item.excerpt,
+    }));
+    const projectHints = (hints.projects || []).slice(0, 5).map(item => ({
+      value: item.value, evidence: item.excerpt,
+    }));
+    const hasProfileHints = profileHintRows.length > 0 || projectHints.length > 0;
     const draftNote = { ai: st.scannedCv
-      ? "This PDF had no readable text layer, so Claude analysed the document. Check every skill and its evidence."
+      ? "Claude reviewed a PDF with little or no extractable text, and the local dictionary checked its transcription. Verify the suggested details, skills and evidence."
       : st.extractionProvider === "runpod"
         ? "Qwen on RunPod suggested skills, supplemented by the local dictionary. Check the evidence and choose each proficiency level."
         : "Claude suggested skills from your CV. Check the evidence and choose each proficiency level.",
@@ -1524,7 +1550,7 @@ class Component extends DCLogic {
       formEmpty: !st.formPicked.length, formChosen, formResults, hasFormResults: formResults.length > 0, formListOpen: st.formOpen, openFormList: () => this.setState({ formOpen: true }), closeFormList: () => this.setState({ formOpen: false, formQuery: "" }),
       formNoMatch: (st.formOpen || !!fq) && !formResults.length, formQuery: st.formQuery, onFormQuery: e => this.setState({ formQuery: e.target.value }),
       useForm: () => this.useForm(), formOp: st.formPicked.length ? "1" : ".45",
-      draftNote, draftRows, hasAddOptions: addOptions.length > 0, addListOpen: st.addOpen, openAddList: () => this.setState({ addOpen: true }), closeAddList: () => this.setState({ addOpen: false, addQuery: "" }),
+      draftNote, hasProfileHints, profileHintRows, projectHints, draftRows, hasAddOptions: addOptions.length > 0, addListOpen: st.addOpen, openAddList: () => this.setState({ addOpen: true }), closeAddList: () => this.setState({ addOpen: false, addQuery: "" }),
       addNoMatch: (st.addOpen || !!aq) && !addOptions.length, draftCount: draft.length, addQuery: st.addQuery, onAddQuery: e => this.setState({ addQuery: e.target.value }), addOptions,
       mName: st.meta.name, mYears: st.meta.years,
       isCvDraft: st.draftSource !== "form",
