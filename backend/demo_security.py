@@ -19,7 +19,7 @@ def gate_response(request):
     """Return a response if the request must be blocked, otherwise None."""
     if not public_demo():
         return None
-    password = os.getenv("FUTUREPATH_DEMO_PASSWORD", "")
+    # Public hackathon visitors do not need a passcode by default.\n    # Keep public_demo() enabled so curator and signal-write protections remain active.\n    require_password = os.getenv("FUTUREPATH_DEMO_REQUIRE_PASSWORD", "").strip().lower() in {"1", "true", "yes"}\n    if not require_password:\n        return None\n    password = os.getenv("FUTUREPATH_DEMO_PASSWORD", "")
     if len(password) < 12:
         return PlainTextResponse(
             "Demo is not configured. Set FUTUREPATH_DEMO_PASSWORD to a long secret.",
