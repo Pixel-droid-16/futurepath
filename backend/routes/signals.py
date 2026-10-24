@@ -86,6 +86,27 @@ def runs(limit:int=5):
     with connection() as c:
         return [run_row(r) for r in c.execute('SELECT * FROM refresh_runs ORDER BY id DESC LIMIT ?',(max(1,min(limit,50)),))]
 
+def refresh_mode(request:Request):
+    """Report available refresh controls; the POST still checks authorization."""
+    if public_demo():
+        return 'demo'
+    if os.getenv('ADMIN_TOKEN'):
+        return 'admin'
+    return 'local' if (request.client.host if request.client else '') in LOCAL_HOSTS else 'local_only'
+
+@router.get('/signals/refresh-access')
+def refresh_access(request:Request):
+    """Read-only refresh policy for the UI; never return secret values."""
+    mode=refresh_mode(request)
+    messages={
+        'demo': 'Live-feed refresh is disabled in this public synthetic-data demo. Existing stored signals remain available.',
+        'admin': 'Live-feed refresh is administrator-only. Enter ADMIN_TOKEN only when prompted; it is not saved in the browser.',
+        'local': 'Live-feed refresh is available in local development.',
+        'local_only': 'Hosted live-feed refresh requires an ADMIN_TOKEN Replit Secret and a server restart. Existing curated signals remain available.',
+    }
+    return {'mode':mode,'can_refresh':mode in ('admin','local'),
+            'requires_token':mode=='admin','message':messages[mode]}
+
 def authorise(request:Request):
     """In public demo mode refresh is disabled; otherwise require admin token or local host."""
     if public_demo():
