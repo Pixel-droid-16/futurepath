@@ -116,10 +116,10 @@ The organizer's example uses `src/main.py`. We provide that path as a **thin com
 ├── src/
 │   └── main.py                  # Application entry point (wraps backend.app)
 ├── submission/                  # Required submission documents
-│   ├── SDC2026_KitaHack_Preliminary.pdf      # Preliminary submission (to add)
-│   ├── SDC2026_KitaHack_TechDeclaration.pdf  # Technology declaration (to add)
-│   ├── SDC2026_KitaHack_Replit_POU.pdf       # Replit proof of use (to add)
-│   ├── SDC2026_KitaHack_Runpod_POU.pdf       # RunPod proof of use (to add)
+│   ├── SDC2026_KitaHack_Preliminary.pdf      # Preliminary submission
+│   ├── SDC2026_KitaHack_TechDeclaration.pdf  # Technology declaration 
+│   ├── SDC2026_KitaHack_Replit_POU.pdf       # Replit proof of use 
+│   ├── SDC2026_KitaHack_Runpod_POU.pdf       # RunPod proof of use 
 │   ├── KITAHACK_SUBMISSION_STATUS.md         # What each PDF still needs
 │   └── README.md                             # PDF naming checklist
 ├── tests/                       # Unit and API tests (pytest)
