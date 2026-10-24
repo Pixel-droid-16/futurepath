@@ -27,8 +27,9 @@ FuturePath helps students, graduates and working professionals compare their **c
 | Live Replit deployment | https://futurepathkitahack.replit.app/ |
 | Replit development project | [FuturePath Replit workspace](https://replit.com/@b152610182/futurepath) (may require project access) |
 | RunPod endpoint | Configured through `RUNPOD_ENDPOINT_ID`; API key is private |
-| Presentation / slide deck | https://drive.google.com/drive/folders/1ZWO4zt3pfn5IgmirVihVO56epyx6NYDD?usp=sharing Video presentation Link : https://youtu.be/8qehmrugJyo |
-| Demo video | **Team to supply verified link** |
+| Presentation / slide deck | [Presentation slides](https://drive.google.com/drive/folders/1ZWO4zt3pfn5IgmirVihVO56epyx6NYDD?usp=sharing) |
+| Video presentation | [Team presentation](https://youtu.be/8qehmrugJyo) |
+| Live demo video | [FuturePath live demo](https://youtu.be/ApVh2PU2pLA) |
 | Official PDF submissions | See [submission/README.md](submission/README.md) |
 
 ## Problem
