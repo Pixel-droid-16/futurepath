@@ -23,10 +23,10 @@ python scripts/build_frontend.py
 The tracked `.replit` configuration starts FastAPI with:
 
 ```bash
-python -m uvicorn backend.app:app --host 0.0.0.0 --port 8000
+python -m uvicorn backend.app:app --host 0.0.0.0 --port 5000
 ```
 
-Expose **local port 8000** for the Replit web server. Do not deploy `uvicorn --reload`. For publishing, choose a web-app deployment such as Autoscale or Reserved VM, not static hosting or a scheduled task.
+Expose **local port 5000** for the Replit web server. Do not deploy `uvicorn --reload`. For publishing, choose a web-app deployment such as Autoscale or Reserved VM, not static hosting or a scheduled task.
 
 ## 3. Replit Secrets / published-app secrets
 
@@ -119,3 +119,7 @@ Browser smoke test with synthetic CV:
 - Evidence and signal governance exist as prototype APIs; not all curator/history screens are complete.
 - The dataset and matching scores are educational estimates, not verified job prospects, probabilities, or promises.
 
+
+## Submission version checklist
+
+Confirm the deployment is built from the GitHub `main` commit currently approved by the team; do not assume a private Replit preview is a published link. Record both the full commit SHA and deployment URL in the SDC proof-of-use form. See `submission/README.md` for the official PDF naming checklist.
