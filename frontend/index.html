@@ -1201,7 +1201,7 @@ class Component extends DCLogic {
     // Start flow (/start): choose -> cv | form -> check -> quiz -> results. Nothing is saved until the quiz step ends.
     startStep: "choose", cvName: "", extracting: false, startError: "", catalog: [],
     form: { role: "", years: 0, qualification: "", qualificationLegacy: "", industry: "", interests: "", languages: "", goals: "", aiComfort: "", workArrangement: "", motivation: "" }, formPicked: [], formQuery: "",
-    draft: null, draftSource: "", scannedCv: false, addOpen: false, formOpen: false, meta: { name: "My profile", headline: "", years: 0, hours: 6 }, approved: false, addQuery: "",
+    draft: null, draftSource: "", scannedCv: false, extractionProvider: "", addOpen: false, formOpen: false, meta: { name: "My profile", headline: "", years: 0, hours: 6 }, approved: false, addQuery: "",
     quizQuestions: [], quizLikert: [], quizAnswers: {}, saving: false, confirmError: "",
     // Saved people: each finished Start run is a person; activeProfileId is whose results are shown (remembered in this browser).
     people: [], activeProfileId: savedActiveProfile(), editingId: null, confirmDeleteId: null,
@@ -1323,7 +1323,7 @@ class Component extends DCLogic {
   }
   setStep(step) { this.setState({ startStep: step, startError: '', confirmError: '' }); try { window.scrollTo(0, 0); } catch (e) {} }
   // A new person: nothing is overwritten; finishing Start saves them alongside the others.
-  startOver() { this._cvFile = null; this.setState(s => ({ draft: null, cvName: '', formPicked: [], quizAnswers: {}, approved: false, editingId: null,
+  startOver() { this._cvFile = null; this.setState(s => ({ draft: null, cvName: '', formPicked: [], quizAnswers: {}, approved: false, editingId: null, scannedCv: false, extractionProvider: "",
     form: { role: '', years: 0, qualification: '', qualificationLegacy: '', industry: '', interests: '', languages: '', goals: '', aiComfort: '', workArrangement: '', motivation: '' }, meta: { name: '', headline: '', years: 0, hours: 6 } })); this.go('start'); this.setStep('choose'); }
   async loadCatalog() {
     try {
@@ -1372,9 +1372,15 @@ class Component extends DCLogic {
       const result = await FP_API.send('/api/extract', { method: 'POST', body });
       if (!this._alive) return;
       // A scanned PDF is flagged so the person checks the quotes carefully.
-      this.setState({ extracting: false, scannedCv: !!result.scanned });
-      this.toCheck((result.candidates || []).map(c => ({ id: c.skill_id, name: c.name, ev: 'Your CV mentions “' + c.excerpt + '”', level: 2 })),
-        result.provider === 'dictionary' ? 'keywords' : 'ai', { name: this.newPersonName() });
+      this.setState({ extracting: false, scannedCv: !!result.scanned, extractionProvider: result.provider || "dictionary" });
+      const origin = c => String(c.method || '').startsWith('runpod') ? 'Qwen AI' :
+        String(c.method || '').startsWith('claude') ? 'Claude AI' : 'local dictionary';
+      this.toCheck((result.candidates || []).map(c => ({
+        id: c.skill_id, name: c.name,
+        ev: 'CV evidence (' + origin(c) + '): “' + c.excerpt + '”',
+        level: null,
+      })), result.provider === 'dictionary' ? 'keywords' : 'ai',
+      { name: this.newPersonName() });
     } catch (err) {
       if (this._alive) this.setState({ extracting: false, startError: String(err.message || err) });
     }
@@ -1412,6 +1418,8 @@ class Component extends DCLogic {
     const st = this.state;
     if (!(st.draft || []).length) return this.setState({ confirmError: 'Add at least one skill.' });
     if (!st.approved) return this.setState({ confirmError: 'Tick the box to confirm these skills describe you.' });
+    if (st.draftSource === 'ai' && st.draft.some(d => ![2, 3, 4].includes(d.level)))
+      return this.setState({ confirmError: 'Choose Basic, Working or Strong for every AI-suggested skill before continuing.' });
     this.setStep('quiz');
   }
   async saveProfile(withQuiz) {
@@ -1490,8 +1498,12 @@ class Component extends DCLogic {
     const aq = st.addQuery.trim().toLowerCase();
     const addOptions = st.addOpen || aq ? st.catalog.filter(s => match(s, aq) && !draft.some(d => d.id === s.id)).sort(byName).map(s => ({ name: s.name,
       add: () => this.setState(x => ({ draft: [...(x.draft || []), { id: s.id, name: s.name, ev: "Added by you", level: 2 }], addQuery: "", approved: false })) })) : [];
-    const draftNote = { ai: st.scannedCv ? "Your PDF looked scanned, so Claude read the page images. Each skill quotes the text it came from; please check them carefully." : "Skills suggested by Claude from your CV. Each one quotes the line it came from. Please check them.",
-      keywords: "Claude is not configured, so skills were matched by keywords. Please check them carefully.",
+    const draftNote = { ai: st.scannedCv
+      ? "This PDF had no readable text layer, so Claude analysed the document. Check every skill and its evidence."
+      : st.extractionProvider === "runpod"
+        ? "Qwen on RunPod suggested skills, supplemented by the local dictionary. Check the evidence and choose each proficiency level."
+        : "Claude suggested skills from your CV. Check the evidence and choose each proficiency level.",
+      keywords: "Skills matched by the local dictionary, not GPU AI. Review every suggestion carefully.",
       form: "Skills you added in the form. Set how strong each one is.", saved: "These are the skills saved in your profile." }[st.draftSource] || "Add the skills you have.";
     const quizDone = st.quizQuestions.filter(q => st.quizAnswers[q.id]).length, quizTotal = st.quizQuestions.length || 18;
     const quizRows = st.quizQuestions.map((q, i) => ({ n: i + 1, text: q.text, options: st.quizLikert.map(l => { const on = st.quizAnswers[q.id] === l.value;
@@ -1502,7 +1514,7 @@ class Component extends DCLogic {
       isChoose: step === "choose", isCvStep: step === "cv", isFormStep: step === "form", isCheckStep: step === "check", isQuizStep: step === "quiz",
       hasPeople: peopleRows.length > 0, peopleCount: peopleRows.length, peopleRows, backToChoose: () => this.setStep("choose"),
       cvPickLbl: st.cvName || "Choose a PDF", onCvFile: e => this.onCvFile(e), readCv: () => { if (!st.extracting && st.cvName) this.readCv(); },
-      readLbl: st.extracting ? "Reading your CV…" : "Read my CV", readOp: st.cvName && !st.extracting ? "1" : ".45",
+      readLbl: st.extracting ? "Extracting skills (GPU may be starting)…" : "Read my CV", readOp: st.cvName && !st.extracting ? "1" : ".45",
       fRole: st.form.role, fYears: st.form.years, fQual: st.form.qualification, fIndustry: st.form.industry, fInterests: st.form.interests,
       fAiComfort: st.form.aiComfort, fArrangement: st.form.workArrangement, fMotivation: st.form.motivation,
       fLangs: st.form.languages, fGoals: st.form.goals, studyHourOptions,
@@ -1519,7 +1531,7 @@ class Component extends DCLogic {
       onMName: setMeta("name"), onMYears: setMeta("years"),
       approved: st.approved, toggleApproved: () => this.setState(x => ({ approved: !x.approved, confirmError: "" })),
       backFromCheck: () => this.setStep(st.draftSource === "form" ? "form" : st.draftSource === "saved" ? "choose" : "cv"),
-      toQuiz: () => this.toQuiz(), quizOp: st.approved && draft.length ? "1" : ".45",
+      toQuiz: () => this.toQuiz(), quizOp: st.approved && draft.length && (st.draftSource !== 'ai' || draft.every(d => [2, 3, 4].includes(d.level))) ? "1" : ".45",
       quizRows, quizDone, quizTotal, quizPct: Math.round(100 * quizDone / quizTotal) + "%", backToCheck: () => this.setStep("check"),
       skipQuiz: () => { if (!st.saving) this.saveProfile(false); }, finishQuiz: () => { if (!st.saving && quizComplete) this.saveProfile(true); },
       finishLbl: st.saving ? "Saving…" : "See my results →", finishOp: quizComplete && !st.saving ? "1" : ".45",

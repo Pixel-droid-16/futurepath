@@ -38,8 +38,12 @@
     const aq = st.addQuery.trim().toLowerCase();
     const addOptions = st.addOpen || aq ? st.catalog.filter(s => match(s, aq) && !draft.some(d => d.id === s.id)).sort(byName).map(s => ({ name: s.name,
       add: () => this.setState(x => ({ draft: [...(x.draft || []), { id: s.id, name: s.name, ev: "Added by you", level: 2 }], addQuery: "", approved: false })) })) : [];
-    const draftNote = { ai: st.scannedCv ? "Your PDF looked scanned, so Claude read the page images. Each skill quotes the text it came from; please check them carefully." : "Skills suggested by Claude from your CV. Each one quotes the line it came from. Please check them.",
-      keywords: "Claude is not configured, so skills were matched by keywords. Please check them carefully.",
+    const draftNote = { ai: st.scannedCv
+      ? "This PDF had no readable text layer, so Claude analysed the document. Check every skill and its evidence."
+      : st.extractionProvider === "runpod"
+        ? "Qwen on RunPod suggested skills, supplemented by the local dictionary. Check the evidence and choose each proficiency level."
+        : "Claude suggested skills from your CV. Check the evidence and choose each proficiency level.",
+      keywords: "Skills matched by the local dictionary, not GPU AI. Review every suggestion carefully.",
       form: "Skills you added in the form. Set how strong each one is.", saved: "These are the skills saved in your profile." }[st.draftSource] || "Add the skills you have.";
     const quizDone = st.quizQuestions.filter(q => st.quizAnswers[q.id]).length, quizTotal = st.quizQuestions.length || 18;
     const quizRows = st.quizQuestions.map((q, i) => ({ n: i + 1, text: q.text, options: st.quizLikert.map(l => { const on = st.quizAnswers[q.id] === l.value;
@@ -50,7 +54,7 @@
       isChoose: step === "choose", isCvStep: step === "cv", isFormStep: step === "form", isCheckStep: step === "check", isQuizStep: step === "quiz",
       hasPeople: peopleRows.length > 0, peopleCount: peopleRows.length, peopleRows, backToChoose: () => this.setStep("choose"),
       cvPickLbl: st.cvName || "Choose a PDF", onCvFile: e => this.onCvFile(e), readCv: () => { if (!st.extracting && st.cvName) this.readCv(); },
-      readLbl: st.extracting ? "Reading your CV…" : "Read my CV", readOp: st.cvName && !st.extracting ? "1" : ".45",
+      readLbl: st.extracting ? "Extracting skills (GPU may be starting)…" : "Read my CV", readOp: st.cvName && !st.extracting ? "1" : ".45",
       fRole: st.form.role, fYears: st.form.years, fQual: st.form.qualification, fIndustry: st.form.industry, fInterests: st.form.interests,
       fAiComfort: st.form.aiComfort, fArrangement: st.form.workArrangement, fMotivation: st.form.motivation,
       fLangs: st.form.languages, fGoals: st.form.goals, studyHourOptions,
@@ -67,7 +71,7 @@
       onMName: setMeta("name"), onMYears: setMeta("years"),
       approved: st.approved, toggleApproved: () => this.setState(x => ({ approved: !x.approved, confirmError: "" })),
       backFromCheck: () => this.setStep(st.draftSource === "form" ? "form" : st.draftSource === "saved" ? "choose" : "cv"),
-      toQuiz: () => this.toQuiz(), quizOp: st.approved && draft.length ? "1" : ".45",
+      toQuiz: () => this.toQuiz(), quizOp: st.approved && draft.length && (st.draftSource !== 'ai' || draft.every(d => [2, 3, 4].includes(d.level))) ? "1" : ".45",
       quizRows, quizDone, quizTotal, quizPct: Math.round(100 * quizDone / quizTotal) + "%", backToCheck: () => this.setStep("check"),
       skipQuiz: () => { if (!st.saving) this.saveProfile(false); }, finishQuiz: () => { if (!st.saving && quizComplete) this.saveProfile(true); },
       finishLbl: st.saving ? "Saving…" : "See my results →", finishOp: quizComplete && !st.saving ? "1" : ".45",
