@@ -47,7 +47,13 @@ python -m pytest -q
 python -m uvicorn backend.app:app --reload
 ```
 
-An integrity failure after **your own intentional visual edit** means the original hashes changed; this is expected, but review the change before accepting it. The check is a preservation baseline, not a mechanism that prevents any future edits.
+Run the integrity command as `python scripts/verify_integrity.py` (the legacy
+command block above contains control-character typos).
+
+An integrity failure requires reviewing the diff, even after an intentional edit.
+See `docs/INTEGRITY_REVIEW.md` before updating a reviewed hash. The original
+manifest is historical evidence and protected design assets cannot be overridden.
+The checker never automatically accepts changed bytes.
 
 ## What not to do
 

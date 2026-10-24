@@ -1,5 +1,10 @@
 # Preservation report — reorganised release
 
+> Historical report for the initial modular reorganization, not invariants of
+> today's release. Later source, datasets and assembled UI intentionally evolved.
+> See [the current integrity review](INTEGRITY_REVIEW.md) for reviewed differences,
+> exact hash coverage and the distinction between original and evolved files.
+
 ## Intended invariants
 
 1. **Original v2 home HTML** remains byte-for-byte identical to the previous package.
