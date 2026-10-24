@@ -54,3 +54,7 @@ waitForPort = 5000
 
 [workflows.workflow.metadata]
 outputType = "webview"
+
+[postMerge]
+path = "scripts/post_merge.sh"
+timeoutMs = 180000

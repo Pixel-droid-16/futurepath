@@ -14,3 +14,12 @@ an allowlisted child process, propagate the current Python module search path:
 Replit's managed packages may not be discoverable from the interpreter alone.
 The unchanged frontend also depends on pinned CDN runtime scripts; allow those
 scripts rather than treating all external requests as optional images/fonts.
+
+Explicitly include the browser-test directory when passing its opt-in flag,
+including in a combined backend/browser test invocation.
+
+**Why:** The flag is registered by a nested pytest configuration; top-level
+automatic discovery can reject the option before loading that configuration.
+
+**How to apply:** Follow the documented explicit browser-directory invocation
+rather than assuming the ordinary top-level command recognizes browser options.

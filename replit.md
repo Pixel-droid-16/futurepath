@@ -22,8 +22,13 @@ python -m uvicorn backend.app:app --host 0.0.0.0 --port 5000
 Port 5000 maps to external port 80 for Replit's web preview. This differs from
 the release checklist's local port 8000 only for preview compatibility.
 Python 3.12 and the original import's runtime settings are retained.
-Dependencies come from the unchanged `requirements.txt`, installed with
+Dependencies come from `requirements.txt`, installed with
 Replit's package manager into its managed Python environment, not a virtualenv.
+
+After task merges, `scripts/post_merge.sh` installs the merged Python
+requirements, assembles the existing frontend, and compiles the backend.
+It does not run inference, modify profile data, or publish. Workflow
+reconciliation restarts the existing preview after successful setup.
 
 ```sh
 SIGNALS_REFRESH_HOURS=0 FUTUREPATH_DB=/tmp/futurepath_tests.sqlite3 python -m pytest -q --tb=short
@@ -35,8 +40,16 @@ Initial setup: 83 tests passed; compilation passed; the frontend builder reporte
 UNCHANGED. Browser preview of `/start`, page/API requests, and a fictional TXT
 upload using the dictionary provider worked. No live paid provider was called.
 Browser output includes existing numeric-template warnings and a missing favicon.
-The complete interactive browser flow and live RunPod/Claude extraction have
-not been verified on Replit.
+After the browser-test merge, the combined suite passed **94 tests**, including
+the isolated Chromium journeys. Run it with explicit browser collection:
+
+```sh
+python -m pytest tests tests/browser --browser -q --tb=short
+```
+
+These tests use disposable storage and stubbed providers; they do not verify
+live inference or published deployment health. The separate authorized live
+RunPod smoke test previously succeeded; Claude inference remains unverified.
 
 `scripts/verify_integrity.py` reports 14 mismatches against its historical
 manifest. These same mismatches exist in the exact upstream release commit,
