@@ -24,7 +24,7 @@ FuturePath helps students, graduates and working professionals compare their **c
 | Resource | Link / status |
 |---|---|
 | GitHub repository | [Pixel-droid-16/futurepath](https://github.com/Pixel-droid-16/futurepath) |
-| Live Replit deployment | **Pending publication and live verification** |
+| Live Replit deployment | https://futurepathkitahack.replit.app/ |
 | Replit development project | [FuturePath Replit workspace](https://replit.com/@b152610182/futurepath) (may require project access) |
 | RunPod endpoint | Configured through `RUNPOD_ENDPOINT_ID`; API key is private |
 | Presentation / slide deck | https://drive.google.com/drive/folders/1ZWO4zt3pfn5IgmirVihVO56epyx6NYDD?usp=sharing Video presentation Link : https://youtu.be/8qehmrugJyo |
