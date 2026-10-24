@@ -30,6 +30,7 @@ jobs:
         env:
           FUTUREPATH_PUBLIC_DEMO: '0'
           SIGNALS_REFRESH_HOURS: '0'
+          PYTHONPATH: ${{ github.workspace }}
           SIGNALS_AUTO_AI_ENABLED: ${{ vars.SIGNALS_AUTO_AI_ENABLED || '0' }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: python scripts/update_live_signals.py
