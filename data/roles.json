@@ -1063,11 +1063,60 @@
     "title": "Full-Stack Web & Applications Developer",
     "sector": "Technology & AI",
     "skills": [
-      { "skill_id": "SK003", "required": 4, "importance": 3, "category": "essential" },
-      { "skill_id": "SK001", "required": 4, "importance": 3, "category": "essential" },
-      { "skill_id": "SK071", "required": 3, "importance": 3, "category": "essential" },
-      { "skill_id": "SK007", "required": 3, "importance": 2, "category": "supporting" },
-      { "skill_id": "SK082", "required": 3, "importance": 1, "category": "supporting" }
+      {
+        "skill_id": "SK109",
+        "required": 4,
+        "importance": 3,
+        "category": "essential"
+      },
+      {
+        "skill_id": "SK110",
+        "required": 3,
+        "importance": 3,
+        "category": "essential"
+      },
+      {
+        "skill_id": "SK111",
+        "required": 3,
+        "importance": 3,
+        "category": "essential"
+      },
+      {
+        "skill_id": "SK112",
+        "required": 3,
+        "importance": 3,
+        "category": "essential"
+      },
+      {
+        "skill_id": "SK115",
+        "required": 3,
+        "importance": 2,
+        "category": "supporting"
+      },
+      {
+        "skill_id": "SK001",
+        "required": 3,
+        "importance": 2,
+        "category": "supporting"
+      },
+      {
+        "skill_id": "SK114",
+        "required": 3,
+        "importance": 2,
+        "category": "supporting"
+      },
+      {
+        "skill_id": "SK007",
+        "required": 3,
+        "importance": 1,
+        "category": "supporting"
+      },
+      {
+        "skill_id": "SK082",
+        "required": 3,
+        "importance": 1,
+        "category": "supporting"
+      }
     ],
     "sdgs": [ 8, 9 ],
     "description": "Engineers scalable front-end and back-end web applications using modern web frameworks for local enterprise and fintech ecosystems.",
