@@ -74,7 +74,7 @@ def test_invalid_review_manifest_fails(tree, kind):
 def test_every_override_is_a_changed_file_and_documented():
     reviewed = json.loads((ROOT / 'docs/REVIEWED_FILE_HASHES.json').read_text())
     report = (ROOT / 'docs/INTEGRITY_REVIEW.md').read_text()
-    assert len(reviewed) == 19
+    assert len(reviewed) == 20
     for name, digest in reviewed.items():
         assert f'`{name}`' in report
         assert hashlib.sha256((ROOT / name).read_bytes()).hexdigest() == digest

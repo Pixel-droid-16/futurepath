@@ -13,7 +13,7 @@ use actual Git blobs, not an assumption that the visible log is complete.
 This review also covers the current pre-review tree at `67d602b`, including
 the upstream feature update `59b31e6` and Replit/test setup. That tree has 15
 warnings: `backend/scenarios.py` is the additional changed file. Four more files
-were silently excluded by the old checker, so 19 reviewed hashes are recorded.
+were silently excluded by the old checker, so 19 reviewed hashes were originally recorded. One additional reviewed documentation file is now tracked, giving 20 reviewed entries.
 These are exact accepted bytes, not permission for arbitrary future changes.
 
 ## Reviewed changes (all paths in REVIEWED_FILE_HASHES.json)
@@ -39,11 +39,12 @@ These are exact accepted bytes, not permission for arbitrary future changes.
 | `backend/ai_providers.py` | Previously exempt compatibility wrapper for modular providers; later exposes PDF/page helpers and configured model names. Pin current wrapper. |
 | `README.md` | Previously exempt rewrite documenting the modular app, current features and safe demo setup. Pin current documentation. |
 | `frontend/index.html` | Previously exempt assembled UI. Intentional historical Start/Results/Pathway/Signals updates, AI Lab removal, translations and model/scenario labels are preserved. Pin current assembled output, not the obsolete pre-modular page. |
+| `docs/ARCHITECTURE.md` | SDC submission alignment replaces an obsolete statement that RunPod/Qwen was merely planned; documents the actual modular backend, privacy limits and Replit port 5000. This is a reviewed documentation correction, not a CSS/JS asset change. |
 
 ## Protection and limits
 
 `python scripts/verify_integrity.py` checks every original manifest entry:
-original hashes by default, reviewed hashes only for the 19 listed files.
+original hashes by default, reviewed hashes only for the 20 listed files.
 Original `frontend/style.css`, `app.js`, `support.js`, `image-slot.js`, `hero.svg`,
 and all listed assets/uploads cannot receive reviewed overrides. Other unchanged
 files (including original snapshots and learning resources) retain original hashes.
@@ -67,3 +68,13 @@ or pixel rendering. Use behavioral tests for those contracts.
 4. Build the frontend when editing its source, run integrity and regression tests.
 
 This review changes no application source, rendered UI, or datasets.
+
+## SDC main alignment and Signals refresh review (2026-10-24)
+
+The user authorized direct changes on GitHub `main` without new branches. The release was fast-forwarded to `f7ddb66`, preserving 30 upstream commits. The documentation update `761102f` rewrote `README.md` to match the official SDC Hackathon submission template and replaced the obsolete `docs/ARCHITECTURE.md`; it also corrected the Replit port reference to 5000 and added a pending submission checklist. No example placeholder handler was copied into the working project.
+
+The Signals fix `f3443e6` integrated the already-reviewed isolated admin-refresh hotfix into the latest teammate frontend rather than overwriting its career/scenario changes. It changed the generated V2 `frontend/index.html` and the editable Signals fragments, added a read-only refresh-capability endpoint, preserved admin restrictions, and updated `.env.example` to document optional `ADMIN_TOKEN`. The original protected `frontend/app.js`, `frontend/style.css`, runtime helpers and image assets remain untouched.
+
+Four previously reviewed file hashes were updated to the actual accepted bytes (`README.md`, `frontend/index.html`, `.env.example`, and newly reviewed `docs/ARCHITECTURE.md`). This is a **narrow documented review**, not a baseline reset. The original manifest remains unchanged. The existing malicious-change fixture still requires verification failures when any reviewed file is modified or removed.
+
+Fresh final combined tests and browser validation are required; these hash updates are **not** a claim that the Signals refresh or all application paths have passed tests.
