@@ -313,3 +313,9 @@ bytes, not correctness; the regression suite remains the evidence for behaviour.
 and its AI field ignored the daily GitHub job. Both now follow `/api/signals/status`, which reports
 `external_ai_verification` when the job's latest snapshot, or one from this or the previous UTC day,
 was Claude-verified. English, Malay and Chinese wording added; no layout or asset changes.
+
+## Simplified Signals status panel (25 October 2026)
+
+`frontend/index.html` only: at the team's request the status panel shows one plain sentence and the
+last-checked date instead of seven status fields. The sentence says whether new evidence is added
+after AI verification, checks are paused, or checks run without AI. English, Malay and Chinese.

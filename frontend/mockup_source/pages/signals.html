@@ -13,23 +13,12 @@
   </section>
 
   <section aria-label="{{ sigStatusTitle }}" style="padding:24px max(clamp(20px,4vw,48px),calc((100% - 1200px)/2)) 0">
-    <div style="background:var(--sf);border:1px solid var(--ln);border-radius:20px;padding:18px 22px;display:flex;flex-direction:column;gap:12px">
-      <div style="display:flex;flex-wrap:wrap;gap:10px 24px;align-items:flex-start">
-        <div style="flex:1 1 210px">
-          <b style="font-size:15px;font-weight:600">{{ sigStatusTitle }}</b>
-          <p style="margin:4px 0 0;font-size:13px;line-height:1.5;color:var(--mu)">{{ sigNoPublish }}</p>
-        </div>
-        <div style="display:flex;flex:2 1 600px;flex-wrap:wrap;gap:10px 24px;border-left:1px solid var(--ln);padding-left:20px">
-          <span style="font-size:13px;color:var(--mu)"><b style="color:var(--ink)">{{ sigFrequencyLabel }}:</b> {{ sigFrequency }}</span>
-          <span style="font-size:13px;color:var(--mu)"><b style="color:var(--ink)">{{ sigLastSuccessLabel }}:</b> {{ sigLastSuccess }}</span>
-          <span style="font-size:13px;color:var(--mu)"><b style="color:var(--ink)">{{ sigNextLabel }}:</b> {{ sigNextExpected }}</span>
-          <span style="font-size:13px;color:var(--mu)"><b style="color:var(--ink)">{{ sigStatusLabel }}:</b> {{ sigAutoStatus }}</span>
-          <span style="font-size:13px;color:var(--mu)"><b style="color:var(--ink)">{{ sigHealthLabel }}:</b> {{ sigHealth }}</span>
-          <span style="font-size:13px;color:var(--mu)"><b style="color:var(--ink)">{{ sigAIlabel }}:</b> {{ sigAIStatus }}</span>
-          <span style="font-size:13px;color:var(--mu)"><b style="color:var(--ink)">{{ sigQuarantinedLabel }}:</b> {{ sigQuarantined }}</span>
-        </div>
+    <div style="background:var(--sf);border:1px solid var(--ln);border-radius:20px;padding:18px 22px;display:flex;flex-wrap:wrap;gap:8px 24px;align-items:baseline;justify-content:space-between">
+      <div style="flex:1 1 320px">
+        <b style="font-size:15px;font-weight:600">{{ sigStatusTitle }}</b>
+        <p role="status" style="margin:4px 0 0;font-size:13px;line-height:1.5;color:var(--mu)">{{ sigSummary }}</p>
       </div>
-      <p role="status" style="margin:0;border-top:1px solid var(--ln);padding-top:10px;font-size:13px;line-height:1.5;color:var(--mu)">{{ sigStatusMessage }}</p>
+      <span style="font-size:13px;color:var(--mu)"><b style="color:var(--ink)">{{ sigLastSuccessLabel }}:</b> {{ sigLastSuccess }}</span>
     </div>
   </section>
 
