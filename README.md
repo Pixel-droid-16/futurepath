@@ -221,7 +221,7 @@ The Replit application hosts the FastAPI + V2 website and connects server-side t
 
 - [x] Team name, domain (Domain 1 / Domain 2) and SDG track filled in
 - [x] Slide deck link added
-- [ ] Demo video link added
+- [x] Demo video link added
 - [x] Replit used, with proof of use in `submission/`
 - [x] RunPod used, with proof of use in `submission/`
 - [x] Preliminary submission completed (`SDC2026_KitaHack_Preliminary.pdf`)
