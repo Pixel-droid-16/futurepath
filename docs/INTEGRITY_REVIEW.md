@@ -257,3 +257,24 @@ The independent README update `06fb0f8` changed the team-name placeholder
 to `KitaHack`. The exact existing README bytes are retained, and only the
 corresponding reviewed SHA256 entry was updated. The original baseline and
 all protected V2 design assets are unchanged.
+
+## SDG explanations, interface tidy-up and README submission details (25 October 2026)
+
+Three previously reviewed hashes are updated to the exact bytes merged into `main`
+at `36d5a30`. The original manifest, the seventeen other reviewed hashes and all
+protected V2 design assets are unchanged.
+
+- `data/roles.json`: `70fe0af` replaces the placeholder `sdg_justification` text on
+  12 of the 44 careers with role-specific explanations. No other field changes:
+  role IDs, skill requirements, interests and scoring inputs are as reviewed at `95cd1a9`.
+- `frontend/index.html`: reassembled from the V2 fragments after `70fe0af`, which
+  aligns the Home hero, removes the Start page's "Private by design" box, reduces the
+  Pathway SDG box to its badge and adds the matching Malay and Chinese text. The page
+  equals its assembly source; no stylesheet, image or original asset changes.
+- `README.md`: team-authored submission details since `06fb0f8`: confirmed members,
+  SDG track and `src/` layout (`515cb6d`), repository structure (`0523435`), team
+  information, presentation link and PDF descriptions (`b2bdfe6`, `1363db7`,
+  `c962058`, `166a9d8`, `07cb77d`, `b23b1e4`, `cc0c51d`). Documentation only.
+
+These hashes record accepted bytes, not correctness; the regression suite and
+browser checks remain the evidence for behaviour.
