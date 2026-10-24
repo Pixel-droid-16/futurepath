@@ -566,6 +566,7 @@ const FP_TEXT = {
   "Named as declining": ["Named as declining", "Dinyatakan menurun", "被列为减少"],
   "Show all": ["Show all", "Tunjuk semua", "显示全部"],
   "Show fewer": ["Show fewer", "Tunjuk kurang", "显示较少"],
+  "See less": ["See less", "Lihat kurang", "收起"],
   "The signals behind these trends": ["The signals behind these trends", "Isyarat di sebalik trend ini", "这些趋势背后的信号"],
   "Declining job": ["Declining job", "Pekerjaan menurun", "减少的职业"],
   "Technical": ["Technical", "Teknikal", "技术"],
@@ -744,6 +745,8 @@ const fpTranslation = (text, locale) => {
     : `${linkedGoals[1]} daripada ${linkedGoals[2]} matlamat dikaitkan dengan kerjaya kami (ditandakan).`;
   const weekCount = text.match(/^\+(\d+)$/);
   if (weekCount) return `+${weekCount[1]}`;
+  const seeMore = text.match(/^See more \((\d+)\)$/);
+  if (seeMore) return locale === "zh" ? `查看更多（${seeMore[1]}）` : `Lihat lagi (${seeMore[1]})`;
   const qwenCounts = text.match(/^Qwen on RunPod suggested (\d+) skills; the local dictionary added (\d+) more\. Review all evidence and proficiency levels\.$/);
   if (qwenCounts) return locale === "zh"
     ? `RunPod 上的 Qwen 建议了 ${qwenCounts[1]} 项技能；本地词典另外补充了 ${qwenCounts[2]} 项。请核对所有证据和熟练程度。`

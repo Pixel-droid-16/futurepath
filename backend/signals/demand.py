@@ -67,6 +67,8 @@ def role_demand(role,signals,as_of=None,skill_names=None,scenario='moderate'):
     as_of=as_of or date.today()
     contribs=contributions(role,signals,as_of)
     baseline=sum(c['value'] for c in contribs)
+    # Confidence is how much the evidence agrees, so it comes from the unweighted signals and is the same in every scenario.
+    confidence=confidence_of(contribs)
     for c in contribs:
         c['ai']=is_ai_related(c['signal'])
         if scenario=='rapid' and c['ai']:c['value']*=RAPID_AI_WEIGHT
@@ -76,7 +78,7 @@ def role_demand(role,signals,as_of=None,skill_names=None,scenario='moderate'):
             'direction':c['signal']['direction'],'tagged_by':c['signal']['tagged_by'],'ai_related':c['ai'],
             'via':'names this career' if c['via']=='direct' else 'via '+(skill_names or {}).get(c['via'],c['via'])} for c in contribs[:3]]
     return {'score':squash(raw),'baseline_score':squash(baseline),'raw':round(raw,3),'signal_count':len(contribs),
-            'ai_signal_count':sum(c['ai'] for c in contribs),'confidence':confidence_of(contribs),'cited':cited}
+            'ai_signal_count':sum(c['ai'] for c in contribs),'confidence':confidence,'cited':cited}
 
 def demand_map(roles,signals,as_of=None,skill_names=None,scenario='moderate'):
     return {r['id']:role_demand(r,signals,as_of,skill_names,scenario) for r in roles}

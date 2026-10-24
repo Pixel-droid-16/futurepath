@@ -1,9 +1,4 @@
     // Results (step 4 of /start; /results opens the same view directly).
-    const fmtMonth = d => { try { return new Date(d + "T00:00:00").toLocaleDateString(fpIntlLocale(st.lang), { month: "short", year: "numeric" }); } catch (e) { return d; } };
-    const byDemand = [...ranked].sort((a, b) => b.demand - a.demand);
-    const roleBar = r => ({ title: r.title, w: r.demand + "%", src: r.source.signals?.cited?.[0] ? r.source.signals.cited[0].source + " · " + fmtMonth(r.source.signals.cited[0].date) : "No dated signal" });
-    const risingRoles = byDemand.filter(r => r.demand >= 50).slice(0, 5).map(roleBar);
-    const decliningRoles = byDemand.filter(r => r.demand < 50).reverse().slice(0, 5).map(roleBar);
     const hasQuiz = !!st.profileDemo?.riasec;
     // Fast AI scenario summary, measured from the two live rankings at the current weights (not a fixed claim).
     const scOrder = list => list.map(r => FP_API.card(r, st.ws, st.wd)).sort((a, b) => b.exact - a.exact).map(r => r.id);
@@ -13,7 +8,7 @@
     const scNoAiCount = st.liveRapid.filter(r => r.signals && !r.signals.ai_signal_count).length;
     const scenarioImpact = scShifts.length ? `Right now this changes demand for ${scChanged} of ${scShifts.length} careers (${scSigned(Math.min(...scShifts))} to ${scSigned(Math.max(...scShifts))} points) and ${scFast.filter((id, i) => scMod[i] !== id).length} careers change rank.` : '';
     const scenarioNoAi = scNoAiCount ? `${scNoAiCount} career${scNoAiCount === 1 ? ' has' : 's have'} no AI-related signals yet, so ${scNoAiCount === 1 ? 'its' : 'their'} demand stays the same.` : '';
-    return { ...out, ...startBindings, theme: st.theme, sdgReady: true, sdgTiles, sdgLinkedCount, radarUp, radarDn, radarUpdated, live: FEED[li], liveNext: [1, 2, 3].map(k => FEED[(li + k) % FEED.length]), liveProg: (((tk % CYC) + 1) / CYC * 100) + "%", clock, accent: this.props.accent ?? "violet", lbl: st.theme === "dark" ? "Light" : "Dark",
+    return { ...out, ...startBindings, theme: st.theme, sdgReady: true, sdgTiles, sdgLinkedCount, live: FEED[li], liveNext: [1, 2, 3].map(k => FEED[(li + k) % FEED.length]), liveProg: (((tk % CYC) + 1) / CYC * 100) + "%", clock, accent: this.props.accent ?? "violet", lbl: st.theme === "dark" ? "Light" : "Dark",
       toggle: () => this.setState(s => ({ theme: s.theme === "dark" ? "light" : "dark" })),
       langEn: st.lang === "en", langMs: st.lang === "ms", langZh: st.lang === "zh",
       onLangChange: e => this.setLanguage(e.target.value),
@@ -28,7 +23,9 @@
       startOver: () => this.startOver(),
       hasOtherPeople: st.people.length > 1, personChips: st.people.map(x => { const on = x.id === (st.activeProfileId || "demo");
         return { name: x.name, b: on ? "var(--pr)" : "var(--sf)", c: on ? "var(--pri)" : "var(--ink)", bd: on ? "var(--pr)" : "var(--ln)", open: () => this.switchPerson(x.id) }; }),
-      top4: ranked.slice(0, 4), rest: ranked.slice(4), count: ranked.length, risingRoles, decliningRoles, noDeclining: !decliningRoles.length,
+      top4: ranked.slice(0, 4), rest: st.rolesAll ? ranked.slice(4) : ranked.slice(4, 10), hasMoreRoles: ranked.length > 10,
+      moreRolesLbl: st.rolesAll ? "See less" : `See more (${ranked.length - 10})`, toggleRoles: () => this.setState(s => ({ rolesAll: !s.rolesAll })),
+      count: ranked.length,
       ws: st.ws, wd: st.wd, wsPct: Math.round(ws * 100), wdPct: Math.round(wd * 100),
       onWs: e => this.setState({ ws: +e.target.value, wd: 100 - (+e.target.value) }), onWd: e => this.setState({ wd: +e.target.value, ws: 100 - (+e.target.value) }),
       reset: () => this.setState({ ws: 55, wd: 45 }),

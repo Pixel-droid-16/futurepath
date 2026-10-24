@@ -20,7 +20,9 @@ const FP_API = {
     const skill = this.num(m.skill), demand = this.num(m.demand), hasInterest = m.interest !== null && m.interest !== undefined;
     const interest = hasInterest ? this.num(m.interest) : 0, wi = hasInterest ? 0.2 : 0, share = (ws + wd) || 1;
     const wS = (1 - wi) * ws / share, wD = (1 - wi) * wd / share;
-    const exact = wS * skill + wD * demand + wi * interest, score = Math.round(exact), spread = wD * (m.demand_band || 18);
+    // +2 when the person's chosen interests include this career's sector (backend/engine.py, sector_boost).
+    const boost = Number(m.sector_boost) || 0;
+    const exact = wS * skill + wD * demand + wi * interest + boost, score = Math.round(exact), spread = wD * (m.demand_band || 18);
     const gaps = Array.isArray(rec.gaps) ? rec.gaps : [];
     const f = x => x.toFixed(2).replace(/0$/, '');
     // Fast AI scenario: what counting AI-related signals double did to this career's demand (backend/signals/demand.py).
@@ -40,7 +42,7 @@ const FP_API = {
       partial: gaps.filter(g => g.status === 'partial').map(g => ({ name: g.name, lv: `${g.confirmed}/${g.required}`,
         tip: `Your level ${g.confirmed}, this career needs ${g.required}` })),
       gap: gaps.filter(g => g.status !== 'satisfied' && g.status !== 'partial').map(g => g.name),
-      formula: `${f(wS)} × ${Math.round(skill)} + ${f(wD)} × ${Math.round(demand)}` + (hasInterest ? ` + 0.2 × ${Math.round(interest)}` : '') + ` = ${score}`,
+      formula: `${f(wS)} × ${Math.round(skill)} + ${f(wD)} × ${Math.round(demand)}` + (hasInterest ? ` + 0.2 × ${Math.round(interest)}` : '') + (boost ? ` + ${boost} sector match` : '') + ` = ${score}`,
       why: (rec.signals?.cited || []).map(c => ({ t: c.title, src: `${c.source} · ${c.date} · ${c.direction} · ${c.via}` + (rapid && c.ai_related ? ' · counts double (AI)' : ''), url: c.url })),
       signalLine: rec.signals ? `${rec.signals.signal_count} dated signal${rec.signals.signal_count === 1 ? '' : 's'} behind demand (${rec.signals.confidence} confidence).` : 'Demand uses the synthetic snapshot value.',
       hasAiShift: rapid, aiTag: `AI ${signed(shift)}`, aiShiftC: shift > 0 ? 'var(--up)' : shift < 0 ? 'var(--dn)' : 'var(--mu)',

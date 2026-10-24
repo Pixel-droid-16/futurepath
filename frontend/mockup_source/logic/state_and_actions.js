@@ -10,9 +10,9 @@ class Component extends DCLogic {
     // Saved people: each finished Start run is a person; activeProfileId is whose results are shown (remembered in this browser).
     people: [], activeProfileId: savedActiveProfile(), editingId: null, confirmDeleteId: null,
     // Trend signals (/api/signals): curated reports plus refreshed feeds; whatChanged explains the latest refresh.
-    liveSignals: [], signalRuns: [], whatChanged: null, refreshing: false, refreshMsg: "", skillOutlook: { rising: [], declining: [], updated_at: null, auto_refresh_hours: 0 },
+    liveSignals: [], signalRuns: [], whatChanged: null, refreshing: false, refreshMsg: "",
     // Signals page cards: rising and declining skills (and declining jobs) from stored signals (/api/skill-trends).
-    skillTrends: null, trendsAll: false, sigView: "trends",
+    skillTrends: null, trendsAll: false, rolesAll: false, sigView: "trends",
     pathDone: savedPathDone() };
   componentDidUpdate(p) {
     const q = this.props, u = {};
@@ -44,8 +44,8 @@ class Component extends DCLogic {
   }
   async loadSignals() {
     try {
-      const [liveSignals, signalRuns, whatChanged, meta, skillOutlook] = await Promise.all([FP_API.json('/api/signals'), FP_API.json('/api/signals/runs'), FP_API.json('/api/what-changed' + this.profileQuery('?')), FP_API.json('/api/meta'), FP_API.json('/api/skill-outlook')]);
-      if (this._alive) this.setState({ liveSignals, signalRuns, whatChanged, courseTotal: meta.courses_count, skillOutlook });
+      const [liveSignals, signalRuns, whatChanged, meta] = await Promise.all([FP_API.json('/api/signals'), FP_API.json('/api/signals/runs'), FP_API.json('/api/what-changed' + this.profileQuery('?')), FP_API.json('/api/meta')]);
+      if (this._alive) this.setState({ liveSignals, signalRuns, whatChanged, courseTotal: meta.courses_count });
     } catch (e) { console.warn('FuturePath: could not load trend signals', e); }
     try { const skillTrends = await FP_API.json('/api/skill-trends'); if (this._alive) this.setState({ skillTrends }); }
     catch (e) { console.warn('FuturePath: could not load skill trends', e); }

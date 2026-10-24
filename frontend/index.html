@@ -28,10 +28,6 @@
 <a onClick="{{ goSignals }}" style="font-size:14px;font-weight:600;color:var(--pr)">See all signals →</a><p style="margin:0;font-size:12px;color:var(--mu)">Source titles and course names are shown in their original language.</p></div></section>
 <section style="padding:72px max(clamp(20px,4vw,48px),calc((100% - 1200px)/2)) 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:20px;align-items:center"><div><span style="font:600 12px 'Geist Mono',monospace;letter-spacing:.06em;color:var(--pr)">WHY NOW</span><h2 style="margin:8px 0 0;font-size:clamp(26px,3vw,34px);line-height:1.15;letter-spacing:-.03em;font-weight:700">Future-Ready Career Navigator</h2></div><div style="background:var(--sf);border:1px solid var(--ln);border-radius:24px;padding:24px;display:flex;flex-direction:column;gap:8px"><b style="font-size:36px;font-weight:800;letter-spacing:-.03em;color:var(--pr)">56%</b><span style="font-size:15px;line-height:1.5">of Malaysian professionals use AI at work, but only 26% have had formal training.</span><a href="https://sea.peoplemattersglobal.com/article/strategic-hr/ai-in-malaysian-workplaces-a-strategic-outlook-46436" target="_blank" rel="noopener noreferrer" style="font:12px 'Geist Mono',monospace;color:var(--mu)">Hays Asia Salary Guide 2025</a></div><div style="background:var(--sf);border:1px solid var(--ln);border-radius:24px;padding:24px;display:flex;flex-direction:column;gap:8px"><b style="font-size:36px;font-weight:800;letter-spacing:-.03em;color:var(--pr)">600,000+</b><span style="font-size:15px;line-height:1.5">workers will need reskilling within the next 3–5 years.</span><a href="https://www.malaymail.com/news/malaysia/2025/01/07/mosti-ai-disruption-looms-in-malaysia-600000-workers-must-reskill-in-three-to-five-years/162368" target="_blank" rel="noopener noreferrer" style="font:12px 'Geist Mono',monospace;color:var(--mu)">MOSTI</a></div></section>
 <section style="padding:72px max(clamp(20px,4vw,48px),calc((100% - 1200px)/2));display:flex;flex-direction:column;gap:28px">
-<div style="display:flex;flex-wrap:wrap;align-items:flex-end;gap:12px 32px"><div style="flex:1 1 420px"><span style="font:600 12px 'Geist Mono',monospace;letter-spacing:.06em;color:var(--pr)">FUTURE SKILLS RADAR</span><h2 style="margin:8px 0 0;font-size:clamp(26px,3vw,34px);line-height:1.1;letter-spacing:-.03em;font-weight:700">What's rising, what's fading</h2></div><p style="flex:1 1 320px;margin:0;color:var(--mu);font-size:16px;line-height:1.55"><span style="display:block;font:12px 'Geist Mono',monospace;color:var(--mu)">{{ radarUpdated }}</span></p></div>
-<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:20px">
-<div style="background:var(--sf);border:1px solid var(--ln);border-radius:24px;padding:24px;display:flex;flex-direction:column;gap:16px"><b style="font-size:17px;font-weight:600;color:var(--up)">↑ Rising skills</b><sc-for list="{{ radarUp }}" as="k" hint-placeholder-count="5"><div style="display:flex;gap:12px;align-items:center"><span style="flex:none;width:28px;height:28px;border-radius:8px;background:var(--upbg);color:var(--up);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px">↑</span><div style="flex:1;min-width:0"><div style="font-size:14px;font-weight:500">{{ k.t }}</div><div style="margin-top:6px;height:6px;border-radius:6px;background:var(--sf2)"><div style="height:100%;border-radius:6px;background:var(--up);width:{{ k.w }}"></div></div></div></div></sc-for></div>
-<div style="background:var(--sf);border:1px solid var(--ln);border-radius:24px;padding:24px;display:flex;flex-direction:column;gap:16px"><b style="font-size:17px;font-weight:600;color:var(--dn)">↓ Declining skills</b><sc-for list="{{ radarDn }}" as="k" hint-placeholder-count="4"><div style="display:flex;gap:12px;align-items:center"><span style="flex:none;width:28px;height:28px;border-radius:8px;background:var(--dnbg);color:var(--dn);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px">↓</span><div style="flex:1;min-width:0"><div style="font-size:14px;font-weight:500">{{ k.t }}</div><div style="margin-top:6px;height:6px;border-radius:6px;background:var(--sf2)"><div style="height:100%;border-radius:6px;background:var(--dn);width:{{ k.w }}"></div></div></div></div></sc-for><a onClick="{{ goSignals }}" style="margin-top:auto;font-size:14px;font-weight:600;color:var(--pr)">See the signals behind this →</a></div></div>
 <div style="background:var(--sf);border:1px solid var(--ln);border-radius:24px;padding:24px;display:flex;flex-direction:column;gap:18px"><div style="display:flex;flex-wrap:wrap;gap:6px 24px;align-items:baseline"><b style="font-size:17px;font-weight:600">Every role links to the UN SDGs</b><span style="font-size:14px;color:var(--mu)">{{ sdgLinkedCount }} of the 17 goals are linked to our roles (highlighted).</span></div>
 <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:8px"><sc-if value="{{ sdgReady }}" hint-placeholder-val="{{ false }}"><sc-for list="{{ sdgTiles }}" as="g"><div role="img" aria-label="SDG {{ g.n }}: {{ g.name }}{{ g.note }}" title="SDG {{ g.n }}: {{ g.name }}{{ g.note }}" style="width:100%;aspect-ratio:1;border-radius:12px;background:{{ g.bgImg }};filter:{{ g.filter }};opacity:{{ g.op }}"></div></sc-for></sc-if></div><p style="margin:0;font-size:12px;color:var(--mu)">SDG icons © United Nations, used for information only; no endorsement implied.</p></div></section></main></sc-if>
 <sc-if value="{{ showStartFlow }}" hint-placeholder-val="{{ false }}"><main data-screen-label="Start" style="flex:1;display:flex;flex-direction:column"><section style="background:var(--hero);border-bottom:1px solid var(--ln);padding:56px max(clamp(20px,4vw,48px),calc((100% - 1200px)/2)) 44px"><span style="font:600 12px 'Geist Mono',monospace;letter-spacing:.06em;color:var(--pr)">STEP {{ stepNo }} OF 4</span><h1 style="margin:8px 0 0;font-size:clamp(34px,4.5vw,52px);line-height:1.05;letter-spacing:-.035em;font-weight:700">Build your skills profile</h1><p style="margin:12px 0 0;font-size:17px;line-height:1.55;color:var(--mu);max-width:640px">Choose how to start. You'll review and confirm everything before anything is saved.</p>
@@ -130,11 +126,8 @@
 <div style="font:12px 'Geist Mono',monospace;color:var(--mu);background:var(--sf2);border-radius:12px;padding:8px 12px">{{ r.formula }}</div>
 <details style="font-size:13px;line-height:1.5"><summary style="cursor:pointer;color:var(--pr);font-weight:600">Why this role, signals and interest fit</summary><div style="display:flex;flex-direction:column;gap:8px;padding-top:10px"><span style="color:var(--mu)">{{ r.signalLine }}</span><sc-for list="{{ r.why }}" as="w"><div style="border-left:3px solid var(--ln);padding-left:10px"><a href="{{ w.url }}" target="_blank" rel="noopener noreferrer" style="color:var(--ink);font-weight:500">{{ w.t }} ↗</a><div style="font:11px 'Geist Mono',monospace;color:var(--mu)">{{ w.src }}</div></div></sc-for><span><b style="font-weight:600">Interest fit:</b> {{ r.interestWhy }}</span></div></details>
 <a onClick="{{ r.goPathway }}" style="margin-top:auto;background:var(--pr);color:var(--pri);border-radius:12px;padding:12px 20px;font-size:15px;font-weight:600;text-align:center">See pathway →</a></article></sc-for></div>
-<div style="background:var(--sf);border:1px solid var(--ln);border-radius:24px;padding:8px 24px"><sc-for list="{{ rest }}" as="r" hint-placeholder-count="3"><div style="display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;padding:14px 0;border-bottom:1px solid var(--ln);font-size:14px"><span style="width:24px;font-family:'Geist Mono';color:var(--mu)">{{ r.rank }}</span><a onClick="{{ r.goPathway }}" style="flex:1 1 200px;font-weight:500;color:var(--ink)">{{ r.title }}</a><span style="color:var(--mu);font-size:13px">Skills {{ r.skill }} · Demand {{ r.demand }}</span><sc-if value="{{ r.hasAiShift }}" hint-placeholder-val="{{ false }}"><b style="color:{{ r.aiShiftC }};font:600 12px 'Geist Mono',monospace">{{ r.aiTag }}</b></sc-if><b style="width:32px;text-align:right">{{ r.score }}</b></div></sc-for></div>
-<div style="background:var(--sf);border:1px solid var(--ln);border-radius:24px;padding:24px;display:flex;flex-direction:column;gap:16px"><div><span style="font:600 12px 'Geist Mono',monospace;letter-spacing:.06em;color:var(--pr)">FUTURE SKILLS RADAR</span><h3 style="margin:6px 0 0;font-size:20px;font-weight:600">Future Skills Radar</h3></div>
-<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:20px"><div style="display:flex;flex-direction:column;gap:12px"><b style="color:var(--up);font-weight:600">↑ Rising roles</b><sc-for list="{{ risingRoles }}" as="k" hint-placeholder-count="5"><div style="display:flex;gap:12px;align-items:flex-start"><span style="flex:none;width:28px;height:28px;border-radius:8px;background:var(--upbg);color:var(--up);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px">↑</span><div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:6px"><span style="font-size:14px;font-weight:500">{{ k.title }}</span><div style="height:6px;border-radius:6px;background:var(--sf2)"><div style="height:100%;border-radius:6px;background:var(--up);width:{{ k.w }}"></div></div><span style="align-self:flex-start;border:1px solid var(--ln);border-radius:6px;padding:2px 8px;font:11px 'Geist Mono',monospace;color:var(--mu)">{{ k.src }}</span></div></div></sc-for></div>
-<div style="display:flex;flex-direction:column;gap:12px"><b style="color:var(--dn);font-weight:600">↓ Declining roles</b><sc-for list="{{ decliningRoles }}" as="k"><div style="display:flex;gap:12px;align-items:flex-start"><span style="flex:none;width:28px;height:28px;border-radius:8px;background:var(--dnbg);color:var(--dn);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px">↓</span><div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:6px"><span style="font-size:14px;font-weight:500">{{ k.title }}</span><div style="height:6px;border-radius:6px;background:var(--sf2)"><div style="height:100%;border-radius:6px;background:var(--dn);width:{{ k.w }}"></div></div><span style="align-self:flex-start;border:1px solid var(--ln);border-radius:6px;padding:2px 8px;font:11px 'Geist Mono',monospace;color:var(--mu)">{{ k.src }}</span></div></div></sc-for><sc-if value="{{ noDeclining }}" hint-placeholder-val="{{ false }}"><span style="font-size:13px;color:var(--mu)">No career in our catalogue has net declining demand signals right now.</span></sc-if></div></div>
-<p style="margin:0;font-size:12px;color:var(--mu)">Role demand changes with the scenario. Skill outlook uses the signals as published.</p></div></div></section></main></sc-if>
+<div style="background:var(--sf);border:1px solid var(--ln);border-radius:24px;padding:8px 24px"><sc-for list="{{ rest }}" as="r" hint-placeholder-count="3"><div style="display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;padding:14px 0;border-bottom:1px solid var(--ln);font-size:14px"><span style="width:24px;font-family:'Geist Mono';color:var(--mu)">{{ r.rank }}</span><a onClick="{{ r.goPathway }}" style="flex:1 1 200px;font-weight:500;color:var(--ink)">{{ r.title }}</a><span style="color:var(--mu);font-size:13px">Skills {{ r.skill }} · Demand {{ r.demand }}</span><sc-if value="{{ r.hasAiShift }}" hint-placeholder-val="{{ false }}"><b style="color:{{ r.aiShiftC }};font:600 12px 'Geist Mono',monospace">{{ r.aiTag }}</b></sc-if><b style="width:32px;text-align:right">{{ r.score }}</b></div></sc-for><sc-if value="{{ hasMoreRoles }}" hint-placeholder-val="{{ true }}"><div style="display:flex;justify-content:center;padding:14px 0 10px"><button onClick="{{ toggleRoles }}" style="border:1px solid var(--ln);background:var(--sf);color:var(--ink);border-radius:999px;padding:9px 18px;font:600 14px Geist;cursor:pointer">{{ moreRolesLbl }}</button></div></sc-if></div>
+</div></section></main></sc-if>
 <sc-if value="{{ is_pathway }}" hint-placeholder-val="{{ false }}"><main data-screen-label="Pathway" style="flex:1;display:flex;flex-direction:column"><section style="background:var(--hero);border-bottom:1px solid var(--ln);padding:56px max(clamp(20px,4vw,48px),calc((100% - 1200px)/2)) 44px"><a onClick="{{ backToResults }}" style="font-size:14px;font-weight:600;color:var(--pr)">← Back to results</a><div style="margin-top:16px"><span style="font:600 12px 'Geist Mono',monospace;letter-spacing:.06em;color:var(--pr)">LEARNING PATHWAY</span></div><h1 style="margin:8px 0 0;font-size:clamp(34px,4.5vw,52px);line-height:1.05;letter-spacing:-.035em;font-weight:700">{{ pathTitle }}</h1><p style="margin:12px 0 0;font-size:17px;line-height:1.55;color:var(--mu);max-width:640px">{{ pathIntroduction }}</p>
 <div style="margin-top:16px;display:flex;flex-wrap:wrap;gap:6px"><sc-for list="{{ pathSdgs }}" as="g"><span style="background:{{ g.c }};color:#fff;border-radius:8px;padding:4px 10px;font-size:12px;font-weight:600">SDG {{ g.n }}</span></sc-for></div></section>
 <section style="padding:40px max(clamp(20px,4vw,48px),calc((100% - 1200px)/2)) 72px;display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start">
@@ -745,6 +738,7 @@ const FP_TEXT = {
   "Named as declining": ["Named as declining", "Dinyatakan menurun", "被列为减少"],
   "Show all": ["Show all", "Tunjuk semua", "显示全部"],
   "Show fewer": ["Show fewer", "Tunjuk kurang", "显示较少"],
+  "See less": ["See less", "Lihat kurang", "收起"],
   "The signals behind these trends": ["The signals behind these trends", "Isyarat di sebalik trend ini", "这些趋势背后的信号"],
   "Declining job": ["Declining job", "Pekerjaan menurun", "减少的职业"],
   "Technical": ["Technical", "Teknikal", "技术"],
@@ -923,6 +917,8 @@ const fpTranslation = (text, locale) => {
     : `${linkedGoals[1]} daripada ${linkedGoals[2]} matlamat dikaitkan dengan kerjaya kami (ditandakan).`;
   const weekCount = text.match(/^\+(\d+)$/);
   if (weekCount) return `+${weekCount[1]}`;
+  const seeMore = text.match(/^See more \((\d+)\)$/);
+  if (seeMore) return locale === "zh" ? `查看更多（${seeMore[1]}）` : `Lihat lagi (${seeMore[1]})`;
   const qwenCounts = text.match(/^Qwen on RunPod suggested (\d+) skills; the local dictionary added (\d+) more\. Review all evidence and proficiency levels\.$/);
   if (qwenCounts) return locale === "zh"
     ? `RunPod 上的 Qwen 建议了 ${qwenCounts[1]} 项技能；本地词典另外补充了 ${qwenCounts[2]} 项。请核对所有证据和熟练程度。`
@@ -1226,7 +1222,9 @@ const FP_API = {
     const skill = this.num(m.skill), demand = this.num(m.demand), hasInterest = m.interest !== null && m.interest !== undefined;
     const interest = hasInterest ? this.num(m.interest) : 0, wi = hasInterest ? 0.2 : 0, share = (ws + wd) || 1;
     const wS = (1 - wi) * ws / share, wD = (1 - wi) * wd / share;
-    const exact = wS * skill + wD * demand + wi * interest, score = Math.round(exact), spread = wD * (m.demand_band || 18);
+    // +2 when the person's chosen interests include this career's sector (backend/engine.py, sector_boost).
+    const boost = Number(m.sector_boost) || 0;
+    const exact = wS * skill + wD * demand + wi * interest + boost, score = Math.round(exact), spread = wD * (m.demand_band || 18);
     const gaps = Array.isArray(rec.gaps) ? rec.gaps : [];
     const f = x => x.toFixed(2).replace(/0$/, '');
     // Fast AI scenario: what counting AI-related signals double did to this career's demand (backend/signals/demand.py).
@@ -1246,7 +1244,7 @@ const FP_API = {
       partial: gaps.filter(g => g.status === 'partial').map(g => ({ name: g.name, lv: `${g.confirmed}/${g.required}`,
         tip: `Your level ${g.confirmed}, this career needs ${g.required}` })),
       gap: gaps.filter(g => g.status !== 'satisfied' && g.status !== 'partial').map(g => g.name),
-      formula: `${f(wS)} × ${Math.round(skill)} + ${f(wD)} × ${Math.round(demand)}` + (hasInterest ? ` + 0.2 × ${Math.round(interest)}` : '') + ` = ${score}`,
+      formula: `${f(wS)} × ${Math.round(skill)} + ${f(wD)} × ${Math.round(demand)}` + (hasInterest ? ` + 0.2 × ${Math.round(interest)}` : '') + (boost ? ` + ${boost} sector match` : '') + ` = ${score}`,
       why: (rec.signals?.cited || []).map(c => ({ t: c.title, src: `${c.source} · ${c.date} · ${c.direction} · ${c.via}` + (rapid && c.ai_related ? ' · counts double (AI)' : ''), url: c.url })),
       signalLine: rec.signals ? `${rec.signals.signal_count} dated signal${rec.signals.signal_count === 1 ? '' : 's'} behind demand (${rec.signals.confidence} confidence).` : 'Demand uses the synthetic snapshot value.',
       hasAiShift: rapid, aiTag: `AI ${signed(shift)}`, aiShiftC: shift > 0 ? 'var(--up)' : shift < 0 ? 'var(--dn)' : 'var(--mu)',
@@ -1286,9 +1284,9 @@ class Component extends DCLogic {
     // Saved people: each finished Start run is a person; activeProfileId is whose results are shown (remembered in this browser).
     people: [], activeProfileId: savedActiveProfile(), editingId: null, confirmDeleteId: null,
     // Trend signals (/api/signals): curated reports plus refreshed feeds; whatChanged explains the latest refresh.
-    liveSignals: [], signalRuns: [], whatChanged: null, refreshing: false, refreshMsg: "", skillOutlook: { rising: [], declining: [], updated_at: null, auto_refresh_hours: 0 },
+    liveSignals: [], signalRuns: [], whatChanged: null, refreshing: false, refreshMsg: "",
     // Signals page cards: rising and declining skills (and declining jobs) from stored signals (/api/skill-trends).
-    skillTrends: null, trendsAll: false, sigView: "trends",
+    skillTrends: null, trendsAll: false, rolesAll: false, sigView: "trends",
     pathDone: savedPathDone() };
   componentDidUpdate(p) {
     const q = this.props, u = {};
@@ -1320,8 +1318,8 @@ class Component extends DCLogic {
   }
   async loadSignals() {
     try {
-      const [liveSignals, signalRuns, whatChanged, meta, skillOutlook] = await Promise.all([FP_API.json('/api/signals'), FP_API.json('/api/signals/runs'), FP_API.json('/api/what-changed' + this.profileQuery('?')), FP_API.json('/api/meta'), FP_API.json('/api/skill-outlook')]);
-      if (this._alive) this.setState({ liveSignals, signalRuns, whatChanged, courseTotal: meta.courses_count, skillOutlook });
+      const [liveSignals, signalRuns, whatChanged, meta] = await Promise.all([FP_API.json('/api/signals'), FP_API.json('/api/signals/runs'), FP_API.json('/api/what-changed' + this.profileQuery('?')), FP_API.json('/api/meta')]);
+      if (this._alive) this.setState({ liveSignals, signalRuns, whatChanged, courseTotal: meta.courses_count });
     } catch (e) { console.warn('FuturePath: could not load trend signals', e); }
     try { const skillTrends = await FP_API.json('/api/skill-trends'); if (this._alive) this.setState({ skillTrends }); }
     catch (e) { console.warn('FuturePath: could not load skill trends', e); }
@@ -1767,20 +1765,7 @@ class Component extends DCLogic {
     const pathHoursNum = Math.round(fpSteps.reduce((s, x) => s + x.hours, 0));
     const pathCostSet = new Set(fpSteps.filter(x => x.hasCourse).map(x => x.cost));
     const pathChecked = [...new Set(fpSteps.filter(x => x.hasCourse).map(x => x.checked))];
-    // Home "What's rising, what's fading": net skill outlook from stored signals (/api/skill-outlook).
-    const radarUp = st.skillOutlook.rising.map(k => ({ t: k.name, w: k.width + "%" }));
-    const radarDn = st.skillOutlook.declining.map(k => ({ t: k.name, w: k.width + "%" }));
-    // When the live feeds were last pulled, and the automatic schedule (SIGNALS_REFRESH_HOURS on the server).
-    const fpWhen = iso => new Date(iso).toLocaleString(fpIntlLocale(st.lang), { day: "numeric", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit" });
-    const fpEvery = st.skillOutlook.auto_refresh_hours ? (st.skillOutlook.auto_refresh_hours === 24 ? "daily" : `every ${st.skillOutlook.auto_refresh_hours} h`) : "";
-    const radarUpdated = (st.skillOutlook.updated_at ? `Live feeds last checked ${fpWhen(st.skillOutlook.updated_at)}` : "Live feeds not checked yet; showing dated reports only")
-      + (fpEvery ? ` · refreshes automatically ${fpEvery}` : " · refreshed manually");
     // Results (step 4 of /start; /results opens the same view directly).
-    const fmtMonth = d => { try { return new Date(d + "T00:00:00").toLocaleDateString(fpIntlLocale(st.lang), { month: "short", year: "numeric" }); } catch (e) { return d; } };
-    const byDemand = [...ranked].sort((a, b) => b.demand - a.demand);
-    const roleBar = r => ({ title: r.title, w: r.demand + "%", src: r.source.signals?.cited?.[0] ? r.source.signals.cited[0].source + " · " + fmtMonth(r.source.signals.cited[0].date) : "No dated signal" });
-    const risingRoles = byDemand.filter(r => r.demand >= 50).slice(0, 5).map(roleBar);
-    const decliningRoles = byDemand.filter(r => r.demand < 50).reverse().slice(0, 5).map(roleBar);
     const hasQuiz = !!st.profileDemo?.riasec;
     // Fast AI scenario summary, measured from the two live rankings at the current weights (not a fixed claim).
     const scOrder = list => list.map(r => FP_API.card(r, st.ws, st.wd)).sort((a, b) => b.exact - a.exact).map(r => r.id);
@@ -1790,7 +1775,7 @@ class Component extends DCLogic {
     const scNoAiCount = st.liveRapid.filter(r => r.signals && !r.signals.ai_signal_count).length;
     const scenarioImpact = scShifts.length ? `Right now this changes demand for ${scChanged} of ${scShifts.length} careers (${scSigned(Math.min(...scShifts))} to ${scSigned(Math.max(...scShifts))} points) and ${scFast.filter((id, i) => scMod[i] !== id).length} careers change rank.` : '';
     const scenarioNoAi = scNoAiCount ? `${scNoAiCount} career${scNoAiCount === 1 ? ' has' : 's have'} no AI-related signals yet, so ${scNoAiCount === 1 ? 'its' : 'their'} demand stays the same.` : '';
-    return { ...out, ...startBindings, theme: st.theme, sdgReady: true, sdgTiles, sdgLinkedCount, radarUp, radarDn, radarUpdated, live: FEED[li], liveNext: [1, 2, 3].map(k => FEED[(li + k) % FEED.length]), liveProg: (((tk % CYC) + 1) / CYC * 100) + "%", clock, accent: this.props.accent ?? "violet", lbl: st.theme === "dark" ? "Light" : "Dark",
+    return { ...out, ...startBindings, theme: st.theme, sdgReady: true, sdgTiles, sdgLinkedCount, live: FEED[li], liveNext: [1, 2, 3].map(k => FEED[(li + k) % FEED.length]), liveProg: (((tk % CYC) + 1) / CYC * 100) + "%", clock, accent: this.props.accent ?? "violet", lbl: st.theme === "dark" ? "Light" : "Dark",
       toggle: () => this.setState(s => ({ theme: s.theme === "dark" ? "light" : "dark" })),
       langEn: st.lang === "en", langMs: st.lang === "ms", langZh: st.lang === "zh",
       onLangChange: e => this.setLanguage(e.target.value),
@@ -1805,7 +1790,9 @@ class Component extends DCLogic {
       startOver: () => this.startOver(),
       hasOtherPeople: st.people.length > 1, personChips: st.people.map(x => { const on = x.id === (st.activeProfileId || "demo");
         return { name: x.name, b: on ? "var(--pr)" : "var(--sf)", c: on ? "var(--pri)" : "var(--ink)", bd: on ? "var(--pr)" : "var(--ln)", open: () => this.switchPerson(x.id) }; }),
-      top4: ranked.slice(0, 4), rest: ranked.slice(4), count: ranked.length, risingRoles, decliningRoles, noDeclining: !decliningRoles.length,
+      top4: ranked.slice(0, 4), rest: st.rolesAll ? ranked.slice(4) : ranked.slice(4, 10), hasMoreRoles: ranked.length > 10,
+      moreRolesLbl: st.rolesAll ? "See less" : `See more (${ranked.length - 10})`, toggleRoles: () => this.setState(s => ({ rolesAll: !s.rolesAll })),
+      count: ranked.length,
       ws: st.ws, wd: st.wd, wsPct: Math.round(ws * 100), wdPct: Math.round(wd * 100),
       onWs: e => this.setState({ ws: +e.target.value, wd: 100 - (+e.target.value) }), onWd: e => this.setState({ wd: +e.target.value, ws: 100 - (+e.target.value) }),
       reset: () => this.setState({ ws: 55, wd: 45 }),
