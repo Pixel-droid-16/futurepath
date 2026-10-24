@@ -40,7 +40,7 @@ CV or form              edit + approve skills      18 RIASEC questions      matc
 **Saved people:** every finished Start run is saved as its own person ("Person 1", "Person 2", … or the name you give). **+ Analyse a different CV** starts a new person without overwriting anyone; the **Saved people** buttons on Results, or the list on Start, switch back to anyone's results. **Delete** in the Start list removes a person after you confirm (the original shared profile is reset instead). New people get the lowest unused "Person N" name. The browser remembers who you were last viewing. There are no accounts, so everyone using the same server sees the same list: use fictional CVs.
 
 5. Open **/signals** to see **Rising skills** and **Declining skills & jobs** cards (each with a 3-year signal trend line, signal count, source, date and SDGs; declining also lists jobs that WEF and ILO reports name as declining), then the dated, sourced signals behind them. Press **Refresh signals** to pull new items from live feeds.
-6. CV reading uses Claude when `ANTHROPIC_API_KEY` is set, and falls back to keyword matching otherwise. To check the key, run `python scripts/check_claude_key.py`.
+6. CV reading uses Qwen through RunPod for text-based CVs when configured; Claude can handle scanned PDFs; grounded dictionary suggestions supplement the model. Upload results require user confirmation. To test provider keys, run the targeted synthetic extraction checks.
 
 The Moderate/Rapid scenarios use explicit, hand-authored assumptions about task change and human oversight. **They are not measured probabilities, job-loss forecasts or verified labour-market predictions.** Score adjustments are intentionally bounded; the more visible differences are in task impacts and learning priorities.
 
@@ -57,14 +57,16 @@ The Moderate/Rapid scenarios use explicit, hand-authored assumptions about task 
 | AI-trend signal layer | 36 curated report signals plus refreshable Google News, arXiv and Anthropic Economic Index feeds; Claude tagging with keyword fallback |
 | Trends score | Computed from signals (strength, recency, caps), with cited sources and confidence |
 | Learning pathway courses | 81 checked courses covering 79 of the 81 required skills; placeholders only where no checked course exists |
-| CV skill extraction | Claude (claude-opus-5-5, official SDK) reads the PDF itself, so scanned and multi-column CVs work; keyword fallback without a key |
+| CV skill extraction | Qwen2.5-3B-Instruct via RunPod for text PDFs/DOCX/TXT, Claude for scanned PDFs, dictionary supplement; all skills reviewed before use |
 | Home signal feed | Latest stored signals |
 | Home skills radar | Illustrative data and interface |
 | Saved people | Many profiles (`/api/profiles`), switchable on Results; no accounts or access control |
 | Login and user accounts | Mockup only; no real authentication |
 | Evidence approval and recommendation history | Backend demo APIs exist; v2 screens are not fully connected |
 | Claude API | Integration code included; live calls not verified for this deployment |
-| RunPod GPU | Worker and adapter code included; GPU worker not deployed here |
+| RunPod GPU | Live synthetic extraction verified on the release branch (2026-10-24); production Replit connectivity still requires testing |
+
+**Production demo:** See [docs/REPLIT_RELEASE.md](docs/REPLIT_RELEASE.md) for password protection, run commands, and verification. Never upload personal CVs to the public/shared hackathon demo.
 
 The prototype uses **synthetic CV/profile information**. Trend signals are real, dated sources, but which careers and skills they link to, and their strength, are modelling judgements. Please don't treat the displayed career scores as employment probabilities.
 
