@@ -4,7 +4,7 @@ This release starts from your group's confirmed **v2 mockup**, using its origina
 
 ## What has become functional in the original v2 interface
 
-1. **Results / career cards** — On page load, the browser fetches `/api/matches?scenario=moderate` and `/api/matches?scenario=rapid` and displays **12 backend roles** using the local, shared synthetic demo profile. Cards replace the seven hard-coded mock roles when the API connects. If the API fails, the screen shows an error instead of silently presenting invented results.
+1. **Results / career cards** — On page load, the browser fetches `/api/matches?scenario=moderate` and `/api/matches?scenario=rapid` and displays **all 44 backend roles** for the active saved person, or the local synthetic demo profile until someone finishes Start. Cards replace the seven hard-coded mock roles when the API connects. If the API fails, the screen shows an error instead of silently presenting invented results.
 2. **Moderate vs Rapid AI** — The Results page now includes two real controls. Switching changes the career card rankings and selects the corresponding scenario's task impacts and skill priorities. The selected role is pulled from `/api/scenarios/{role_id}`.
 3. **Career selection** — Use the dropdown in the comparison panel to compare a different career. The side-by-side task and learning priorities refresh from the backend.
 4. **Learning pathway** — Clicking **See pathway** on a backend career card opens the chosen role's scenario-specific skill-priority list on the original v2 Pathway screen. Missing/unknown proficiency stays marked as **Assess**, not a confirmed gap.
@@ -12,7 +12,7 @@ This release starts from your group's confirmed **v2 mockup**, using its origina
 
 ## What is still a mockup
 
-- The original v2 Intake form is not yet connected to profile persistence or AI extraction. Use `/ai-lab` for actual Claude/RunPod extraction testing. `/api/profile` still uses the single synthetic demo profile.
+- The v2 Start flow is connected to saved profiles and CV skill extraction; `/ai-lab` remains for direct Claude/RunPod extraction testing. `/api/profile` is the shared synthetic demo fallback, while each finished Start run is saved as its own person.
 - The original v2 Signals page and Home feed are illustrative, not an approved live labour-market feed.
 - The original v2 login screen is not an actual authentication system.
 - Evidence approval and history APIs exist, but are not yet wired into the v2 page flow.
@@ -62,7 +62,7 @@ The verifier now excludes the *intentionally modified* assembled `frontend/index
 
 ### Scores and slider warning
 
-The **official backend score** uses fixed 45/20/20/15 weights for skills, interests, evidence trends, and learning feasibility. The original mockup's two sliders are now explicitly a **display-only sensitivity preview**, redistributing the skills-and-trends 65% share. Do not treat a slider-adjusted display score as an officially saved version.
+The **official backend score** is `0.55 × skills + 0.45 × demand`, or `0.45 / 0.35 / 0.20` (skills / demand / RIASEC interest) after the optional quiz. A profile with free text reserves 0.15 for the local MiniLM profile fit; selected career sectors reserve 0.05. The remaining skills/demand weights are renormalised so the displayed formula still sums to 1. Exact catalogue skills come first, with capped credit for human-reviewed related skills. The two sliders redistribute only the skills/demand share; interest, profile-text and sector weights stay fixed. A slider-adjusted card is a live sensitivity preview, not a separate saved result.
 
 ### Security
 

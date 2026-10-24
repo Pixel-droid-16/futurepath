@@ -45,31 +45,23 @@
 <label style="border:1.5px dashed var(--ln);border-radius:16px;background:var(--sf2);padding:28px;display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer;text-align:center"><input type="file" accept=".pdf,application/pdf" onChange="{{ onCvFile }}" style="position:absolute;width:1px;height:1px;opacity:0"><b style="color:var(--pr);font-size:15px;font-weight:600">{{ cvPickLbl }}</b><span style="font-size:13px;color:var(--mu)">PDF · max 2 MB</span></label>
 <div style="display:flex;flex-wrap:wrap;gap:12px"><a onClick="{{ backToChoose }}" style="background:var(--sf);border:1.5px solid var(--ln);color:var(--ink);border-radius:12px;padding:12px 20px;font-size:15px;font-weight:600">Back</a><a onClick="{{ readCv }}" style="background:var(--pr);color:var(--pri);border-radius:12px;padding:13px 20px;font-size:15px;font-weight:600;opacity:{{ readOp }}">{{ readLbl }}</a></div></div></sc-if>
 <sc-if value="{{ isFormStep }}" hint-placeholder-val="{{ false }}"><div style="background:var(--sf);border:1px solid var(--ln);border-radius:24px;padding:clamp(20px,3vw,32px);display:flex;flex-direction:column;gap:18px"><b style="font-size:20px;font-weight:600">Fill a short form</b>
-<<<<<<< HEAD
 <label style="display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:500">Current Job Title<input value="{{ fRole }}" onInput="{{ onFRole }}" placeholder="e.g. Operations Associate" style="width:100%;box-sizing:border-box;border:1px solid var(--ln);border-radius:12px;padding:13px 14px;font:400 15px Geist;background:var(--bg);color:var(--ink)"></label>
 <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:16px"><label style="display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:500">Years of Relevant Experience<input type="number" min="0" max="60" value="{{ fYears }}" onInput="{{ onFYears }}" style="width:100%;box-sizing:border-box;border:1px solid var(--ln);border-radius:12px;padding:13px 14px;font:400 15px Geist;background:var(--bg);color:var(--ink)"></label><label style="display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:500">Education Level<select value="{{ fQual }}" onChange="{{ onFQual }}" style="width:100%;box-sizing:border-box;border:1px solid var(--ln);border-radius:12px;padding:13px 14px;font:400 15px Geist;background:var(--bg);color:var(--ink)"><option value="">Choose one</option><option value="No formal qualification">No formal qualification</option><option value="Primary School Achievement Test (UPSR)">Primary School Achievement Test (UPSR)</option><option value="Lower Secondary Assessment (PT3)">Lower Secondary Assessment (PT3)</option><option value="Malaysian Certificate of Education (SPM)">Malaysian Certificate of Education (SPM)</option><option value="Malaysian Skills Certificate (SKM)">Malaysian Skills Certificate (SKM)</option><option value="Malaysian Vocational Certificate (SVM)">Malaysian Vocational Certificate (SVM)</option><option value="Malaysian Higher School Certificate (STPM)">Malaysian Higher School Certificate (STPM)</option><option value="Malaysian Matriculation Certificate">Malaysian Matriculation Certificate</option><option value="Foundation / Matriculation / equivalent">Foundation / Matriculation / equivalent</option><option value="Certificate">Certificate</option><option value="Diploma">Diploma</option><option value="Advanced Diploma">Advanced Diploma</option><option value="Bachelor's Degree">Bachelor's Degree</option><option value="Postgraduate Certificate / Diploma">Postgraduate Certificate / Diploma</option><option value="Master's Degree">Master's Degree</option><option value="Doctoral Degree (PhD)">Doctoral Degree (PhD)</option><option value="Other qualification / equivalent">Other qualification / equivalent</option></select></label></div>
 <label style="display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:500">Current Industry<input value="{{ fIndustry }}" onInput="{{ onFIndustry }}" placeholder="e.g. Business Operations" style="width:100%;box-sizing:border-box;border:1px solid var(--ln);border-radius:12px;padding:13px 14px;font:400 15px Geist;background:var(--bg);color:var(--ink)"></label>
 <div style="display:flex;flex-direction:column;gap:8px"><b style="font-size:14px;font-weight:500">Your Competencies &amp; Skills</b><span style="font-size:12px;color:var(--mu);margin-top:-6px">Search and add every skill you have used at work, study or volunteering.</span>
-=======
 <label style="display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:500">Your current or most recent role<input value="{{ fRole }}" onInput="{{ onFRole }}" placeholder="e.g. Administrative assistant at a logistics company" style="width:100%;box-sizing:border-box;border:1px solid var(--ln);border-radius:12px;padding:13px 14px;font:400 15px Geist;background:var(--bg);color:var(--ink)"></label>
 <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:16px"><label style="display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:500">Years of work experience<input type="number" min="0" max="60" value="{{ fYears }}" onInput="{{ onFYears }}" style="width:100%;box-sizing:border-box;border:1px solid var(--ln);border-radius:12px;padding:13px 14px;font:400 15px Geist;background:var(--bg);color:var(--ink)"></label><label style="display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:500">Highest qualification<input value="{{ fQual }}" onInput="{{ onFQual }}" placeholder="e.g. Diploma in Office Management" style="width:100%;box-sizing:border-box;border:1px solid var(--ln);border-radius:12px;padding:13px 14px;font:400 15px Geist;background:var(--bg);color:var(--ink)"></label></div>
 <label style="display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:500">Languages you can work in (comma separated)<input value="{{ fLangs }}" onInput="{{ onFLangs }}" placeholder="Bahasa Melayu, English" style="width:100%;box-sizing:border-box;border:1px solid var(--ln);border-radius:12px;padding:13px 14px;font:400 15px Geist;background:var(--bg);color:var(--ink)"></label>
-<div style="display:flex;flex-direction:column;gap:8px"><b style="font-size:14px;font-weight:500">Your skills</b><span style="font-size:12px;color:var(--mu);margin-top:-6px">Search and add every skill you have used at work, study or volunteering.</span>
->>>>>>> da0787dab49148d066631b796b12e2b882c85231
+<div style="display:flex;flex-direction:column;gap:8px"><b style="font-size:14px;font-weight:500">Career sectors you're curious about (optional)</b><span style="font-size:12px;color:var(--mu);margin-top:-6px">Adds a small prior to matching careers. It never hides a career.</span><div style="display:flex;flex-wrap:wrap;gap:8px"><sc-for list="{{ sectorOptions }}" as="s"><button onClick="{{ s.toggle }}" style="border:1.5px solid {{ s.bd }};background:{{ s.b }};color:{{ s.c }};border-radius:999px;padding:7px 13px;font:600 13px Geist;cursor:pointer">{{ s.name }}</button></sc-for></div></div><div style="display:flex;flex-direction:column;gap:8px"><b style="font-size:14px;font-weight:500">Your skills</b><span style="font-size:12px;color:var(--mu);margin-top:-6px">Search and add every skill you have used at work, study or volunteering.</span>
 <sc-if value="{{ formEmpty }}" hint-placeholder-val="{{ true }}"><span style="font-size:14px;color:var(--mu)">No skills yet. Add at least one.</span></sc-if>
 <div style="display:flex;flex-wrap:wrap;gap:8px"><sc-for list="{{ formChosen }}" as="k"><button onClick="{{ k.remove }}" title="Remove" style="border:1.5px solid var(--pr);background:var(--soft);color:var(--pr);border-radius:999px;padding:6px 12px;font:600 13px Geist;cursor:pointer">{{ k.name }} ×</button></sc-for></div>
 <input value="{{ formQuery }}" onInput="{{ onFormQuery }}" onFocus="{{ openFormList }}" onClick="{{ openFormList }}" placeholder="+ Search skills…" style="width:100%;box-sizing:border-box;border:1.5px dashed var(--ln);border-radius:12px;padding:13px 14px;font:400 14px Geist;background:var(--bg);color:var(--ink)">
 <sc-if value="{{ hasFormResults }}" hint-placeholder-val="{{ false }}"><div style="display:flex;flex-wrap:wrap;gap:8px;max-height:240px;overflow:auto;border:1px solid var(--ln);border-radius:12px;padding:10px;background:var(--sf)"><sc-for list="{{ formResults }}" as="k"><button onClick="{{ k.add }}" style="border:1.5px solid var(--ln);background:var(--sf);color:var(--ink);border-radius:999px;padding:6px 12px;font:500 13px Geist;cursor:pointer">+ {{ k.name }}</button></sc-for></div></sc-if><sc-if value="{{ formNoMatch }}" hint-placeholder-val="{{ false }}"><span style="font-size:13px;color:var(--mu)">No matching skill in our catalogue.</span></sc-if><sc-if value="{{ formListOpen }}" hint-placeholder-val="{{ false }}"><button onClick="{{ closeFormList }}" style="align-self:flex-start;border:0;background:none;color:var(--pr);font:600 13px Geist;cursor:pointer;padding:2px 0">Done</button></sc-if></div>
-<<<<<<< HEAD
 <label style="display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:500">Future Areas of Interest (comma separated)<input value="{{ fInterests }}" onInput="{{ onFInterests }}" placeholder="e.g. AI Automation, Sustainable Energy" style="width:100%;box-sizing:border-box;border:1px solid var(--ln);border-radius:12px;padding:13px 14px;font:400 15px Geist;background:var(--bg);color:var(--ink)"></label>
-=======
-<label style="display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:500">What do you want from your next role? (optional)<textarea value="{{ fGoals }}" onInput="{{ onFGoals }}" rows="3" style="width:100%;box-sizing:border-box;border:1px solid var(--ln);border-radius:12px;padding:13px 14px;font:400 15px/1.5 Geist;background:var(--bg);color:var(--ink);resize:vertical"></textarea></label>
->>>>>>> da0787dab49148d066631b796b12e2b882c85231
 <div style="display:flex;flex-wrap:wrap;gap:12px"><a onClick="{{ backToChoose }}" style="background:var(--sf);border:1.5px solid var(--ln);color:var(--ink);border-radius:12px;padding:12px 20px;font-size:15px;font-weight:600">Back</a><a onClick="{{ useForm }}" style="background:var(--pr);color:var(--pri);border-radius:12px;padding:13px 20px;font-size:15px;font-weight:600;opacity:{{ formOp }}">Continue →</a></div></div></sc-if>
 <sc-if value="{{ isCheckStep }}" hint-placeholder-val="{{ false }}"><div style="background:var(--sf);border:1px solid var(--ln);border-radius:24px;padding:clamp(20px,3vw,32px);display:flex;flex-direction:column;gap:20px">
 <div><b style="font-size:20px;font-weight:600">Check your profile</b><p style="margin:4px 0 0;font-size:14px;color:var(--mu)">Edit anything that's wrong. Remove skills you don't have and add any that are missing.</p></div>
 <div style="background:var(--soft);color:var(--pr);border-radius:12px;padding:12px 14px;font-size:13px;font-weight:500">{{ draftNote }}</div>
-<<<<<<< HEAD
 <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:16px"><label style="display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:500">Profile name (a nickname is fine)<input value="{{ mName }}" onInput="{{ onMName }}" style="width:100%;box-sizing:border-box;border:1px solid var(--ln);border-radius:12px;padding:13px 14px;font:400 15px Geist;background:var(--bg);color:var(--ink)"></label></div>
 <div><label style="display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:500">Years of relevant experience<input type="number" min="0" max="60" value="{{ mYears }}" onInput="{{ onMYears }}" style="width:100%;box-sizing:border-box;border:1px solid var(--ln);border-radius:12px;padding:13px 14px;font:400 15px Geist;background:var(--bg);color:var(--ink)"></label></div>
 <sc-if value="{{ isCvDraft }}" hint-placeholder-val="{{ true }}"><div style="display:flex;flex-direction:column;gap:14px"><label style="display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:500">Current Job Title<input value="{{ fRole }}" onInput="{{ onFRole }}" placeholder="e.g. Operations Associate" style="width:100%;box-sizing:border-box;border:1px solid var(--ln);border-radius:12px;padding:13px 14px;font:400 15px Geist;background:var(--bg);color:var(--ink)"></label>
@@ -85,11 +77,10 @@
 <select value="{{ fArrangement }}" onChange="{{ onFArrangement }}" style="width:100%;box-sizing:border-box;border:1px solid var(--ln);border-radius:12px;padding:13px 14px;font:400 15px Geist;background:var(--bg);color:var(--ink)"><option value="">Choose one</option><option value="Hybrid">Hybrid</option><option value="Remote">Remote</option><option value="On-site">On-site</option></select></label>
 <label style="display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:500">What is your primary career motivation right now?
 <select value="{{ fMotivation }}" onChange="{{ onFMotivation }}" style="width:100%;box-sizing:border-box;border:1px solid var(--ln);border-radius:12px;padding:13px 14px;font:400 15px Geist;background:var(--bg);color:var(--ink)"><option value="">Choose one</option><option value="Safeguard employment against repetitive clerical displacement">Safeguard employment against repetitive clerical displacement</option><option value="Fast-track transition into high-growth green tech or AI governance">Fast-track transition into high-growth green tech or AI governance</option><option value="Upgrade salary potential with verified TVET / HRD Corp micro-credentials">Upgrade salary potential with verified TVET / HRD Corp micro-credentials</option><option value="Explore a different career direction">Explore a different career direction</option></select></label></div>
-=======
+<div style="display:flex;flex-direction:column;gap:8px"><b style="font-size:14px;font-weight:600">Skills <span style="color:var(--mu);font-weight:400">({{ draftCount }})</span></b>
 <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:16px"><label style="display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:500">Profile name (a nickname is fine)<input value="{{ mName }}" onInput="{{ onMName }}" style="width:100%;box-sizing:border-box;border:1px solid var(--ln);border-radius:12px;padding:13px 14px;font:400 15px Geist;background:var(--bg);color:var(--ink)"></label><label style="display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:500">Headline<input value="{{ mHeadline }}" onInput="{{ onMHeadline }}" style="width:100%;box-sizing:border-box;border:1px solid var(--ln);border-radius:12px;padding:13px 14px;font:400 15px Geist;background:var(--bg);color:var(--ink)"></label></div>
 <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,160px),1fr));gap:16px"><label style="display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:500">Years of work experience<input type="number" min="0" max="60" value="{{ mYears }}" onInput="{{ onMYears }}" style="width:100%;box-sizing:border-box;border:1px solid var(--ln);border-radius:12px;padding:13px 14px;font:400 15px Geist;background:var(--bg);color:var(--ink)"></label><label style="display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:500">Hours per week you can study<input type="number" min="1" max="60" value="{{ mHours }}" onInput="{{ onMHours }}" style="width:100%;box-sizing:border-box;border:1px solid var(--ln);border-radius:12px;padding:13px 14px;font:400 15px Geist;background:var(--bg);color:var(--ink)"></label></div>
->>>>>>> da0787dab49148d066631b796b12e2b882c85231
-<div style="display:flex;flex-direction:column;gap:8px"><b style="font-size:14px;font-weight:600">Skills <span style="color:var(--mu);font-weight:400">({{ draftCount }})</span></b>
+<div style="display:flex;flex-direction:column;gap:8px"><b style="font-size:14px;font-weight:500">Career sectors you're curious about (optional)</b><span style="font-size:12px;color:var(--mu);margin-top:-6px">Adds a small prior to matching careers. It never hides a career.</span><div style="display:flex;flex-wrap:wrap;gap:8px"><sc-for list="{{ sectorOptions }}" as="s"><button onClick="{{ s.toggle }}" style="border:1.5px solid {{ s.bd }};background:{{ s.b }};color:{{ s.c }};border-radius:999px;padding:7px 13px;font:600 13px Geist;cursor:pointer">{{ s.name }}</button></sc-for></div></div><div style="display:flex;flex-direction:column;gap:8px"><b style="font-size:14px;font-weight:600">Skills <span style="color:var(--mu);font-weight:400">({{ draftCount }})</span></b>
 <sc-for list="{{ draftRows }}" as="k" hint-placeholder-count="4"><div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;background:var(--sf2);border-radius:16px;padding:12px 16px;font-size:14px"><div style="flex:1 1 200px;min-width:0"><div style="font-weight:500">{{ k.name }}</div><div style="font-size:12px;color:var(--mu)">{{ k.ev }}</div></div><div style="display:flex;gap:2px;background:var(--sf);border:1px solid var(--ln);border-radius:10px;padding:3px"><sc-for list="{{ k.levels }}" as="l"><button onClick="{{ l.set }}" style="border:0;cursor:pointer;font:500 12px Geist;padding:5px 10px;border-radius:7px;background:{{ l.b }};color:{{ l.c }}">{{ l.label }}</button></sc-for></div><button onClick="{{ k.remove }}" style="border:0;background:none;color:var(--dn);font:600 13px Geist;cursor:pointer;padding:6px">Remove</button></div></sc-for>
 <input value="{{ addQuery }}" onInput="{{ onAddQuery }}" onFocus="{{ openAddList }}" onClick="{{ openAddList }}" placeholder="+ Search skills…" style="width:100%;box-sizing:border-box;border:1.5px dashed var(--ln);border-radius:12px;padding:13px 14px;font:400 14px Geist;background:var(--bg);color:var(--ink)">
 <sc-if value="{{ hasAddOptions }}" hint-placeholder-val="{{ false }}"><div style="display:flex;flex-wrap:wrap;gap:8px;max-height:240px;overflow:auto;border:1px solid var(--ln);border-radius:12px;padding:10px;background:var(--sf)"><sc-for list="{{ addOptions }}" as="a"><button onClick="{{ a.add }}" style="border:1.5px solid var(--ln);background:var(--sf);color:var(--ink);border-radius:999px;padding:6px 12px;font:500 13px Geist;cursor:pointer">+ {{ a.name }}</button></sc-for></div></sc-if><sc-if value="{{ addNoMatch }}" hint-placeholder-val="{{ false }}"><span style="font-size:13px;color:var(--mu)">No matching skill in our catalogue.</span></sc-if><sc-if value="{{ addListOpen }}" hint-placeholder-val="{{ false }}"><button onClick="{{ closeAddList }}" style="align-self:flex-start;border:0;background:none;color:var(--pr);font:600 13px Geist;cursor:pointer;padding:2px 0">Done</button></sc-if></div>
@@ -108,12 +99,12 @@
 <div style="display:flex;gap:12px;font-size:14px;line-height:1.45"><span style="flex:none;width:24px;height:24px;border-radius:50%;background:var(--soft);color:var(--pr);display:flex;align-items:center;justify-content:center;font:600 12px 'Geist Mono'">1</span>Your skills are scored against every career in the catalogue.</div>
 <div style="display:flex;gap:12px;font-size:14px;line-height:1.45"><span style="flex:none;width:24px;height:24px;border-radius:50%;background:var(--soft);color:var(--pr);display:flex;align-items:center;justify-content:center;font:600 12px 'Geist Mono'">2</span>Demand comes from dated, sourced trend signals.</div>
 <div style="display:flex;gap:12px;font-size:14px;line-height:1.45"><span style="flex:none;width:24px;height:24px;border-radius:50%;background:var(--soft);color:var(--pr);display:flex;align-items:center;justify-content:center;font:600 12px 'Geist Mono'">3</span>You get a week-by-week plan with checked courses.</div></div>
-<div style="background:var(--sf2);border-radius:24px;padding:24px;font-size:14px;line-height:1.5;color:var(--mu)"><b style="display:block;color:var(--ink);font-size:17px;font-weight:600;margin-bottom:6px">🔒 Private by design</b>Your CV is read once to pick out skills and is never stored. Only the skills you approve are saved, and personal details are never used in scoring.</div></div></section></main></sc-if>
+<div style="background:var(--sf2);border-radius:24px;padding:24px;font-size:14px;line-height:1.5;color:var(--mu)"><b style="display:block;color:var(--ink);font-size:17px;font-weight:600;margin-bottom:6px">🔒 Private by design</b>Your CV is read once to pick out skills and is never stored. Only the skills and optional profile details you confirm are saved, and they are used only to personalise your matches.</div></div></section></main></sc-if>
 <sc-if value="{{ showResults }}" hint-placeholder-val="{{ false }}"><main data-screen-label="Results" style="flex:1;display:flex;flex-direction:column"><section style="background:var(--hero);border-bottom:1px solid var(--ln);padding:56px max(clamp(20px,4vw,48px),calc((100% - 1200px)/2)) 44px"><span style="font:600 12px 'Geist Mono',monospace;letter-spacing:.06em;color:var(--pr)">STEP 4 OF 4</span><h1 style="margin:8px 0 0;font-size:clamp(34px,4.5vw,52px);line-height:1.05;letter-spacing:-.035em;font-weight:700">Your future roles</h1><p style="margin:12px 0 0;font-size:17px;line-height:1.55;color:var(--mu);max-width:640px">{{ resultsProfileName }}</p>
 <div style="margin-top:28px;display:flex;flex-wrap:wrap;align-items:center;gap:12px;font-size:14px;font-weight:600"><sc-for list="{{ resultsStepper }}" as="s" hint-placeholder-count="4"><span style="display:flex;align-items:center;gap:8px;color:{{ s.c }}"><span style="width:28px;height:28px;border-radius:50%;background:{{ s.bg }};color:{{ s.fg }};display:flex;align-items:center;justify-content:center;font-size:13px">{{ s.mark }}</span>{{ s.label }}</span><sc-if value="{{ s.line }}"><i style="width:48px;height:2px;background:var(--up)"></i></sc-if></sc-for></div></section>
 <section style="padding:40px max(clamp(20px,4vw,48px),calc((100% - 1200px)/2)) 0;display:flex;flex-direction:column;gap:20px">
 <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center"><a onClick="{{ startOver }}" style="background:var(--pr);color:var(--pri);border-radius:12px;padding:13px 20px;font-size:15px;font-weight:600">+ Analyse a different CV</a><sc-if value="{{ hasOtherPeople }}" hint-placeholder-val="{{ false }}"><div style="display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:14px"><span style="color:var(--mu);font-weight:500">Saved people:</span><sc-for list="{{ personChips }}" as="p"><button onClick="{{ p.open }}" style="border:1.5px solid {{ p.bd }};background:{{ p.b }};color:{{ p.c }};border-radius:999px;padding:7px 14px;font:600 13px Geist;cursor:pointer">{{ p.name }}</button></sc-for></div></sc-if></div>
-<div style="background:var(--ambg);border-radius:16px;padding:14px 18px;font-size:14px;line-height:1.5;display:flex;flex-direction:column;gap:4px"><span><b style="color:var(--am)">⚠ Estimate, not a prediction.</b> Scores combine the skills you have with dated trend signals, using the formula shown on each role. They show where today's evidence points, not what will happen. You decide what to do with them.</span><span style="font-size:12px;color:var(--mu)"><span>Signals last updated:</span> {{ sigUpdated }} · <a onClick="{{ goSignals }}" style="color:var(--mu);text-decoration:underline">Signals</a> · Skill matching: exact skills from our catalogue, at the level you confirmed.</span></div></section>
+<div style="background:var(--ambg);border-radius:16px;padding:14px 18px;font-size:14px;line-height:1.5;display:flex;flex-direction:column;gap:4px"><span><b style="color:var(--am)">⚠ Estimate, not a prediction.</b> Scores combine the skills you have with dated trend signals, using the formula shown on each role. They show where today's evidence points, not what will happen. You decide what to do with them.</span><span style="font-size:12px;color:var(--mu)"><span>Signals last updated:</span> {{ sigUpdated }} · <a onClick="{{ goSignals }}" style="color:var(--mu);text-decoration:underline">Signals</a> · Skill matching: exact catalogue skills first, plus capped credit for related skills; free-text fit uses a local sentence model when available.</span><span style="font-size:12px;color:var(--mu)">Ranking also spreads near-duplicate careers, so a slightly lower score can appear just above a higher one.</span></div></section>
 <section style="padding:24px max(clamp(20px,4vw,48px),calc((100% - 1200px)/2)) 72px;display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start">
 <aside style="flex:1 1 280px;min-width:0;display:flex;flex-direction:column;gap:16px">
 <div style="background:var(--sf);border:1px solid var(--ln);border-radius:24px;padding:24px;display:flex;flex-direction:column;gap:14px"><b style="font-size:17px;font-weight:600">AI disruption scenario</b>
@@ -121,21 +112,21 @@
 <p style="margin:0;font-size:13px;line-height:1.5;color:var(--mu)">{{ scenarioText }}</p><p style="margin:0;font-size:13px;line-height:1.5;color:var(--mu);font-style:italic">{{ scenarioNote }}</p></div>
 <div style="background:var(--sf);border:1px solid var(--ln);border-radius:24px;padding:24px;display:flex;flex-direction:column;gap:16px">
 <div style="display:flex;justify-content:space-between;align-items:baseline"><b style="font-size:17px;font-weight:600">Adjust the weights</b><button onClick="{{ reset }}" style="border:0;background:none;color:var(--pr);font:600 14px Geist;cursor:pointer;padding:0">Reset</button></div>
-<p style="margin:-6px 0 0;font-size:13px;line-height:1.45;color:var(--mu)">You are in control: change how much each part counts and the ranking updates.</p>
+<p style="margin:-6px 0 0;font-size:13px;line-height:1.45;color:var(--mu)">You are in control: change how much skills and demand count; interest, profile-text and sector weights are fixed.</p>
 <label style="display:flex;flex-direction:column;gap:6px;font-size:14px"><span style="display:flex;justify-content:space-between"><span>Skills you have</span><b style="font-family:'Geist Mono'">{{ wsPct }}%</b></span><input type="range" min="0" max="100" value="{{ ws }}" onChange="{{ onWs }}"></label>
 <label style="display:flex;flex-direction:column;gap:6px;font-size:14px"><span style="display:flex;justify-content:space-between"><span>Future demand</span><b style="font-family:'Geist Mono'">{{ wdPct }}%</b></span><input type="range" min="0" max="100" value="{{ wd }}" onChange="{{ onWd }}"></label>
 <div style="background:var(--sf2);border-radius:14px;padding:12px 14px;font-size:13px;line-height:1.45;color:var(--mu)">{{ interestNote }} <sc-if value="{{ noQuiz }}" hint-placeholder-val="{{ true }}"><a onClick="{{ takeQuiz }}" style="color:var(--pr);font-weight:600">Start →</a></sc-if></div></div>
 <div style="border:1.5px dashed var(--ln);border-radius:24px;padding:24px;display:flex;flex-direction:column;gap:10px"><span style="font:600 12px 'Geist Mono',monospace;letter-spacing:.06em;color:var(--mu)">WHAT CHANGED</span><p style="margin:0;font-size:14px;line-height:1.5">{{ wcSummary }}</p>
 <sc-if value="{{ hasWcMoves }}" hint-placeholder-val="{{ false }}"><div style="display:flex;flex-direction:column;gap:10px"><sc-for list="{{ wcMoves }}" as="m"><div style="border-left:3px solid var(--pr);padding-left:10px;font-size:13px;line-height:1.45"><b style="font-weight:600">{{ m.text }}</b><div style="color:var(--mu)">{{ m.why }}</div></div></sc-for></div></sc-if></div></aside>
 <div style="flex:3 1 560px;min-width:0;display:flex;flex-direction:column;gap:16px">
-<div style="display:flex;align-items:baseline;justify-content:space-between"><b style="font-size:20px;font-weight:600">Top matched roles <span style="color:var(--mu);font-weight:400">({{ count }})</span></b><span style="font-size:13px;color:var(--mu)">Sorted by match</span></div>
+<div style="display:flex;align-items:baseline;justify-content:space-between"><b style="font-size:20px;font-weight:600">Top matched roles <span style="color:var(--mu);font-weight:400">({{ count }})</span></b><span style="font-size:13px;color:var(--mu)">Sorted by match, with variety</span></div>
 <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:16px"><sc-for list="{{ top4 }}" as="r" hint-placeholder-count="4"><article style="background:var(--sf);border:1px solid var(--ln);border-radius:24px;padding:24px;display:flex;flex-direction:column;gap:16px">
 <div style="display:flex;gap:14px;align-items:flex-start"><div style="flex:1;min-width:0"><div style="font:600 12px 'Geist Mono',monospace;color:var(--mu)">#{{ r.rank }} · {{ r.sector }}</div><h3 style="margin:4px 0 0;font-size:18px;line-height:1.25;font-weight:600">{{ r.title }}</h3><div style="margin-top:8px;display:flex;gap:4px;flex-wrap:wrap"><sc-for list="{{ r.sdgs }}" as="g"><span style="background:{{ g.c }};color:#fff;border-radius:8px;padding:3px 8px;font-size:11px;font-weight:600">SDG {{ g.n }}</span></sc-for></div></div>
 <div style="flex:none;display:flex;flex-direction:column;align-items:center;gap:6px"><div style="width:68px;height:68px;border-radius:50%;background:{{ r.ring }};display:flex;align-items:center;justify-content:center"><div style="width:56px;height:56px;border-radius:50%;background:var(--sf);display:flex;align-items:center;justify-content:center"><b style="font-size:22px;line-height:1">{{ r.score }}</b></div></div><span style="font:11px 'Geist Mono',monospace;color:var(--mu)">{{ r.lo }}–{{ r.hi }}</span></div></div>
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:12px"><div><div style="display:flex;justify-content:space-between;color:var(--mu)"><span>Skills</span><b style="color:var(--ink)">{{ r.skill }}</b></div><div style="margin-top:6px;height:6px;border-radius:6px;background:var(--sf2)"><div style="height:100%;border-radius:6px;background:var(--pr);width:{{ r.skillW }}"></div></div></div><div><div style="display:flex;justify-content:space-between;color:var(--mu)"><span>Demand ±{{ r.band }}</span><b style="color:var(--ink)">{{ r.demand }}</b></div><div style="margin-top:6px;height:6px;border-radius:6px;background:var(--sf2)"><div style="height:100%;border-radius:6px;background:{{ r.demC }};width:{{ r.demW }}"></div></div></div></div>
 <div style="display:flex;flex-wrap:wrap;gap:4px"><sc-for list="{{ r.have }}" as="h"><span style="background:var(--upbg);color:var(--up);border-radius:8px;padding:4px 10px;font-size:12px;font-weight:500">✓ {{ h }}</span></sc-for><sc-for list="{{ r.gap }}" as="h"><span style="border:1px dashed var(--mu);color:var(--mu);border-radius:8px;padding:3px 10px;font-size:12px">+ {{ h }}</span></sc-for></div>
 <div style="font:12px 'Geist Mono',monospace;color:var(--mu);background:var(--sf2);border-radius:12px;padding:8px 12px">{{ r.formula }}</div>
-<details style="font-size:13px;line-height:1.5"><summary style="cursor:pointer;color:var(--pr);font-weight:600">Why this role, signals and interest fit</summary><div style="display:flex;flex-direction:column;gap:8px;padding-top:10px"><span style="color:var(--mu)">{{ r.signalLine }}</span><sc-for list="{{ r.why }}" as="w"><div style="border-left:3px solid var(--ln);padding-left:10px"><a href="{{ w.url }}" target="_blank" rel="noopener noreferrer" style="color:var(--ink);font-weight:500">{{ w.t }} ↗</a><div style="font:11px 'Geist Mono',monospace;color:var(--mu)">{{ w.src }}</div></div></sc-for><span><b style="font-weight:600">Interest fit:</b> {{ r.interestWhy }}</span></div></details>
+<details style="font-size:13px;line-height:1.5"><summary style="cursor:pointer;color:var(--pr);font-weight:600">Why this role, signals, skills and interest fit</summary><div style="display:flex;flex-direction:column;gap:8px;padding-top:10px"><span style="color:var(--mu)">{{ r.signalLine }}</span><sc-for list="{{ r.why }}" as="w"><div style="border-left:3px solid var(--ln);padding-left:10px"><a href="{{ w.url }}" target="_blank" rel="noopener noreferrer" style="color:var(--ink);font-weight:500">{{ w.t }} ↗</a><div style="font:11px 'Geist Mono',monospace;color:var(--mu)">{{ w.src }}</div></div></sc-for><span><b style="font-weight:600">Skill fit:</b> {{ r.skillWhy }}</span><sc-if value="{{ r.transferWhy }}"><span><b style="font-weight:600">Related skills:</b> {{ r.transferWhy }}</span></sc-if><span><b style="font-weight:600">Profile fit:</b> {{ r.textWhy }}</span><span><b style="font-weight:600">Interest fit:</b> {{ r.interestWhy }}</span></div></details>
 <a onClick="{{ r.goPathway }}" style="margin-top:auto;background:var(--pr);color:var(--pri);border-radius:12px;padding:12px 20px;font-size:15px;font-weight:600;text-align:center">See pathway →</a></article></sc-for></div>
 <div style="background:var(--sf);border:1px solid var(--ln);border-radius:24px;padding:8px 24px"><sc-for list="{{ rest }}" as="r" hint-placeholder-count="3"><div style="display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;padding:14px 0;border-bottom:1px solid var(--ln);font-size:14px"><span style="width:24px;font-family:'Geist Mono';color:var(--mu)">{{ r.rank }}</span><a onClick="{{ r.goPathway }}" style="flex:1 1 200px;font-weight:500;color:var(--ink)">{{ r.title }}</a><span style="color:var(--mu);font-size:13px">Skills {{ r.skill }} · Demand {{ r.demand }}</span><b style="width:32px;text-align:right">{{ r.score }}</b></div></sc-for></div>
 <div style="background:var(--sf);border:1px solid var(--ln);border-radius:24px;padding:24px;display:flex;flex-direction:column;gap:16px"><div><span style="font:600 12px 'Geist Mono',monospace;letter-spacing:.06em;color:var(--pr)">FUTURE SKILLS RADAR</span><h3 style="margin:6px 0 0;font-size:20px;font-weight:600">Future Skills Radar</h3></div>
@@ -239,6 +230,8 @@ const FP_TEXT = {
   "Sustainability & Green Economy": ["Sustainability & Green Economy", "Kemampanan & Ekonomi Hijau", "可持续发展与绿色经济"],
   "Engineering & Manufacturing": ["Engineering & Manufacturing", "Kejuruteraan & Pembuatan", "工程与制造"],
   "Education & Creative": ["Education & Creative", "Pendidikan & Kreatif", "教育与创意"],
+  "Career sectors you're curious about (optional)": ["Career sectors you're curious about (optional)", "Sektor kerjaya yang anda minati (pilihan)", "你感兴趣的职业领域（可选）"],
+  "Adds a small prior to matching careers. It never hides a career.": ["Adds a small prior to matching careers. It never hides a career.", "Menambah keutamaan kecil pada kerjaya yang sepadan. Ia tidak pernah menyembunyikan kerjaya.", "为匹配的职业增加少量优先权重，但不会隐藏任何职业。"],
   "Assess this skill before claiming a gap": ["Assess this skill before claiming a gap", "Nilai kemahiran ini sebelum menganggapnya sebagai jurang", "在认定存在技能差距前先评估此技能"],
   "Take the interest quiz to add interest fit.": ["Take the interest quiz to add interest fit.", "Jawab kuiz minat untuk menambah padanan minat.", "完成兴趣测验以加入兴趣匹配。"],
   "Moderate AI adoption": ["Moderate AI adoption", "Penggunaan AI sederhana", "温和的 AI 采用"],
@@ -327,14 +320,17 @@ const FP_TEXT = {
   "Fast AI disruption": ["Fast AI disruption", "Gangguan AI pantas", "快速的 AI 冲击"],
   "Adjust the weights": ["Adjust the weights", "Laraskan pemberat", "调整权重"],
   "Reset": ["Reset", "Tetapkan semula", "重置"],
-  "You are in control: change how much each part counts and the ranking updates.": ["You are in control: change how much each part counts and the ranking updates.", "Anda boleh mengubah kepentingan setiap komponen dan kedudukan akan dikemas kini.", "你可以调整各项因素的权重，排名也会随之更新。"],
+  "You are in control: change how much skills and demand count; interest, profile-text and sector weights are fixed.": ["You are in control: change how much skills and demand count; interest, profile-text and sector weights are fixed.", "Anda boleh mengubah kepentingan kemahiran dan permintaan; pemberat minat, teks profil dan sektor adalah tetap.", "你可以调整技能与需求的权重；兴趣、个人文本和行业权重是固定的。"],
   "Skills you have": ["Skills you have", "Kemahiran yang anda miliki", "你已具备的技能"],
   "Future demand": ["Future demand", "Permintaan masa depan", "未来需求"],
   "WHAT CHANGED": ["WHAT CHANGED", "APA YANG BERUBAH", "变化内容"],
   "Top matched roles": ["Top matched roles", "Kerjaya paling sepadan", "匹配度最高的职业"],
-  "Sorted by match": ["Sorted by match", "Disusun mengikut padanan", "按匹配度排序"],
+  "Sorted by match, with variety": ["Sorted by match, with variety", "Disusun mengikut padanan, dengan kepelbagaian", "按匹配度排序，并兼顾多样性"],
   "Skills": ["Skills", "Kemahiran", "技能"],
-  "Why this role, signals and interest fit": ["Why this role, signals and interest fit", "Sebab kerjaya, isyarat dan minat ini sepadan", "职业、趋势信号与兴趣匹配原因"],
+  "Why this role, signals, skills and interest fit": ["Why this role, signals, skills and interest fit", "Sebab kerjaya, isyarat, kemahiran dan minat ini sepadan", "职业、趋势信号、技能与兴趣匹配原因"],
+  "Skill fit:": ["Skill fit:", "Padanan kemahiran:", "技能匹配："],
+  "Related skills:": ["Related skills:", "Kemahiran berkaitan:", "相关技能："],
+  "Profile fit:": ["Profile fit:", "Padanan profil:", "个人资料匹配："],
   "Interest fit:": ["Interest fit:", "Padanan minat:", "兴趣匹配："],
   "Signals last updated:": ["Signals last updated:", "Isyarat terakhir dikemas kini:", "趋势信号最近更新："],
   "Demand": ["Demand", "Permintaan", "需求"],
@@ -375,7 +371,7 @@ const FP_TEXT = {
   "It tags news against our catalog and picks out CV skills. You confirm every skill.": ["It tags news against our catalog and picks out CV skills. You confirm every skill.", "Ia menandai berita berdasarkan katalog dan mengenal pasti kemahiran dalam CV. Anda mengesahkan setiap kemahiran.", "它会根据目录标注新闻，并从简历中提取技能。每项技能都由你确认。"],
   "The AI cannot invent jobs, courses or statistics.": ["The AI cannot invent jobs, courses or statistics.", "AI tidak boleh mereka cipta pekerjaan, kursus atau statistik.", "AI 不会编造职业、课程或统计数据。"],
   "18 quick questions based on the Holland RIASEC interest model. Your answers add an interest-fit score. They never hide any role, and you can skip this.": ["18 quick questions based on the Holland RIASEC interest model. Your answers add an interest-fit score. They never hide any role, and you can skip this.", "18 soalan ringkas berdasarkan model minat Holland RIASEC. Jawapan anda menambah skor padanan minat. Tiada kerjaya disembunyikan dan anda boleh melangkau langkah ini.", "共 18 道基于 Holland RIASEC 兴趣模型的简短问题。你的回答会加入兴趣匹配分数，不会隐藏任何职业，也可以跳过。"],
-  "Your CV is read once to pick out skills and is never stored. Only the skills you approve are saved, and personal details are never used in scoring.": ["Your CV is read once to pick out skills and is never stored. Only the skills you approve are saved, and personal details are never used in scoring.", "CV anda dibaca sekali untuk mengenal pasti kemahiran dan tidak disimpan. Hanya kemahiran yang anda luluskan disimpan dan maklumat peribadi tidak digunakan untuk pengiraan skor.", "简历只读取一次以提取技能，不会保存。系统只保存你确认的技能，个人信息不会用于评分。"],
+  "Your CV is read once to pick out skills and is never stored. Only the skills and optional profile details you confirm are saved, and they are used only to personalise your matches.": ["Your CV is read once to pick out skills and is never stored. Only the skills and optional profile details you confirm are saved, and they are used only to personalise your matches.", "CV anda dibaca sekali untuk mengenal pasti kemahiran dan tidak disimpan. Hanya kemahiran dan butiran profil pilihan yang anda sahkan disimpan, dan ia digunakan hanya untuk memperibadikan padanan anda.", "简历只读取一次以提取技能，不会保存。系统只保存你确认的技能和可选个人资料，并仅用于个性化匹配。"],
   "KEY": ["KEY", "KUNCI", "密钥"],
   "LLM": ["LLM", "LLM", "大语言模型"],
   "SDGs": ["SDGs", "SDG", "可持续发展目标"],
@@ -385,7 +381,8 @@ const FP_TEXT = {
   "● keyword fallback": ["● keyword fallback", "● sandaran kata kunci", "● 关键词备用方案"],
   "← Back to results": ["← Back to results", "← Kembali ke keputusan", "← 返回结果"],
   "Start →": ["Start →", "Mula →", "开始 →"],
-  "· Skill matching: exact skills from our catalogue, at the level you confirmed.": ["· Skill matching: exact skills from our catalogue, at the level you confirmed.", "· Padanan kemahiran: kemahiran tepat daripada katalog pada tahap yang anda sahkan.", "· 技能匹配：使用目录中的技能，并采用你确认的熟练程度。"],
+  "Ranking also spreads near-duplicate careers, so a slightly lower score can appear just above a higher one.": ["Ranking also spreads near-duplicate careers, so a slightly lower score can appear just above a higher one.", "Susunan juga merenggangkan kerjaya yang hampir serupa, jadi skor yang lebih rendah sedikit boleh muncul di atas skor yang lebih tinggi.", "排序也会分散相近职业，因此分数略低的职业可能排在高分职业之前。"],
+  "· Skill matching: exact catalogue skills first, plus capped credit for related skills; free-text fit uses a local sentence model when available.": ["· Skill matching: exact catalogue skills first, plus capped credit for related skills; free-text fit uses a local sentence model when available.", "· Padanan kemahiran: kemahiran katalog tepat diutamakan, ditambah kredit terhad untuk kemahiran berkaitan; padanan teks bebas menggunakan model ayat setempat apabila tersedia.", "· 技能匹配：优先使用目录中的精确技能，并为相关技能提供有限加分；如有本地句子模型，也会匹配自由文本。"],
   "Google News, arXiv and the Anthropic Economic Index. New items are tagged by Claude (or keywords without an API key), checked against our catalogue and stored with their source and date.": ["Google News, arXiv and the Anthropic Economic Index. New items are tagged by Claude (or keywords without an API key), checked against our catalogue and stored with their source and date.", "Google News, arXiv dan Anthropic Economic Index. Item baharu ditandai oleh Claude (atau kata kunci tanpa kunci API), disemak berdasarkan katalog dan disimpan bersama sumber serta tarikhnya.", "数据来源包括 Google 新闻、arXiv 和 Anthropic Economic Index。新条目由 Claude 标注（没有 API 密钥时使用关键词），并根据目录检查后连同来源和日期保存。"],
   "Strength (1–5) is a team judgement of how direct and large the evidence is (curated reports); feed items are capped at 3. A signal counts in full for a career it names, at reduced weight through a required skill, and halves in weight every 12 months.": ["Strength (1–5) is a team judgement of how direct and large the evidence is (curated reports); feed items are capped at 3. A signal counts in full for a career it names, at reduced weight through a required skill, and halves in weight every 12 months.", "Kekuatan (1–5) ialah penilaian pasukan tentang ketegasan dan keluasan bukti (laporan pilihan); item suapan dihadkan kepada 3. Isyarat diberi nilai penuh bagi kerjaya yang dinamakan, nilai lebih rendah melalui kemahiran yang diperlukan, dan nilainya berkurang separuh setiap 12 bulan.", "强度（1–5）是团队对证据直接性和覆盖范围的判断（适用于精选报告）；信息源条目的强度上限为 3。信号对明确提及的职业按全权重计分，通过必需技能关联时权重较低，并每 12 个月减半。"],
   "Curated & verified": ["Curated & verified", "Dipilih dan disahkan", "精选并核查"],
@@ -521,7 +518,6 @@ const FP_TEXT = {
   "PDF · max 2 MB": ["PDF · max 2 MB", "PDF · maksimum 2 MB", "PDF · 最大 2 MB"],
   "Back": ["Back", "Kembali", "返回"],
   "Fill a short form": ["Fill a short form", "Isi borang ringkas", "填写简短表格"],
-<<<<<<< HEAD
   "Current Job Title": ["Current Job Title", "Jawatan Semasa", "当前职位"],
   "Years of Relevant Experience": ["Years of Relevant Experience", "Tahun Pengalaman Berkaitan", "相关工作年限"],
   "Education Level": ["Education Level", "Tahap Pendidikan", "教育程度"],
@@ -565,8 +561,6 @@ const FP_TEXT = {
   "Upgrade salary potential with verified TVET / HRD Corp micro-credentials": ["Upgrade salary potential with verified TVET / HRD Corp micro-credentials", "Meningkatkan potensi gaji melalui mikro-kredensial TVET / HRD Corp yang disahkan", "通过经认证的 TVET / HRD Corp 微证书提升薪资潜力"],
   "Explore a different career direction": ["Explore a different career direction", "Meneroka hala tuju kerjaya yang berbeza", "探索不同的职业方向"],
   "Choose one": ["Choose one", "Pilih satu", "请选择"],
-=======
->>>>>>> da0787dab49148d066631b796b12e2b882c85231
   "Your current or most recent role": ["Your current or most recent role", "Jawatan semasa atau terkini anda", "你目前或最近的职位"],
   "Years of work experience": ["Years of work experience", "Tahun pengalaman kerja", "工作年限"],
   "Highest qualification": ["Highest qualification", "Kelayakan tertinggi", "最高学历"],
@@ -583,10 +577,7 @@ const FP_TEXT = {
   "Profile name (a nickname is fine)": ["Profile name (a nickname is fine)", "Nama profil (nama samaran juga boleh)", "档案名称（可以使用昵称）"],
   "Headline": ["Headline", "Tajuk profil", "个人简介标题"],
   "Hours per week you can study": ["Hours per week you can study", "Jam belajar setiap minggu", "每周可学习小时数"],
-<<<<<<< HEAD
   "Years of relevant experience": ["Years of relevant experience", "Tahun pengalaman berkaitan", "相关工作年限"],
-=======
->>>>>>> da0787dab49148d066631b796b12e2b882c85231
   "Remove": ["Remove", "Buang", "移除"],
   "I have checked these skills and they describe me.": ["I have checked these skills and they describe me.", "Saya telah menyemak kemahiran ini dan semuanya menggambarkan diri saya.", "我已检查这些技能，它们符合我的实际情况。"],
   "Continue to the interest quiz →": ["Continue to the interest quiz →", "Teruskan ke kuiz minat →", "继续进行兴趣测验 →"],
@@ -1102,15 +1093,30 @@ const FP_API = {
   },
   num(value) { return Number.isFinite(Number(value)) ? Math.max(0, Math.min(100, Number(value))) : 0; },
   card(rec, ws, wd) {
-    // Same formula as backend/engine.py; the sliders only redistribute the skills/demand share (interest stays 20%).
+    // Same formula as backend/engine.py; the sliders only redistribute the skills/demand share.
+    // Interest, profile-text and sector weights are fixed by the backend and shown in the formula.
     // This is a live PREVIEW of the published formula, recomputed in the browser.
     const m = rec.match || {};
-    const skill = this.num(m.skill), demand = this.num(m.demand), hasInterest = m.interest !== null && m.interest !== undefined;
-    const interest = hasInterest ? this.num(m.interest) : 0, wi = hasInterest ? 0.2 : 0, share = (ws + wd) || 1;
-    const wS = (1 - wi) * ws / share, wD = (1 - wi) * wd / share;
-    const exact = wS * skill + wD * demand + wi * interest, score = Math.round(exact), spread = wD * (m.demand_band || 18);
+    const skill = this.num(m.skill), demand = this.num(m.demand);
+    const hasInterest = m.interest !== null && m.interest !== undefined;
+    const hasText = m.text_fit !== null && m.text_fit !== undefined;
+    const hasSector = m.sector !== null && m.sector !== undefined;
+    const interest = hasInterest ? this.num(m.interest) : 0;
+    const text = hasText ? this.num(m.text_fit) : 0;
+    const sector = hasSector ? this.num(m.sector) : 0;
+    const weight = k => { const v = Number((m.weights || {})[k]); return Number.isFinite(v) ? v : 0; };
+    const wi = hasInterest ? weight('interest') : 0, wt = hasText ? weight('text') : 0, wsec = hasSector ? weight('sector') : 0;
+    const adjustable = Math.max(0, 1 - wi - wt - wsec), share = (ws + wd) || 1;
+    const wS = adjustable * ws / share, wD = adjustable * wd / share;
+    const exact = wS * skill + wD * demand + wi * interest + wt * text + wsec * sector;
+    const score = Math.round(exact), spread = wD * (m.demand_band || 18);
     const gaps = Array.isArray(rec.gaps) ? rec.gaps : [];
-    const f = x => x.toFixed(2).replace(/0$/, '');
+    const fr = x => Number(x.toFixed(3)).toString();
+    const terms = [`${fr(wS)} × ${Math.round(skill)}`, `${fr(wD)} × ${Math.round(demand)}`];
+    if (hasInterest) terms.push(`${fr(wi)} × ${Math.round(interest)}`);
+    if (hasText) terms.push(`${fr(wt)} × ${Math.round(text)}`);
+    if (hasSector) terms.push(`${fr(wsec)} × ${Math.round(sector)}`);
+    const rel = m.demand_reliability;
     return {
       id: rec.role_id, title: rec.title, sector: rec.sector, score, exact,
       lo: Math.max(0, Math.round(exact - spread)), hi: Math.min(100, Math.round(exact + spread)),
@@ -1121,10 +1127,11 @@ const FP_API = {
       sdgs: (rec.sdgs || []).map(n => ({n,c:(typeof SDG !== 'undefined' && SDG[n]) || 'var(--pr)'})),
       have: gaps.filter(g => g.status === 'satisfied').map(g => g.name),
       gap: gaps.filter(g => g.status !== 'satisfied').map(g => g.name),
-      formula: `${f(wS)} × ${Math.round(skill)} + ${f(wD)} × ${Math.round(demand)}` + (hasInterest ? ` + 0.2 × ${Math.round(interest)}` : '') + ` = ${score}`,
+      formula: terms.join(' + ') + ` = ${score}`,
       why: (rec.signals?.cited || []).map(c => ({ t: c.title, src: `${c.source} · ${c.date} · ${c.direction} · ${c.via}`, url: c.url })),
-      signalLine: rec.signals ? `${rec.signals.signal_count} dated signal${rec.signals.signal_count === 1 ? '' : 's'} behind demand (${rec.signals.confidence} confidence).` : 'Demand uses the synthetic snapshot value.',
-      interestWhy: m.interest_why || '', topSource: rec.signals?.cited?.[0] ? `${rec.signals.cited[0].source} · ${rec.signals.cited[0].date}` : '',
+      signalLine: rec.signals ? `${rec.signals.signal_count} dated signal${rec.signals.signal_count === 1 ? '' : 's'} behind demand (${rec.signals.confidence} confidence${rel === null || rel === undefined ? '' : `, ${Math.round(rel * 100)}% of the signal move applied`}).` : 'Demand uses the synthetic snapshot value.',
+      interestWhy: m.interest_why || '', skillWhy: m.skill_why || '', transferWhy: m.transfer_why || '', textWhy: m.text_why || '', hasTextFit: hasText,
+      topSource: rec.signals?.cited?.[0] ? `${rec.signals.cited[0].source} · ${rec.signals.cited[0].date}` : '',
       goPathway: null, source: rec,
     };
   },
@@ -1150,11 +1157,7 @@ class Component extends DCLogic {
   state = { theme: this.props.defaultTheme ?? "light", lang: savedLanguage(), page: pageFromPath() ?? this.props.startPage ?? "home", fast: false, ws: 55, wd: 45, liveStatus: "loading", liveError: "", liveModerate: [], liveRapid: [], selectedRole: "data-analyst", scenarioComparison: null, profileDemo: null, sig: "all",
     // Start flow (/start): choose -> cv | form -> check -> quiz -> results. Nothing is saved until the quiz step ends.
     startStep: "choose", cvName: "", extracting: false, startError: "", catalog: [],
-<<<<<<< HEAD
-    form: { role: "", years: 0, qualification: "", qualificationLegacy: "", industry: "", interests: "", languages: "", goals: "", aiComfort: "", workArrangement: "", motivation: "" }, formPicked: [], formQuery: "",
-=======
-    form: { role: "", years: 0, qualification: "", languages: "", goals: "" }, formPicked: [], formQuery: "",
->>>>>>> da0787dab49148d066631b796b12e2b882c85231
+    form: { role: "", years: 0, qualification: "", qualificationLegacy: "", industry: "", interests: "", languages: "", goals: "", aiComfort: "", workArrangement: "", motivation: "", sectors: [] }, formPicked: [], formQuery: "",
     draft: null, draftSource: "", scannedCv: false, addOpen: false, formOpen: false, meta: { name: "My profile", headline: "", years: 0, hours: 6 }, approved: false, addQuery: "",
     quizQuestions: [], quizLikert: [], quizAnswers: {}, saving: false, confirmError: "",
     // Saved people: each finished Start run is a person; activeProfileId is whose results are shown (remembered in this browser).
@@ -1266,11 +1269,7 @@ class Component extends DCLogic {
   setStep(step) { this.setState({ startStep: step, startError: '', confirmError: '' }); try { window.scrollTo(0, 0); } catch (e) {} }
   // A new person: nothing is overwritten; finishing Start saves them alongside the others.
   startOver() { this._cvFile = null; this.setState(s => ({ draft: null, cvName: '', formPicked: [], quizAnswers: {}, approved: false, editingId: null,
-<<<<<<< HEAD
-    form: { role: '', years: 0, qualification: '', qualificationLegacy: '', industry: '', interests: '', languages: '', goals: '', aiComfort: '', workArrangement: '', motivation: '' }, meta: { name: '', headline: '', years: 0, hours: 6 } })); this.go('start'); this.setStep('choose'); }
-=======
-    form: { role: '', years: 0, qualification: '', languages: '', goals: '' }, meta: { name: '', headline: '', years: 0, hours: 6 } })); this.go('start'); this.setStep('choose'); }
->>>>>>> da0787dab49148d066631b796b12e2b882c85231
+    form: { role: '', years: 0, qualification: '', qualificationLegacy: '', industry: '', interests: '', languages: '', goals: '', aiComfort: '', workArrangement: '', motivation: '', sectors: [] }, meta: { name: '', headline: '', years: 0, hours: 6 } })); this.go('start'); this.setStep('choose'); }
   async loadCatalog() {
     try {
       const skills = await FP_API.json('/api/skills');
@@ -1335,7 +1334,6 @@ class Component extends DCLogic {
   // Re-open the saved profile at a step (e.g. "Take the quiz" from the results page).
   editProfile(step) {
     const p = this.state.profileDemo || {};
-<<<<<<< HEAD
     const qualificationAliases = { "No qualification": "No formal qualification", "No qualificiation": "No formal qualification",
       "Bachelor Degree": "Bachelor's Degree", "Bachelor's degree": "Bachelor's Degree", "Master": "Master's Degree",
       "Master degree": "Master's Degree", "PhD": "Doctoral Degree (PhD)", "Doctorate": "Doctoral Degree (PhD)" };
@@ -1351,13 +1349,7 @@ class Component extends DCLogic {
       meta: { name: p.name || 'My profile', headline: p.headline || '', years: p.years_experience || 0, hours: p.study_hours || 6 },
       form: { ...s.form, role: p.current_role || '', qualification, qualificationLegacy: qualification === "Other qualification / equivalent" ? rawQualification : '',
         industry: p.industry || '', interests: (p.interests || []).join(', '),
-        languages: (p.languages || []).join(', '), goals: p.goals || '', aiComfort: p.ai_comfort || '', workArrangement: p.work_arrangement || '', motivation: p.career_motivation || '' } }));
-=======
-    this.setState(s => ({ draft: Object.entries(p.skills || {}).map(([id, level]) => ({ id, name: this.skillName(id), ev: 'Saved in your profile', level })),
-      draftSource: 'saved', approved: true, quizAnswers: p.quiz_answers || {}, editingId: this.state.activeProfileId || 'demo',
-      meta: { name: p.name || 'My profile', headline: p.headline || '', years: p.years_experience || 0, hours: p.study_hours || 6 },
-      form: { ...s.form, role: p.current_role || '', qualification: p.qualification || '', languages: (p.languages || []).join(', '), goals: p.goals || '' } }));
->>>>>>> da0787dab49148d066631b796b12e2b882c85231
+        languages: (p.languages || []).join(', '), goals: p.goals || '', aiComfort: p.ai_comfort || '', workArrangement: p.work_arrangement || '', motivation: p.career_motivation || '', sectors: p.interests || [] } }));
     this.go('start');
     this.setStep(step);
   }
@@ -1368,7 +1360,6 @@ class Component extends DCLogic {
     this.setStep('quiz');
   }
   async saveProfile(withQuiz) {
-<<<<<<< HEAD
     const st = this.state, base = st.profileDemo || {}, langs = st.form.languages.split(',').map(x => x.trim()).filter(Boolean).slice(0, 10),
       interests = st.form.interests.split(',').map(x => x.trim()).filter(Boolean).slice(0, 20);
     const payload = { user_type: base.user_type || 'student', country: base.country || 'Malaysia', mode: base.mode || 'discover',
@@ -1376,15 +1367,8 @@ class Component extends DCLogic {
       years_experience: Math.max(0, Math.min(60, Number(st.meta.years) || 0)), study_hours: Math.max(1, Math.min(60, Number(st.meta.hours) || 6)),
       current_role: st.form.role.slice(0, 160), qualification: (st.form.qualification === "Other qualification / equivalent" && st.form.qualificationLegacy
         ? st.form.qualificationLegacy : st.form.qualification).slice(0, 160), industry: st.form.industry.slice(0, 120),
-      interests, ai_comfort: st.form.aiComfort, work_arrangement: st.form.workArrangement, career_motivation: st.form.motivation.slice(0, 200),
+      interests: (st.form.sectors && st.form.sectors.length) ? st.form.sectors : interests, ai_comfort: st.form.aiComfort, work_arrangement: st.form.workArrangement, career_motivation: st.form.motivation.slice(0, 200),
       languages: langs, goals: st.form.goals.slice(0, 1000),
-=======
-    const st = this.state, base = st.profileDemo || {}, langs = st.form.languages.split(',').map(x => x.trim()).filter(Boolean).slice(0, 10);
-    const payload = { user_type: base.user_type || 'student', country: base.country || 'Malaysia', interests: base.interests || [], mode: base.mode || 'discover',
-      skills: Object.fromEntries(st.draft.map(d => [d.id, d.level])), name: st.meta.name.slice(0, 80), headline: st.meta.headline.slice(0, 160),
-      years_experience: Math.max(0, Math.min(60, Number(st.meta.years) || 0)), study_hours: Math.max(1, Math.min(60, Number(st.meta.hours) || 6)),
-      current_role: st.form.role.slice(0, 160), qualification: st.form.qualification.slice(0, 160), languages: langs, goals: st.form.goals.slice(0, 1000),
->>>>>>> da0787dab49148d066631b796b12e2b882c85231
       quiz_answers: withQuiz ? st.quizAnswers : null };
     this.setState({ saving: true, confirmError: '' });
     try {
@@ -1406,8 +1390,20 @@ class Component extends DCLogic {
     out.t_cta = T[st.lang].cta;
     const sum = (st.ws + st.wd) || 1, ws = st.ws / sum, wd = st.wd / sum;
     const liveRecords = st.fast ? st.liveRapid : st.liveModerate;
-    const ranked = (st.liveStatus === 'connected' ? liveRecords : []).map(r => FP_API.card(r, st.ws, st.wd))
-      .sort((a,b)=>b.exact-a.exact).map((r,i)=>({...r,rank:i+1,
+    // Recompute with the sliders, then keep near-identical skill sets apart. The backend applies the
+    // same idea (engine._diversity_order); this preview version defers only exact near-duplicates.
+    const skillIds = r => new Set(((r.source && r.source.gaps) || []).map(g => g.skill_id));
+    const jaccard = (a, b) => { let both = 0; a.forEach(x => { if (b.has(x)) both++; }); const union = a.size + b.size - both; return union ? both / union : 0; };
+    const diverse = cards => {
+      const sorted = [...cards].sort((a, b) => b.exact - a.exact), keep = [], later = [];
+      for (const card of sorted) {
+        const set = skillIds(card), duplicate = keep.some(x => jaccard(set, skillIds(x)) >= 0.85);
+        (duplicate ? later : keep).push(card);
+      }
+      return keep.concat(later);
+    };
+    const ranked = diverse((st.liveStatus === 'connected' ? liveRecords : []).map(r => FP_API.card(r, st.ws, st.wd)))
+      .map((r,i)=>({...r,rank:i+1,
         goPathway:()=>this.selectCareer(r.id,true)}));
     const on = { bg: "var(--pr)", fg: "var(--pri)" }, off = { bg: "transparent", fg: "var(--ink)" };
     const m = st.fast ? off : on, f2 = st.fast ? on : off;
@@ -1424,13 +1420,18 @@ class Component extends DCLogic {
     const startTiles = [
       { icon: "PDF", t: "Upload a CV", d: "PDF, up to 2 MB. Skills are matched to our catalog for you to check.", choose: () => this.setStep("cv") },
       { icon: "✎", t: "Fill a short form", d: "Pick your skills from a list. Takes about 3 minutes.", choose: () => this.setStep("form") }];
+    const SECTORS = ["Technology & AI", "Business & Finance", "Healthcare & Life Sciences", "Sustainability & Green Economy", "Engineering & Manufacturing", "Education & Creative"];
+    const sectorOptions = SECTORS.map(name => {
+      const on = (st.form.sectors || []).includes(name);
+      return { name, b: on ? "var(--pr)" : "var(--sf)", c: on ? "var(--pri)" : "var(--ink)", bd: on ? "var(--pr)" : "var(--ln)",
+        toggle: () => this.setState(x => { const cur = x.form.sectors || []; return { form: { ...x.form, sectors: cur.includes(name) ? cur.filter(s => s !== name) : [...cur, name] } }; }) };
+    });
     const prof = st.profileDemo || {};
     // Saved people (/api/profiles), newest first; "See results" switches the active person.
     const fmtDay = d => { try { return new Date(d).toLocaleDateString(fpIntlLocale(st.lang), { day: "numeric", month: "short" }); } catch (e) { return ""; } };
     const peopleRows = st.people.map(x => ({ name: x.name, sub: [x.headline, x.skills + " skills", x.has_quiz ? "quiz done" : "no quiz", x.updated_at ? "saved " + fmtDay(x.updated_at) : ""].filter(Boolean).join(" · "),
       open: () => { this.switchPerson(x.id); this.go("start"); this.setStep("results"); }, asking: st.confirmDeleteId === x.id, notAsking: st.confirmDeleteId !== x.id,
       ask: () => this.setState({ confirmDeleteId: x.id }), cancel: () => this.setState({ confirmDeleteId: null }), confirm: () => this.deletePerson(x.id) }));
-<<<<<<< HEAD
     const setForm = k => e => { const v = e.target.value; this.setState(x => ({ form: { ...x.form, [k]: v, ...(k === "qualification" ? { qualificationLegacy: "" } : {}) }, startError: "" })); };
     const setMeta = k => e => { const v = e.target.value; this.setState(x => ({ meta: { ...x.meta, [k]: v } })); };
     const commonStudyHours = [3, 6, 10, 15], selectedHours = Number(st.meta.hours) || 6;
@@ -1438,10 +1439,6 @@ class Component extends DCLogic {
       .map(value => { const selected = selectedHours === value; return { value, label: `${value} hours/week${commonStudyHours.includes(value) ? "" : " (current)"}`, pressed: selected ? "true" : "false",
         b: selected ? "var(--pr)" : "var(--sf)", c: selected ? "var(--pri)" : "var(--ink)", bd: selected ? "var(--pr)" : "var(--ln)",
         select: () => this.setState(x => ({ meta: { ...x.meta, hours: value } })) }; });
-=======
-    const setForm = k => e => { const v = e.target.value; this.setState(x => ({ form: { ...x.form, [k]: v }, startError: "" })); };
-    const setMeta = k => e => { const v = e.target.value; this.setState(x => ({ meta: { ...x.meta, [k]: v } })); };
->>>>>>> da0787dab49148d066631b796b12e2b882c85231
     const fq = st.formQuery.trim().toLowerCase();
     const formChosen = st.formPicked.map(id => ({ name: this.skillName(id), remove: () => this.setState(x => ({ formPicked: x.formPicked.filter(i => i !== id) })) }));
     // Clicking a "+ Search skills…" box opens the whole catalogue (A-Z); typing filters it. It stays open to add several.
@@ -1469,30 +1466,20 @@ class Component extends DCLogic {
       hasPeople: peopleRows.length > 0, peopleCount: peopleRows.length, peopleRows, backToChoose: () => this.setStep("choose"),
       cvPickLbl: st.cvName || "Choose a PDF", onCvFile: e => this.onCvFile(e), readCv: () => { if (!st.extracting && st.cvName) this.readCv(); },
       readLbl: st.extracting ? "Reading your CV…" : "Read my CV", readOp: st.cvName && !st.extracting ? "1" : ".45",
-<<<<<<< HEAD
       fRole: st.form.role, fYears: st.form.years, fQual: st.form.qualification, fIndustry: st.form.industry, fInterests: st.form.interests,
       fAiComfort: st.form.aiComfort, fArrangement: st.form.workArrangement, fMotivation: st.form.motivation,
-      fLangs: st.form.languages, fGoals: st.form.goals, studyHourOptions,
+      fLangs: st.form.languages, fGoals: st.form.goals, studyHourOptions, sectorOptions,
       onFRole: setForm("role"), onFYears: setForm("years"), onFQual: setForm("qualification"), onFIndustry: setForm("industry"),
       onFInterests: setForm("interests"), onFAiComfort: setForm("aiComfort"), onFArrangement: setForm("workArrangement"),
       onFMotivation: setForm("motivation"), onFLangs: setForm("languages"), onFGoals: setForm("goals"),
-=======
-      fRole: st.form.role, fYears: st.form.years, fQual: st.form.qualification, fLangs: st.form.languages, fGoals: st.form.goals,
-      onFRole: setForm("role"), onFYears: setForm("years"), onFQual: setForm("qualification"), onFLangs: setForm("languages"), onFGoals: setForm("goals"),
->>>>>>> da0787dab49148d066631b796b12e2b882c85231
       formEmpty: !st.formPicked.length, formChosen, formResults, hasFormResults: formResults.length > 0, formListOpen: st.formOpen, openFormList: () => this.setState({ formOpen: true }), closeFormList: () => this.setState({ formOpen: false, formQuery: "" }),
       formNoMatch: (st.formOpen || !!fq) && !formResults.length, formQuery: st.formQuery, onFormQuery: e => this.setState({ formQuery: e.target.value }),
       useForm: () => this.useForm(), formOp: st.formPicked.length ? "1" : ".45",
       draftNote, draftRows, hasAddOptions: addOptions.length > 0, addListOpen: st.addOpen, openAddList: () => this.setState({ addOpen: true }), closeAddList: () => this.setState({ addOpen: false, addQuery: "" }),
       addNoMatch: (st.addOpen || !!aq) && !addOptions.length, draftCount: draft.length, addQuery: st.addQuery, onAddQuery: e => this.setState({ addQuery: e.target.value }), addOptions,
-<<<<<<< HEAD
       mName: st.meta.name, mYears: st.meta.years,
       isCvDraft: st.draftSource !== "form",
       onMName: setMeta("name"), onMYears: setMeta("years"),
-=======
-      mName: st.meta.name, mHeadline: st.meta.headline, mYears: st.meta.years, mHours: st.meta.hours,
-      onMName: setMeta("name"), onMHeadline: setMeta("headline"), onMYears: setMeta("years"), onMHours: setMeta("hours"),
->>>>>>> da0787dab49148d066631b796b12e2b882c85231
       approved: st.approved, toggleApproved: () => this.setState(x => ({ approved: !x.approved, confirmError: "" })),
       backFromCheck: () => this.setStep(st.draftSource === "form" ? "form" : st.draftSource === "saved" ? "choose" : "cv"),
       toQuiz: () => this.toQuiz(), quizOp: st.approved && draft.length ? "1" : ".45",

@@ -34,10 +34,10 @@ The main flow is one page, **/start**, in four steps:
 CV or form              edit + approve skills      18 RIASEC questions      matches, scenarios, radar
 ```
 
-1. **Choose start:** upload a fictional CV (PDF), or fill a short form (role, experience, qualification, languages, skills, goals).
+1. **Choose start:** upload a fictional CV (PDF), or fill a short form (role, experience, qualification, languages, career sectors, skills, goals).
 2. **Check profile:** set each skill to Basic (2/5), Working (3/5) or Strong (4/5), remove or add skills, set study hours per week, then tick the approval box.
 3. **Interest quiz (optional):** 18 Holland RIASEC questions. They add a 20% interest-fit score and never hide a career.
-4. **Results:** every career in `data/roles.json` ranked by a visible formula, `0.55 × skills + 0.45 × demand` (or `0.45 / 0.35 / 0.20` with interest fit), with a ± range from signal confidence, a Moderate/Fast AI disruption toggle, weight sliders, **What changed**, and a Future Skills Radar of rising and declining careers. **See pathway** opens a course plan built from your weekly study hours.
+4. **Results:** every career in `data/roles.json` ranked by a visible formula. The base is `0.55 × skills + 0.45 × demand` (or `0.45 / 0.35 / 0.20` with interest fit). If the person gave a current role, headline or goal, 0.15 is reserved for a local MiniLM profile-fit score; chosen career sectors add a 0.05 prior. The remaining skills/demand weights are renormalised, so the displayed formula still sums to 1. Skills are exact catalogue skills plus capped credit from human-reviewed related skills. Results also show a ± range from signal confidence, a Moderate/Fast AI disruption toggle, weight sliders, **What changed**, and a Future Skills Radar of rising and declining careers. Near-duplicate career profiles are spread out in the ranking. **See pathway** opens a course plan built from your weekly study hours.
 **Saved people:** every finished Start run is saved as its own person ("Person 1", "Person 2", … or the name you give). **+ Analyse a different CV** starts a new person without overwriting anyone; the **Saved people** buttons on Results, or the list on Start, switch back to anyone's results. **Delete** in the Start list removes a person after you confirm (the original shared profile is reset instead). New people get the lowest unused "Person N" name. The browser remembers who you were last viewing. There are no accounts, so everyone using the same server sees the same list: use fictional CVs.
 
 5. Open **/signals** to see the dated, sourced trend signals behind every demand score, and press **Refresh signals** to pull new items from live feeds.
@@ -50,7 +50,7 @@ The Moderate/Rapid scenarios use explicit, hand-authored assumptions about task 
 | Area | Current state |
 | --- | --- |
 | Start flow (choose, check, quiz, results) | Connected end to end |
-| Career matching | Python API connected to Results |
+| Career matching | Python API connected to Results; exact skills + capped related-skill credit + optional local MiniLM profile fit |
 | Moderate/Rapid scenario comparison | Backend-connected on Results |
 | Interest fit | RIASEC quiz against O*NET interest profiles for every career (sources in data/roles.json) |
 | Learning pathway | /pathway, every checked course (free, low-cost, HRD Corp claimable) with alternatives per step; weeks from study hours |
@@ -78,11 +78,15 @@ backend/
   services/              Recommendation, document and extraction logic
   providers/             Claude, RunPod and output validation
   engine.py              Career scoring and skill-gap calculations
+  semantic.py            Optional local MiniLM vectors, related-skill credit and profile-text fit
+  text_match.py          Offline keyword fallback for profile free text
   signals/               Trend signal layer: feeds, tagging, guardrails, refresh, demand formula
   scenarios.py           Moderate and Rapid AI assumptions
 data/
   roles.json             Career requirements
   skills.json            Canonical skill catalogue
+  skill_relations.json   Human-reviewed related-skill pairs and blocked false friends
+  semantic_vectors.json  Cached MiniLM vectors for every career and skill (generated)
   signals.json           36 curated trend signals (imported from LaluanKu)
   courses.json           Checked courses for pathways (imported from LaluanKu)
   extra_courses.json     56 more checked courses, added by hand (79 of 81 required skills covered)
@@ -108,6 +112,18 @@ python scripts/build_frontend.py
 ```
 
 For a guide to the Results scenario connection, see [docs/SCENARIO_CONNECTION_GUIDE.md](docs/SCENARIO_CONNECTION_GUIDE.md). For other edit locations, see [docs/WHERE_TO_EDIT.md](docs/WHERE_TO_EDIT.md).
+
+## Related skills and the local sentence model
+
+Exact catalogue skills always score highest. `data/skill_relations.json` adds a small, human-reviewed list of related skills (for example Dashboard design → Data visualisation), capped at 60% credit, and blocks known false friends. `data/semantic_vectors.json` stores precomputed 384-dimensional vectors for all 44 careers and 99 skills from `sentence-transformers/all-MiniLM-L6-v2` (via fastembed/ONNX). The app uses them for a small profile-text fit and for cautious skill-skill similarity. Readiness stays exact-only, and unassessed skills remain unknown.
+
+Regenerate the vectors after editing `data/roles.json` or `data/skills.json`:
+
+```bash
+python scripts/build_semantic_vectors.py
+```
+
+The rebuild downloads/loads the model once. Role and skill vectors are served from the cache, so the catalogue side works offline. Profile free text is embedded with the local model when it is available; otherwise scoring falls back to the keyword matcher in `backend/text_match.py`, and the rest of the app still works.
 
 ## Checks
 

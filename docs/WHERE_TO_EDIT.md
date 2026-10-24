@@ -34,6 +34,8 @@
 | CV PDF/DOCX/TXT extraction | `backend/routes/cv_upload.py` | `backend/services/documents.py`, `backend/services/dictionary.py` |
 | Claude & RunPod API | `backend/routes/ai.py` | `backend/services/ai_extraction.py`, `backend/providers/{claude,runpod,validation}.py` |
 | Matching / suitability | `backend/routes/matches.py` | `backend/engine.py` |
+| Related-skill credit and profile fit | `backend/routes/matches.py` | `backend/semantic.py`, `backend/text_match.py`, `data/skill_relations.json` |
+| Cached sentence vectors | `backend/routes/matches.py` | `data/semantic_vectors.json`; rebuild with `scripts/build_semantic_vectors.py` |
 | Moderate vs Rapid | `backend/routes/scenarios.py` | `backend/scenarios.py`, `backend/engine.py` |
 | Skills Radar | `backend/routes/radar.py` | `backend/storage.py` |
 | Snapshot status | `backend/routes/snapshots.py` | `backend/storage.py` |

@@ -49,6 +49,8 @@ python -m pip install -r requirements.txt
 
 You'll see `(.venv)` at the start of the prompt when it's active. Activate it again each time you open a new terminal.
 
+The install includes `fastembed`/ONNX Runtime for the local `all-MiniLM-L6-v2` sentence model. The app ships with precomputed role and skill vectors in `data/semantic_vectors.json`, so you do not need the model just to view catalogue-based matches. Entering free text may load/download the model; if it is unavailable, profile free-text matching falls back to keywords. A manual rebuild with `python scripts/build_semantic_vectors.py` downloads about 90 MB.
+
 ## 4. Create your `.env` file
 
 Copy the example file:
