@@ -27,7 +27,7 @@ FuturePath helps students, graduates and working professionals compare their **c
 | Live Replit deployment | **Pending publication and live verification** |
 | Replit development project | [FuturePath Replit workspace](https://replit.com/@b152610182/futurepath) (may require project access) |
 | RunPod endpoint | Configured through `RUNPOD_ENDPOINT_ID`; API key is private |
-| Presentation / slide deck | **Team to supply verified link** |
+| Presentation / slide deck | https://canva.link/3obc67r8tcrgdjs |
 | Demo video | **Team to supply verified link** |
 | Official PDF submissions | See [submission/README.md](submission/README.md) |
 
@@ -94,19 +94,43 @@ The organizer's example uses `src/main.py`. We provide that path as a **thin com
 
 ## Repository structure
 
-```text
-src/              SDC template-compatible entry point (main.py), delegates to backend.app
-backend/          FastAPI entrypoint, feature-specific API routes, AI providers, matching, signals
-frontend/         V2 frontend, assets and independently editable pages / logic
-data/             Versioned skills, careers, signal and course catalogues
-runpod_worker/    Deployed RunPod GPU handler, Dockerfile and worker dependencies
-scripts/          Frontend build and verification utilities
-tests/            Backend, integration and optional browser tests
-docs/             Architecture, deployment, audit, user and submission notes
-submission/       SDC-required PDF deliverables, once completed and verified
-.replit           Replit development workflow and deployment configuration
-.env.example      Environment variable names and example settings (no credentials)
-requirements.txt Python dependencies
+```
+├── backend/                     # FastAPI app: API, matching engine, AI providers, signals
+│   ├── app.py                   # Creates the app, middleware and signal scheduler
+│   ├── engine.py                # Career scoring (skills, demand, interests)
+│   ├── routes/                  # One file per API area (careers, signals, CV upload, …)
+│   ├── services/                # CV extraction, recommendations, document parsing
+│   ├── providers/               # RunPod (Qwen) and Claude adapters, output validation
+│   └── signals/                 # Feed fetching, tagging, review queue, GitHub snapshot
+├── data/                        # Careers, skills, courses, curated and live signals (JSON)
+├── docs/                        # Architecture, release and submission notes
+├── frontend/
+│   ├── index.html               # Built page served by FastAPI (generated, do not edit)
+│   ├── mockup_source/           # Editable page templates and logic
+│   └── assets/                  # SDG icons and images
+├── runpod_worker/
+│   ├── handler.py               # RunPod serverless handler (GPU workload, Qwen 2.5 3B)
+│   ├── Dockerfile               # Worker image
+│   └── requirements.txt         # Worker dependencies
+├── scripts/                     # Frontend build, integrity checks, daily signal worker
+├── src/
+│   └── main.py                  # Application entry point (wraps backend.app)
+├── submission/                  # Required submission documents
+│   ├── SDC2026_KitaHack_Preliminary.pdf      # Preliminary submission (to add)
+│   ├── SDC2026_KitaHack_TechDeclaration.pdf  # Technology declaration (to add)
+│   ├── SDC2026_KitaHack_Replit_POU.pdf       # Replit proof of use (to add)
+│   ├── SDC2026_KitaHack_Runpod_POU.pdf       # RunPod proof of use (to add)
+│   ├── KITAHACK_SUBMISSION_STATUS.md         # What each PDF still needs
+│   └── README.md                             # PDF naming checklist
+├── tests/                       # Unit and API tests (pytest)
+│   └── browser/                 # Chromium end-to-end journeys
+├── .github/workflows/           # CI checks and the daily signals snapshot job
+├── .env.example                 # Example environment variables
+├── .gitignore
+├── .replit                      # Replit run configuration
+├── LICENSE                      # Apache 2.0
+├── requirements.txt             # Python dependencies
+└── README.md
 ```
 
 The official SDC template uses `src/main.py` and `runpod/handler.py` as **example placeholders**. Our actual equivalents are `backend/app.py` and `runpod_worker/handler.py`. We preserve the working modular structure rather than replace it with the example echo handler.
