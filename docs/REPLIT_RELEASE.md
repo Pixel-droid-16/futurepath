@@ -58,6 +58,44 @@ python scripts/build_frontend.py
 git status --short
 ```
 
+### Automated browser regressions (no paid inference)
+
+Install the requirements above, then provide Chromium. Replit's configured
+`playwright-driver` supplies it; elsewhere run `python -m playwright install chromium`
+(and install your OS's required browser libraries). To use an existing binary,
+set `PLAYWRIGHT_CHROMIUM_EXECUTABLE` to its path.
+
+```bash
+python -m pytest tests/browser --browser -q --tb=short
+```
+
+These tests are opt-in: the ordinary pytest command reports them as skipped.
+The browser command must pass before merging; a missing browser is an error,
+not a silent skip. It exercises the tracked `frontend/index.html` and real FastAPI
+routes, without rebuilding or changing the UI.
+
+Coverage includes manual profile creation, a fictional TXT upload through the
+existing file control, unconfirmed skill safeguards, proficiency and removal,
+all 18 quiz answers and skipping the quiz, Moderate/Rapid ranking (the UI labels
+Rapid as “Fast”), pathway navigation, two saved people and switching, refresh
+on results/pathway/signals/about, a 390px mobile journey, light/dark toggling,
+and public-demo missing/wrong/correct password and blocked administration.
+The native HTTP Basic prompt cannot be typed into by Playwright: browser-context
+credentials test successful login, and HTTP responses test the challenge.
+
+Each test starts its own server on a temporary loopback port with a new SQLite
+database under pytest's temporary directory. No development database or shared
+profile is modified. The server receives only runtime environment settings,
+not deployment secrets. Qwen is stubbed at the provider boundary (the upload,
+parsing, dictionary supplementation, profile saving and matching remain real);
+Claude calls fail explicitly, scheduled feeds are disabled, and outbound server
+connections are blocked. Tests never incur RunPod/Claude charges.
+
+The unchanged UI requires its pinned React, ReactDOM and Babel scripts from
+unpkg; allow access to those URLs when running the suite. Other external assets
+are blocked in the journey fixture. Browser checks do not prove real provider
+availability, native PDF file-picker behavior, or production deployment health.
+
 Browser smoke test with synthetic CV:
 
 1. Open the protected `/start` URL; without a password expect a 401 prompt.

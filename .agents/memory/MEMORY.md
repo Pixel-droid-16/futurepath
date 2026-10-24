@@ -1,1 +1,2 @@
 - [Imported Python runtimes](imported-python-runtimes.md) — preserve imported module metadata before dependency installation after a branch switch.
+- [Browser-test isolation](browser-test-isolation.md) — isolate paid providers and storage; preserve managed Python paths and allow the UI's pinned CDN runtime.
