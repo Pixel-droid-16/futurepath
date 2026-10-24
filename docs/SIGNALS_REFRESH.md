@@ -123,3 +123,36 @@ refresh regardless of the interval setting. A separately approved persistent
 database and always-on or external scheduled worker are needed before
 claiming guaranteed daily automatic updates. No public deployment or paid
 schedule was enabled here.
+
+
+## External daily snapshot for Replit Autoscale (24 October 2026)
+
+An independent GitHub Actions schedule now checks configured sources at around
+10:17 am Malaysia time every day. GitHub Actions cron is best effort, not a
+service-level guarantee. It records its results in the versioned public
+`data/live_signals.json` file, which persists independently of ephemeral
+Replit SQLite. The deployed public demo **reads** the fixed GitHub snapshot
+through `backend/signals/snapshot.py` (five-minute in-memory cache). Signals,
+Skill Trends and career scoring use the same validated merged evidence. This
+requires a one-time updated Replit deployment. Later snapshot changes need no
+Replit publishing or user refresh button.
+
+By default the worker uses the free keyword prefilter and **never publishes
+those unverified candidates**. To enable genuine automated AI verification and
+publication, the repository owner must explicitly set GitHub Actions repository
+variable `SIGNALS_AUTO_AI_ENABLED=1` and add the repository Actions secret
+`ANTHROPIC_API_KEY`. Claude requests are paid and capped at eight candidates
+per run. No other secret or authorization token is written into the snapshot.
+AI failures and rejected candidates never enter visible evidence or scores.
+
+A checked_at timestamp is proof of a completed source-check attempt, not a
+guarantee that new evidence appeared or that every feed succeeded. Remote
+fetch failures retain previously validated in-memory evidence and saved curated
+sources. The fixed remote HTTPS URL rejects redirects and document size over
+512 KiB; imported entries need matching source IDs, valid dates, catalogue
+links, Claude tags and capped strength. The default demo auth and blocked
+administrator APIs remain protected. GitHub action and website have no extra
+paid service dependency unless Claude approval is switched on.
+
+The scheduled workflow can be manually invoked from GitHub Actions to validate
+its first source run, if the GitHub installation allows workflow dispatch.
