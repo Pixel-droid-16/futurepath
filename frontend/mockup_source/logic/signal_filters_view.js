@@ -9,11 +9,15 @@
     const signalsTotal = visibleEvidence.length, signalPagesTotal = Math.max(1, Math.ceil(signalsTotal / 8));
     const signalsCurrent = Math.min(signalPagesTotal, Math.max(1, Number(st.signalsPage) || 1));
     const goSignalsPage = page => this.setState({ signalsPage: Math.min(signalPagesTotal, Math.max(1, page)) });
-    const signalsPages = Array.from({ length:signalPagesTotal }, (_, i) => ({
-      n:i+1, current:String(signalsCurrent === i+1),
-      bg:signalsCurrent === i+1 ? 'var(--pr)' : 'var(--sf)',
-      c:signalsCurrent === i+1 ? 'var(--pri)' : 'var(--ink)', go:()=>goSignalsPage(i+1)
-    }));
+    // Keep page-number buttons bounded as the live evidence collection grows.
+    const signalPageFirst = Math.max(1, Math.min(signalsCurrent - 2, signalPagesTotal - 4));
+    const signalPageLast = Math.min(signalPagesTotal, signalPageFirst + 4);
+    const signalsPages = Array.from({ length:signalPageLast-signalPageFirst+1 }, (_, i) => {
+      const n = signalPageFirst+i;
+      return { n, current:String(signalsCurrent === n),
+        bg:signalsCurrent === n ? 'var(--pr)' : 'var(--sf)',
+        c:signalsCurrent === n ? 'var(--pri)' : 'var(--ink)', go:()=>goSignalsPage(n) };
+    });
     const signals = visibleEvidence.slice((signalsCurrent-1)*8,signalsCurrent*8).map(x => { const tag = TAG[x.tagged_by] || TAG.keyword;
       return { t: x.title, summary: x.summary === x.title ? "" : x.summary, url: x.url, type: x.source_type[0].toUpperCase() + x.source_type.slice(1),
         dir: x.direction === "emerging" ? "↑ Emerging" : "↓ Declining", dc: x.direction === "emerging" ? "var(--sky)" : "var(--dn)", db: x.direction === "emerging" ? "var(--skybg)" : "var(--dnbg)",
@@ -34,18 +38,55 @@
     };
     const feedStatus = st.signalStatus;
     const lang = st.lang === 'ms' ? 'ms' : st.lang === 'zh' ? 'zh' : 'en';
+    // Never claim daily updates if the scheduler is disabled or the host is asleep.
     const uiText = {
-      en: { auto:'Automatic evidence checks', off:'Checks unavailable in this environment',on:'Scheduled around every 24 hours while the server runs',
-        last:'Last successful check', next:'Next expected check', none:'Not yet available', status:'Status', ready:'Latest check successful', failed:'Latest check failed; saved evidence remains available', waiting:'Awaiting next check', held:'New evidence requires AI verification before publication', page:'Page', of:'of', previous:'Previous', nextButton:'Next' },
-      ms: {auto:'Semakan bukti automatik',off:'Semakan tidak tersedia dalam persekitaran ini',on:'Dijadualkan kira-kira setiap 24 jam selagi pelayan berjalan',
-        last:'Semakan berjaya terakhir',next:'Semakan seterusnya dijangka',none:'Belum tersedia',status:'Status',ready:'Semakan terkini berjaya',failed:'Semakan terkini gagal; bukti tersimpan masih tersedia',waiting:'Menunggu semakan seterusnya',held:'Bukti baharu memerlukan pengesahan AI sebelum diterbitkan',page:'Halaman',of:'daripada',previous:'Sebelumnya',nextButton:'Seterusnya' },
-      zh: {auto:'自动证据检查',off:'当前环境未启用检查',on:'服务器运行期间约每24小时检查一次',
-        last:'最近成功检查',next:'预计下次检查',none:'尚未提供',status:'状态',ready:'最近检查成功',failed:'最近检查失败，已保存证据仍可查看',waiting:'等待下次检查',held:'新证据须经AI验证才会发布',page:'第',of:'页，共',previous:'上一页',nextButton:'下一页' }
+      en: { auto:'Automatic evidence checks', off:'Checks paused in this environment',
+        schedule:'Best-effort checks every {n} hours while the server runs',
+        last:'Last successful source check', next:'Next expected check', none:'Not available',
+        status:'Status', ready:'Latest check completed', partial:'Some sources failed; saved evidence remains available',
+        failed:'Latest check failed; saved evidence remains available', running:'Checking sources…',
+        waiting:'Awaiting first check', paused:'Checks paused',
+        held:'AI verification is off; new feed items remain staged, not published',
+        active:'AI validation enabled; passing sources can publish automatically',
+        inactive:'Stored evidence only until automatic checks are enabled',
+        empty:'No signals match this filter yet.',
+        page:'Page', of:'of', previous:'Previous', nextButton:'Next' },
+      ms: { auto:'Semakan bukti automatik', off:'Semakan dijeda dalam pemasangan ini',
+        schedule:'Semakan usaha terbaik setiap {n} jam ketika pelayan beroperasi',
+        last:'Semakan sumber berjaya terakhir',next:'Semakan seterusnya dijangka',none:'Tidak tersedia',
+        status:'Status',ready:'Semakan terkini selesai',partial:'Sebahagian sumber gagal; bukti tersimpan masih tersedia',
+        failed:'Semakan terakhir gagal; bukti tersimpan masih tersedia',running:'Menyemak sumber…',
+        waiting:'Menunggu semakan pertama',paused:'Semakan dijeda',
+        held:'Pengesahan AI dimatikan; sumber baharu disimpan untuk semakan, bukan diterbitkan',
+        active:'Pengesahan AI aktif; sumber yang lulus boleh diterbitkan secara automatik',
+        inactive:'Bukti tersimpan sahaja sehingga semakan automatik diaktifkan',
+        empty:'Tiada isyarat yang sepadan dengan penapis ini.',
+        page:'Halaman',of:'daripada',previous:'Sebelumnya',nextButton:'Seterusnya' },
+      zh: { auto:'自动证据检查',off:'此部署暂停了自动检查',
+        schedule:'服务器运行时，每 {n} 小时尽力检查一次',
+        last:'最近成功来源检查',next:'预计下次检查',none:'不可用',
+        status:'状态',ready:'最近检查已完成',partial:'部分来源检查失败；历史证据仍可查看',
+        failed:'最近检查失败；历史证据仍可查看',running:'正在检查来源…',
+        waiting:'等待首次检查',paused:'检查已暂停',
+        held:'AI验证未启用；新来源仅暂存，不会自动发布',
+        active:'AI验证已启用；通过审核的来源可自动发布',
+        inactive:'启用自动检查前仅显示已保存证据',
+        empty:'此筛选条件下暂无信号。',
+        page:'第',of:'页，共',previous:'上一页',nextButton:'下一页' }
     }[lang];
-    const sigLastSuccessful = statusDate(feedStatus?.last_successful_at) === '—' ? uiText.none : statusDate(feedStatus?.last_successful_at);
-    const sigNextExpected = feedStatus?.enabled && feedStatus?.next_due ? statusDate(feedStatus.next_due) : uiText.none;
-    const sigHealth = feedStatus?.status === 'failed' ? uiText.failed
-      : (feedStatus?.status === 'ok' || feedStatus?.status === 'partial') ? uiText.ready : uiText.waiting;
+    const hours = Number(feedStatus?.interval_hours);
+    const sigAutoFrequency = feedStatus?.enabled && Number.isFinite(hours) && hours > 0
+      ? uiText.schedule.replace('{n}', String(hours)) : uiText.off;
+    const successDate = statusDate(feedStatus?.last_successful_at);
+    const sigLastSuccessful = successDate === '—' ? uiText.none : successDate;
+    const sigNextExpected = feedStatus?.enabled && feedStatus?.next_due
+      ? statusDate(feedStatus.next_due) : uiText.none;
+    const sigHealth = !feedStatus?.enabled ? uiText.paused : ({
+      ok:uiText.ready, partial:uiText.partial, failed:uiText.failed,
+      running:uiText.running
+    }[feedStatus.status] || uiText.waiting);
+    const sigAIGuard = !feedStatus?.enabled ? uiText.inactive
+      : feedStatus?.automatic_ai_enabled ? uiText.active : uiText.held;
     const reviewRows = (st.reviewItems || []).map(item => {
       const signal = item.signal || {};
       const rawUrl = String(signal.url || "");

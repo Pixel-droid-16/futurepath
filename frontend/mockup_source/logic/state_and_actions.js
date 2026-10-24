@@ -35,7 +35,15 @@ class Component extends DCLogic {
     }
     this._translatedLanguage = this.state.lang;
     this._t = setInterval(() => this.setState(s => ({ tick: (s.tick || 0) + 1 })), 1000);
-    this._onPop = () => { const p = pageFromPath(); if (p) this.setState({ page: p }); };
+    // Poll only saved evidence while the Signals page is visible. No feed/model calls.
+    this._signalsPoll = setInterval(() => {
+      if (this._alive && this.state.page === 'signals' && !document.hidden &&
+          !this.state.refreshing && !this._signalPolling) {
+        this._signalPolling = true;
+        Promise.resolve(this.loadSignals()).finally(() => { this._signalPolling = false; });
+      }
+    }, 10 * 60 * 1000);
+    this._onPop = () => { const p = pageFromPath(); if (p) { if (p === 'signals') this.loadSignals(); this.setState({ page: p }); } };
     try { window.addEventListener("popstate", this._onPop); } catch (e) {}
     this.refreshLiveCareers();
     this.loadCatalog();
@@ -219,7 +227,7 @@ class Component extends DCLogic {
     this.loadScenarioPair(roleId);
     if (openPathway) this.go('pathway');
   }
-  componentWillUnmount() { this._alive = false; clearInterval(this._t); if (this._translationObserver) this._translationObserver.disconnect(); try { window.removeEventListener("popstate", this._onPop); } catch (e) {} }
+  componentWillUnmount() { this._alive = false; clearInterval(this._t); clearInterval(this._signalsPoll); if (this._translationObserver) this._translationObserver.disconnect(); try { window.removeEventListener("popstate", this._onPop); } catch (e) {} }
   togglePathStep(key, id) {
     const cur = new Set((this.state.pathDone || {})[key] || []);
     cur.has(id) ? cur.delete(id) : cur.add(id);
@@ -233,6 +241,7 @@ class Component extends DCLogic {
     this.setState({ lang: locale });
   }
   go(p) {
+    if (p === 'signals' && this.state.page !== 'signals') this.loadSignals();
     this.setState({ page: p });
     try { if (location.pathname !== PAGE_PATH[p]) history.pushState({ page: p }, "", PAGE_PATH[p]); window.scrollTo(0, 0); } catch (e) {}
   }

@@ -127,3 +127,30 @@ def test_v2_pager_configuration_has_independent_pages():
     for label in ('Rising skills pages', 'Declining skills pages', 'Signals pages'):
         assert f'aria-label="{label}"' in page
     assert 'Review pending evidence' not in page
+
+
+def test_signals_v2_shows_at_most_five_numbered_pages():
+    root = Path(__file__).resolve().parents[1]
+    rising = (root / 'frontend/mockup_source/logic/skill_trends_view.js').read_text(encoding='utf8')
+    signals = (root / 'frontend/mockup_source/logic/signal_filters_view.js').read_text(encoding='utf8')
+    assert 'Math.min(total, firstVisible + 4)' in rising
+    assert 'Math.min(signalPagesTotal, signalPageFirst + 4)' in signals
+    assert 'length:lastVisible-firstVisible+1' in rising
+    assert 'length:signalPageLast-signalPageFirst+1' in signals
+
+
+def test_status_does_not_promise_updates_while_disabled():
+    root = Path(__file__).resolve().parents[1]
+    src = (root / 'frontend/mockup_source/logic/signal_filters_view.js').read_text(encoding='utf8')
+    assert 'sigAutoFrequency = feedStatus?.enabled' in src
+    assert 'sigHealth = !feedStatus?.enabled' in src
+    assert 'automatic_ai_enabled ? uiText.active : uiText.held' in src
+    assert 'uiText.schedule.replace' in src
+
+
+def test_saved_signal_polling_only_when_page_is_visible():
+    root = Path(__file__).resolve().parents[1]
+    src = (root / 'frontend/mockup_source/logic/state_and_actions.js').read_text(encoding='utf8')
+    assert "this.state.page === 'signals' && !document.hidden" in src
+    assert 'clearInterval(this._signalsPoll)' in src
+    assert '10 * 60 * 1000' in src

@@ -24,10 +24,16 @@
       const total = Math.max(1, Math.ceil(items.length / 5));
       const current = Math.min(total, Math.max(1, Number(requested) || 1));
       const go = page => this.setState({ [field]: Math.min(total, Math.max(1, page)) });
+      // Five visible page numbers at most; Previous/Next still navigate every page.
+      const firstVisible = Math.max(1, Math.min(current - 2, total - 4));
+      const lastVisible = Math.min(total, firstVisible + 4);
       return { current, total, first: current === 1, last: current === total,
-        pages: Array.from({length: total}, (_,i) => ({ n: i+1, current: String(current === i+1),
-          bg: current === i+1 ? 'var(--pr)' : 'var(--sf)',
-          c: current === i+1 ? 'var(--pri)' : 'var(--ink)', go: () => go(i+1) })),
+        pages: Array.from({length:lastVisible-firstVisible+1}, (_,i) => {
+          const n = firstVisible + i;
+          return { n, current: String(current === n),
+            bg: current === n ? 'var(--pr)' : 'var(--sf)',
+            c: current === n ? 'var(--pri)' : 'var(--ink)', go: () => go(n) };
+        }),
         prev: () => go(current-1), next: () => go(current+1),
         cards: items.slice((current-1)*5, current*5) };
     };
@@ -40,8 +46,8 @@
       vTrB: svOn('trends').b, vTrC: svOn('trends').c, vTrBOn: String(sv === 'trends'), vSgB: svOn('signals').b, vSgC: svOn('signals').c, vSgBOn: String(sv === 'signals'),
       trReady: !!tr, trLoading: !tr,
       trRisingLbl: `Rising skills (${trRising.length})`, trDeclLbl: `Declining skills & jobs (${trDecl.length})`,  // one text node each, so they translate
-      trRising: rise.cards.map(c => trCard(c, true)),
-      trDecl: fall.cards.map(c => trCard(c, false)),
+      trRising: rise.cards.map(c => trCard(c, true)), risingEmpty: trRising.length === 0,
+      trDecl: fall.cards.map(c => trCard(c, false)), decliningEmpty: trDecl.length === 0,
       risingPages: rise.pages, risingCurrent: rise.current, risingTotal: rise.total,
       risingPrev: rise.prev, risingNext: rise.next, risingFirst: rise.first, risingLast: rise.last,
       decliningPages: fall.pages, decliningCurrent: fall.current, decliningTotal: fall.total,

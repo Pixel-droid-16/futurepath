@@ -237,3 +237,15 @@ update status. The historical original manifest, nineteen other reviewed
 hashes, original V2 theme, images and unrelated modules remain unchanged.
 The SHA256 entry for `frontend/index.html` was updated to these exact
 new assembled source bytes.
+
+
+## Signals V2 pagination and scheduler-status refinement (24 October 2026)
+
+The generated `frontend/index.html` is intentionally updated from its Signals
+source fragments: no more than five numbered buttons are visible per independently
+paged list, navigation and responsive filters stay within the container, empty
+results have a readable state, and status displays disabled/partial/active checks
+without claiming daily reliability on sleeping deployments. An optional read-only
+browser timer reloads stored signals only when the Signals page is visible and
+never invokes a news feed fetch or paid model. Original V2 CSS and image assets
+are unchanged. The reviewed generated-page hash is updated to the new bytes.
