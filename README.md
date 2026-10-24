@@ -208,9 +208,19 @@ The Replit application hosts the FastAPI + V2 website and connects server-side t
 - Improved mobile accessibility, loading/error recovery, model monitoring and calibration of scoring.
 - Production-grade persistent data store and end-to-end observability.
 
+## Team
+
+| Name | Role | GitHub Username |
+|------|------|-----------------|
+| CHANTHIRAA CHELVAN PASUPATHY (Leader) | Lead / Backend / RunPod / Replit | [Pixel-droid-16](https://github.com/Pixel-droid-16) |
+| HUA SOON LAI | Frontend | [soonlai1129](https://github.com/soonlai1129) |
+| ADAM BIN AZMI | Backend / AI | [Maestro05-coder](https://github.com/Maestro05-coder) |
+| MUHAMMAD ADAM BIN ROSLAN | Frontend / Backend | [dammnnnnnnnn](https://github.com/dammnnnnnnnn) |
+
 ## Submission checklist
 
 See [submission/README.md](submission/README.md) and [docs/SDC_SUBMISSION_CHECKLIST.md](docs/SDC_SUBMISSION_CHECKLIST.md). The team must verify the actual SDC form fields, PDF filenames and any deadlines in the [participant resources folder](https://drive.google.com/drive/folders/1xw7c2aN8N-at8hPEULzkcU76e_FFb0Ef).
+
 
 ## Team and attribution
 
