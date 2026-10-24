@@ -1,10 +1,13 @@
 """Reproducible educational scoring rules, intentionally separate from the language model.
 
-score = weighted mean of skill match, signal-driven demand and (after the quiz) interest fit, as shown on each card:
-  without the quiz  0.55 x skills + 0.45 x demand
-  with the quiz     0.45 x skills + 0.35 x demand + 0.20 x interest
+score = weighted mean of skill match, signal-driven demand, interest fit, and a small sector-interest prior,
+as shown on each card:
+  without the quiz  0.55 x skills + 0.45 x demand (+ sector prior)
+  with the quiz     0.45 x skills + 0.35 x demand + 0.20 x interest (+ sector prior)
 Skill match is the importance-weighted share of the career's required skills the person has (partial credit below the
 required level; unassessed skills count as missing). The +/- range comes from how much the demand signals agree.
+Demand trend is shrunk toward 50 when signal confidence is low, so no-signal roles don't get a free demand contribution.
+A small +2 sector-interest match bonus is added when the user chose a sector that matches the role's sector.
 """
 from .scenarios import scenario_details
 from .interests import interest_fit, shared_top_types, TYPE_NAMES
@@ -32,19 +35,36 @@ def rank_role(role, profile, snapshot, skill_index, resources, scenario='moderat
     # TRENDS: signal-driven demand (backend/signals/demand.py) when given; else the synthetic snapshot value.
     # SCENARIO EFFECTS: in Rapid, demand already counts AI-related signals double; skill priorities change below.
     # The snapshot fallback has no signals to weight, so it is the same in both scenarios.
-    trend=demand['score'] if demand else snapshot['role_trend'].get(role['id'],50)
-    adoption_shift=round(trend-demand['baseline_score'],1) if demand else 0
+    base_trend=demand['score'] if demand else snapshot['role_trend'].get(role['id'],50)
+    # SCENARIO EFFECTS: explicit illustrative policy changes trend factor AND task and skill priorities.
+    # Cap numerical change to avoid interpreting assumptions as observed occupational forecasts.
+    # Roles without curated scenario tasks keep their snapshot trend: no fabricated exposure data.
+    tasks=TASKS.get(role['id'])
+    exposed=sum(t[1] for t in tasks)/3 if tasks else None
+    adoption_shift=(round((exposed-50)*.22,1) if scenario=='rapid' and exposed is not None else 0)
+    trend=round(max(0,min(100,base_trend+adoption_shift)),1)
+    # DEMAND CONFIDENCE SHRINK: when signal confidence is low, pull the trend score toward 50 (neutral)
+    # so no-signal roles don't receive a free demand contribution; high-confidence signals are kept as-is.
+    if demand:
+        conf=demand.get('confidence','low')
+        shrink={'high':0.0,'medium':0.3,'low':0.6}
+        trend=round(trend+(50-trend)*shrink.get(conf,0.6),1)
     user_riasec=profile.get('riasec')
     interest=round(100*interest_fit(user_riasec,role['riasec']),1) if user_riasec and role.get('riasec') else None
     w=DEFAULT_WEIGHTS['with_interest' if interest is not None else 'without_interest']
     total=w['skill']+w['demand']+w['interest']
     score=(w['skill']*skill_match+w['demand']*trend+w['interest']*(interest or 0))/total
+    # SECTOR INTEREST PRIOR (item 1): +2 point bonus when user's declared sector interests match the role's sector.
+    sector_boost=2.0 if (profile.get('interests') and role.get('sector') in profile.get('interests',[])) else 0.0
+    score=round(score+sector_boost,1)
     band=DEMAND_BAND[demand['confidence']] if demand else DEMAND_BAND['low']
     spread=w['demand']*band/total
     terms=[f"{fmt(w['skill'])} × {round(skill_match)}",f"{fmt(w['demand'])} × {round(trend)}"]+([f"{fmt(w['interest'])} × {round(interest)}"] if interest is not None else [])
+    if sector_boost:terms.append('+ sector match')
     shared=[TYPE_NAMES[t] for t in shared_top_types(user_riasec,role['riasec'])] if interest is not None else []
     match={'skill':skill_match,'demand':trend,'interest':interest,'weights':w,'score':round(score,1),'low':round(max(0,score-spread)),
            'high':round(min(100,score+spread)),'demand_band':band,'formula':' + '.join(terms)+f' = {round(score)}',
+           'sector_boost':sector_boost,
            'interest_why':(f"You share {', '.join(shared)} interests with this career." if shared else 'Your strongest interests differ from this career’s.') if interest is not None else 'Take the interest quiz to add interest fit.'}
     unknowns=sum(g['status']=='unknown' for g in gaps)
     partial=sum(g['status']=='partial' for g in gaps)

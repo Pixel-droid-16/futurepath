@@ -68,7 +68,7 @@
     "sdgs": [
       8
     ],
-    "description": "Data Analyst applies specialised knowledge and transferable capabilities to solve practical sector challenges.",
+    "description": "Analyses structured and unstructured data using SQL, Python, and statistics to build dashboards and reports that drive business decisions. Works with tools like Power BI, Tableau, and Jupyter notebooks. Key in Malaysia's growing digital economy, serving MSC-status companies, fintech hubs, and shared service centres.",
     "sdg_justification": "Illustrative connection to SDG 8; assess real work outcomes before claiming impact.",
     "qualification_note": "Check country-specific legal and employer requirements; this demo does not verify professional eligibility.",
     "riasec": {
@@ -150,7 +150,7 @@
     "sdgs": [
       9
     ],
-    "description": "Cybersecurity Analyst applies specialised knowledge and transferable capabilities to solve practical sector challenges.",
+    "description": "Monitors networks for intrusions, responds to security incidents, and hardens systems against cyber threats using SIEM tools, firewalls, and threat intelligence platforms. Assesses vulnerabilities and applies security frameworks such as NIST and ISO 27001. Critical for Malaysia's national cybersecurity strategy and financial sector resilience under Bank Negara's RMiT framework.",
     "sdg_justification": "Illustrative connection to SDG 9; assess real work outcomes before claiming impact.",
     "qualification_note": "Check country-specific legal and employer requirements; this demo does not verify professional eligibility.",
     "riasec": {
@@ -232,7 +232,7 @@
     "sdgs": [
       8
     ],
-    "description": "Financial Analyst applies specialised knowledge and transferable capabilities to solve practical sector challenges.",
+    "description": "Builds financial models in Excel and Python, analyses company performance, and prepares investment recommendations. Uses Bloomberg Terminal, Capital IQ, and statistical tools to evaluate market trends. Supports Malaysia's capital market growth and Islamic finance sector expansion under the Securities Commission's Capital Market Masterplan.",
     "sdg_justification": "Illustrative connection to SDG 8; assess real work outcomes before claiming impact.",
     "qualification_note": "Check country-specific legal and employer requirements; this demo does not verify professional eligibility.",
     "riasec": {
@@ -314,7 +314,7 @@
     "sdgs": [
       9
     ],
-    "description": "Business Intelligence Analyst applies specialised knowledge and transferable capabilities to solve practical sector challenges.",
+    "description": "Designs data warehouses, builds ETL pipelines, and creates interactive dashboards using Power BI, Tableau, and SQL. Translates stakeholder requirements into KPI frameworks and automated reports. Supports digital transformation in Malaysian GLCs and shared service centres.",
     "sdg_justification": "Illustrative connection to SDG 9; assess real work outcomes before claiming impact.",
     "qualification_note": "Check country-specific legal and employer requirements; this demo does not verify professional eligibility.",
     "riasec": {
@@ -396,7 +396,7 @@
     "sdgs": [
       3
     ],
-    "description": "Health Informatics Specialist applies specialised knowledge and transferable capabilities to solve practical sector challenges.",
+    "description": "Manages electronic health record systems (EHRS), ensures health data privacy compliance, and integrates clinical information across hospitals. Works with HL7, FHIR interoperability standards, and SQL databases. Supports Malaysia's national digital health initiative and the Ministry of Health's lifetime health record programme.",
     "sdg_justification": "Illustrative connection to SDG 3; assess real work outcomes before claiming impact.",
     "qualification_note": "Check country-specific legal and employer requirements; this demo does not verify professional eligibility.",
     "riasec": {
@@ -478,7 +478,7 @@
     "sdgs": [
       3
     ],
-    "description": "Clinical Research Coordinator applies specialised knowledge and transferable capabilities to solve practical sector challenges.",
+    "description": "Coordinates clinical trial protocols, manages participant recruitment and informed consent, and ensures Good Clinical Practice (GCP) compliance. Maintains trial master files, monitors adverse events, and liaises with ethics committees. Integral to Malaysia's growing clinical research ecosystem and Clinical Research Malaysia (CRM) sponsored studies.",
     "sdg_justification": "Illustrative connection to SDG 3; assess real work outcomes before claiming impact.",
     "qualification_note": "Check country-specific legal and employer requirements; this demo does not verify professional eligibility.",
     "riasec": {
@@ -561,7 +561,7 @@
       12,
       13
     ],
-    "description": "Sustainability Analyst applies specialised knowledge and transferable capabilities to solve practical sector challenges.",
+    "description": "Measures and reports corporate carbon footprints, conducts lifecycle assessments, and prepares ESG disclosures aligned with GRI, TCFD, and ISSB standards. Uses environmental data tools and Excel. Supports Bursa Malaysia's enhanced sustainability reporting requirements and the national net-zero agenda.",
     "sdg_justification": "Illustrative connection to SDG 12, 13; assess real work outcomes before claiming impact.",
     "qualification_note": "Check country-specific legal and employer requirements; this demo does not verify professional eligibility.",
     "riasec": {
@@ -644,7 +644,7 @@
       7,
       13
     ],
-    "description": "Renewable Energy Engineer applies specialised knowledge and transferable capabilities to solve practical sector challenges.",
+    "description": "Designs solar PV systems, wind turbine layouts, and battery energy storage (BESS) configurations. Runs energy yield simulations using PVsyst, HOMER, and MATLAB. Performs grid integration studies and electrical safety assessments. Supports Malaysia\u2019s Large Scale Solar (LSS) programme and the National Energy Transition Roadmap.",
     "sdg_justification": "Illustrative connection to SDG 7, 13; assess real work outcomes before claiming impact.",
     "qualification_note": "Check country-specific legal and employer requirements; this demo does not verify professional eligibility.",
     "riasec": {
@@ -726,7 +726,7 @@
     "sdgs": [
       9
     ],
-    "description": "Automation Engineer applies specialised knowledge and transferable capabilities to solve practical sector challenges.",
+    "description": "Programs PLCs, configures SCADA systems, and integrates robotic work cells in manufacturing lines. Troubleshoots industrial networks (Profinet, EtherCAT) and implements predictive maintenance algorithms. Powers Industry 4.0 transformation in Malaysia\u2019s E&E and semiconductor manufacturing clusters.",
     "sdg_justification": "Illustrative connection to SDG 9; assess real work outcomes before claiming impact.",
     "qualification_note": "Check country-specific legal and employer requirements; this demo does not verify professional eligibility.",
     "riasec": {
@@ -809,7 +809,7 @@
       9,
       12
     ],
-    "description": "Quality Assurance Engineer applies specialised knowledge and transferable capabilities to solve practical sector challenges.",
+    "description": "Implements ISO 9001 quality management systems, conducts root cause analysis using Six Sigma DMAIC, and applies statistical process control (SPC) on production lines. Designs test protocols, manages corrective actions, and drives defect rate reduction. Essential in Malaysia\u2019s aerospace and medical device export manufacturing.",
     "sdg_justification": "Illustrative connection to SDG 9, 12; assess real work outcomes before claiming impact.",
     "qualification_note": "Check country-specific legal and employer requirements; this demo does not verify professional eligibility.",
     "riasec": {
@@ -891,7 +891,7 @@
     "sdgs": [
       4
     ],
-    "description": "Instructional Designer applies specialised knowledge and transferable capabilities to solve practical sector challenges.",
+    "description": "Creates structured e-learning courses, writes assessment rubrics, and builds interactive learning content using Articulate 360, Moodle, and video production tools. Applies ADDIE and SAM instructional design models to create learner-centred experiences. Supports Malaysia\u2019s digital education agenda and corporate upskilling programmes under HRD Corp.",
     "sdg_justification": "Illustrative connection to SDG 4; assess real work outcomes before claiming impact.",
     "qualification_note": "Check country-specific legal and employer requirements; this demo does not verify professional eligibility.",
     "riasec": {
@@ -973,7 +973,7 @@
     "sdgs": [
       10
     ],
-    "description": "UX Designer applies specialised knowledge and transferable capabilities to solve practical sector challenges.",
+    "description": "Conducts user interviews and usability tests, creates wireframes and interactive prototypes in Figma, and designs information architecture for web and mobile applications. Synthesises research into journey maps and design systems. Drives user-centred digital product development in Malaysia\u2019s growing tech startup and fintech ecosystem.",
     "sdg_justification": "Illustrative connection to SDG 10; assess real work outcomes before claiming impact.",
     "qualification_note": "Check country-specific legal and employer requirements; this demo does not verify professional eligibility.",
     "riasec": {
