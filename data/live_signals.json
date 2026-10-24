@@ -1,8 +1,68 @@
 {
   "schema_version": 1,
-  "checked_at": null,
-  "last_successful_at": null,
-  "status": "not_checked",
-  "ai_enabled": false,
-  "signals": []
+  "checked_at": "2026-10-24T21:35:52+00:00",
+  "last_successful_at": "2026-10-24T21:35:52+00:00",
+  "status": "ok",
+  "ai_enabled": true,
+  "signals": [
+    {
+      "external_id": "gnews-my-ai-jobs:ca302350a4d1df22",
+      "feed_key": "gnews-my-ai-jobs",
+      "title": "Trainocate Malaysia Launches AI Training Roadmap 2026, a 7-Level Framework to Close the Enterprise AI Skills Gap",
+      "source_name": "Voice of ASIA",
+      "source_type": "news",
+      "url": "https://news.google.com/rss/articles/CBMi6wFBVV95cUxQTC1kR3ZJMDZaU0NyVFNsdi00SkNaU0plZW1BNEo2MUdPWUoxa0U0MXlodFJCWmpldUNPQ0tDY3VoNi1DZkZXLXNOcVc4WWE0cUV4cVY5N051cWh0d1hrWmxwWHpuSGMxcTNOMy1TV3FCY0NhNHhhcDJIVUV4SWhzODdPQ3djX2oxV2JEU21ScUhPbUl2ZmdUYTQyM19NNFBRWTYwMnJSdmMtMnJyOEE4d1d2a2JfRlVxNTVKcXZ5TVpCRTFIa21uZG1jRjhMeVdFYzQ3alk5SkFLLXVwSUZxMmx4VWRzYWlnclJB?oc=5",
+      "published_date": "2026-10-22",
+      "fetched_at": "2026-10-24",
+      "summary": "Trainocate Malaysia Launches AI Training Roadmap 2026, a 7-Level Framework to Close the Enterprise AI Skills Gap",
+      "direction": "emerging",
+      "strength": 2,
+      "role_ids": [],
+      "skill_ids": [
+        "SK077"
+      ],
+      "tagged_by": "claude",
+      "run_id": null
+    },
+    {
+      "external_id": "gnews-my-talent-policy:532bf464fa72a3b4",
+      "feed_key": "gnews-my-talent-policy",
+      "title": "Budget 2027: 10,000 youths to receive robotics, digital training",
+      "source_name": "The Sun Malaysia",
+      "source_type": "news",
+      "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxPS0ZzeExOWVVTWVlhQy16UDNtZ2NWa1NoTUFvWTZzMmRwSURIYU9mZWtvOGdQUURpWmhGRGZkb0V0NFR1NnBqSE5DTjNTc01MUEUyYXpXTjFsRVhmYkMyU3JJOGxHbFlYTmFnUWRveVBmR3dWRWR3eVljcHplU3hrRnBn?oc=5",
+      "published_date": "2026-10-19",
+      "fetched_at": "2026-10-24",
+      "summary": "Budget 2027: 10,000 youths to receive robotics, digital training",
+      "direction": "emerging",
+      "strength": 2,
+      "role_ids": [
+        "industrial-robotics-technician"
+      ],
+      "skill_ids": [
+        "SK057"
+      ],
+      "tagged_by": "claude",
+      "run_id": null
+    },
+    {
+      "external_id": "gnews-my-ai-jobs:d162d285a635fd2a",
+      "feed_key": "gnews-my-ai-jobs",
+      "title": "Malaysia Targets 200,000 AI-Skilled Workers by 2027",
+      "source_name": "Employee Happiness Daily",
+      "source_type": "news",
+      "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxOTzU1c08zSFVLSGFPbk9YSXM2RDJSck1NSFp2bnU1SjhlS3BTdlpMN09qbHgtT21ZTGR2bENBOWhwWU9zV3dnZUdjSDFtRVlBdFJWWXRXcVlFMS1SdmhYUG00NDhpWlhUbHAwQ3E4Si1PWnJEb2QzSkZGQzZvN3o0OGNaWUx6czJGVmF4bzF3N3VWT19Bb2MzUFUxYw?oc=5",
+      "published_date": "2026-10-16",
+      "fetched_at": "2026-10-24",
+      "summary": "Malaysia Targets 200,000 AI-Skilled Workers by 2027",
+      "direction": "emerging",
+      "strength": 2,
+      "role_ids": [],
+      "skill_ids": [
+        "SK077"
+      ],
+      "tagged_by": "claude",
+      "run_id": null
+    }
+  ]
 }
