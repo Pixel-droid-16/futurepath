@@ -8,6 +8,10 @@ os.environ["FUTUREPATH_DB"] = sys.argv[1]
 os.environ["SIGNALS_REFRESH_HOURS"] = "0"
 os.environ["FUTUREPATH_PUBLIC_DEMO"] = sys.argv[3]
 os.environ["FUTUREPATH_DEMO_PASSWORD"] = "synthetic-browser-password"
+if sys.argv[3] == "signals":
+    os.environ["FUTUREPATH_PUBLIC_DEMO"] = "0"
+    os.environ["SIGNALS_REFRESH_HOURS"] = "24"
+    os.environ["ADMIN_TOKEN"] = "synthetic-browser-admin"
 if sys.argv[3] == "unconfigured":
     os.environ["FUTUREPATH_PUBLIC_DEMO"] = "1"
     os.environ["FUTUREPATH_DEMO_PASSWORD"] = ""
@@ -62,6 +66,33 @@ ai_extraction.claude_extract_pdf = (
 )
 
 from backend.app import app
+
+if sys.argv[3] == "signals":
+    # Synthetic, already-validated pending fixtures; no feed fetch or paid tagger.
+    import json
+    from datetime import datetime, timezone, timedelta
+    from backend import storage
+    stamp = datetime.now(timezone.utc).isoformat()
+    with storage.connection() as c:
+        run = c.execute("INSERT INTO refresh_runs(started_at,finished_at,status,tagger,pending,trigger) "
+                        "VALUES(?,?,'ok','keyword',2,'automatic')", (stamp, stamp)).lastrowid
+        for n, title, role, skill in (
+            (1, 'Malaysia needs cybersecurity workers', 'cybersecurity-analyst', 'SK011'),
+            (2, 'Malaysia expands data analyst hiring', 'data-analyst', 'SK005'),
+        ):
+            item = {'external_id': f'browser:{n}', 'feed_key': 'browser', 'title': title,
+                    'source_name': 'Synthetic evidence fixture', 'source_type': 'news',
+                    'url': f'https://example.com/evidence/{n}',
+                    'published_date': (datetime.now(timezone.utc)-timedelta(days=1)).date().isoformat(),
+                    'snippet': title}
+            signal = {**item, 'fetched_at': stamp, 'summary': title,
+                      'direction': 'emerging', 'strength': 3,
+                      'role_ids': [role], 'skill_ids': [skill],
+                      'tagged_by': 'keyword', 'run_id': run}
+            c.execute("INSERT INTO signal_review(external_id,run_id,status,signal,source_item,"
+                      "validation_notes,created_at) VALUES(?,?,'pending',?,?,?,?)",
+                      (item['external_id'], run, json.dumps(signal), json.dumps(item),
+                       'Synthetic offline test evidence', stamp))
 from backend.routes import cv_upload
 
 # Route selection also checks configuration; never infer it from live secrets.

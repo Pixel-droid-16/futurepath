@@ -1,5 +1,5 @@
 {
-  ".env.example": "a33b0091c3e909d8e91043b54ad3fb5169aa219a1e9aa831a871feaa6344fbea",
+  ".env.example": "b7bbc82b8343dccbba996991469e420997c941351f7c1e866d5abfbb9f77f203",
   "requirements.txt": "f0d94b9ad97b66579cd8850fe55d824eb23fa90a0c622ddfc7ef6e0739123dc7",
   ".gitignore": "c6040ba84b52a1cff8af3c86e3a4f4d991323405be4501d76b5c4c81dbbe82e5",
   "INTEGRATION_EXPLAINED.md": "689634cf946f652d306e00f7887e3a015f9b05e44a1509963eac9686422e023d",
@@ -14,8 +14,8 @@
   "backend/ai_providers.py": "bbcc7e08095be33efe3fb0b6bdbf88a6b8aad67b57ded782c816d62bdcb42aae",
   "backend/engine.py": "e3ac320bbaa8e70173a9c578d1e776491a61b91b7864be3e015c8c3622608463",
   "backend/scenarios.py": "2f42cebac75aa031faec91b5d2907f851c699e2ee735b81faf533b38327cef40",
-  "backend/app.py": "1f3f1b4874f9626879d354b7f5db4341fce7498fb7c13aaf4ef4d940217de448",
-  "frontend/index.html": "083cb0eebe1331c953b26085368ccc85f4ed7233ecc35e67a428682636c10dc1",
+  "backend/app.py": "f940b030ed34450d1f29ffc62caf65de3c54386d174a0e6a36ebe48d0c8d1d97",
+  "frontend/index.html": "fc058074c45ce49df2d96651a165f2a38c3a78633d23764a88fbe741f4fcd729",
   "runpod_worker/Dockerfile": "0e20b5b8358293298ff5980a7f8776178b29da59cc00ad076674ab20045f8a87",
   "runpod_worker/requirements.txt": "acb39588801a9bfb9c9068da669bd3509f3b54e2190672f6232c9c2a8a507970",
   "docs/ARCHITECTURE.md": "4b3f7796832650da5b52d07e4e74efc4ab56cf6fc6bb33c2328e95cac7453a50"

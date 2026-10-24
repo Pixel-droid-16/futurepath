@@ -1,3 +1,4 @@
 - [Imported Python runtimes](imported-python-runtimes.md) — preserve imported module metadata before dependency installation after a branch switch.
 - [Browser-test isolation](browser-test-isolation.md) — isolate paid providers and storage; preserve managed Python paths and allow the UI's pinned CDN runtime.
 - [Integrity baselines](integrity-baselines.md) — preserve historical design hashes without reverting intentional upstream source and dataset evolution.
+- [Signals review policy](signals-review-policy.md) — unattended checks must be free, delayed and staged; administrator approval is required before scoring changes.

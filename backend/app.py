@@ -12,11 +12,12 @@ from .storage import DB,connection,init,get_profile,get_snapshot
 from .services.recommendations import result
 from .routes import (meta, skills, careers, learning, profiles, snapshots, curator, radar,
                      matches, scenarios, history, cv_upload, ai, signals, pages)
-from .signals.schedule import interval_hours,run_forever
+from .signals.schedule import interval_hours,run_forever,initialize_schedule
 
 @contextlib.asynccontextmanager
 async def lifespan(_app):
-    # Daily signal refresh while the server runs (SIGNALS_REFRESH_HOURS, 0 turns it off).
+    # Stage keyword-only evidence, with no immediate fetch or public-demo timer.
+    initialize_schedule()
     task=asyncio.create_task(run_forever()) if interval_hours() else None
     yield
     if task:

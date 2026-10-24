@@ -14,6 +14,30 @@
     const sigLastRunC = !lastRun ? "var(--mu)" : lastRun.status === "ok" ? "var(--up)" : lastRun.status === "failed" ? "var(--dn)" : "var(--am)";
     const sigFeeds = lastRun ? lastRun.feeds.map(x => ({ name: x.name, state: x.ok ? x.items + " items" : "failed: " + (x.error || "error"), c: x.ok ? "var(--mu)" : "var(--dn)" })) : [];
     // What changed (Results): the latest refresh's effect on the current profile's ranking.
+    const statusDate = value => {
+      if (!value) return "—";
+      const date = new Date(value);
+      return Number.isNaN(date.getTime()) ? "—" : date.toLocaleString(fpIntlLocale(st.lang), { day: "numeric", month: "short", year: "numeric", hour: "numeric", minute: "2-digit" });
+    };
+    const feedStatus = st.signalStatus;
+    const reviewRows = (st.reviewItems || []).map(item => {
+      const signal = item.signal || {};
+      const rawUrl = String(signal.url || "");
+      let url = "";
+      try { const parsed = new URL(rawUrl, location.origin); if (["http:", "https:"].includes(parsed.protocol)) url = parsed.href; } catch (e) {}
+      return {
+        id: item.id, status: item.status || "pending", statusLabel: (item.status || "pending").replace(/^\w/, c => c.toUpperCase()),
+        title: signal.title || "Untitled evidence", summary: signal.summary || "No summary supplied.",
+        source: signal.source_name || "Unknown source", sourceType: signal.source_type || "—",
+        published: signal.published_date ? fmtDate(String(signal.published_date)) : "Date not supplied",
+        created: statusDate(item.created_at), reviewed: statusDate(item.reviewed_at),
+        url, direction: signal.direction || "Unclassified", strength: signal.strength ?? "—",
+        notes: item.validation_notes || "", reason: item.decision_reason || "",
+        canDecide: item.status === "pending",
+        approve: () => this.decideSignal(item.id, "approve"),
+        reject: () => this.decideSignal(item.id, "reject")
+      };
+    });
     const wc = st.whatChanged;
     const wcMoves = (wc?.moves || []).slice(0, 3).map(m => ({ text: m.after_rank < m.before_rank ? `${m.title} moved up from #${m.before_rank} to #${m.after_rank}` : m.after_rank > m.before_rank ? `${m.title} moved down from #${m.before_rank} to #${m.after_rank}` : `${m.title} stayed at #${m.after_rank}`,
       why: `Trends ${m.before_trend} → ${m.after_trend} from ${m.new_signals} new signal${m.new_signals === 1 ? "" : "s"}` }));

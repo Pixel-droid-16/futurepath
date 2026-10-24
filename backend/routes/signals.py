@@ -2,6 +2,7 @@
 import json,os,secrets
 from datetime import date
 from fastapi import APIRouter,HTTPException,Request
+from pydantic import BaseModel,Field
 from ..catalog import ROLES,SKILL_INDEX,load
 from ..demo_security import public_demo
 from ..signals.demand import recency_decay
@@ -9,6 +10,7 @@ from ..storage import connection,get_signals
 from ..services.recommendations import result
 from ..signals.refresh import refresh_signals,RefreshInProgress
 from ..signals.schedule import interval_hours,last_runs,next_due
+from ..signals.review import review_items,decide
 router=APIRouter(prefix='/api',tags=['signals'])
 LOCAL_HOSTS={'127.0.0.1','::1','localhost','testclient'}
 ROLE_TITLES={r['id']:r['title'] for r in ROLES}
@@ -107,6 +109,50 @@ def refresh_access(request:Request):
     return {'mode':mode,'can_refresh':mode in ('admin','local'),
             'requires_token':mode=='admin','message':messages[mode]}
 
+def authorise_review(request:Request):
+    """Review has no localhost exemption, and is forbidden in public demos."""
+    if public_demo():
+        raise HTTPException(403,'Evidence review is disabled in public demo mode')
+    token=os.getenv('ADMIN_TOKEN')
+    if not token:
+        raise HTTPException(503,'Administrator review is not configured')
+    scheme,_,supplied=request.headers.get('authorization','').partition(' ')
+    if scheme.lower()!='bearer' or not secrets.compare_digest(supplied,token):
+        raise HTTPException(401,'Administrator bearer authorization required')
+
+@router.get('/signals/status')
+def signal_status():
+    """Public metadata only: no fetch, review authorization, or scheduler mutation."""
+    with connection() as c:
+        row=c.execute('SELECT * FROM refresh_runs ORDER BY id DESC LIMIT 1').fetchone()
+        pending=c.execute("SELECT COUNT(*) FROM signal_review WHERE status='pending'").fetchone()[0]
+        approved=c.execute("SELECT MAX(reviewed_at) FROM signal_review WHERE status='approved'").fetchone()[0]
+    due=next_due()
+    return {'enabled':bool(interval_hours()),'interval_hours':interval_hours(),
+            'next_due':due.isoformat() if due else None,
+            'last_checked':(row['finished_at'] or row['started_at']) if row else None,
+            'status':row['status'] if row else 'not_checked','pending_count':pending,
+            'last_approved_at':approved,'automatic_tagger':'keywords',
+            'public_demo':public_demo(),'best_effort':True}
+
+@router.get('/signals/review')
+def list_review(request:Request,status:str='pending',limit:int=200):
+    authorise_review(request)
+    return review_items(status,limit)
+
+class ReviewDecision(BaseModel):
+    reason:str=Field(default='',max_length=500)
+
+@router.post('/signals/review/{review_id}/approve')
+def approve_review(review_id:int,request:Request,payload:ReviewDecision|None=None):
+    authorise_review(request)
+    return decide(review_id,'approved',(payload.reason if payload else '').strip())
+
+@router.post('/signals/review/{review_id}/reject')
+def reject_review(review_id:int,request:Request,payload:ReviewDecision|None=None):
+    authorise_review(request)
+    return decide(review_id,'rejected',(payload.reason if payload else '').strip())
+
 def authorise(request:Request):
     """In public demo mode refresh is disabled; otherwise require admin token or local host."""
     if public_demo():
@@ -128,7 +174,9 @@ async def refresh(request:Request):
 def what_changed(profile:str|None=None):
     """How the latest refresh moved the current profile's ranking: score with and without that run's new signals."""
     with connection() as c:
-        run=c.execute("SELECT * FROM refresh_runs WHERE accepted>0 AND status!='running' ORDER BY id DESC LIMIT 1").fetchone()
+        approval=c.execute("SELECT run_id FROM signal_review WHERE status='approved' ORDER BY reviewed_at DESC,id DESC LIMIT 1").fetchone()
+        run=(c.execute('SELECT * FROM refresh_runs WHERE id=?',(approval[0],)).fetchone() if approval else
+             c.execute("SELECT * FROM refresh_runs WHERE accepted>0 AND status!='running' ORDER BY id DESC LIMIT 1").fetchone())
         last=c.execute("SELECT * FROM refresh_runs WHERE status!='running' ORDER BY id DESC LIMIT 1").fetchone()
     if not run:return {'has_change':False,'last_refresh':run_row(last) if last else None}
     every=get_signals();new=[s for s in every if s['run_id']==run['id']]

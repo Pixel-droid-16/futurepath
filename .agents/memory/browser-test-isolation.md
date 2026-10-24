@@ -23,3 +23,13 @@ automatic discovery can reject the option before loading that configuration.
 
 **How to apply:** Follow the documented explicit browser-directory invocation
 rather than assuming the ordinary top-level command recognizes browser options.
+
+Keep new browser and backend test basenames distinct rather than converting the
+browser directory into a Python package just to avoid collection collisions.
+
+**Why:** Both sets run under default pytest collection, and existing browser
+helpers use sibling imports. A package conversion fixed one name collision but
+broke those imports; unique basenames preserve both normal and opt-in collection.
+
+**How to apply:** Verify normal collection as well as the explicit browser run
+when adding browser modules; keep test organization changes narrowly scoped.

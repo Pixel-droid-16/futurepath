@@ -142,10 +142,10 @@
 <div style="background:var(--sf);border:1px solid var(--ln);border-radius:24px;padding:24px;display:flex;flex-direction:column;gap:14px"><b style="font-size:17px;font-weight:600">How this career may contribute to the SDGs</b><div style="display:flex;flex-wrap:wrap;gap:6px"><sc-for list="{{ pathSdgs }}" as="g"><span style="background:{{ g.c }};color:#fff;border-radius:8px;padding:4px 10px;font-size:12px;font-weight:600">{{ g.label }}</span></sc-for></div><p style="margin:0;font-size:14px;line-height:1.5;color:var(--mu)">{{ pathSdgJustification }}</p><p style="margin:0;font-size:12px;line-height:1.5;color:var(--mu)">Potential alignment only; real contribution depends on how the work is carried out and its outcomes.</p></div>
 <div style="background:var(--sf);border:1px solid var(--ln);border-radius:24px;padding:24px;font-size:14px;line-height:1.5"><b style="display:block;font-size:17px;font-weight:600;margin-bottom:6px">Build through practice</b>Practice verified skills and ask for feedback as you learn.</div></aside></section></main></sc-if>
 <sc-if value="{{ is_signals }}" hint-placeholder-val="{{ false }}"><main data-screen-label="Signals" style="flex:1;display:flex;flex-direction:column"><section style="background:var(--hero);border-bottom:1px solid var(--ln);padding:56px max(clamp(20px,4vw,48px),calc((100% - 1200px)/2)) 44px;display:flex;flex-wrap:wrap;gap:24px 40px;align-items:flex-end"><div style="flex:1 1 480px"><span style="font:600 12px 'Geist Mono',monospace;letter-spacing:.06em;color:var(--pr)">TREND SIGNALS</span><h1 style="margin:8px 0 0;font-size:clamp(34px,4.5vw,52px);line-height:1.05;letter-spacing:-.035em;font-weight:700">The evidence behind every score</h1><p style="margin:12px 0 0;font-size:17px;line-height:1.55;color:var(--mu);max-width:640px">Curated reports form the baseline. New evidence is added only after an authorized feed refresh and validation.</p></div>
-<div style="display:flex;flex-wrap:wrap;gap:12px"><div style="background:var(--sf);border:1px solid var(--ln);border-radius:16px;padding:14px 18px"><div style="font:600 12px 'Geist Mono';letter-spacing:.06em;color:var(--mu)">LAST UPDATED</div><b style="font-size:15px;font-weight:600">{{ sigUpdated }}</b></div><div style="background:var(--sf);border:1px solid var(--ln);border-radius:16px;padding:14px 18px"><div style="font:600 12px 'Geist Mono';letter-spacing:.06em;color:var(--mu)">LAST REFRESH</div><b style="font-size:15px;font-weight:600;color:{{ sigLastRunC }}">{{ sigLastRun }}</b></div></div></section>
-<section style="padding:24px max(clamp(20px,4vw,48px),calc((100% - 1200px)/2)) 0"><div style="background:var(--sf);border:1px solid var(--ln);border-radius:20px;padding:18px 22px;display:flex;flex-direction:column;gap:12px"><div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center"><div style="flex:1 1 320px"><b style="font-size:15px;font-weight:600">Signal updates</b><p style="margin:2px 0 0;font-size:13px;color:var(--mu);line-height:1.45">Browse dated, stored evidence any time. Administrators can fetch Google News, arXiv and dataset feeds; new evidence is screened against our catalogue.</p></div><div style="display:flex;flex-wrap:wrap;gap:8px"><button onClick="{{ reloadSignals }}" style="border:1px solid var(--ln);background:var(--sf2);color:var(--ink);border-radius:12px;padding:12px 18px;font:600 14px Geist;cursor:pointer">{{ reloadLbl }}</button><sc-if value="{{ adminRefreshAvailable }}" hint-placeholder-val="{{ false }}"><button onClick="{{ refreshSignals }}" style="border:0;background:var(--pr);color:var(--pri);border-radius:12px;padding:12px 18px;font:600 14px Geist;cursor:pointer">{{ refreshLbl }}</button></sc-if></div></div><p role="status" style="margin:0;font-size:13px;line-height:1.5;color:var(--mu)">{{ refreshAccessMsg }}</p>
+ <div style="display:flex;flex-wrap:wrap;gap:12px"><div style="background:var(--sf);border:1px solid var(--ln);border-radius:16px;padding:14px 18px"><div style="font:600 12px 'Geist Mono';letter-spacing:.06em;color:var(--mu)">LAST UPDATED</div><b style="font-size:15px;font-weight:600">{{ sigUpdated }}</b></div><div style="background:var(--sf);border:1px solid var(--ln);border-radius:16px;padding:14px 18px"><div style="font:600 12px 'Geist Mono';letter-spacing:.06em;color:var(--mu)">LAST REFRESH</div><b style="font-size:15px;font-weight:600;color:{{ sigLastRunC }}">{{ sigLastRun }}</b></div><div style="background:var(--sf);border:1px solid var(--ln);border-radius:16px;padding:14px 18px"><div style="font:600 12px 'Geist Mono';letter-spacing:.06em;color:var(--mu)">LAST CHECKED</div><b style="font-size:15px;font-weight:600">{{ sigChecked }}</b></div><div style="background:var(--sf);border:1px solid var(--ln);border-radius:16px;padding:14px 18px"><div style="font:600 12px 'Geist Mono';letter-spacing:.06em;color:var(--mu)">PENDING REVIEW</div><b style="font-size:15px;font-weight:600;color:var(--am)">{{ sigPending }}</b></div></div></section>
+ <section style="padding:24px max(clamp(20px,4vw,48px),calc((100% - 1200px)/2)) 0"><div style="background:var(--sf);border:1px solid var(--ln);border-radius:20px;padding:18px 22px;display:flex;flex-direction:column;gap:12px"><div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center"><div style="flex:1 1 320px"><b style="font-size:15px;font-weight:600">Signal updates</b><p style="margin:2px 0 0;font-size:13px;color:var(--mu);line-height:1.45">Browse dated, stored evidence any time. Administrators can fetch Google News, arXiv and dataset feeds; new evidence is screened against our catalogue.</p></div><div style="display:flex;flex-wrap:wrap;gap:8px"><button onClick="{{ reloadSignals }}" style="border:1px solid var(--ln);background:var(--sf2);color:var(--ink);border-radius:12px;padding:12px 18px;font:600 14px Geist;cursor:pointer">{{ reloadLbl }}</button><sc-if value="{{ adminRefreshAvailable }}" hint-placeholder-val="{{ false }}"><button onClick="{{ refreshSignals }}" style="border:0;background:var(--pr);color:var(--pri);border-radius:12px;padding:12px 18px;font:600 14px Geist;cursor:pointer">{{ refreshLbl }}</button></sc-if><sc-if value="{{ reviewEnabled }}" hint-placeholder-val="{{ false }}"><button onClick="{{ loadReviewQueue }}" style="border:1px solid var(--pr);background:var(--soft);color:var(--pr);border-radius:12px;padding:12px 18px;font:600 14px Geist;cursor:pointer">Review pending evidence</button></sc-if></div></div><p role="status" style="margin:0;font-size:13px;line-height:1.5;color:var(--mu)">{{ refreshAccessMsg }}</p><div style="display:flex;flex-wrap:wrap;gap:8px 20px;border-top:1px solid var(--ln);padding-top:10px;font-size:12px;color:var(--mu)"><span><b style="color:var(--ink)">Automatic status:</b> {{ sigAutoStatus }}</span><span><b style="color:var(--ink)">Next due:</b> {{ sigDue }}</span><span><b style="color:var(--ink)">Interval:</b> every {{ sigInterval }} hours</span><span><b style="color:var(--ink)">Automatic tagging:</b> {{ sigTagger }}</span><span>New feed items stay out of rankings until approved.</span></div>
 <sc-if value="{{ hasRefreshMsg }}" hint-placeholder-val="{{ false }}"><div role="status" style="background:var(--soft);color:var(--pr);border-radius:12px;padding:10px 14px;font-size:13px;font-weight:500">{{ refreshMsg }}</div></sc-if>
-<div style="display:flex;flex-wrap:wrap;gap:6px 14px;font-size:12px"><sc-for list="{{ sigFeeds }}" as="d"><span style="color:{{ d.c }}">{{ d.name }}: {{ d.state }}</span></sc-for></div></div></section>
+ <sc-if value="{{ reviewOpen }}" hint-placeholder-val="{{ false }}"><section style="background:var(--sf2);border:1px solid var(--ln);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:12px"><div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center"><b style="font-size:15px">Administrator review queue</b><span style="font:600 12px 'Geist Mono';color:var(--mu)">{{ reviewTotal }} items</span><div style="display:flex;flex-wrap:wrap;gap:6px;margin-left:auto"><button onClick="{{ showPendingReview }}" style="border:1px solid var(--ln);background:var(--sf);color:var(--ink);border-radius:9px;padding:7px 10px;font:600 12px Geist;cursor:pointer">Pending</button><button onClick="{{ showApprovedReview }}" style="border:1px solid var(--ln);background:var(--sf);color:var(--ink);border-radius:9px;padding:7px 10px;font:600 12px Geist;cursor:pointer">Approved</button><button onClick="{{ showRejectedReview }}" style="border:1px solid var(--ln);background:var(--sf);color:var(--ink);border-radius:9px;padding:7px 10px;font:600 12px Geist;cursor:pointer">Rejected</button><button onClick="{{ showAllReview }}" style="border:1px solid var(--ln);background:var(--sf);color:var(--ink);border-radius:9px;padding:7px 10px;font:600 12px Geist;cursor:pointer">All</button><button onClick="{{ closeReview }}" style="border:1px solid var(--ln);background:var(--sf);color:var(--ink);border-radius:9px;padding:7px 10px;font:600 12px Geist;cursor:pointer">Close</button></div></div><p role="status" style="margin:0;font-size:13px;color:var(--mu)">{{ reviewMsg }}</p><sc-if value="{{ reviewLoading }}" hint-placeholder-val="{{ false }}"><div style="height:64px;border-radius:12px;background:linear-gradient(90deg,var(--sf) 25%,var(--sf2) 50%,var(--sf) 75%);background-size:200% 100%;animation:signalShimmer 1.5s ease-in-out infinite"></div></sc-if><sc-for list="{{ reviewItems }}" as="r"><article style="background:var(--sf);border:1px solid var(--ln);border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:8px"><div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center"><span style="background:var(--soft);color:var(--pr);border-radius:8px;padding:4px 9px;font-size:12px;font-weight:600">{{ r.statusLabel }}</span><span style="font:600 12px 'Geist Mono';color:var(--mu)">{{ r.direction }} · strength {{ r.strength }}</span><span style="margin-left:auto;font-size:12px;color:var(--mu)">Added {{ r.created }}<sc-if value="{{ r.reviewed }}" hint-placeholder-val="{{ false }}"> · Reviewed {{ r.reviewed }}</sc-if></span></div><h3 style="margin:0;font-size:17px;line-height:1.35;font-weight:600">{{ r.title }}</h3><p style="margin:0;font-size:13px;line-height:1.5;color:var(--mu)">{{ r.summary }}</p><div style="display:flex;flex-wrap:wrap;gap:6px 14px;font-size:12px;color:var(--mu)"><span>{{ r.source }} · {{ r.sourceType }}</span><span>Published {{ r.published }}</span><sc-if value="{{ r.url }}" hint-placeholder-val="{{ false }}"><a href="{{ r.url }}" target="_blank" rel="noopener noreferrer" style="color:var(--pr);font-weight:600">Open evidence source</a></sc-if></div><sc-if value="{{ r.notes }}" hint-placeholder-val="{{ false }}"><p style="margin:0;padding-top:8px;border-top:1px solid var(--ln);font-size:12px;color:var(--mu)"><b style="color:var(--ink)">Validation notes:</b> {{ r.notes }}</p></sc-if><sc-if value="{{ r.reason }}" hint-placeholder-val="{{ false }}"><p style="margin:0;font-size:12px;color:var(--mu)"><b style="color:var(--ink)">Decision reason:</b> {{ r.reason }}</p></sc-if><sc-if value="{{ r.canDecide }}" hint-placeholder-val="{{ false }}"><div style="display:flex;gap:8px"><button onClick="{{ r.approve }}" style="border:0;background:var(--up);color:var(--pri);border-radius:9px;padding:9px 14px;font:600 13px Geist;cursor:pointer">Approve evidence</button><button onClick="{{ r.reject }}" style="border:1px solid var(--dn);background:var(--sf);color:var(--dn);border-radius:9px;padding:9px 14px;font:600 13px Geist;cursor:pointer">Reject evidence</button></div></sc-if></article></sc-for></section></sc-if><div style="display:flex;flex-wrap:wrap;gap:6px 14px;font-size:12px"><sc-for list="{{ sigFeeds }}" as="d"><span style="color:{{ d.c }}">{{ d.name }}: {{ d.state }}</span></sc-for></div></div></section>
 <section style="padding:32px max(clamp(20px,4vw,48px),calc((100% - 1200px)/2)) 0"><div role="tablist" style="display:inline-flex;gap:4px;background:var(--sf2);border:1px solid var(--ln);border-radius:12px;padding:4px"><button onClick="{{ vTrends }}" aria-pressed="{{ vTrBOn }}" style="border:0;border-radius:9px;padding:10px 20px;font:600 15px Geist;cursor:pointer;background:{{ vTrB }};color:{{ vTrC }}">Skill trends</button><button onClick="{{ vSigs }}" aria-pressed="{{ vSgBOn }}" style="border:0;border-radius:9px;padding:10px 20px;font:600 15px Geist;cursor:pointer;background:{{ vSgB }};color:{{ vSgC }}">Signals</button></div></section><sc-if value="{{ showTrends }}" hint-placeholder-val="{{ true }}"><section style="padding:40px max(clamp(20px,4vw,48px),calc((100% - 1200px)/2)) 0;display:flex;flex-direction:column;gap:16px"><div><span style="font:600 12px 'Geist Mono',monospace;letter-spacing:.06em;color:var(--pr)">SKILL TRENDS</span><h2 style="margin:8px 0 0;font-size:clamp(24px,2.6vw,30px);line-height:1.15;letter-spacing:-.03em;font-weight:700">Which skills are rising, and which are declining</h2><p style="margin:8px 0 0;font-size:15px;line-height:1.55;color:var(--mu);max-width:760px">Counted from the dated signals listed below. The line shows each item's signals over the last 3 years; the badge counts them. Declining also includes jobs that WEF and ILO reports name as declining.</p></div><sc-if value="{{ trLoading }}" hint-placeholder-val="{{ false }}"><div style="font-size:14px;color:var(--mu)">Loading skill trends…</div></sc-if><sc-if value="{{ trReady }}" hint-placeholder-val="{{ true }}"><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:16px;align-items:start"><div style="background:var(--sf2);border:1px solid var(--ln);border-radius:24px;padding:18px;display:flex;flex-direction:column;gap:12px"><div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding-bottom:10px;border-bottom:1px solid var(--ln)"><span style="width:28px;height:28px;border-radius:8px;background:var(--skybg);color:var(--chup);display:flex;align-items:center;justify-content:center;font-weight:700">↗</span><b style="font-size:16px;font-weight:600">{{ trRisingLbl }}</b><span style="margin-left:auto;font:600 12px 'Geist Mono',monospace;color:var(--chup)">Net rising signals</span></div><sc-for list="{{ trRising }}" as="c" hint-placeholder-count="3"><article style="background:var(--sf);border:1px solid var(--ln);border-radius:16px;padding:16px 18px;display:flex;flex-direction:column;gap:6px"><div style="display:flex;gap:10px;align-items:flex-start"><div style="flex:1;min-width:0"><span style="font-size:12px;font-weight:600;color:{{ c.bc }}">{{ c.cat }}</span><h3 style="margin:2px 0 0;font-size:16px;line-height:1.3;font-weight:600">{{ c.t }}</h3></div><div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex:none"><span role="img" aria-label="{{ c.sparkAlt }}" style="display:block;width:76px;height:24px;background:{{ c.spark }} center / contain no-repeat"></span><span style="background:{{ c.bb }};color:{{ c.bc }};border-radius:6px;padding:2px 8px;font:600 12px 'Geist Mono',monospace;white-space:nowrap">{{ c.badge }}</span></div></div><p style="margin:0;font-size:13px;line-height:1.45;color:var(--mu)">{{ c.latest }}</p><div style="margin-top:4px;padding-top:10px;border-top:1px solid var(--ln);display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:12px;color:var(--mu)"><a href="{{ c.url }}" target="_blank" rel="noopener noreferrer" style="color:var(--mu);text-decoration:none;flex:1 1 180px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ c.src }} ↗</a><sc-if value="{{ c.hasSdgs }}" hint-placeholder-val="{{ true }}"><span style="display:flex;gap:4px"><sc-for list="{{ c.sdgs }}" as="g"><span style="background:{{ g.c }};color:#fff;border-radius:6px;padding:2px 7px;font-size:11px;font-weight:700">SDG {{ g.n }}</span></sc-for></span></sc-if></div></article></sc-for></div><div style="background:var(--sf2);border:1px solid var(--ln);border-radius:24px;padding:18px;display:flex;flex-direction:column;gap:12px"><div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding-bottom:10px;border-bottom:1px solid var(--ln)"><span style="width:28px;height:28px;border-radius:8px;background:var(--dnbg);color:var(--chdn);display:flex;align-items:center;justify-content:center;font-weight:700">↘</span><b style="font-size:16px;font-weight:600">{{ trDeclLbl }}</b><span style="margin-left:auto;font:600 12px 'Geist Mono',monospace;color:var(--chdn)">Named as declining</span></div><sc-for list="{{ trDecl }}" as="c" hint-placeholder-count="3"><article style="background:var(--sf);border:1px solid var(--ln);border-radius:16px;padding:16px 18px;display:flex;flex-direction:column;gap:6px"><div style="display:flex;gap:10px;align-items:flex-start"><div style="flex:1;min-width:0"><span style="font-size:12px;font-weight:600;color:{{ c.bc }}">{{ c.cat }}</span><h3 style="margin:2px 0 0;font-size:16px;line-height:1.3;font-weight:600">{{ c.t }}</h3></div><div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex:none"><span role="img" aria-label="{{ c.sparkAlt }}" style="display:block;width:76px;height:24px;background:{{ c.spark }} center / contain no-repeat"></span><span style="background:{{ c.bb }};color:{{ c.bc }};border-radius:6px;padding:2px 8px;font:600 12px 'Geist Mono',monospace;white-space:nowrap">{{ c.badge }}</span></div></div><p style="margin:0;font-size:13px;line-height:1.45;color:var(--mu)">{{ c.latest }}</p><div style="margin-top:4px;padding-top:10px;border-top:1px solid var(--ln);display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:12px;color:var(--mu)"><a href="{{ c.url }}" target="_blank" rel="noopener noreferrer" style="color:var(--mu);text-decoration:none;flex:1 1 180px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ c.src }} ↗</a><sc-if value="{{ c.hasSdgs }}" hint-placeholder-val="{{ true }}"><span style="display:flex;gap:4px"><sc-for list="{{ c.sdgs }}" as="g"><span style="background:{{ g.c }};color:#fff;border-radius:6px;padding:2px 7px;font-size:11px;font-weight:700">SDG {{ g.n }}</span></sc-for></span></sc-if></div></article></sc-for></div></div><sc-if value="{{ trHasMore }}" hint-placeholder-val="{{ true }}"><button onClick="{{ toggleTrends }}" style="align-self:center;border:1px solid var(--ln);background:var(--sf);color:var(--ink);border-radius:999px;padding:9px 18px;font:600 14px Geist;cursor:pointer">{{ trMoreLbl }}</button></sc-if></sc-if></section>
 </sc-if><sc-if value="{{ showSigs }}" hint-placeholder-val="{{ false }}"><section style="padding:24px max(clamp(20px,4vw,48px),calc((100% - 1200px)/2)) 72px;display:flex;flex-direction:column;gap:20px"><div><span style="font:600 12px 'Geist Mono',monospace;letter-spacing:.06em;color:var(--pr)">THE EVIDENCE</span><h2 style="margin:8px 0 0;font-size:clamp(22px,2.4vw,26px);line-height:1.15;letter-spacing:-.03em;font-weight:700">The signals behind these trends</h2></div>
 <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center"><div style="display:flex;gap:4px;background:var(--sf2);border:1px solid var(--ln);border-radius:12px;padding:4px"><button onClick="{{ fAll }}" style="border:0;border-radius:9px;padding:9px 16px;font:600 14px Geist;cursor:pointer;background:{{ fAllB }};color:{{ fAllC }}">All</button><button onClick="{{ fUp }}" style="border:0;border-radius:9px;padding:9px 16px;font:600 14px Geist;cursor:pointer;background:{{ fUpB }};color:{{ fUpC }}">↑ Emerging</button><button onClick="{{ fDn }}" style="border:0;border-radius:9px;padding:9px 16px;font:600 14px Geist;cursor:pointer;background:{{ fDnB }};color:{{ fDnC }}">↓ Declining</button></div><span style="margin-left:auto;font-size:14px;color:var(--mu)">{{ sigCount }} signals</span></div>
@@ -1211,7 +1211,11 @@ const FP_API = {
   async send(path, options) {
     const response = await fetch(path, { credentials: 'same-origin', ...options, headers: { Accept: 'application/json', ...(options.headers || {}) } });
     const body = await response.json().catch(() => ({}));
-    if (!response.ok) throw new Error(typeof body.detail === 'string' ? body.detail : `FuturePath API ${response.status}: ${path}`);
+    if (!response.ok) {
+      const error = new Error(typeof body.detail === 'string' ? body.detail : `FuturePath API ${response.status}: ${path}`);
+      error.status = response.status;
+      throw error;
+    }
     return body;
   },
   num(value) { return Number.isFinite(Number(value)) ? Math.max(0, Math.min(100, Number(value))) : 0; },
@@ -1284,7 +1288,8 @@ class Component extends DCLogic {
     // Saved people: each finished Start run is a person; activeProfileId is whose results are shown (remembered in this browser).
     people: [], activeProfileId: savedActiveProfile(), editingId: null, confirmDeleteId: null,
     // Trend signals (/api/signals): curated reports plus refreshed feeds; whatChanged explains the latest refresh.
-    liveSignals: [], signalRuns: [], whatChanged: null, refreshing: false, refreshMsg: "", refreshAccess: { mode: "checking", can_refresh: false, requires_token: false, message: "Checking refresh permissions…" },
+     liveSignals: [], signalRuns: [], whatChanged: null, refreshing: false, refreshMsg: "", refreshAccess: { mode: "checking", can_refresh: false, requires_token: false, message: "Checking refresh permissions…" },
+     signalStatus: null, reviewItems: [], reviewTotal: 0, reviewFilter: "pending", reviewLoading: false, reviewMsg: "", reviewOpen: false,
     // Signals page cards: rising and declining skills (and declining jobs) from stored signals (/api/skill-trends).
     skillTrends: null, trendsAll: false, rolesAll: false, sigView: "trends",
     pathDone: savedPathDone() };
@@ -1323,6 +1328,12 @@ class Component extends DCLogic {
       if (this._alive) this.setState({ liveSignals, signalRuns, whatChanged, courseTotal: meta.courses_count });
     } catch (e) { loaded = false; console.warn('FuturePath: could not load trend signals', e); }
     try {
+      const signalStatus = await FP_API.json('/api/signals/status');
+      if (this._alive) this.setState({ signalStatus });
+    } catch (e) {
+      if (this._alive) this.setState({ signalStatus: null });
+    }
+    try {
       const skillTrends = await FP_API.json('/api/skill-trends');
       if (this._alive) this.setState({ skillTrends });
     } catch (e) { loaded = false; console.warn('FuturePath: could not load skill trends', e); }
@@ -1346,7 +1357,7 @@ class Component extends DCLogic {
   async refreshSignals() {
     if (this.state.refreshing) return;
     const access = this.state.refreshAccess;
-    if (!access?.can_refresh) return this.setState({ refreshMsg: access?.message || "Live-feed refresh is not permitted here." });
+    if (!access?.can_refresh || !this.state.signalStatus || this.state.signalStatus.public_demo) return this.setState({ refreshMsg: access?.message || "Live-feed refresh is not permitted here." });
     const headers = {};
     if (access.requires_token) {
       // Never put the admin secret in app state, localStorage or a URL.
@@ -1360,10 +1371,84 @@ class Component extends DCLogic {
     try {
       const r = await FP_API.send('/api/signals/refresh', { method: 'POST', headers });
       if (!this._alive) return;
-      this.setState({ refreshing: false, refreshMsg: "Refresh " + r.status + ": checked " + r.checked + " items; " + r.accepted + " accepted, " + r.rejected + " rejected, " + r.failed + " failed (tagged by " + r.tagger + ")." });
-      await Promise.all([this.loadSignals(), this.refreshLiveCareers()]);
+      this.setState({ refreshing: false, refreshMsg: "Refresh " + r.status + ": checked " + r.checked + " items; " + (r.pending_count ?? r.pending ?? 0) + " pending review, " + (r.accepted ?? 0) + " approved. Unreviewed items do not affect rankings." });
+      await this.loadSignals();
     } catch (err) {
-      if (this._alive) this.setState({ refreshing: false, refreshMsg: "Live-feed refresh failed: " + String(err.message || err) });
+      if (this._alive) this.setState({ refreshing: false, refreshMsg: "Live-feed refresh failed. Check access and try again." });
+    }
+  }
+  reviewAccessAllowed() {
+    return this.state.refreshAccess?.mode === "admin" && !!this.state.signalStatus && !this.state.signalStatus.public_demo;
+  }
+  reviewErrorMessage(err) {
+    const message = String(err?.message || "");
+    const match = [401, 403, 409].includes(err?.status) ? [null, String(err.status)] : message.match(/\b(401|403|409)\b/);
+    if (match?.[1] === "401") return "Administrator authentication failed (401). Check the token and try again.";
+    if (match?.[1] === "403") return "Review access is forbidden (403). Public demo mode or administrator permissions may block this action.";
+    if (match?.[1] === "409") return "This item changed before the decision could be saved (409). Reload the queue.";
+    if (/unauthori[sz]ed|invalid token|authentication/i.test(message)) return "Administrator authentication failed (401). Check the token and try again.";
+    if (/forbidden|public demo|administrator access/i.test(message)) return "Review access is forbidden (403). Public demo mode or administrator permissions may block this action.";
+    if (/conflict|already reviewed|already decided|state changed/i.test(message)) return "This item changed before the decision could be saved (409). Reload the queue.";
+    return "The review request failed. Try again later.";
+  }
+  async loadReviewQueue() {
+    return this.loadReviewQueueFor(this.state.reviewFilter || "pending");
+  }
+  async loadReviewQueueFor(statusOverride) {
+    this.setState({ reviewOpen: true });
+    if (!this.reviewAccessAllowed()) return this.setState({ reviewMsg: "Administrator review is unavailable in this mode." });
+    const token = window.prompt("Administrator review: enter ADMIN_TOKEN (used for this request only):");
+    if (token === null) return this.setState({ reviewMsg: "Queue loading cancelled." });
+    if (!token.trim()) return this.setState({ reviewMsg: "An administrator token is required." });
+    const status = statusOverride || this.state.reviewFilter || "pending";
+    this.setState({ reviewLoading: true, reviewMsg: "Loading protected review queue…", reviewOpen: true });
+    try {
+      const result = await FP_API.send('/api/signals/review?status=' + encodeURIComponent(status), {
+        method: "GET",
+        headers: { Authorization: "Bearer " + token.trim(), Accept: "application/json" }
+      });
+      if (!this._alive) return;
+      const items = Array.isArray(result.items) ? result.items : [];
+      this.setState({ reviewItems: items, reviewTotal: Number(result.total) || 0, reviewLoading: false, reviewMsg: items.length ? "Queue loaded. Pending evidence is excluded from career rankings." : "No " + status + " evidence items in this queue." });
+    } catch (err) {
+      if (this._alive) this.setState({ reviewLoading: false, reviewItems: [], reviewTotal: 0, reviewMsg: this.reviewErrorMessage(err) });
+    }
+  }
+  async decideSignal(id, decision) {
+    if (!this.reviewAccessAllowed()) return this.setState({ reviewMsg: "Administrator review is unavailable in this mode." });
+    const token = window.prompt("Administrator review: enter ADMIN_TOKEN (used for this request only):");
+    if (token === null) return this.setState({ reviewMsg: "Decision cancelled. No change was made." });
+    if (!token.trim()) return this.setState({ reviewMsg: "An administrator token is required. No change was made." });
+    const verb = decision === "approve" ? "Approve" : "Reject";
+    if (!window.confirm(verb + " this evidence item?")) return this.setState({ reviewMsg: "Decision cancelled. No change was made." });
+    const reason = window.prompt("Optional decision reason (leave blank for none):", "");
+    if (reason === null) return this.setState({ reviewMsg: "Decision cancelled. No change was made." });
+    this.setState({ reviewLoading: true, reviewMsg: verb + "ing evidence…" });
+    try {
+      await FP_API.send('/api/signals/review/' + encodeURIComponent(id) + '/' + decision, {
+        method: "POST",
+        headers: { Authorization: "Bearer " + token.trim(), "Content-Type": "application/json" },
+        body: JSON.stringify(reason.trim() ? { reason: reason.trim().slice(0, 500) } : {})
+      });
+      if (!this._alive) return;
+      this.setState({ reviewMsg: decision === "approve" ? "Evidence approved. Refreshing stored signals and career results…" : "Evidence rejected. The queue and pending count are being refreshed." });
+      await Promise.all([this.loadReviewQueueAfterDecision(token), this.loadSignals()]);
+      if (decision === "approve") await this.refreshLiveCareers();
+    } catch (err) {
+      if (this._alive) this.setState({ reviewLoading: false, reviewMsg: this.reviewErrorMessage(err) });
+    }
+  }
+  async loadReviewQueueAfterDecision(token) {
+    // Reuse only the action's short-lived local credential; never retain it in state.
+    try {
+      const status = this.state.reviewFilter || "pending";
+      const result = await FP_API.send('/api/signals/review?status=' + encodeURIComponent(status), {
+        method: "GET",
+        headers: { Authorization: "Bearer " + token.trim(), Accept: "application/json" }
+      });
+      if (this._alive) this.setState({ reviewItems: Array.isArray(result.items) ? result.items : [], reviewTotal: Number(result.total) || 0, reviewLoading: false });
+    } catch (err) {
+      if (this._alive) this.setState({ reviewLoading: false, reviewMsg: "Decision saved, but " + this.reviewErrorMessage(err) });
     }
   }
   async refreshLiveCareers() {
@@ -1703,6 +1788,30 @@ class Component extends DCLogic {
     const sigLastRunC = !lastRun ? "var(--mu)" : lastRun.status === "ok" ? "var(--up)" : lastRun.status === "failed" ? "var(--dn)" : "var(--am)";
     const sigFeeds = lastRun ? lastRun.feeds.map(x => ({ name: x.name, state: x.ok ? x.items + " items" : "failed: " + (x.error || "error"), c: x.ok ? "var(--mu)" : "var(--dn)" })) : [];
     // What changed (Results): the latest refresh's effect on the current profile's ranking.
+    const statusDate = value => {
+      if (!value) return "—";
+      const date = new Date(value);
+      return Number.isNaN(date.getTime()) ? "—" : date.toLocaleString(fpIntlLocale(st.lang), { day: "numeric", month: "short", year: "numeric", hour: "numeric", minute: "2-digit" });
+    };
+    const feedStatus = st.signalStatus;
+    const reviewRows = (st.reviewItems || []).map(item => {
+      const signal = item.signal || {};
+      const rawUrl = String(signal.url || "");
+      let url = "";
+      try { const parsed = new URL(rawUrl, location.origin); if (["http:", "https:"].includes(parsed.protocol)) url = parsed.href; } catch (e) {}
+      return {
+        id: item.id, status: item.status || "pending", statusLabel: (item.status || "pending").replace(/^\w/, c => c.toUpperCase()),
+        title: signal.title || "Untitled evidence", summary: signal.summary || "No summary supplied.",
+        source: signal.source_name || "Unknown source", sourceType: signal.source_type || "—",
+        published: signal.published_date ? fmtDate(String(signal.published_date)) : "Date not supplied",
+        created: statusDate(item.created_at), reviewed: statusDate(item.reviewed_at),
+        url, direction: signal.direction || "Unclassified", strength: signal.strength ?? "—",
+        notes: item.validation_notes || "", reason: item.decision_reason || "",
+        canDecide: item.status === "pending",
+        approve: () => this.decideSignal(item.id, "approve"),
+        reject: () => this.decideSignal(item.id, "reject")
+      };
+    });
     const wc = st.whatChanged;
     const wcMoves = (wc?.moves || []).slice(0, 3).map(m => ({ text: m.after_rank < m.before_rank ? `${m.title} moved up from #${m.before_rank} to #${m.after_rank}` : m.after_rank > m.before_rank ? `${m.title} moved down from #${m.before_rank} to #${m.after_rank}` : `${m.title} stayed at #${m.after_rank}`,
       why: `Trends ${m.before_trend} → ${m.after_trend} from ${m.new_signals} new signal${m.new_signals === 1 ? "" : "s"}` }));
@@ -1858,9 +1967,22 @@ class Component extends DCLogic {
       steps: fpSteps,
       weeks: [1, 2, 3, 4, 5, 6].map(w => ({ w, bg: w <= 4 ? (w <= 2 ? "var(--pr)" : "color-mix(in oklch, var(--pr) 60%, var(--sf))") : (w <= 7 ? "var(--sky)" : "var(--up)") })),
       // Signals page.
-      signals, sigCount: signals.length, sigUpdated, sigLastRun, sigLastRunC, sigFeeds,
+       signals, sigCount: signals.length, sigUpdated, sigLastRun, sigLastRunC, sigFeeds,
+       sigChecked: statusDate(feedStatus?.last_checked), sigDue: statusDate(feedStatus?.next_due),
+       sigPending: feedStatus ? Number(feedStatus.pending_count) || 0 : "—",
+       sigAutoStatus: feedStatus?.status || (feedStatus ? "unknown" : "Unavailable"),
+       sigInterval: feedStatus?.interval_hours ?? "—", sigTagger: feedStatus?.automatic_tagger || "keywords",
+        reviewEnabled: st.refreshAccess?.mode === "admin" && !!feedStatus && !feedStatus.public_demo,
+       reviewOpen: !!st.reviewOpen, reviewLoading: !!st.reviewLoading, reviewItems: reviewRows,
+       reviewTotal: Number(st.reviewTotal) || 0, reviewFilter: st.reviewFilter || "pending", reviewMsg: st.reviewMsg || "",
+       loadReviewQueue: () => this.loadReviewQueue(),
+        showPendingReview: () => { this.setState({ reviewFilter: "pending" }); this.loadReviewQueueFor("pending"); },
+        showApprovedReview: () => { this.setState({ reviewFilter: "approved" }); this.loadReviewQueueFor("approved"); },
+        showRejectedReview: () => { this.setState({ reviewFilter: "rejected" }); this.loadReviewQueueFor("rejected"); },
+        showAllReview: () => { this.setState({ reviewFilter: "all" }); this.loadReviewQueueFor("all"); },
+        closeReview: () => this.setState({ reviewOpen: false, reviewItems: [], reviewTotal: 0 }),
       refreshSignals: () => this.refreshSignals(), reloadSignals: () => this.reloadStoredSignals(),
-      adminRefreshAvailable: !!st.refreshAccess?.can_refresh,
+       adminRefreshAvailable: !!st.refreshAccess?.can_refresh && !!st.signalStatus && !st.signalStatus.public_demo,
       refreshAccessMsg: st.refreshAccess?.message || "Checking refresh permissions…",
       refreshLbl: st.refreshing ? "Working…" : "Admin: refresh live feeds",
       reloadLbl: st.refreshing ? "Loading…" : "Reload saved signals",

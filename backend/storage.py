@@ -24,7 +24,25 @@ def init():
             published_date TEXT NOT NULL,run_id INTEGER NOT NULL,status TEXT NOT NULL,reason TEXT NOT NULL,signal_id INTEGER,seen_at TEXT NOT NULL);
         CREATE TABLE IF NOT EXISTS refresh_runs(id INTEGER PRIMARY KEY AUTOINCREMENT,started_at TEXT NOT NULL,finished_at TEXT,status TEXT NOT NULL,
             tagger TEXT NOT NULL,model TEXT,feeds TEXT NOT NULL DEFAULT '[]',checked INTEGER NOT NULL DEFAULT 0,accepted INTEGER NOT NULL DEFAULT 0,
-            rejected INTEGER NOT NULL DEFAULT 0,failed INTEGER NOT NULL DEFAULT 0,error TEXT);''')
+            rejected INTEGER NOT NULL DEFAULT 0,failed INTEGER NOT NULL DEFAULT 0,error TEXT);
+        CREATE TABLE IF NOT EXISTS signal_review(
+            id INTEGER PRIMARY KEY AUTOINCREMENT,external_id TEXT UNIQUE NOT NULL,
+            run_id INTEGER NOT NULL,status TEXT NOT NULL CHECK(status IN ('pending','approved','rejected')),
+            signal TEXT NOT NULL,source_item TEXT NOT NULL,validation_notes TEXT NOT NULL,
+            created_at TEXT NOT NULL,reviewed_at TEXT,decision_reason TEXT NOT NULL DEFAULT '',signal_id INTEGER);
+        CREATE TABLE IF NOT EXISTS signal_review_events(
+            id INTEGER PRIMARY KEY AUTOINCREMENT,review_id INTEGER NOT NULL,action TEXT NOT NULL,
+            created_at TEXT NOT NULL,actor TEXT NOT NULL,reason TEXT NOT NULL DEFAULT '');
+        CREATE TABLE IF NOT EXISTS signal_schedule(
+            id INTEGER PRIMARY KEY CHECK(id=1),interval_hours REAL NOT NULL,
+            activated_at TEXT NOT NULL,next_due TEXT);
+        ''')
+        # Additive, idempotent migration: preserve existing profiles and evidence.
+        columns={r['name'] for r in c.execute('PRAGMA table_info(refresh_runs)')}
+        if 'pending' not in columns:
+            c.execute('ALTER TABLE refresh_runs ADD COLUMN pending INTEGER NOT NULL DEFAULT 0')
+        if 'trigger' not in columns:
+            c.execute("ALTER TABLE refresh_runs ADD COLUMN trigger TEXT NOT NULL DEFAULT 'manual'")
         if not c.execute('SELECT 1 FROM profiles WHERE id=?',('demo',)).fetchone():
             c.execute('INSERT INTO profiles VALUES (?,?)',('demo',json.dumps(load('demo_profile.json'))))
         for s in load('snapshots.json'):

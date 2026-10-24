@@ -198,3 +198,32 @@ note. There are no layout, stylesheet, original asset, scoring or dataset change
 The original manifest and all other reviewed hashes remain unchanged.
 Offline mock-provider, grounding, fallback, assembly and browser tests validate
 these contracts independently; hashes do not establish live provider reliability.
+
+## Staged daily Signals evidence and administrator review (2026-10-24)
+
+The user explicitly authorized development-only best-effort daily checking,
+keyword-only automatic tagging, and an approval gate before new external evidence
+can affect scoring. Newly fetched candidates now enter an auditable SQLite queue.
+Bearer-authenticated review publishes approved evidence transactionally; rejection
+and pending status cannot enter active signals. Public demo independently blocks
+background/manual fetching and all review actions. Existing active evidence,
+shared profiles, provider extraction behavior, datasets and original V2 assets
+are preserved. See `SIGNALS_REFRESH.md` for timing, auth and deployment limits.
+
+Exactly three previously reviewed hashes change deliberately:
+
+- `.env.example`: document the safe default of 0/off and the development-only
+  24-hour opt-in. The published synthetic demo remains off.
+- `backend/app.py`: initialize persisted schedule timing during lifespan startup,
+  including off/public-demo states, before creating the existing background task.
+- `frontend/index.html`: regenerate from the editable V2 fragments after adding
+  read-only schedule metadata, an authenticated evidence review queue and accurate
+  pending-versus-approved refresh feedback. The API adapter retains HTTP status
+  metadata so 401/403/409 review errors can be identified without displaying raw
+  server errors. Token handling is short-lived and
+  never persisted in browser state/storage; original layout/assets are unchanged.
+
+No original manifest, stylesheet, protected asset or other reviewed hash is
+refreshed. Additive storage migration and focused Signals modules are verified by
+offline backend and isolated Chromium tests; the hash checker is not proof of
+production timer reliability or durable storage.
