@@ -31,7 +31,7 @@ def test_read_only_signals_ui_preserves_protected_approval_api(page, server):
     assert api.get(server + '/api/signals/status').json()['pending_count'] == 0
 
     page.reload()
-    page.get_by_role('button', name='Signals', exact=True).click()
+    page.get_by_role('tablist').get_by_role('button', name='Signals', exact=True).click()
     expect(page.get_by_role('heading', name='Malaysia needs cybersecurity workers')).to_be_visible()
     assert 'synthetic-browser-admin' not in page.evaluate(
         'JSON.stringify([Object.entries(localStorage),Object.entries(sessionStorage)])'
@@ -73,7 +73,7 @@ def test_signals_v2_three_independent_paginations(page, server):
         if len(source['rising']) > 5:
             expect(rising.locator('button[aria-current="true"]')).to_have_text('2')
 
-    page.get_by_role('button', name='Signals', exact=True).click()
+    page.get_by_role('tablist').get_by_role('button', name='Signals', exact=True).click()
     saved = page.request.get(server + '/api/signals').json()
     pager = page.get_by_role('navigation', name='Signals pages')
     expect(pager.locator('button[aria-current="true"]')).to_have_text('1')
