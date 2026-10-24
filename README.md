@@ -27,7 +27,7 @@ FuturePath helps students, graduates and working professionals compare their **c
 | Live Replit deployment | **Pending publication and live verification** |
 | Replit development project | [FuturePath Replit workspace](https://replit.com/@b152610182/futurepath) (may require project access) |
 | RunPod endpoint | Configured through `RUNPOD_ENDPOINT_ID`; API key is private |
-| Presentation / slide deck | **Team to supply verified link** |
+| Presentation / slide deck | https://canva.link/3obc67r8tcrgdjs |
 | Demo video | **Team to supply verified link** |
 | Official PDF submissions | See [submission/README.md](submission/README.md) |
 
