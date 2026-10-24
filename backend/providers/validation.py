@@ -54,8 +54,36 @@ def normalise(text):
     return re.sub(r'\s+',' ',text).strip()
 def quoted_in(excerpt,cv):return normalise(excerpt) in normalise(cv)
 # Lines about interests or goals ("interested in AI", "keen to learn") show what someone likes, not what they can do.
-INTEREST=re.compile(r"\b(interested in|interest in|passionate about|keen (?:on|to)|eager to|aspir\w*|hop(?:e|ing) to|would like to|wants? to|wish(?:es)? to|looking to)\b",re.I)
+INTEREST=re.compile(
+    r"\b(interested in|interest in|passionate about|keen (?:on|to)|eager to|"
+    r"aspir\w*|hop(?:e|ing) to|would like to|wants? to|wish(?:es)? to|"
+    r"looking to|aim(?:ing)? to|plan(?:ning)? to|seeking to|"
+    r"gaining experience in|hope to)\b", re.I,
+)
 def is_interest(excerpt):return bool(INTEREST.search(excerpt or ''))
+
+def is_interest_evidence(excerpt, cv):
+    """Reject a goal-context quote even if its excerpt omits the words 'interested in'.
+
+    When a literal quote appears in both a skills list and a goals section, a
+    non-goal occurrence can still support that quote.
+    """
+    if is_interest(excerpt):
+        return True
+    full, phrase = normalise(cv), normalise(excerpt)
+    if not phrase:
+        return True
+    start = 0
+    while True:
+        pos = full.find(phrase, start)
+        if pos < 0:
+            return True
+        boundary = max(full.rfind(mark, 0, pos) for mark in '.!?;•')
+        prefix = full[max(boundary + 1, pos - 200):pos]
+        if not INTEREST.search(prefix):
+            return False
+        start = pos + len(phrase)
+
 def validate_candidates(value,cv,skills,provider):
     data=parse_json(value)
     candidates=data.get('candidates')
@@ -68,7 +96,7 @@ def validate_candidates(value,cv,skills,provider):
         sid=x.get('skill_id');excerpt=x.get('excerpt')
         if not isinstance(sid,str) or sid not in lookup or sid in seen:continue
         if not isinstance(excerpt,str) or not 3<=len(excerpt)<=300:continue
-        if not quoted_in(excerpt,cv) or is_interest(excerpt):continue
+        if not quoted_in(excerpt,cv) or is_interest_evidence(excerpt,cv):continue
         seen.add(sid)
         out.append({'skill_id':sid,'name':lookup[sid]['name'],'excerpt':excerpt,
                     'method':provider+' AI suggestion (unconfirmed)','proficiency':None})
