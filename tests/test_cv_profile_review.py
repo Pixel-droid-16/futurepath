@@ -115,3 +115,24 @@ def test_v2_review_contains_evidence_backed_profile_preview():
     assert 'Projects are shown for review' in start
     assert 'profileHints: hints' in logic
     assert 'hints.current_role?.value' in logic
+
+
+
+def test_dictionary_ignores_goal_occurrence_but_finds_demonstrated_work():
+    from backend.services.dictionary import suggest
+    cv = (
+        'I am interested in learning SQL. '
+        'I used SQL to query monthly reports for the team.'
+    )
+    sql = [x for x in suggest(cv) if x['skill_id'] == 'SK001']
+    assert len(sql) == 1
+    assert 'used SQL' in sql[0]['excerpt']
+    assert 'interested in' not in sql[0]['excerpt']
+
+
+def test_dictionary_only_goal_does_not_claim_a_skill():
+    from backend.services.dictionary import suggest
+    cv = 'My goal is to learn SQL. I am interested in Python programming.'
+    found = {x['skill_id'] for x in suggest(cv)}
+    assert 'SK001' not in found
+    assert 'SK005' not in found
