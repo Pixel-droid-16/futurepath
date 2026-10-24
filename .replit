@@ -19,12 +19,12 @@ expertMode = true
 [userenv.development]
 FUTUREPATH_DB = "/tmp/futurepath_development.sqlite3"
 FUTUREPATH_PUBLIC_DEMO = "0"
-SIGNALS_REFRESH_HOURS = "0"
+SIGNALS_REFRESH_HOURS = "24"
 
 [userenv.production]
 FUTUREPATH_DB = "/tmp/futurepath_demo.sqlite3"
 FUTUREPATH_PUBLIC_DEMO = "1"
-SIGNALS_REFRESH_HOURS = "0"
+SIGNALS_REFRESH_HOURS = "24"
 
 [deployment]
 deploymentTarget = "autoscale"

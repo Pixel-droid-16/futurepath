@@ -40,7 +40,7 @@ Set in the Replit Secrets UI, **not** inside source files:
 | `RUNPOD_ENDPOINT_ID` | The actual tested Qwen2.5-3B endpoint ID |
 | `ANTHROPIC_API_KEY` | Optional scanned-PDF fallback; involves separate API billing |
 | `ANTHROPIC_MODEL` | Optional Claude model available to your account |
-| `SIGNALS_REFRESH_HOURS` | `0` for a reproducible demo, avoiding background spend |
+| `SIGNALS_REFRESH_HOURS` | `24`, so the server refreshes the live feeds a minute after start-up and then daily. With `0` the demo shows only the 36 curated reports, which the brief counts as a hard-coded list. Tagging uses Claude when `ANTHROPIC_API_KEY` is set (a small daily Claude cost), otherwise free keyword matching |
 | `FUTUREPATH_DB` | `/tmp/futurepath_demo.sqlite3` for a disposable synthetic-only demo |
 
 Remember: development secrets and **published app** secrets can be different. Confirm the values are set for the published deployment and never log or paste them publicly.

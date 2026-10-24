@@ -63,7 +63,7 @@ from the verified release.
 Development environment:
 
 - `FUTUREPATH_PUBLIC_DEMO=0` for the private development preview.
-- `SIGNALS_REFRESH_HOURS=0` prevents automatic feed refresh.
+- `SIGNALS_REFRESH_HOURS=24` refreshes the trend feeds a minute after start-up and then daily, so the preview shows live signals.
 - `FUTUREPATH_DB=/tmp/futurepath_development.sqlite3`.
 
 Keep development URL visibility private in Replit's Networking tool; do not
@@ -73,7 +73,7 @@ password gate. Do not share it as a public deployment.
 Production environment is separately configured:
 
 - `FUTUREPATH_PUBLIC_DEMO=1`.
-- `SIGNALS_REFRESH_HOURS=0`.
+- `SIGNALS_REFRESH_HOURS=24`: the server refreshes the feeds itself (the `/tmp` database starts with only the curated reports), while the manual Refresh button stays disabled in public mode.
 - `FUTUREPATH_DB=/tmp/futurepath_demo.sqlite3`.
 
 Production build installs the existing requirements and assembles the frontend.
