@@ -13,7 +13,7 @@ class Component extends DCLogic {
      liveSignals: [], signalRuns: [], whatChanged: null, refreshing: false, refreshMsg: "", refreshAccess: { mode: "checking", can_refresh: false, requires_token: false, message: "Checking refresh permissions…" },
      signalStatus: null, reviewItems: [], reviewTotal: 0, reviewFilter: "pending", reviewLoading: false, reviewMsg: "", reviewOpen: false,
     // Signals page cards: rising and declining skills (and declining jobs) from stored signals (/api/skill-trends).
-    skillTrends: null, trendsAll: false, rolesAll: false, sigView: "trends",
+    skillTrends: null, risingPage: 1, decliningPage: 1, signalsPage: 1, rolesAll: false, sigView: "trends",
     pathDone: savedPathDone() };
   componentDidUpdate(p) {
     const q = this.props, u = {};

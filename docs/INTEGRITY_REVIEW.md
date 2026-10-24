@@ -227,3 +227,13 @@ No original manifest, stylesheet, protected asset or other reviewed hash is
 refreshed. Additive storage migration and focused Signals modules are verified by
 offline backend and isolated Chromium tests; the hash checker is not proof of
 production timer reliability or durable storage.
+
+
+## Signals V2 pagination and status source review (24 October 2026)
+
+The V2 Signals fragments and generated `frontend/index.html` intentionally
+change only the Signals page: three numbered pagers and a compact automatic
+update status. The historical original manifest, nineteen other reviewed
+hashes, original V2 theme, images and unrelated modules remain unchanged.
+The SHA256 entry for `frontend/index.html` was updated to these exact
+new assembled source bytes.

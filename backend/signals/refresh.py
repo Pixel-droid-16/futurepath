@@ -1,16 +1,22 @@
 """Refresh pipeline: fetch feeds, drop seen items and near-duplicates, tag, apply guardrails, store, audit."""
-import asyncio,json,re
+import asyncio,json,re,os
 from datetime import datetime,timedelta,timezone
 import httpx
 from ..catalog import ROLES,SKILLS
-from ..storage import connection
+from ..storage import connection,insert_signal
 from ..demo_security import public_demo
 from .feeds import FEEDS
 from .fetch import fetch_feed
 from .guardrails import apply_guardrails,source_error
-from .tagging import default_tagger,KeywordTagger
+from .tagging import default_tagger,KeywordTagger,ClaudeTagger,skip_reason,WORK_WORDS
 
 MAX_NEW_ITEMS_PER_RUN=40
+MAX_AUTO_AI_ITEMS=8  # upper limit of paid candidates in one scheduled check
+
+def automatic_ai_allowed():
+    """Do not incur model charges until the operator explicitly opts in."""
+    return (os.getenv('SIGNALS_AUTO_AI_ENABLED','').strip().lower() in ('1','true','yes')
+            and bool(os.getenv('ANTHROPIC_API_KEY','').strip()))
 STALE_RUN_MINUTES=15
 STOPWORDS={'the','and','for','with','from','says','said','its','into','over','will','has','have','are','was'}
 
@@ -37,7 +43,8 @@ async def refresh_signals(feeds=None,tagger=None,client=None,automatic=False):
     if public_demo():
         raise RuntimeError('External refresh is disabled in public demo mode')
     feeds=FEEDS if feeds is None else feeds
-    tagger=KeywordTagger() if automatic else (tagger or default_tagger())
+    ai_publish=bool(automatic and automatic_ai_allowed())
+    tagger=ClaudeTagger() if ai_publish else (KeywordTagger() if automatic else (tagger or default_tagger()))
     with connection() as c:
         c.execute('BEGIN IMMEDIATE')
         cutoff=(datetime.now(timezone.utc)-timedelta(minutes=STALE_RUN_MINUTES)).isoformat(timespec='seconds')
@@ -76,12 +83,31 @@ async def refresh_signals(feeds=None,tagger=None,client=None,automatic=False):
             elif len(fresh)<MAX_NEW_ITEMS_PER_RUN:fresh.append(it);known.append((it['title'],tokens))
 
         catalog={'roles':ROLES,'skills':SKILLS}
+        rejected_prefilter=[];deferred=[]
+        if ai_publish and fresh:
+            cheap=await KeywordTagger().tag(fresh,catalog)
+            eligible=[]
+            for item,decision in zip(fresh,cheap):
+                guess=decision.get('proposal') or {}
+                if (not guess.get('relevant') or skip_reason(item['title'],item.get('snippet',''))
+                        or not WORK_WORDS.search(item['title']+' '+item.get('snippet',''))
+                        or len(item.get('snippet','').strip())<32
+                        or not item['url'].startswith('https://')):
+                    rejected_prefilter.append((item,'Unverified, weak or irrelevant source text'))
+                elif len(eligible)>=MAX_AUTO_AI_ITEMS:
+                    deferred.append((item,'AI verification quota reached; retry on next check'))
+                else:
+                    eligible.append(item)
+            fresh=eligible
         outcomes=await tagger.tag(fresh,catalog) if fresh else []
         role_ids={r['id'] for r in ROLES};skill_ids={s['id'] for s in SKILLS}
-        pending=rejected=failed=0
+        pending=rejected=failed=accepted=0
+        new_signals=[]
         with connection() as c:
-            for it,reason in invalid+[(it,f'near-duplicate of "{of}"') for it,of in duplicates]:
+            for it,reason in invalid+[(it,f'near-duplicate of "{of}"') for it,of in duplicates]+rejected_prefilter:
                 rejected+=1;record_item(c,it,run_id,'rejected',reason)
+            for it,reason in deferred:
+                record_item(c,it,run_id,'deferred',reason)
             for it,outcome in zip(fresh,outcomes+[{'ok':False,'error':'no tagger result'}]*(len(fresh)-len(outcomes))):
                 if not outcome['ok']:failed+=1;record_item(c,it,run_id,'failed',outcome['error']);continue
                 proposal,notes=apply_guardrails(it,outcome['proposal'],role_ids,skill_ids)
@@ -91,18 +117,40 @@ async def refresh_signals(feeds=None,tagger=None,client=None,automatic=False):
                     'strength':proposal['strength'],'role_ids':proposal['role_ids'],'skill_ids':proposal['skill_ids'],'tagged_by':tagger.name,
                     'feed_key':it['feed_key'],'run_id':run_id}
                 reason='; '.join([outcome['proposal'].get('reason','')]+notes).strip('; ')
-                review_id=c.execute('INSERT INTO signal_review(external_id,run_id,status,signal,source_item,validation_notes,created_at) VALUES(?,?,?,?,?,?,?)',
-                                    (it['external_id'],run_id,'pending',json.dumps(signal),json.dumps(it),reason,now())).lastrowid
-                c.execute('INSERT INTO signal_review_events(review_id,action,created_at,actor,reason) VALUES(?,?,?,?,?)',
-                          (review_id,'staged',now(),'automatic-keywords' if automatic else 'manual-refresh',reason))
-                pending+=1
-                record_item(c,it,run_id,'pending',reason)
+                if ai_publish:
+                    # Source-grounded headline only; conservative strength for any one article.
+                    signal['summary']=it['title']
+                    signal['strength']=min(2,signal['strength'])
+                    inserted=insert_signal(c,signal)
+                    if inserted is None:
+                        rejected+=1;record_item(c,it,run_id,'rejected','Already active')
+                        continue
+                    reviewed_at=now()
+                    review_id=c.execute(
+                        'INSERT INTO signal_review(external_id,run_id,status,signal,source_item,validation_notes,created_at,reviewed_at,decision_reason,signal_id) VALUES(?,?,?,?,?,?,?,?,?,?)',
+                        (it['external_id'],run_id,'approved',json.dumps(signal),json.dumps(it),reason,reviewed_at,reviewed_at,
+                         'Automatic Claude analysis and deterministic source guardrails passed',inserted)).lastrowid
+                    c.execute('INSERT INTO signal_review_events(review_id,action,created_at,actor,reason) VALUES(?,?,?,?,?)',
+                              (review_id,'approved',reviewed_at,'automatic-ai','AI analysis and evidence validation'))
+                    accepted+=1;new_signals.append(signal)
+                    record_item(c,it,run_id,'approved',reason,inserted)
+                else:
+                    # Manual refresh is still protected by the existing administrator API.
+                    review_id=c.execute('INSERT INTO signal_review(external_id,run_id,status,signal,source_item,validation_notes,created_at) VALUES(?,?,?,?,?,?,?)',
+                                        (it['external_id'],run_id,'pending',json.dumps(signal),json.dumps(it),reason,now())).lastrowid
+                    c.execute('INSERT INTO signal_review_events(review_id,action,created_at,actor,reason) VALUES(?,?,?,?,?)',
+                              (review_id,'staged',now(),'automatic-keywords' if automatic else 'manual-refresh',reason))
+                    pending+=1
+                    record_item(c,it,run_id,'pending',reason)
             any_ok=any(f['ok'] for f in feed_results)
             status='failed' if not any_ok else ('ok' if all(f['ok'] for f in feed_results) and failed==0 else 'partial')
-            c.execute('UPDATE refresh_runs SET finished_at=?,status=?,feeds=?,checked=?,pending=?,rejected=?,failed=? WHERE id=?',
-                      (now(),status,json.dumps(feed_results),len(fresh)+len(duplicates)+len(invalid),pending,rejected,failed,run_id))
+            c.execute('UPDATE refresh_runs SET finished_at=?,status=?,feeds=?,checked=?,accepted=?,pending=?,rejected=?,failed=? WHERE id=?',
+                      (now(),status,json.dumps(feed_results),len(fresh)+len(duplicates)+len(invalid)+len(rejected_prefilter)+len(deferred),
+                       accepted,pending,rejected,failed,run_id))
         return {'run_id':run_id,'status':status,'tagger':tagger.name,'model':tagger.model,'feeds':feed_results,
-                'checked':len(fresh)+len(duplicates)+len(invalid),'accepted':0,'pending':pending,'rejected':rejected,'failed':failed,'new_signals':[]}
+                'checked':len(fresh)+len(duplicates)+len(invalid)+len(rejected_prefilter)+len(deferred),
+                'accepted':accepted,'pending':pending,'rejected':rejected,'failed':failed,
+                'deferred':len(deferred),'new_signals':new_signals}
     except Exception as err:
         with connection() as c:
             c.execute("UPDATE refresh_runs SET finished_at=?,status='failed',error=? WHERE id=?",(now(),str(err)[:500],run_id))

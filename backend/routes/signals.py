@@ -8,7 +8,7 @@ from ..demo_security import public_demo
 from ..signals.demand import recency_decay
 from ..storage import connection,get_signals
 from ..services.recommendations import result
-from ..signals.refresh import refresh_signals,RefreshInProgress
+from ..signals.refresh import refresh_signals,RefreshInProgress,automatic_ai_allowed
 from ..signals.schedule import interval_hours,last_runs,next_due
 from ..signals.review import review_items,decide
 router=APIRouter(prefix='/api',tags=['signals'])
@@ -127,12 +127,15 @@ def signal_status():
         row=c.execute('SELECT * FROM refresh_runs ORDER BY id DESC LIMIT 1').fetchone()
         pending=c.execute("SELECT COUNT(*) FROM signal_review WHERE status='pending'").fetchone()[0]
         approved=c.execute("SELECT MAX(reviewed_at) FROM signal_review WHERE status='approved'").fetchone()[0]
+        success=c.execute("SELECT finished_at FROM refresh_runs WHERE status IN ('ok','partial') AND finished_at IS NOT NULL ORDER BY id DESC LIMIT 1").fetchone()
     due=next_due()
     return {'enabled':bool(interval_hours()),'interval_hours':interval_hours(),
             'next_due':due.isoformat() if due else None,
             'last_checked':(row['finished_at'] or row['started_at']) if row else None,
+            'last_successful_at':success[0] if success else None,
             'status':row['status'] if row else 'not_checked','pending_count':pending,
-            'last_approved_at':approved,'automatic_tagger':'keywords',
+            'last_approved_at':approved,'automatic_tagger':'claude' if automatic_ai_allowed() else 'keywords',
+            'automatic_ai_enabled':automatic_ai_allowed(),
             'public_demo':public_demo(),'best_effort':True}
 
 @router.get('/signals/review')
