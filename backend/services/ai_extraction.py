@@ -53,10 +53,11 @@ async def extract_suggestions(content,provider,pdf=None,pages=None):
                              if pdf else claude_extract(content,SKILLS))
             source=found.pop('_source_text',content)
             ai_candidates=list(found['candidates'])
+            ai_count=len(ai_candidates)
             found['candidates']=supplement(ai_candidates,source)
             found['source_counts']={
-                'ai':len(ai_candidates),
-                'dictionary':len(found['candidates'])-len(ai_candidates),
+                'ai':ai_count,
+                'dictionary':len(found['candidates'])-ai_count,
             }
             # Use grounded model hints when available. Fill missing fields from
             # explicit text sections, without storing a whole CV or assuming
