@@ -17,7 +17,7 @@ ROLES_SET = {r['id'] for r in ROLES}
 SKILLS_SET = {s['id'] for s in SKILLS}
 
 def enabled():
-    return os.getenv('SIGNALS_REMOTE_SNAPSHOT_ENABLED','').strip().lower() in ('1','true','yes')
+    return os.getenv('SIGNALS_REMOTE_SNAPSHOT_ENABLED', '1').strip().lower() in ('1','true','yes')
 
 def validate_signal(raw):
     if not isinstance(raw,dict) or raw.get('tagged_by') != 'claude':
