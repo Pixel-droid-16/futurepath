@@ -20,3 +20,15 @@ def test_required_skills_have_a_checked_course():
     assert required-covered<={'SK051','SK067',
         'SK083','SK086','SK087','SK088','SK089','SK091','SK092','SK095',
         'SK097','SK098','SK100','SK103','SK104','SK105','SK106','SK107','SK108'}
+
+
+
+def test_fullstack_role_has_linked_learning_resources():
+    """New full-stack requirements must lead to real, checked learning links."""
+    role = next(r for r in ROLES if r['id'] == 'fullstack-software-engineer')
+    required = {s['skill_id'] for s in role['skills']}
+    new_required = {'SK109', 'SK110', 'SK111', 'SK112', 'SK114', 'SK115'}
+    assert new_required <= required
+    for sid in new_required:
+        learning = [c for c in COURSES if sid in c['skill_ids']]
+        assert learning and all(c.get('checked') and c['url'].startswith('https://') for c in learning)

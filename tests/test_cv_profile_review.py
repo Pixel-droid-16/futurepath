@@ -112,7 +112,8 @@ def test_v2_review_contains_evidence_backed_profile_preview():
     start = (root / 'pages' / 'start.html').read_text(encoding='utf8')
     logic = (root / 'logic' / 'state_and_actions.js').read_text(encoding='utf8')
     assert 'Details suggested from this CV' in start
-    assert 'Projects are shown for review' in start
+    assert 'Projects, achievements and certifications are shown for review' in start
+    assert 'not automatically stored or scored' in start
     assert 'profileHints: hints' in logic
     assert 'hints.current_role?.value' in logic
 
