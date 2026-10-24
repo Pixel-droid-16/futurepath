@@ -19,6 +19,8 @@ jobs:
         with:
           python-version: "3.12"
       - run: python scripts/verify_integrity.py
+      - if: ${{ always() }}
+        run: python scripts/check_modular_coverage.py
 
   regressions:
     name: Non-browser regressions

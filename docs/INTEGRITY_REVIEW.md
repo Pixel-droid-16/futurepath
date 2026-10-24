@@ -53,8 +53,9 @@ fail with a nonzero exit status. No Git checkout/network is needed to run it.
 
 The check is deliberately **not** a whole-repository/security signature or a
 claim that the entire current UI equals the initial mockup. New modular source,
-new datasets and files absent from the original manifest are not covered.
-`tests/test_organization.py` separately checks the assembled UI matches its source.
+new datasets and files absent from the original manifest are not hash-covered.
+The explicit post-manifest policy below adds structural and schema coverage.
+`tests/test_organization.py` also checks the assembled UI matches its source.
 Hashes cannot validate model correctness, course quality, provider availability
 or pixel rendering. Use behavioral tests for those contracts.
 
@@ -95,7 +96,60 @@ pushes or deployments outside that policy.
    from a dirty working tree or add a blanket skip.
 4. Build the frontend when editing its source, run integrity and regression tests.
 
-This review changes no application source, rendered UI, or datasets.
+The original hash review changed no application source, rendered UI, or datasets.
+
+## Post-manifest coverage policy (2026-10-24)
+
+`python scripts/check_modular_coverage.py` is the companion to the hash verifier.
+It needs only the Python standard library, reads files without importing the app,
+and never writes generated output, datasets or manifests. CI runs it even when
+the historical/reviewed hash step fails. The isolated regression suite includes
+`tests/test_modular_coverage.py` fault-injection checks in disposable copies.
+
+### Decisions and provenance
+
+| Scope | Protection | Provenance and reason |
+| --- | --- | --- |
+| Original design/runtime/assets and historical snapshots | Existing original hashes, unchanged | Original manifest remains the evidence for immutable imported assets. |
+| `frontend/index.html` | Existing narrowly reviewed hash **and** assembly equality | Evolved generated release page, not the original mockup. Its reviewed hash must still be approved independently of rebuilding. |
+| `frontend/mockup_source` active fragments | Explicit required inventory, independent ordered assembly contract, output equality; existing UI/translation/organization tests | Modular source is visible at the shallow `caeb753` boundary; latest fragment change is `f3443e6` (Signals permissions). These are editable implementation files, not newly discovered immutable originals. No new hashes. |
+| Retired fragments: `pages/intake.html`, `pages/login.html`, `logic/intake_sample_skills.js`, `logic/intake_skill_view.js` under `frontend/mockup_source` | Explicit retained inventory, excluded from assembly | Legacy remnants present at the shallow boundary, retained for reference only. Presence is protected, bytes are not certified historical originals. They must not be silently reintroduced into the active page. Deliberate deletion requires a policy/inventory review. |
+| `backend/routes` and `backend/services` | Exact Python file inventories, regular-file and syntax checks; existing API/provider/profile/CV/scenario/signal behavior tests | Modular route/service structure is visible at `caeb753`; CV profile service was added in `3c5bae3`, with later route evolution including `f3443e6`. Hashing ongoing feature logic would freeze intended evolution rather than prove correct behavior. |
+| `data/extra_courses.json` | Required nonempty raw dataset, per-row schema, unique IDs across both course sources, known skill references and checked-date provenance; `tests/test_courses.py` for learning coverage | Hand-maintained additions, latest change `59b31e6`; each row records a provider-page check date. Unlike imported `data/courses.json`, this file is expected to evolve. Dates are claims of past review, not a live link/quality guarantee. |
+
+No additional immutable new asset was identified in these scopes. Do not add
+hashes simply because a file is new. File inventories are deliberately explicit,
+not generated from the working tree. Unexpected files in these three directories
+fail as unclassified (except Python cache artifacts); missing files and symlinks
+fail. Other post-manifest directories remain outside this inventory's scope.
+This is not a security signature or exhaustive runtime correctness check.
+
+The ordered fragment contract is independent of the builder's recipe so that
+omitting, duplicating, reordering or reintroducing retired fragments is detected
+even if the generated page is rebuilt to match the faulty recipe. Ordinary
+source edits are allowed once output is rebuilt, but the page's reviewed hash
+remains a separate approval gate. No current application output was rebuilt or
+reverted for this policy.
+
+### Updating coverage intentionally
+
+1. For a new file in a covered directory, classify it as active, retained legacy,
+   or a new immutable asset; document its source/history and intended contract.
+2. Update only the relevant explicit inventory. For an intentional assembly
+   recipe change, review both the builder and the independent ordered contract.
+3. Add behavioral coverage for changed routes/services. Syntax and existence do
+   not establish endpoint registration or correct behavior; the organization and
+   feature tests remain required.
+4. For extra courses, preserve row-level provider/date provenance and schema,
+   and run course tests. Do not blindly hash the dataset or infer live accuracy
+   from a successful offline check.
+5. Run both integrity commands and `python scripts/check_regressions.py`.
+   Do not refresh old hashes to hide unrelated failures.
+
+At this review's starting tree (`230bc97`), hash verification already reports
+`data/roles.json`, `backend/engine.py`, and `frontend/index.html` mismatches.
+The current page nevertheless matches its assembly source. This policy neither
+approves those hash mismatches nor resolves existing role/scoring behavior issues.
 
 ## SDC main alignment and Signals refresh review (2026-10-24)
 
