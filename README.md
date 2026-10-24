@@ -11,7 +11,7 @@ FuturePath helps students, graduates and working professionals compare their **c
 | Field | Information |
 |---|---|
 | Project name | FuturePath |
-| Team name | **To be confirmed by team leader** |
+| Team name | KitaHack |
 | Competition domain | Domain 1 |
 | Primary SDG track | **Team must select one primary SDG for the form** |
 | Related SDGs | 4 (Quality Education), 8 (Decent Work), 9 (Industry/Innovation), as mapped per career |
