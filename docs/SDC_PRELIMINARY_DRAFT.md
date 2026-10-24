@@ -8,14 +8,14 @@
 
 | Official field | Proposed answer |
 |---|---|
-| Team Name | **[REGISTERED TEAM NAME REQUIRED]** |
+| Team Name | **KitaHack (team-confirmed)** |
 | Selected Domain | Domain 1 |
-| Selected SDG Track | **[TEAM TO CONFIRM]** — recommend SDG 4 (Quality Education), target 4.4 |
+| Selected SDG Track | **SDG 4 — Quality Education, target 4.4 (team-confirmed)** |
 | Project / Solution Name | FuturePath |
-| Name (Leader) | **[LEADER NAME REQUIRED]** |
+| Name (Leader) | **CHANTHIRAA CHELVAN PASUPATHY** |
 | Email & Phone (Leader) | **[PRIVATE CONTACT INFORMATION REQUIRED IN OFFICIAL FORM ONLY]** |
-| University Affiliation(s) | **[TEAM TO CONFIRM]** |
-| Number of Team Members | **[TEAM TO CONFIRM]** |
+| University Affiliation(s) | **Team confirmed** |
+| Number of Team Members | **Team confirmed** |
 
 ## 2. Executive summary and problem statement
 
@@ -99,3 +99,15 @@ Leader signature: **[SIGNATURE REQUIRED]**
 Date: **[ACTUAL SIGNING DATE REQUIRED]**
 
 This draft is not yet a legally effective declaration or a final submission.
+
+
+## Team-confirmed declarations (24 October 2026)
+
+- Team: **KitaHack**; project: **FuturePath**; Domain 1; primary **SDG 4, target 4.4**.
+- Team leader: **CHANTHIRAA CHELVAN PASUPATHY**; four members at **Universiti Teknikal Malaysia Melaka**.
+- All four completed mandatory workshops: **YES (leader-confirmed)**.
+- SDC sponsor-provided resources used: **YES (leader-confirmed)**; **exact sponsor, allocation and service still to verify**.
+- Project work created before hackathon: **NO (leader-confirmed)**.
+- Employment-related IP conflicts: **NO (leader-confirmed)**.
+- Leader's phone was supplied privately and intentionally excluded from public GitHub files.
+- This is still a draft: actual leader signature, sponsor details, production URL, and real Replit/RunPod evidence are outstanding.

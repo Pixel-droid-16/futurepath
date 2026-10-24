@@ -77,7 +77,14 @@ def insert_signal(c,s):
 def get_signals():
     with connection() as c:
         rows=c.execute('SELECT * FROM signals ORDER BY published_date DESC,id DESC').fetchall()
-    return [{**dict(r),'role_ids':json.loads(r['role_ids']),'skill_ids':json.loads(r['skill_ids'])} for r in rows]
+    saved=[{**dict(r),'role_ids':json.loads(r['role_ids']),'skill_ids':json.loads(r['skill_ids'])} for r in rows]
+    # Scheduled GitHub evidence is durable outside sleeping/disposable Replit
+    # instances, read-only and validated before it can affect career scores.
+    from .signals.snapshot import read_snapshot
+    remote,_=read_snapshot()
+    existing={row['external_id'] for row in saved}
+    return sorted(saved+[row for row in remote if row['external_id'] not in existing],
+                  key=lambda row:(row['published_date'],row.get('id') or 0),reverse=True)
 
 def get_profile(pid='demo'):
     """One saved person. 'demo' is the original shared profile; others are created by the Start flow."""

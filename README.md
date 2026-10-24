@@ -11,24 +11,25 @@ FuturePath helps students, graduates and working professionals compare their **c
 | Field | Information |
 |---|---|
 | Project name | FuturePath |
-| Team name | **To be confirmed by team leader** |
+| Team name | KitaHack |
 | Competition domain | Domain 1 |
-| Primary SDG track | **Team must select one primary SDG for the form** |
+| Primary SDG track | SDG 4 — Quality Education (target 4.4) |
 | Related SDGs | 4 (Quality Education), 8 (Decent Work), 9 (Industry/Innovation), as mapped per career |
-| Team leader | **To be confirmed** |
-| University / institutions | **To be confirmed** |
-| Team members and roles | **To be confirmed** |
+| Team leader | CHANTHIRAA CHELVAN PASUPATHY |
+| University / institutions | Universiti Teknikal Malaysia Melaka (UTeM) |
+| Team members and roles | CHANTHIRAA CHELVAN PASUPATHY (leader), HUA SOON LAI, ADAM BIN AZMI, MUHAMMAD ADAM BIN ROSLAN; individual technical roles to confirm |
 
 ## Submission links
 
 | Resource | Link / status |
 |---|---|
 | GitHub repository | [Pixel-droid-16/futurepath](https://github.com/Pixel-droid-16/futurepath) |
-| Live Replit deployment | **Pending publication and live verification** |
+| Live Replit deployment | https://futurepathkitahack.replit.app/ |
 | Replit development project | [FuturePath Replit workspace](https://replit.com/@b152610182/futurepath) (may require project access) |
 | RunPod endpoint | Configured through `RUNPOD_ENDPOINT_ID`; API key is private |
-| Presentation / slide deck | **Team to supply verified link** |
-| Demo video | **Team to supply verified link** |
+| Presentation / slide deck | [Presentation slides](https://drive.google.com/drive/folders/1ZWO4zt3pfn5IgmirVihVO56epyx6NYDD?usp=sharing) |
+| Video presentation | [Team presentation](https://youtu.be/8qehmrugJyo) |
+| Live demo video | [FuturePath live demo](https://youtu.be/ApVh2PU2pLA) |
 | Official PDF submissions | See [submission/README.md](submission/README.md) |
 
 ## Problem
@@ -86,20 +87,51 @@ Career results -> skill gaps -> learning pathway + SDGs
 
 See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for implementation boundaries. The `frontend/index.html` file is generated from `frontend/mockup_source/` and must not be edited as the only source.
 
+## SDC 2026 team and submission status
+
+Our four members have confirmed completion of the mandatory workshops. The team declares use of official SDC sponsor-provided resources (exact sponsor/provider allocation still to verify), no pre-hackathon project work, and no employment-related IP conflicts. The submission PDFs require team-leader review and signature; actual Replit and RunPod proof must use genuine sanitized screenshots. See [submission status](submission/KITAHACK_SUBMISSION_STATUS.md).
+
+The organizer's example uses `src/main.py`. We provide that path as a **thin compatibility entry point** to the existing tested `backend.app:app`, not as a replacement for the modular backend.
+
 ## Repository structure
 
-```text
-backend/          FastAPI entrypoint, feature-specific API routes, AI providers, matching, signals
-frontend/         V2 frontend, assets and independently editable pages / logic
-data/             Versioned skills, careers, signal and course catalogues
-runpod_worker/    Deployed RunPod GPU handler, Dockerfile and worker dependencies
-scripts/          Frontend build and verification utilities
-tests/            Backend, integration and optional browser tests
-docs/             Architecture, deployment, audit, user and submission notes
-submission/       SDC-required PDF deliverables, once completed and verified
-.replit           Replit development workflow and deployment configuration
-.env.example      Environment variable names and example settings (no credentials)
-requirements.txt Python dependencies
+```
+├── backend/                     # FastAPI app: API, matching engine, AI providers, signals
+│   ├── app.py                   # Creates the app, middleware and signal scheduler
+│   ├── engine.py                # Career scoring (skills, demand, interests)
+│   ├── routes/                  # One file per API area (careers, signals, CV upload, …)
+│   ├── services/                # CV extraction, recommendations, document parsing
+│   ├── providers/               # RunPod (Qwen) and Claude adapters, output validation
+│   └── signals/                 # Feed fetching, tagging, review queue, GitHub snapshot
+├── data/                        # Careers, skills, courses, curated and live signals (JSON)
+├── docs/                        # Architecture, release and submission notes
+├── frontend/
+│   ├── index.html               # Built page served by FastAPI (generated, do not edit)
+│   ├── mockup_source/           # Editable page templates and logic
+│   └── assets/                  # SDG icons and images
+├── runpod_worker/
+│   ├── handler.py               # RunPod serverless handler (GPU workload, Qwen 2.5 3B)
+│   ├── Dockerfile               # Worker image
+│   └── requirements.txt         # Worker dependencies
+├── scripts/                     # Frontend build, integrity checks, daily signal worker
+├── src/
+│   └── main.py                  # Application entry point (wraps backend.app)
+├── submission/                  # Required submission documents
+│   ├── SDC2026_KitaHack_Preliminary.pdf      # Preliminary submission
+│   ├── SDC2026_KitaHack_TechDeclaration.pdf  # Technology declaration 
+│   ├── SDC2026_KitaHack_Replit_POU.pdf       # Replit proof of use 
+│   ├── SDC2026_KitaHack_Runpod_POU.pdf       # RunPod proof of use 
+│   ├── KITAHACK_SUBMISSION_STATUS.md         # What each PDF still needs
+│   └── README.md                             # PDF naming checklist
+├── tests/                       # Unit and API tests (pytest)
+│   └── browser/                 # Chromium end-to-end journeys
+├── .github/workflows/           # CI checks and the daily signals snapshot job
+├── .env.example                 # Example environment variables
+├── .gitignore
+├── .replit                      # Replit run configuration
+├── LICENSE                      # Apache 2.0
+├── requirements.txt             # Python dependencies
+└── README.md
 ```
 
 The official SDC template uses `src/main.py` and `runpod/handler.py` as **example placeholders**. Our actual equivalents are `backend/app.py` and `runpod_worker/handler.py`. We preserve the working modular structure rather than replace it with the example echo handler.
@@ -131,6 +163,15 @@ python -m uvicorn backend.app:app --reload --env-file .env
 ```
 
 The local default address is http://127.0.0.1:8000/start. Replit's hosted workflow **uses port 5000**, not the local default. Without RunPod or Claude credentials, use the dictionary provider for **fictional** text CVs.
+
+### Alternative SDC-style entry point
+
+```bash
+python src/main.py
+# or: python -m uvicorn src.main:app --host 0.0.0.0 --port 5000
+```
+
+This serves the same FastAPI application as the original Replit command.
 
 ### Tests
 
@@ -168,13 +209,27 @@ The Replit application hosts the FastAPI + V2 website and connects server-side t
 - Improved mobile accessibility, loading/error recovery, model monitoring and calibration of scoring.
 - Production-grade persistent data store and end-to-end observability.
 
-## Submission checklist
+## Team
 
-See [submission/README.md](submission/README.md) and [docs/SDC_SUBMISSION_CHECKLIST.md](docs/SDC_SUBMISSION_CHECKLIST.md). The team must verify the actual SDC form fields, PDF filenames and any deadlines in the [participant resources folder](https://drive.google.com/drive/folders/1xw7c2aN8N-at8hPEULzkcU76e_FFb0Ef).
+| Name | Role | GitHub Username |
+|------|------|-----------------|
+| CHANTHIRAA CHELVAN PASUPATHY (Leader) | Lead / Backend / RunPod / Replit | [Pixel-droid-16](https://github.com/Pixel-droid-16) |
+| HUA SOON LAI | Frontend | [soonlai1129](https://github.com/soonlai1129) |
+| ADAM BIN AZMI | Backend / AI | [Maestro05-coder](https://github.com/Maestro05-coder) |
+| MUHAMMAD ADAM BIN ROSLAN | Frontend / Backend | [dammnnnnnnnn](https://github.com/dammnnnnnnnn) |
 
-## Team and attribution
+## Submission Checklist
 
-Add real members and their contribution areas when confirmed. This project combines a teammate's original V2 interface with a modular FastAPI implementation, original and imported curated datasets, and AI-assisted coding. The team is responsible for explaining, reviewing and testing its submission. Keep the real commit history intact.
+- [x] Team name, domain (Domain 1 / Domain 2) and SDG track filled in
+- [x] Slide deck link added
+- [x] Demo video link added
+- [x] Replit used, with proof of use in `submission/`
+- [x] RunPod used, with proof of use in `submission/`
+- [x] Preliminary submission completed (`SDC2026_KitaHack_Preliminary.pdf`)
+- [x] Technology declaration completed (`SDC2026_KitaHack_TechDeclaration.pdf`)
+- [x] Submission files renamed with your team name (`SDC2026_KitaHack_*.pdf`)
+- [x] "How to Run" steps verified
+- [x] No API keys or secrets committed to the repository
 
 ## License
 

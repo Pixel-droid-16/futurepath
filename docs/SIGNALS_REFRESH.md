@@ -85,3 +85,74 @@ source validation/deduplication, pending/rejected score isolation, authenticated
 atomic approval, and public-demo rejection. Build the generated frontend from V2
 fragments, check parity, compile and verify the reviewed integrity manifest.
 These tests must not fetch live feeds, call paid models, or modify shared profiles.
+
+## Signals V2 Enhanced (24 October 2026)
+
+The public V2 Signals tabs retain their styling but replace endless scrolling with
+independent five-item pages for Rising and Declining cards, and eight-item pages
+for stored evidence. Recently published AI-verified feed items appear first,
+followed by older curated reports, each group by publication date. The large
+administrator controls are removed from the public page, but existing
+privileged backend routes remain protected.
+
+### Autonomous AI verification: disabled until explicitly approved
+
+Unattended automatic checks remain free/keyword-only until BOTH
+`SIGNALS_AUTO_AI_ENABLED=1` and a real `ANTHROPIC_API_KEY` are configured.
+Neither is enabled by this commit. Enabling Claude uses **paid Anthropic API**
+credits, with at most eight candidates per scheduled run; cost depends on the
+configured model and token usage. No paid call is issued merely by opening
+Signals or by running keyword-only checks.
+
+With explicit opt-in, configured feed items must pass provenance, valid
+publication-date and safe HTTPS URL checks, duplicate screening, a
+job/skills relevance prefilter, a substantial source snippet, structured Claude
+analysis, and catalogue/claim guardrails. A failed or missing AI response
+cannot publish or change scoring. Approved items are written and audited
+atomically as `automatic-ai` with a source-grounded headline; individual
+strength is capped at 2, and career demand retains its existing feed-group cap.
+ADMIN_TOKEN is not used by the internal scheduler. Older authenticated
+review endpoints remain available for legacy manual imports, not required for
+the fully automated AI path.
+
+### Hosting constraints
+
+Replit Autoscale can sleep, and the existing `/tmp` SQLite storage is
+ephemeral. The public-demo safeguard continues to disable background
+refresh regardless of the interval setting. A separately approved persistent
+database and always-on or external scheduled worker are needed before
+claiming guaranteed daily automatic updates. No public deployment or paid
+schedule was enabled here.
+
+
+## External daily snapshot for Replit Autoscale (24 October 2026)
+
+An independent GitHub Actions schedule now checks configured sources at around
+10:17 am Malaysia time every day. GitHub Actions cron is best effort, not a
+service-level guarantee. It records its results in the versioned public
+`data/live_signals.json` file, which persists independently of ephemeral
+Replit SQLite. The deployed public demo **reads** the fixed GitHub snapshot
+through `backend/signals/snapshot.py` (five-minute in-memory cache). Signals,
+Skill Trends and career scoring use the same validated merged evidence. This
+requires a one-time updated Replit deployment. Later snapshot changes need no
+Replit publishing or user refresh button.
+
+By default the worker uses the free keyword prefilter and **never publishes
+those unverified candidates**. To enable genuine automated AI verification and
+publication, the repository owner must explicitly set GitHub Actions repository
+variable `SIGNALS_AUTO_AI_ENABLED=1` and add the repository Actions secret
+`ANTHROPIC_API_KEY`. Claude requests are paid and capped at eight candidates
+per run. No other secret or authorization token is written into the snapshot.
+AI failures and rejected candidates never enter visible evidence or scores.
+
+A checked_at timestamp is proof of a completed source-check attempt, not a
+guarantee that new evidence appeared or that every feed succeeded. Remote
+fetch failures retain previously validated in-memory evidence and saved curated
+sources. The fixed remote HTTPS URL rejects redirects and document size over
+512 KiB; imported entries need matching source IDs, valid dates, catalogue
+links, Claude tags and capped strength. The default demo auth and blocked
+administrator APIs remain protected. GitHub action and website have no extra
+paid service dependency unless Claude approval is switched on.
+
+The scheduled workflow can be manually invoked from GitHub Actions to validate
+its first source run, if the GitHub installation allows workflow dispatch.

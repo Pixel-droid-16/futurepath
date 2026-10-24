@@ -1,54 +1,87 @@
-"""Isolated Chromium approval gate, with synthetic DB and no live feeds/providers."""
+"""Offline Chromium checks: public Signals UI, protected admin API and independent paging."""
 import pytest
 from playwright.sync_api import expect
 
 
 @pytest.mark.parametrize('server', ['signals'], indirect=True)
-def test_admin_review_journey_and_saved_reload(page, server):
-    requests = []
-    page.on('request', lambda request: requests.append((request.method, request.url)))
+def test_read_only_signals_ui_preserves_protected_approval_api(page, server):
     page.goto(server + '/signals')
     expect(page.get_by_role('heading', name='The evidence behind every score')).to_be_visible()
-    review = page.get_by_role('button', name='Review pending evidence')
-    expect(review).to_be_visible()
-    assert not any('/api/signals/review' in url for method, url in requests)
-    initial = page.request.get(server + '/api/signals').json()
-    assert page.request.get(server + '/api/signals/review').status == 401
-    assert page.request.get(server + '/api/signals/status').json()['pending_count'] == 2
+    for label in ('Reload saved signals', 'Admin: refresh live feeds', 'Review pending evidence'):
+        expect(page.get_by_role('button', name=label)).to_have_count(0)
 
-    def dialogs(dialog):
-        if dialog.type == 'confirm':
-            dialog.accept()
-        elif 'ADMIN_TOKEN' in dialog.message:
-            dialog.accept('synthetic-browser-admin')
-        else:
-            dialog.accept('Reviewed synthetic evidence')
-    page.on('dialog', dialogs)
-    review.click()
+    api = page.request
+    initial = api.get(server + '/api/signals').json()
+    assert api.get(server + '/api/signals/review').status == 401
+    assert api.get(server + '/api/signals/status').json()['pending_count'] == 2
+
+    headers = {'Authorization': 'Bearer synthetic-browser-admin'}
+    queue_response = api.get(server + '/api/signals/review', headers=headers)
+    assert queue_response.ok
+    items = queue_response.json()['items']
+    to_approve = next(i for i in items if i['signal']['title'] == 'Malaysia needs cybersecurity workers')
+    to_reject = next(i for i in items if i['signal']['title'] == 'Malaysia expands data analyst hiring')
+    approved = api.post(server + f"/api/signals/review/{to_approve['id']}/approve", headers=headers)
+    assert approved.status == 200
+    assert len(api.get(server + '/api/signals').json()) == len(initial) + 1
+    assert api.get(server + '/api/signals/status').json()['pending_count'] == 1
+
+    rejected = api.post(server + f"/api/signals/review/{to_reject['id']}/reject", headers=headers)
+    assert rejected.status == 200
+    assert api.get(server + '/api/signals/status').json()['pending_count'] == 0
+
+    page.reload()
+    page.get_by_role('tablist').get_by_role('button', name='Signals', exact=True).click()
     expect(page.get_by_role('heading', name='Malaysia needs cybersecurity workers')).to_be_visible()
-    item = page.locator('article').filter(has_text='Malaysia needs cybersecurity workers')
-    item.get_by_role('button', name='Approve evidence').click()
-    expect(page.get_by_role('heading', name='Malaysia needs cybersecurity workers')).to_have_count(0)
-    assert len(page.request.get(server + '/api/signals').json()) == len(initial) + 1
-    assert page.request.get(server + '/api/signals/status').json()['pending_count'] == 1
-    item = page.locator('article').filter(has_text='Malaysia expands data analyst hiring')
-    item.get_by_role('button', name='Reject evidence').click()
-    expect(page.get_by_role('heading', name='Malaysia expands data analyst hiring')).to_have_count(0)
-    assert page.request.get(server + '/api/signals/status').json()['pending_count'] == 0
-    assert len(page.request.get(server + '/api/signals').json()) == len(initial) + 1
-    before = len(requests)
-    page.get_by_role('button', name='Reload saved signals').click()
-    expect(page.get_by_text('Saved signals reloaded. No live news or research was fetched.')).to_be_visible()
-    assert not any(method == 'POST' for method, url in requests[before:])
-    stores = page.evaluate('JSON.stringify([Object.entries(localStorage),Object.entries(sessionStorage)])')
-    assert 'synthetic-browser-admin' not in stores
-    assert page.request.get(server + '/api/signals/status').json()['enabled'] is True
+    assert 'synthetic-browser-admin' not in page.evaluate(
+        'JSON.stringify([Object.entries(localStorage),Object.entries(sessionStorage)])'
+    )
+    assert api.get(server + '/api/signals/status').json()['enabled'] is True
 
 
 @pytest.mark.parametrize('server', ['signals'], indirect=True)
-def test_review_unauthorized_error_is_visible(page, server):
+def test_unauthorized_review_cannot_mutate_evidence(page, server):
     page.goto(server + '/signals')
-    page.on('dialog', lambda dialog: dialog.accept('wrong-token'))
-    page.get_by_role('button', name='Review pending evidence').click()
-    expect(page.get_by_text('Administrator authentication failed (401). Check the token and try again.')).to_be_visible()
+    queue = page.request.get(
+        server + '/api/signals/review',
+        headers={'Authorization': 'Bearer synthetic-browser-admin'},
+    ).json()['items']
+    review_id = queue[0]['id']
+    assert page.request.post(server + f'/api/signals/review/{review_id}/approve').status == 401
+    assert page.request.post(
+        server + f'/api/signals/review/{review_id}/approve',
+        headers={'Authorization': 'Bearer wrong-token'},
+    ).status == 401
     assert page.request.get(server + '/api/signals/status').json()['pending_count'] == 2
+    expect(page.get_by_role('button', name='Review pending evidence')).to_have_count(0)
+
+
+def test_signals_v2_three_independent_paginations(page, server):
+    page.goto(server + '/signals')
+    source = page.request.get(server + '/api/skill-trends').json()
+    rising = page.get_by_role('navigation', name='Rising skills pages')
+    declining = page.get_by_role('navigation', name='Declining skills pages')
+    expect(rising.locator('button[aria-current="true"]')).to_have_text('1')
+    expect(declining.locator('button[aria-current="true"]')).to_have_text('1')
+    if len(source['rising']) > 5:
+        rising.get_by_role('button', name='2', exact=True).click()
+        expect(rising.locator('button[aria-current="true"]')).to_have_text('2')
+        expect(declining.locator('button[aria-current="true"]')).to_have_text('1')
+    if len(source['declining']) > 5:
+        declining.get_by_role('button', name='2', exact=True).click()
+        expect(declining.locator('button[aria-current="true"]')).to_have_text('2')
+        if len(source['rising']) > 5:
+            expect(rising.locator('button[aria-current="true"]')).to_have_text('2')
+
+    page.get_by_role('tablist').get_by_role('button', name='Signals', exact=True).click()
+    saved = page.request.get(server + '/api/signals').json()
+    pager = page.get_by_role('navigation', name='Signals pages')
+    expect(pager.locator('button[aria-current="true"]')).to_have_text('1')
+    cards = page.locator('main[data-screen-label="Signals"] article')
+    expect(cards).to_have_count(min(8, len(saved)))
+    if len(saved) > 8:
+        pager.get_by_role('button', name='2', exact=True).click()
+        expect(pager.locator('button[aria-current="true"]')).to_have_text('2')
+        expect(cards).to_have_count(min(8, len(saved) - 8))
+    page.get_by_role('button', name='↑ Emerging').click()
+    expect(pager.locator('button[aria-current="true"]')).to_have_text('1')

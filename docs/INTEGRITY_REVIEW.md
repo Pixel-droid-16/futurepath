@@ -227,3 +227,62 @@ No original manifest, stylesheet, protected asset or other reviewed hash is
 refreshed. Additive storage migration and focused Signals modules are verified by
 offline backend and isolated Chromium tests; the hash checker is not proof of
 production timer reliability or durable storage.
+
+
+## Signals V2 pagination and status source review (24 October 2026)
+
+The V2 Signals fragments and generated `frontend/index.html` intentionally
+change only the Signals page: three numbered pagers and a compact automatic
+update status. The historical original manifest, nineteen other reviewed
+hashes, original V2 theme, images and unrelated modules remain unchanged.
+The SHA256 entry for `frontend/index.html` was updated to these exact
+new assembled source bytes.
+
+
+## Signals V2 pagination and scheduler-status refinement (24 October 2026)
+
+The generated `frontend/index.html` is intentionally updated from its Signals
+source fragments: no more than five numbered buttons are visible per independently
+paged list, navigation and responsive filters stay within the container, empty
+results have a readable state, and status displays disabled/partial/active checks
+without claiming daily reliability on sleeping deployments. An optional read-only
+browser timer reloads stored signals only when the Signals page is visible and
+never invokes a news feed fetch or paid model. Original V2 CSS and image assets
+are unchanged. The reviewed generated-page hash is updated to the new bytes.
+
+
+## Team name metadata correction (24 October 2026)
+
+The independent README update `06fb0f8` changed the team-name placeholder
+to `KitaHack`. The exact existing README bytes are retained, and only the
+corresponding reviewed SHA256 entry was updated. The original baseline and
+all protected V2 design assets are unchanged.
+
+## SDG explanations, interface tidy-up and README submission details (25 October 2026)
+
+Three previously reviewed hashes are updated to the exact bytes merged into `main`
+at `36d5a30`. The original manifest, the seventeen other reviewed hashes and all
+protected V2 design assets are unchanged.
+
+- `data/roles.json`: `70fe0af` replaces the placeholder `sdg_justification` text on
+  12 of the 44 careers with role-specific explanations. No other field changes:
+  role IDs, skill requirements, interests and scoring inputs are as reviewed at `95cd1a9`.
+- `frontend/index.html`: reassembled from the V2 fragments after `70fe0af`, which
+  aligns the Home hero, removes the Start page's "Private by design" box, reduces the
+  Pathway SDG box to its badge and adds the matching Malay and Chinese text. The page
+  equals its assembly source; no stylesheet, image or original asset changes.
+- `README.md`: team-authored submission details since `06fb0f8`: confirmed members,
+  SDG track and `src/` layout (`515cb6d`), repository structure (`0523435`), team
+  information, presentation link and PDF descriptions (`b2bdfe6`, `1363db7`,
+  `c962058`, `166a9d8`, `07cb77d`, `b23b1e4`, `cc0c51d`). Documentation only.
+
+These hashes record accepted bytes, not correctness; the regression suite and
+browser checks remain the evidence for behaviour.
+
+## Submission checklist ticks (25 October 2026)
+
+`README.md` only: the Submission Checklist now ticks the completed Preliminary
+proposal and the renamed submission files, and names the actual
+`SDC2026_KitaHack_*.pdf` files instead of the `TeamName` placeholder. The demo
+video item stays unticked because no verified link exists yet. Only the README's
+reviewed SHA256 entry is updated.
