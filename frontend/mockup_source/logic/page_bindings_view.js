@@ -5,6 +5,14 @@
     const risingRoles = byDemand.filter(r => r.demand >= 50).slice(0, 5).map(roleBar);
     const decliningRoles = byDemand.filter(r => r.demand < 50).reverse().slice(0, 5).map(roleBar);
     const hasQuiz = !!st.profileDemo?.riasec;
+    // Fast AI scenario summary, measured from the two live rankings at the current weights (not a fixed claim).
+    const scOrder = list => list.map(r => FP_API.card(r, st.ws, st.wd)).sort((a, b) => b.exact - a.exact).map(r => r.id);
+    const scMod = scOrder(st.liveModerate), scFast = scOrder(st.liveRapid);
+    const scShifts = st.liveRapid.map(r => Math.round(r.assumption_shift || 0)), scChanged = scShifts.filter(x => x !== 0).length;
+    const scSigned = n => n > 0 ? `+${n}` : n < 0 ? `−${-n}` : '0';
+    const scNoAiCount = st.liveRapid.filter(r => r.signals && !r.signals.ai_signal_count).length;
+    const scenarioImpact = scShifts.length ? `Right now this changes demand for ${scChanged} of ${scShifts.length} careers (${scSigned(Math.min(...scShifts))} to ${scSigned(Math.max(...scShifts))} points) and ${scFast.filter((id, i) => scMod[i] !== id).length} careers change rank.` : '';
+    const scenarioNoAi = scNoAiCount ? `${scNoAiCount} career${scNoAiCount === 1 ? ' has' : 's have'} no AI-related signals yet, so ${scNoAiCount === 1 ? 'its' : 'their'} demand stays the same.` : '';
     return { ...out, ...startBindings, theme: st.theme, sdgReady: true, sdgTiles, sdgLinkedCount, radarUp, radarDn, radarUpdated, live: FEED[li], liveNext: [1, 2, 3].map(k => FEED[(li + k) % FEED.length]), liveProg: (((tk % CYC) + 1) / CYC * 100) + "%", clock, accent: this.props.accent ?? "violet", lbl: st.theme === "dark" ? "Light" : "Dark",
       toggle: () => this.setState(s => ({ theme: s.theme === "dark" ? "light" : "dark" })),
       langEn: st.lang === "en", langMs: st.lang === "ms", langZh: st.lang === "zh",
@@ -28,7 +36,8 @@
       interestNote: hasQuiz ? `Interest fit counts for 20%. Your strongest interests: ${st.profileDemo.riasec_code}.` : "Interest fit: Take the optional RIASEC interest quiz to add it.",
       setMod: () => this.setState({ fast: false }), setFast: () => this.setState({ fast: true }),
       modBg: m.bg, modFg: m.fg, fastBg: f2.bg, fastFg: f2.fg,
-      scenarioText: st.fast ? "AI adoption speeds up. Careers whose tasks are more exposed to AI have their demand shifted by up to 11 points; the others are unchanged."
+      isFast: st.fast, scenarioImpact, scenarioNoAi,
+      scenarioText: st.fast ? "AI adoption speeds up. Every AI-related trend signal (its headline or summary mentions AI, automation, machine learning or robots) counts double; other signals count as usual."
         : "AI adoption continues at roughly the pace employers reported in the WEF Future of Jobs Report 2025. Signals are used as they are.",
       scenarioNote: st.fast ? "A modelling assumption chosen by the FuturePath team, not a forecast. Your skill match is unchanged." : "Baseline estimate, not a prediction.",
       wcMoves, wcSummary, hasWcMoves: wcMoves.length > 0,

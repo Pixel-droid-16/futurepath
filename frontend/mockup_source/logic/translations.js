@@ -90,7 +90,9 @@ const FP_TEXT = {
   "Scores combine the skills you have with dated trend signals, using the formula shown on each role. They show where today's evidence points, not what will happen. You decide what to do with them.": ["Scores combine the skills you have with dated trend signals, using the formula shown on each role. They show where today's evidence points, not what will happen. You decide what to do with them.", "Skor menggabungkan kemahiran anda dengan isyarat trend bertarikh menggunakan formula yang ditunjukkan pada setiap kerjaya. Skor menunjukkan arah bukti semasa, bukan perkara yang pasti berlaku. Anda menentukan tindakan seterusnya.", "分数根据每个职业所示公式，将你的技能与有日期的趋势信号结合。它反映当前证据所指方向，而非未来必然结果。你可以自行决定如何使用这些信息。"],
   "AI disruption scenario": ["AI disruption scenario", "Senario gangguan AI", "AI 冲击情景"],
   "More than one future": ["More than one future", "Lebih daripada satu masa depan", "不止一种未来"],
-  "AI adoption speeds up. Careers whose tasks are more exposed to AI have their demand shifted by up to 11 points; the others are unchanged.": ["AI adoption speeds up. Careers whose tasks are more exposed to AI have their demand shifted by up to 11 points; the others are unchanged.", "Penggunaan AI meningkat dengan pantas. Permintaan kerjaya yang tugasnya lebih terdedah kepada AI berubah sehingga 11 mata; kerjaya lain tidak berubah.", "AI 采用速度加快。任务更容易受 AI 影响的职业，其需求分数最多变化 11 分；其他职业不变。"],
+  "AI adoption speeds up. Every AI-related trend signal (its headline or summary mentions AI, automation, machine learning or robots) counts double; other signals count as usual.": ["AI adoption speeds up. Every AI-related trend signal (its headline or summary mentions AI, automation, machine learning or robots) counts double; other signals count as usual.", "Penggunaan AI meningkat dengan pantas. Setiap isyarat trend berkaitan AI (tajuk atau ringkasannya menyebut AI, automasi, pembelajaran mesin atau robot) dikira dua kali; isyarat lain dikira seperti biasa.", "AI 采用速度加快。每条与 AI 相关的趋势信号（标题或摘要提到 AI、自动化、机器学习或机器人）按双倍计算；其他信号照常计算。"],
+  "No AI-related signals, so demand is unchanged": ["No AI-related signals, so demand is unchanged", "Tiada isyarat berkaitan AI, jadi permintaan tidak berubah", "没有与 AI 相关的信号，因此需求不变"],
+  "counts double (AI)": ["counts double (AI)", "dikira dua kali (AI)", "按双倍计算（AI）"],
   "A modelling assumption chosen by the FuturePath team, not a forecast. Your skill match is unchanged.": ["A modelling assumption chosen by the FuturePath team, not a forecast. Your skill match is unchanged.", "Andaian pemodelan yang dipilih oleh pasukan FuturePath, bukan ramalan. Padanan kemahiran anda tidak berubah.", "这是 FuturePath 团队设定的建模假设，并非预测。你的技能匹配度保持不变。"],
   "Baseline estimate, not a prediction.": ["Baseline estimate, not a prediction.", "Anggaran asas, bukan ramalan.", "基线估算，并非预测。"],
   "Take the optional RIASEC interest quiz to add interest fit.": ["Take the optional RIASEC interest quiz to add interest fit.", "Jawab kuiz minat RIASEC pilihan untuk menambah padanan minat.", "完成可选的 RIASEC 兴趣测验以加入兴趣匹配。"],
@@ -234,6 +236,7 @@ const FP_TEXT = {
   "Running": ["Running", "Sedang berjalan", "运行中"],
   "Loading": ["Loading", "Memuatkan", "加载中"],
   "Reading your CV…": ["Reading your CV…", "Membaca CV anda…", "正在读取简历…"],
+  "Read my CV": ["Read my CV", "Baca CV saya", "读取我的简历"],
   "Saving…": ["Saving…", "Menyimpan…", "正在保存…"],
   "Refreshing…": ["Refreshing…", "Sedang dimuat semula…", "正在刷新…"],
   "Refresh signals": ["Refresh signals", "Muat semula isyarat", "刷新趋势信号"],
@@ -306,7 +309,18 @@ const FP_TEXT = {
   "Pick your skills from a list. Takes about 3 minutes.": ["Pick your skills from a list. Takes about 3 minutes.", "Pilih kemahiran anda daripada senarai. Proses ini mengambil masa kira-kira 3 minit.", "从列表中选择你的技能，约需 3 分钟。"],
   "Your PDF looked scanned, so Claude read the page images. Each skill quotes the text it came from; please check them carefully.": ["Your PDF looked scanned, so Claude read the page images. Each skill quotes the text it came from; please check them carefully.", "PDF anda kelihatan seperti imbasan, jadi Claude membaca imej halaman. Setiap kemahiran memetik teks sumbernya; sila semak dengan teliti.", "你的 PDF 看起来是扫描件，因此 Claude 读取了页面图像。每项技能都附有原文摘录，请仔细核对。"],
   "Skills suggested by Claude from your CV. Each one quotes the line it came from. Please check them.": ["Skills suggested by Claude from your CV. Each one quotes the line it came from. Please check them.", "Kemahiran yang dicadangkan oleh Claude daripada CV anda. Setiap kemahiran memetik baris sumbernya. Sila semak.", "Claude 根据你的简历提出了这些技能建议，每项均附有来源原文。请仔细核对。"],
-  "Claude is not configured, so skills were matched by keywords. Please check them carefully.": ["Claude is not configured, so skills were matched by keywords. Please check them carefully.", "Claude tidak dikonfigurasi, jadi kemahiran dipadankan menggunakan kata kunci. Sila semak dengan teliti.", "Claude 尚未配置，因此系统使用关键词匹配技能。请仔细核对。"],
+  "Claude reviewed a PDF with little or no extractable text, and the local dictionary checked its transcription. Verify the suggested details, skills and evidence.": ["Claude reviewed a PDF with little or no extractable text, and the local dictionary checked its transcription. Verify the suggested details, skills and evidence.", "Claude menyemak PDF yang mempunyai sedikit atau tiada teks yang boleh diekstrak, dan kamus tempatan menyemak transkripsinya. Sahkan butiran, kemahiran dan bukti yang dicadangkan.", "Claude 审阅了一份几乎没有可提取文本的 PDF，本地词典核对了其转录内容。请核实建议的详情、技能和证据。"],
+  "Claude and the local dictionary suggested skills from your CV. Review their evidence and choose each proficiency level.": ["Claude and the local dictionary suggested skills from your CV. Review their evidence and choose each proficiency level.", "Claude dan kamus tempatan mencadangkan kemahiran daripada CV anda. Semak buktinya dan pilih tahap kemahiran bagi setiap satu.", "Claude 和本地词典根据你的简历提出了技能建议。请核对证据，并为每项技能选择熟练程度。"],
+  "Skills matched by the local dictionary, not GPU AI. Review every suggestion carefully.": ["Skills matched by the local dictionary, not GPU AI. Review every suggestion carefully.", "Kemahiran dipadankan oleh kamus tempatan, bukan AI GPU. Semak setiap cadangan dengan teliti.", "技能由本地词典匹配，而非 GPU AI。请仔细核对每项建议。"],
+  "Extracting skills (GPU may be starting)…": ["Extracting skills (GPU may be starting)…", "Mengekstrak kemahiran (GPU mungkin sedang dimulakan)…", "正在提取技能（GPU 可能正在启动）…"],
+  "Choose Basic, Working or Strong for every AI-suggested skill before continuing.": ["Choose Basic, Working or Strong for every AI-suggested skill before continuing.", "Pilih Asas, Boleh bekerja atau Mahir bagi setiap kemahiran yang dicadangkan AI sebelum meneruskan.", "继续之前，请为每项 AI 建议的技能选择基础、熟练应用或精通。"],
+  "Details suggested from this CV — review before saving": ["Details suggested from this CV — review before saving", "Butiran yang dicadangkan daripada CV ini — semak sebelum menyimpan", "根据此简历建议的详情——保存前请核对"],
+  "Review or edit the fields below. An in-progress degree is not a completed qualification. Projects, achievements and certifications are shown for review and are not automatically stored or scored.": ["Review or edit the fields below. An in-progress degree is not a completed qualification. Projects, achievements and certifications are shown for review and are not automatically stored or scored.", "Semak atau sunting medan di bawah. Ijazah yang masih dalam pengajian bukan kelayakan yang telah tamat. Projek, pencapaian dan pensijilan dipaparkan untuk semakan dan tidak disimpan atau diberi skor secara automatik.", "请核对或编辑以下字段。在读学位不等于已完成的学历。项目、成就和证书仅供核对，不会自动保存或计分。"],
+  "This PDF has no readable text. Upload a text-based PDF, use the manual skills form, or configure Claude for scanned PDFs.": ["This PDF has no readable text. Upload a text-based PDF, use the manual skills form, or configure Claude for scanned PDFs.", "PDF ini tiada teks yang boleh dibaca. Muat naik PDF berasaskan teks, gunakan borang kemahiran manual, atau konfigurasikan Claude untuk PDF imbasan.", "此 PDF 没有可读取的文本。请上传文本型 PDF、使用手动技能表单，或为扫描版 PDF 配置 Claude。"],
+  "Current role": ["Current role", "Jawatan semasa", "当前职位"],
+  "Education (may be in progress)": ["Education (may be in progress)", "Pendidikan (mungkin masih dalam pengajian)", "教育背景（可能在读）"],
+  "Highest completed qualification (confirm)": ["Highest completed qualification (confirm)", "Kelayakan tertinggi yang telah tamat (sahkan)", "已完成的最高学历（请确认）"],
+  "keyword matching (no AI)": ["keyword matching (no AI)", "padanan kata kunci (tanpa AI)", "关键词匹配（未使用 AI）"],
   "Skills you added in the form. Set how strong each one is.": ["Skills you added in the form. Set how strong each one is.", "Kemahiran yang anda tambah dalam borang. Tetapkan tahap penguasaan bagi setiap kemahiran.", "你在表格中添加的技能。请为每项技能设置熟练程度。"],
   "These are the skills saved in your profile.": ["These are the skills saved in your profile.", "Ini ialah kemahiran yang disimpan dalam profil anda.", "这些是保存在你档案中的技能。"],
   "Add the skills you have.": ["Add the skills you have.", "Tambah kemahiran yang anda miliki.", "添加你具备的技能。"],
@@ -730,6 +744,37 @@ const fpTranslation = (text, locale) => {
     : `${linkedGoals[1]} daripada ${linkedGoals[2]} matlamat dikaitkan dengan kerjaya kami (ditandakan).`;
   const weekCount = text.match(/^\+(\d+)$/);
   if (weekCount) return `+${weekCount[1]}`;
+  const qwenCounts = text.match(/^Qwen on RunPod suggested (\d+) skills; the local dictionary added (\d+) more\. Review all evidence and proficiency levels\.$/);
+  if (qwenCounts) return locale === "zh"
+    ? `RunPod 上的 Qwen 建议了 ${qwenCounts[1]} 项技能；本地词典另外补充了 ${qwenCounts[2]} 项。请核对所有证据和熟练程度。`
+    : `Qwen di RunPod mencadangkan ${qwenCounts[1]} kemahiran; kamus tempatan menambah ${qwenCounts[2]} lagi. Semak semua bukti dan tahap kemahiran.`;
+  const qwenNone = text.match(/^Qwen completed analysis but returned no validated skill suggestions\. The local dictionary found (\d+) possible skills; review them carefully\.$/);
+  if (qwenNone) return locale === "zh"
+    ? `Qwen 已完成分析，但没有返回经验证的技能建议。本地词典找到 ${qwenNone[1]} 项可能的技能，请仔细核对。`
+    : `Qwen telah selesai menganalisis tetapi tiada cadangan kemahiran yang disahkan. Kamus tempatan menemui ${qwenNone[1]} kemahiran yang mungkin; semak dengan teliti.`;
+  // CV detail hints on the Check step: "<label>: <value from the CV>"; the value stays as written in the CV.
+  const hintLabel = text.match(/^(Current role|Education \(may be in progress\)|Highest completed qualification \(confirm\)|Industry|Project|Achievement|Certification): (.+)$/);
+  if (hintLabel) {
+    const labels = { "Industry": ["Industri", "行业"], "Project": ["Projek", "项目"], "Achievement": ["Pencapaian", "成就"], "Certification": ["Pensijilan", "证书"] };
+    const label = labels[hintLabel[1]] ? labels[hintLabel[1]][locale === "zh" ? 1 : 0] : fpTranslation(hintLabel[1], locale);
+    return `${label}${locale === "zh" ? "：" : ": "}${hintLabel[2]}`;
+  }
+  const hintEvidence = text.match(/^CV evidence: (“.+”)$/);
+  if (hintEvidence) return `${locale === "zh" ? "简历证据：" : "Bukti CV: "}${hintEvidence[1]}`;
+  const cvQuote = text.match(/^CV evidence \((Qwen AI|Claude AI|local dictionary)\): (“.+”)(?: \(page (\d+)\))?$/);
+  if (cvQuote) {
+    const by = cvQuote[1] === "local dictionary" ? (locale === "zh" ? "本地词典" : "kamus tempatan") : cvQuote[1];
+    return locale === "zh"
+      ? `简历证据（${by}）：${cvQuote[2]}${cvQuote[3] ? `（第 ${cvQuote[3]} 页）` : ""}`
+      : `Bukti CV (${by}): ${cvQuote[2]}${cvQuote[3] ? ` (halaman ${cvQuote[3]})` : ""}`;
+  }
+  const readBy = text.match(/^Read by: (.+?)( \(Anthropic\)| on RunPod)?$/);
+  if (readBy) return (locale === "zh" ? "读取方式：" : "Dibaca oleh: ") + fpTranslation(readBy[1], locale)
+    + (readBy[2] === " on RunPod" ? (locale === "zh" ? "（RunPod）" : " di RunPod") : readBy[2] ? " (Anthropic)" : "");
+  const belowLevel = text.match(/^◐ (.+) (\d+)\/(\d+)$/);
+  if (belowLevel) return `◐ ${fpTranslation(belowLevel[1], locale)} ${belowLevel[2]}/${belowLevel[3]}`;
+  const levelTip = text.match(/^Your level (\d+), this career needs (\d+)$/);
+  if (levelTip) return locale === "zh" ? `你的水平为 ${levelTip[1]}，此职业需要 ${levelTip[2]}` : `Tahap anda ${levelTip[1]}, kerjaya ini memerlukan ${levelTip[2]}`;
   const skillChange = text.match(/^([✓+]) (.+)$/);
   if (skillChange) return `${skillChange[1]} ${fpTranslation(skillChange[2], locale)}`;
   const moveCount = text.match(/^\((\d+)\)$/);
@@ -744,6 +789,20 @@ const fpTranslation = (text, locale) => {
   if (pathIntro) return locale === "zh"
     ? `${pathIntro[1] === "Fast" ? "快速" : "温和"}的 AI 冲击 · 每周 ${pathIntro[2]} 小时 · 免费、低价及可申请 HRD Corp 资助的课程`
     : `Gangguan AI ${pathIntro[1] === "Fast" ? "pantas" : "sederhana"} · ${pathIntro[2]} jam seminggu · kursus percuma, kos rendah dan boleh dituntut melalui HRD Corp`;
+  const fastDemand = text.match(/^Fast AI: demand (\d+) → (\d+)$/);
+  if (fastDemand) return locale === "zh" ? `快速 AI：需求 ${fastDemand[1]} → ${fastDemand[2]}` : `AI pantas: permintaan ${fastDemand[1]} → ${fastDemand[2]}`;
+  const aiShare = text.match(/^(\d+) of (\d+) signals are about AI and count double$/);
+  if (aiShare) return locale === "zh"
+    ? `${aiShare[2]} 条信号中有 ${aiShare[1]} 条与 AI 相关，按双倍计算`
+    : `${aiShare[1]} daripada ${aiShare[2]} isyarat berkaitan AI dan dikira dua kali`;
+  const scenarioImpact = text.match(/^Right now this changes demand for (\d+) of (\d+) careers \(([+−]?\d+) to ([+−]?\d+) points\) and (\d+) careers change rank\.$/);
+  if (scenarioImpact) return locale === "zh"
+    ? `目前，这会改变 ${scenarioImpact[2]} 个职业中 ${scenarioImpact[1]} 个的需求（${scenarioImpact[3]} 至 ${scenarioImpact[4]} 分），并有 ${scenarioImpact[5]} 个职业排名发生变化。`
+    : `Kini, ini mengubah permintaan bagi ${scenarioImpact[1]} daripada ${scenarioImpact[2]} kerjaya (${scenarioImpact[3]} hingga ${scenarioImpact[4]} mata) dan ${scenarioImpact[5]} kerjaya berubah kedudukan.`;
+  const noAiCareers = text.match(/^(\d+) careers? (?:has|have) no AI-related signals yet, so (?:its|their) demand stays the same\.$/);
+  if (noAiCareers) return locale === "zh"
+    ? `有 ${noAiCareers[1]} 个职业尚无与 AI 相关的信号，因此需求保持不变。`
+    : `${noAiCareers[1]} kerjaya belum mempunyai isyarat berkaitan AI, jadi permintaannya kekal sama.`;
   const pctDemand = text.match(/^Demand ±(\d+)$/);
   if (pctDemand) return locale === "zh" ? `需求 ±${pctDemand[1]}` : `Permintaan ±${pctDemand[1]}`;
   const demandScore = text.match(/^Demand (\d+)$/);

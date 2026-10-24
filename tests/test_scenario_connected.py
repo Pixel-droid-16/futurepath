@@ -19,6 +19,20 @@ def test_all_careers_from_backend_have_two_real_scenarios():
         assert by_r[key]['scenario']=='rapid'
     assert any([p['skill'] for p in by_m[k]['pathway'][:4]] != [p['skill'] for p in by_r[k]['pathway'][:4]] for k in by_m)
 
+def test_rapid_scenario_moves_demand_and_ranking_through_ai_signals():
+    from backend.catalog import load
+    from backend.services.recommendations import result
+    signals=load('signals.json')  # curated baseline only, so the test doesn't depend on refreshed feeds
+    m=result(scenario='moderate',signals=signals);r=result(scenario='rapid',signals=signals)
+    assert [x['role_id'] for x in m]!=[x['role_id'] for x in r]  # the order of careers changes
+    by_m={x['role_id']:x for x in m}
+    for x in r:
+        mod=by_m[x['role_id']]
+        assert x['assumption_shift']==round(x['match']['demand']-mod['match']['demand'],1)
+        assert x['match']['skill']==mod['match']['skill']  # only demand moves; skill match never does
+        if x['signals']['ai_signal_count']==0:assert x['match']['demand']==mod['match']['demand']
+    assert max(abs(x['assumption_shift']) for x in r)>=5
+
 def test_task_impacts_and_priorities_are_exposed_by_api_and_original_v2_ui():
     client=TestClient(app)
     obj=client.get('/api/scenarios/data-analyst').json()

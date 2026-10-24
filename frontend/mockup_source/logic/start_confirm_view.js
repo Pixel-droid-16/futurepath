@@ -69,6 +69,10 @@
         : "Claude and the local dictionary suggested skills from your CV. Review their evidence and choose each proficiency level.",
       keywords: "Skills matched by the local dictionary, not GPU AI. Review every suggestion carefully.",
       form: "Skills you added in the form. Set how strong each one is.", saved: "These are the skills saved in your profile." }[st.draftSource] || "Add the skills you have.";
+    // Which model or method read the CV (from /api/extract), shown under the note.
+    const draftModel = st.draftSource === "keywords" ? "Read by: keyword matching (no AI)"
+      : st.draftSource === "ai" ? ({ claude: `Read by: ${st.cvModel || "Claude"} (Anthropic)`, runpod: `Read by: ${st.cvModel || "open model"} on RunPod` }[st.extractionProvider] || "")
+      : "";
     const quizDone = st.quizQuestions.filter(q => st.quizAnswers[q.id]).length, quizTotal = st.quizQuestions.length || 18;
     const quizRows = st.quizQuestions.map((q, i) => ({ n: i + 1, text: q.text, options: st.quizLikert.map(l => { const on = st.quizAnswers[q.id] === l.value;
       return { label: l.label, b: on ? "var(--pr)" : "var(--sf)", c: on ? "var(--pri)" : "var(--ink)", bd: on ? "var(--pr)" : "var(--ln)",
@@ -88,7 +92,7 @@
       formEmpty: !st.formPicked.length, formChosen, formResults, hasFormResults: formResults.length > 0, formListOpen: st.formOpen, openFormList: () => this.setState({ formOpen: true }), closeFormList: () => this.setState({ formOpen: false, formQuery: "" }),
       formNoMatch: (st.formOpen || !!fq) && !formResults.length, formQuery: st.formQuery, onFormQuery: e => this.setState({ formQuery: e.target.value }),
       useForm: () => this.useForm(), formOp: st.formPicked.length ? "1" : ".45",
-      draftNote, hasProfileHints, profileHintRows, projectHints, achievementHints, certificationHints, draftRows, hasAddOptions: addOptions.length > 0, addListOpen: st.addOpen, openAddList: () => this.setState({ addOpen: true }), closeAddList: () => this.setState({ addOpen: false, addQuery: "" }),
+      draftNote, draftModel, hasDraftModel: !!draftModel, hasProfileHints, profileHintRows, projectHints, achievementHints, certificationHints, draftRows, hasAddOptions: addOptions.length > 0, addListOpen: st.addOpen, openAddList: () => this.setState({ addOpen: true }), closeAddList: () => this.setState({ addOpen: false, addQuery: "" }),
       addNoMatch: (st.addOpen || !!aq) && !addOptions.length, draftCount: draft.length, addQuery: st.addQuery, onAddQuery: e => this.setState({ addQuery: e.target.value }), addOptions,
       mName: st.meta.name, mYears: st.meta.years,
       isCvDraft: st.draftSource !== "form",

@@ -11,5 +11,5 @@ def result(profile=None,snapshot=None,scenario='moderate',role_id=None,signals=N
     if scenario not in ('moderate','rapid'):raise HTTPException(400,'Invalid scenario')
     if role_id and not any(r['id']==role_id for r in ROLES):raise HTTPException(404,'Career not found')
     names={k:v['name'] for k,v in SKILL_INDEX.items()}
-    demand=demand_map(ROLES,get_signals() if signals is None else signals,skill_names=names)
+    demand=demand_map(ROLES,get_signals() if signals is None else signals,skill_names=names,scenario=scenario)
     return recommend(ROLES,profile or get_profile(profile_id or 'demo'),snapshot or get_snapshot(),SKILL_INDEX,RESOURCES,scenario,role_id,demand)

@@ -56,7 +56,7 @@ The Moderate/Rapid scenarios use explicit, hand-authored assumptions about task 
 | Skill taxonomy and role catalogue | Local JSON datasets |
 | AI-trend signal layer | 36 curated report signals plus refreshable Google News, arXiv and Anthropic Economic Index feeds; Claude tagging with keyword fallback |
 | Trends score | Computed from signals (strength, recency, caps), with cited sources and confidence |
-| Learning pathway courses | 81 checked courses covering 79 of the 81 required skills; placeholders only where no checked course exists |
+| Learning pathway courses | 111 checked courses (34 free, 69 low-cost, 8 HRD Corp claimable) covering all 104 skills the 44 careers require |
 | CV skill extraction | Qwen2.5-3B-Instruct via RunPod for text PDFs/DOCX/TXT, Claude for scanned PDFs, dictionary supplement; all skills reviewed before use |
 | Home signal feed | Latest stored signals |
 | Home skills radar | Illustrative data and interface |
@@ -87,7 +87,7 @@ data/
   signals.json           36 curated trend signals (imported from LaluanKu)
   declining_jobs.json    Declining jobs for the Signals page cards, each linked to the curated reports that name it
   courses.json           Checked courses for pathways (imported from LaluanKu)
-  extra_courses.json     56 more checked courses, added by hand (79 of 81 required skills covered)
+  extra_courses.json     86 more checked courses, added by hand, each with the date its provider page was checked
   snapshots.json         Prepared evidence versions (fallback Trends values)
   learning_resources.json  Placeholders for skills without a checked course
 frontend/

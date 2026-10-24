@@ -2,9 +2,15 @@
 import os, httpx
 from fastapi import HTTPException
 from ..catalog import SKILLS
-from ..ai_providers import claude_extract,claude_extract_pdf,claude_configured,runpod_extract,IntegrationError
+from ..ai_providers import (claude_extract,claude_extract_pdf,claude_configured,claude_model,runpod_extract,runpod_model,
+                            first_page,IntegrationError)
 from .dictionary import suggest
 from .cv_profile import extract_profile_hints
+
+def with_pages(candidates,pages):
+    """Adds the PDF page each quote is on, from the text layer, to candidates that don't carry evidence yet."""
+    return [c if 'evidence' in c else {**c,'evidence':{'page':first_page(c['excerpt'],pages) if pages else None,'source':'text_layer'}}
+            for c in candidates]
 
 def integration_status():
     return {'claude_enabled':claude_configured(),
@@ -39,9 +45,10 @@ async def extract_suggestions(content,provider,pdf=None,pages=None):
         if choice=='claude' and not integration_status()['claude_enabled']:
             if provider=='auto':continue
             raise HTTPException(503,'Claude is not configured')
+        # `model` names what actually read the CV, so the Check step can say so (None for keyword matching).
         if choice=='dictionary':
-            candidates=supplement([],content)
-            return {'provider':'dictionary','candidates':candidates,
+            candidates=with_pages(supplement([],content),pages)
+            return {'provider':'dictionary','model':None,'candidates':candidates,
                     'scanned':False,'profile_suggestions':extract_profile_hints(content),
                     'source_counts':{'ai':0,'dictionary':len(candidates)},
                     'warnings':issues,'requires_confirmation':True,'stored':False}
@@ -54,7 +61,7 @@ async def extract_suggestions(content,provider,pdf=None,pages=None):
             source=found.pop('_source_text',content)
             ai_candidates=list(found['candidates'])
             ai_count=len(ai_candidates)
-            found['candidates']=supplement(ai_candidates,source)
+            found['candidates']=with_pages(supplement(ai_candidates,source),pages)
             found['source_counts']={
                 'ai':ai_count,
                 'dictionary':len(found['candidates'])-ai_count,
@@ -74,7 +81,7 @@ async def extract_suggestions(content,provider,pdf=None,pages=None):
                             combined.append(item);seen.add(value)
                     hints[key]=combined[:6]
             found['profile_suggestions']=hints
-            return {'provider':choice,**found,'warnings':issues,
+            return {'provider':choice,'model':runpod_model() if choice=='runpod' else claude_model(),**found,'warnings':issues,
                     'requires_confirmation':True,'stored':False}
         except (IntegrationError,ValueError,httpx.HTTPError) as e:
             issues.append(f'{choice}: '+str(e))

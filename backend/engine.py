@@ -6,7 +6,7 @@ score = weighted mean of skill match, signal-driven demand and (after the quiz) 
 Skill match is the importance-weighted share of the career's required skills the person has (partial credit below the
 required level; unassessed skills count as missing). The +/- range comes from how much the demand signals agree.
 """
-from .scenarios import scenario_details, TASKS
+from .scenarios import scenario_details
 from .interests import interest_fit, shared_top_types, TYPE_NAMES
 
 DEFAULT_WEIGHTS={'with_interest':{'skill':0.45,'demand':0.35,'interest':0.20},'without_interest':{'skill':0.55,'demand':0.45,'interest':0}}
@@ -30,14 +30,10 @@ def rank_role(role, profile, snapshot, skill_index, resources, scenario='moderat
     completeness=round(100*assessed/weight_total,1) if weight_total else 0
     skill_match=round(100*earned/weight_total,1) if weight_total else 0
     # TRENDS: signal-driven demand (backend/signals/demand.py) when given; else the synthetic snapshot value.
-    base_trend=demand['score'] if demand else snapshot['role_trend'].get(role['id'],50)
-    # SCENARIO EFFECTS: explicit illustrative policy changes trend factor AND task and skill priorities.
-    # Cap numerical change to avoid interpreting assumptions as observed occupational forecasts.
-    # Roles without curated scenario tasks keep their snapshot trend: no fabricated exposure data.
-    tasks=TASKS.get(role['id'])
-    exposed=sum(t[1] for t in tasks)/3 if tasks else None
-    adoption_shift=(round((exposed-50)*.22,1) if scenario=='rapid' and exposed is not None else 0)
-    trend=round(max(0,min(100,base_trend+adoption_shift)),1)
+    # SCENARIO EFFECTS: in Rapid, demand already counts AI-related signals double; skill priorities change below.
+    # The snapshot fallback has no signals to weight, so it is the same in both scenarios.
+    trend=demand['score'] if demand else snapshot['role_trend'].get(role['id'],50)
+    adoption_shift=round(trend-demand['baseline_score'],1) if demand else 0
     user_riasec=profile.get('riasec')
     interest=round(100*interest_fit(user_riasec,role['riasec']),1) if user_riasec and role.get('riasec') else None
     w=DEFAULT_WEIGHTS['with_interest' if interest is not None else 'without_interest']
@@ -67,7 +63,7 @@ def rank_role(role, profile, snapshot, skill_index, resources, scenario='moderat
     return {'role_id':role['id'],'title':role['title'],'sector':role['sector'],'suitability':round(score,1),'readiness':readiness,'completeness':completeness,'provisional':provisional,
             'components':{'skills':skill_match,'interests':interest,'trends':trend,'feasibility':feasibility},'match':match,'gaps':gaps,'pathway':priorities,
             'sdgs':role['sdgs'],'sdg_justification':role['sdg_justification'],'qualification_note':role['qualification_note'],'snapshot_id':snapshot['id'],'scenario':scenario,'scenario_details':details,'assumption_shift':adoption_shift,
-            'trend_source':'signals' if demand else 'snapshot','signals':{k:demand[k] for k in ('signal_count','confidence','cited')} if demand else None}
+            'trend_source':'signals' if demand else 'snapshot','signals':{k:demand[k] for k in ('signal_count','ai_signal_count','confidence','cited')} if demand else None}
 
 def recommend(roles,profile,snapshot,skill_index,resources,scenario='moderate',selected_role=None,demand=None):
     chosen=[r for r in roles if r['id']==selected_role] if selected_role else roles

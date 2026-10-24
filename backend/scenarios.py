@@ -23,7 +23,7 @@ def scenario_details(role_id, scenario):
         rows.append({'task':name,'automation_exposure':exposure,'human_oversight':oversight,
                      'adoption_impact': change if rapid else ('Selective AI assistance' if exposure>=65 else 'Predominantly human-led')})
     return {'scenario':scenario,'label':'Rapid AI adoption' if rapid else 'Moderate AI adoption',
-            'assumption':'Rapid rollout: AI tools become widely embedded across workflows in this hypothetical scenario.' if rapid else 'Measured rollout: AI tools support selected workflows with staged adoption.',
+            'assumption':'Rapid rollout: AI tools become widely embedded across workflows, so AI-related trend signals count double in demand.' if rapid else 'Measured rollout: AI tools support selected workflows with staged adoption; every trend signal counts once.',
             'uncertainty':'Illustrative what-if model; no empirical job-loss or employment probabilities.',
             'tasks':rows,
             'strategic_skills':(['AI output validation','AI governance','workflow redesign','human oversight'] if rapid else ['domain fundamentals','critical thinking','AI literacy','communication']),

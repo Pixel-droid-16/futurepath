@@ -5,7 +5,7 @@ class Component extends DCLogic {
     // Start flow (/start): choose -> cv | form -> check -> quiz -> results. Nothing is saved until the quiz step ends.
     startStep: "choose", cvName: "", extracting: false, startError: "", catalog: [],
     form: { role: "", years: 0, qualification: "", qualificationLegacy: "", industry: "", interests: "", languages: "", goals: "", aiComfort: "", workArrangement: "", motivation: "" }, formPicked: [], formQuery: "",
-    draft: null, draftSource: "", scannedCv: false, extractionProvider: "", profileHints: null, sourceCounts: null, addOpen: false, formOpen: false, meta: { name: "My profile", headline: "", years: 0, hours: 6 }, approved: false, addQuery: "",
+    draft: null, draftSource: "", scannedCv: false, cvModel: "", extractionProvider: "", profileHints: null, sourceCounts: null, addOpen: false, formOpen: false, meta: { name: "My profile", headline: "", years: 0, hours: 6 }, approved: false, addQuery: "",
     quizQuestions: [], quizLikert: [], quizAnswers: {}, saving: false, confirmError: "",
     // Saved people: each finished Start run is a person; activeProfileId is whose results are shown (remembered in this browser).
     people: [], activeProfileId: savedActiveProfile(), editingId: null, confirmDeleteId: null,
@@ -175,11 +175,11 @@ class Component extends DCLogic {
       const body = new FormData(); body.append('file', this._cvFile); body.append('provider', 'auto');
       const result = await FP_API.send('/api/extract', { method: 'POST', body });
       if (!this._alive) return;
-      // A scanned PDF is flagged so the person checks the quotes carefully.
+      // A scanned PDF is flagged so the person checks the quotes carefully; cvModel names what actually read the CV.
       const hints = result.profile_suggestions || {};
       this.setState(s => ({
         extracting: false, scannedCv: !!result.scanned,
-        extractionProvider: result.provider || "dictionary",
+        extractionProvider: result.provider || "dictionary", cvModel: result.model || "",
         profileHints: hints, sourceCounts: result.source_counts || null,
         // CV-derived fields are editable and are only saved after the review.
         // Completed education is distinct from an in-progress degree.
@@ -192,7 +192,7 @@ class Component extends DCLogic {
         String(c.method || '').startsWith('claude') ? 'Claude AI' : 'local dictionary';
       this.toCheck((result.candidates || []).map(c => ({
         id: c.skill_id, name: c.name,
-        ev: 'CV evidence (' + origin(c) + '): “' + c.excerpt + '”',
+        ev: 'CV evidence (' + origin(c) + '): “' + c.excerpt + '”' + (c.evidence?.page ? ` (page ${c.evidence.page})` : ''),
         level: null,
       })), result.provider === 'dictionary' ? 'keywords' : 'ai',
       { name: this.newPersonName() });

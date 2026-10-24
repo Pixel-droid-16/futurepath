@@ -16,6 +16,11 @@ MAX_POLL_SECONDS = 210
 POLL_INTERVAL_SECONDS = 3
 
 
+def runpod_model():
+    """Name shown to users for the RunPod worker's model. Keep RUNPOD_MODEL_ID equal to the worker's MODEL_ID."""
+    return os.getenv("RUNPOD_MODEL_ID", "").strip() or "Qwen/Qwen2.5-3B-Instruct"
+
+
 def runpod_url():
     endpoint_id = os.getenv("RUNPOD_ENDPOINT_ID", "").strip()
     custom = os.getenv("RUNPOD_ENDPOINT_URL", "").strip()

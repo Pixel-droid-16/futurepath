@@ -13,15 +13,13 @@ def test_checked_courses_are_well_formed():
 def test_required_skills_have_a_checked_course():
     required={s['skill_id'] for r in ROLES for s in r['skills']}
     covered={r['skill_id'] for r in RESOURCES if r.get('url')}
-    # Known gaps: no open, currently running course was found on a provider page (checked 2026-10-22).
-    # The 44-role catalogue added 17 skills (SK083-SK108) for which no verified course exists yet;
-    # later phases should replace each with a provider-checked course. The claim set is data-driven,
-    # so a new gap anywhere else fails this test on purpose.
-    assert required-covered<={'SK051','SK067',
-        'SK083','SK086','SK087','SK088','SK089','SK091','SK092','SK095',
-        'SK097','SK098','SK100','SK103','SK104','SK105','SK106','SK107','SK108'}
+    # Every skill a career requires has at least one provider-checked course (last gaps closed 2026-10-24),
+    # so a new career or skill without a checked course fails this test on purpose.
+    assert required<=covered
 
-
+def test_hrd_corp_claimable_courses_are_offered():
+    claimable=[c for c in COURSES if c['cost']=='hrdc_claimable']
+    assert len(claimable)>=8 and all(c.get('checked') or 'HRDF' in c['notes'] for c in claimable)
 
 def test_fullstack_role_has_linked_learning_resources():
     """New full-stack requirements must lead to real, checked learning links."""

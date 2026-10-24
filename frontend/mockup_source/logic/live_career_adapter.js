@@ -23,6 +23,10 @@ const FP_API = {
     const exact = wS * skill + wD * demand + wi * interest, score = Math.round(exact), spread = wD * (m.demand_band || 18);
     const gaps = Array.isArray(rec.gaps) ? rec.gaps : [];
     const f = x => x.toFixed(2).replace(/0$/, '');
+    // Fast AI scenario: what counting AI-related signals double did to this career's demand (backend/signals/demand.py).
+    const rapid = rec.scenario === 'rapid' && !!rec.signals, aiCount = rec.signals?.ai_signal_count || 0;
+    const shift = Math.round(rec.assumption_shift || 0), before = Math.round(demand - (rec.assumption_shift || 0));
+    const signed = n => n > 0 ? `+${n}` : n < 0 ? `−${-n}` : '±0';
     return {
       id: rec.role_id, title: rec.title, sector: rec.sector, score, exact,
       lo: Math.max(0, Math.round(exact - spread)), hi: Math.min(100, Math.round(exact + spread)),
@@ -31,11 +35,17 @@ const FP_API = {
       demC: demand >= 50 ? 'var(--up)' : 'var(--dn)',
       ring: `conic-gradient(var(--pr) ${score*3.6}deg, var(--sf2) 0)`,
       sdgs: (rec.sdgs || []).map(n => ({n,c:(typeof SDG !== 'undefined' && SDG[n]) || 'var(--pr)'})),
+      // Three chip states: meets the level, have it below the level (partial credit), missing or not assessed.
       have: gaps.filter(g => g.status === 'satisfied').map(g => g.name),
-      gap: gaps.filter(g => g.status !== 'satisfied').map(g => g.name),
+      partial: gaps.filter(g => g.status === 'partial').map(g => ({ name: g.name, lv: `${g.confirmed}/${g.required}`,
+        tip: `Your level ${g.confirmed}, this career needs ${g.required}` })),
+      gap: gaps.filter(g => g.status !== 'satisfied' && g.status !== 'partial').map(g => g.name),
       formula: `${f(wS)} × ${Math.round(skill)} + ${f(wD)} × ${Math.round(demand)}` + (hasInterest ? ` + 0.2 × ${Math.round(interest)}` : '') + ` = ${score}`,
-      why: (rec.signals?.cited || []).map(c => ({ t: c.title, src: `${c.source} · ${c.date} · ${c.direction} · ${c.via}`, url: c.url })),
+      why: (rec.signals?.cited || []).map(c => ({ t: c.title, src: `${c.source} · ${c.date} · ${c.direction} · ${c.via}` + (rapid && c.ai_related ? ' · counts double (AI)' : ''), url: c.url })),
       signalLine: rec.signals ? `${rec.signals.signal_count} dated signal${rec.signals.signal_count === 1 ? '' : 's'} behind demand (${rec.signals.confidence} confidence).` : 'Demand uses the synthetic snapshot value.',
+      hasAiShift: rapid, aiTag: `AI ${signed(shift)}`, aiShiftC: shift > 0 ? 'var(--up)' : shift < 0 ? 'var(--dn)' : 'var(--mu)',
+      aiShift: !rapid ? '' : aiCount ? `Fast AI: demand ${before} → ${Math.round(demand)} · ${aiCount} of ${rec.signals.signal_count} signals are about AI and count double`
+        : 'No AI-related signals, so demand is unchanged',
       interestWhy: m.interest_why || '', topSource: rec.signals?.cited?.[0] ? `${rec.signals.cited[0].source} · ${rec.signals.cited[0].date}` : '',
       goPathway: null, source: rec,
     };

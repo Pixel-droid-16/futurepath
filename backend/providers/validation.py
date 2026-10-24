@@ -53,6 +53,13 @@ def normalise(text):
     text=(text or '').lower().translate(str.maketrans({'\u2018':"'",'\u2019':"'",'\u201c':'"','\u201d':'"','\u2013':'-','\u2014':'-','\u00a0':' '}))
     return re.sub(r'\s+',' ',text).strip()
 def quoted_in(excerpt,cv):return normalise(excerpt) in normalise(cv)
+def first_page(excerpt,pages):
+    """Deterministic page for a quote: first page whose normalised text contains the normalised excerpt, else None."""
+    want=normalise(excerpt)
+    for i,page in enumerate(pages):
+        if want and want in normalise(page):
+            return i+1
+    return None
 # Lines about interests or goals ("interested in AI", "keen to learn") show what someone likes, not what they can do.
 INTEREST=re.compile(
     r"\b(interested in|interest in|passionate about|keen (?:on|to)|eager to|"
@@ -84,6 +91,16 @@ def is_interest_evidence(excerpt, cv):
         if not INTEREST.search(prefix):
             return False
         start = pos + len(phrase)
+
+# A skill name used as a field of study ("statistics student", "degree in data science") is education, not evidence
+# of using the skill; the education itself is offered separately as a profile hint.
+STUDY_AFTER=re.compile(r"^\W*(?:[\w&-]+\s+){0,2}?(?:student|undergraduate|major|degree|graduate)\b",re.I)
+STUDY_BEFORE=re.compile(
+    r"\b(?:studying|degree in|bachelor(?:'s)?(?: degree)? (?:of|in)|master(?:'s)?(?: degree)? (?:of|in)|diploma in|"
+    r"major(?:ing)? in|b\.?sc\.?|m\.?sc\.?)\s+(?:[\w&-]+\s+){0,2}$",re.I)
+def is_study_mention(text,start,end):
+    """True when the words around text[start:end] name it as something studied."""
+    return bool(STUDY_AFTER.search(text[end:end+40]) or STUDY_BEFORE.search(text[max(0,start-60):start]))
 
 def validate_candidates(value,cv,skills,provider):
     data=parse_json(value)

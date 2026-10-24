@@ -87,6 +87,23 @@ async def test_runpod_live_adapter_with_mock(monkeypatch):
         result=await runpod_extract(CV,SK,c)
     assert result[0]['skill_id']=='sql'
 
+@pytest.mark.asyncio
+async def test_extraction_names_the_model_and_page_that_read_the_cv(monkeypatch):
+    from backend.services import ai_extraction
+    pages=['Nur Demo, fictional applicant.','Wrote SQL queries for monthly sales reports.']
+    async def fake_runpod(text,skills):
+        return [{'skill_id':'SK001','name':'SQL querying','excerpt':'Wrote SQL queries','method':'runpod','proficiency':None}]
+    monkeypatch.setattr(ai_extraction,'runpod_extract',fake_runpod)
+    monkeypatch.setenv('RUNPOD_API_KEY','test-only');monkeypatch.setenv('RUNPOD_ENDPOINT_ID','abc123')
+    monkeypatch.delenv('RUNPOD_MODEL_ID',raising=False)
+    got=await ai_extraction.extract_suggestions(' '.join(pages),'auto',pdf=b'%PDF',pages=pages)
+    assert got['provider']=='runpod' and got['model']=='Qwen/Qwen2.5-3B-Instruct'
+    assert got['candidates'][0]['evidence']=={'page':2,'source':'text_layer'}
+    monkeypatch.setenv('RUNPOD_MODEL_ID','Qwen/Qwen2.5-7B-Instruct')
+    assert (await ai_extraction.extract_suggestions(' '.join(pages),'runpod',pages=pages))['model']=='Qwen/Qwen2.5-7B-Instruct'
+    words=await ai_extraction.extract_suggestions(' '.join(pages),'dictionary',pages=pages)
+    assert words['model'] is None and any(c['evidence']['page']==2 for c in words['candidates'])
+
 def test_runpod_rejects_untrusted_host(monkeypatch):
     monkeypatch.delenv('RUNPOD_ENDPOINT_ID',raising=False)
     monkeypatch.setenv('RUNPOD_ENDPOINT_URL','https://evil.example/run')
@@ -118,3 +135,10 @@ def test_cv_schema_uses_only_keywords_claude_structured_output_accepts():
         elif isinstance(node,list):
             for v in node:walk(v)
     walk(cv_schema([{'id':'sql','name':'SQL'}]))
+
+def test_keyword_matching_skips_fields_of_study():
+    from backend.services.dictionary import suggest
+    found=lambda text:{c['name']:c['excerpt'] for c in suggest(text)}
+    assert 'Statistics' not in found('Profile: final-year statistics student. Wrote SQL queries for sales reports.')
+    assert found('Statistics student. Applied statistics to forecast weekly demand.')['Statistics']=='Applied statistics to forecast weekly demand'
+    assert 'Statistics' in found('Skills: Statistics, SQL, Python.')  # a plain skills list still counts

@@ -6,7 +6,7 @@ from fastapi.testclient import TestClient
 from backend import storage
 from backend.app import app
 from backend.catalog import ROLES,SKILLS
-from backend.signals.demand import role_demand,recency_decay
+from backend.signals.demand import role_demand,recency_decay,is_ai_related
 from backend.signals.fetch import parse_feed_xml
 from backend.signals.guardrails import apply_guardrails
 from backend.signals.refresh import refresh_signals
@@ -66,6 +66,25 @@ def test_demand_formula_decay_skill_weight_and_caps():
     assert direct['cited'][0]['via']=='names this career'
     burst=role_demand(role,[signal(role_ids=['data-analyst'],tagged_by='claude',title=str(i)) for i in range(10)],TODAY)
     assert burst['raw']==pytest.approx(3)  # feed items naming a career add at most +3 together
+
+def test_ai_related_signals_are_found_by_keyword():
+    assert is_ai_related(signal(title='Generative AI reshapes banking'))
+    assert is_ai_related(signal(title='Budget 2027', summary='Funding for robotics and automation training.'))
+    assert not is_ai_related(signal(title='Malaysia trains sustainability staff'))  # "ai" inside words doesn't count
+    assert not is_ai_related(signal(title='Green jobs grow', summary=None))
+
+def test_rapid_scenario_counts_ai_signals_double_and_leaves_others():
+    role=next(r for r in ROLES if r['id']=='data-analyst')
+    ai=signal(role_ids=['data-analyst'],title='AI adoption grows')
+    green=signal(role_ids=['data-analyst'],title='Green jobs grow')
+    moderate=role_demand(role,[ai,green],TODAY)
+    rapid=role_demand(role,[ai,green],TODAY,scenario='rapid')
+    assert moderate['raw']==pytest.approx(6) and rapid['raw']==pytest.approx(9)
+    assert rapid['baseline_score']==moderate['score']==moderate['baseline_score'] and rapid['score']>moderate['score']
+    assert rapid['ai_signal_count']==1 and rapid['cited'][0]['ai_related']
+    assert role_demand(role,[green],TODAY,scenario='rapid')['score']==role_demand(role,[green],TODAY)['score']
+    falling=signal(role_ids=['data-analyst'],title='Automation cuts analyst jobs',direction='declining')
+    assert role_demand(role,[falling],TODAY,scenario='rapid')['score']<role_demand(role,[falling],TODAY)['score']<50
 
 def test_claude_tagger_tolerates_omitted_fields_for_irrelevant_items(monkeypatch):
     monkeypatch.setenv('ANTHROPIC_API_KEY','test-only')

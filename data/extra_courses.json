@@ -316,10 +316,11 @@
     "hours_estimated": false,
     "language": "en",
     "skill_ids": [
-      "SK023"
+      "SK023",
+      "SK097"
     ],
     "notes": "Free to enrol on Coursera; certificate is paid. AML rules, KYC and risk-based compliance.",
-    "checked": "2026-10-22"
+    "checked": "2026-10-24"
   },
   {
     "id": "coursera-health-informatics-professionals",
@@ -951,6 +952,373 @@
       "SK115"
     ],
     "notes": "Structured JavaScript fundamentals with exercises and knowledge checks. Hours are an independent estimate.",
+    "checked": "2026-10-24"
+  },
+  {
+    "id": "coursera-ub-semiconductor-cleanroom",
+    "title": "Cleanroom Fundamentals & Semiconductor Technologies",
+    "provider": "University at Buffalo on Coursera",
+    "url": "https://www.coursera.org/learn/ub-semiconductor-cleanroom-online-course",
+    "cost": "low",
+    "hours": 9,
+    "hours_estimated": false,
+    "language": "en",
+    "skill_ids": [
+      "SK083"
+    ],
+    "notes": "Beginner; deposition, doping, oxidation, etching and photolithography with a virtual cleanroom lab. Free to enrol on Coursera; full access and the certificate are paid (Coursera Plus or the certificate).",
+    "checked": "2026-10-24"
+  },
+  {
+    "id": "coursera-semiconductor-manufacturing-fundamentals",
+    "title": "Semiconductor Manufacturing Fundamentals",
+    "provider": "Starweaver on Coursera",
+    "url": "https://www.coursera.org/learn/semiconductor-manufacturing-fundamentals",
+    "cost": "low",
+    "hours": 4,
+    "hours_estimated": false,
+    "language": "en",
+    "skill_ids": [
+      "SK083"
+    ],
+    "notes": "Intermediate; wafer fabrication steps, assembly and packaging, yield management. Free to enrol on Coursera; full access and the certificate are paid (Coursera Plus or the certificate).",
+    "checked": "2026-10-24"
+  },
+  {
+    "id": "coursera-google-system-administration",
+    "title": "System Administration and IT Infrastructure Services",
+    "provider": "Google on Coursera",
+    "url": "https://www.coursera.org/learn/system-administration-it-infrastructure-services",
+    "cost": "low",
+    "hours": 24,
+    "hours_estimated": false,
+    "language": "en",
+    "skill_ids": [
+      "SK086"
+    ],
+    "notes": "Beginner; servers, directory services, infrastructure and cloud services. Hours are the sum of the listed modules. Free to enrol on Coursera; full access and the certificate are paid (Coursera Plus or the certificate).",
+    "checked": "2026-10-24"
+  },
+  {
+    "id": "lf-lfs162-devops-sre",
+    "title": "Introduction to DevOps and Site Reliability Engineering (LFS162)",
+    "provider": "The Linux Foundation",
+    "url": "https://training.linuxfoundation.org/training/introduction-to-devops-and-site-reliability-engineering-lfs162/",
+    "cost": "free",
+    "hours": 12,
+    "hours_estimated": false,
+    "language": "en",
+    "skill_ids": [
+      "SK087",
+      "SK088"
+    ],
+    "notes": "Free, self-paced (10-12 hours); CI/CD, infrastructure as code, containers, observability and SRE.",
+    "checked": "2026-10-24"
+  },
+  {
+    "id": "mslearn-az104-monitor-backup",
+    "title": "AZ-104: Monitor and back up Azure resources",
+    "provider": "Microsoft Learn",
+    "url": "https://learn.microsoft.com/en-us/training/paths/az-104-monitor-backup-resources/",
+    "cost": "free",
+    "hours": 3,
+    "hours_estimated": true,
+    "language": "en",
+    "skill_ids": [
+      "SK088"
+    ],
+    "notes": "Free learning path (3 modules) on Azure Monitor and backup. Microsoft does not list a total time; hours estimated.",
+    "checked": "2026-10-24"
+  },
+  {
+    "id": "coursera-ai-governance-everyone",
+    "title": "AI Governance for Everyone",
+    "provider": "Edureka on Coursera",
+    "url": "https://www.coursera.org/learn/ai-governance-everyone",
+    "cost": "low",
+    "hours": 6,
+    "hours_estimated": false,
+    "language": "en",
+    "skill_ids": [
+      "SK089",
+      "SK095"
+    ],
+    "notes": "Beginner; responsible AI principles, fairness metrics, bias detection with Fairlearn and AI auditing basics. Free to enrol on Coursera; full access and the certificate are paid (Coursera Plus or the certificate).",
+    "checked": "2026-10-24"
+  },
+  {
+    "id": "coursera-fair-ai-algorithms",
+    "title": "Practical Steps for Building Fair AI Algorithms",
+    "provider": "Fred Hutchinson Cancer Center on Coursera",
+    "url": "https://www.coursera.org/learn/algorithmic-fairness",
+    "cost": "low",
+    "hours": 5,
+    "hours_estimated": false,
+    "language": "en",
+    "skill_ids": [
+      "SK095",
+      "SK089"
+    ],
+    "notes": "Beginner; fairness and bias definitions, documenting algorithms, fairness dilemmas. Free to enrol on Coursera; full access and the certificate are paid (Coursera Plus or the certificate).",
+    "checked": "2026-10-24"
+  },
+  {
+    "id": "coursera-naples-mechanical-systems",
+    "title": "Modelling and simulation of mechanical systems",
+    "provider": "Università di Napoli Federico II on Coursera",
+    "url": "https://www.coursera.org/learn/modelling-simulation-mechanical-systems",
+    "cost": "low",
+    "hours": 14,
+    "hours_estimated": false,
+    "language": "en",
+    "skill_ids": [
+      "SK091"
+    ],
+    "notes": "Intermediate; mechanical systems with sensors and actuators (electro-hydraulic actuation, motion measurement). Free to enrol on Coursera; full access and the certificate are paid (Coursera Plus or the certificate).",
+    "checked": "2026-10-24"
+  },
+  {
+    "id": "nptel-process-control-iitm",
+    "title": "Process Control - Design, Analysis and Assessment",
+    "provider": "NPTEL (IIT Madras)",
+    "url": "https://nptel.ac.in/courses/103106148",
+    "cost": "free",
+    "hours": 30,
+    "hours_estimated": true,
+    "language": "en",
+    "skill_ids": [
+      "SK092"
+    ],
+    "notes": "Free recorded lectures (12 weeks): process modelling, PID tuning, multivariable and model predictive control. The certificate exam is paid and only in scheduled runs. Hours estimated from 12 weeks of lectures.",
+    "checked": "2026-10-24"
+  },
+  {
+    "id": "coursera-elearning-content-development",
+    "title": "E-Learning Content Development",
+    "provider": "EDUCBA on Coursera",
+    "url": "https://www.coursera.org/learn/e-learning-content-development",
+    "cost": "low",
+    "hours": 8,
+    "hours_estimated": false,
+    "language": "en",
+    "skill_ids": [
+      "SK067"
+    ],
+    "notes": "Responsive e-learning, assessments and SCORM publishing with an authoring tool. Free to enrol on Coursera; full access and the certificate are paid (Coursera Plus or the certificate).",
+    "checked": "2026-10-24"
+  },
+  {
+    "id": "coursera-next-gen-energy-storage",
+    "title": "Next-Gen. Energy Storage - Battery and Hydrogen Technology",
+    "provider": "L&T EduTech on Coursera",
+    "url": "https://www.coursera.org/learn/next-gen-energy-storage---battery-and-hydrogen-technology",
+    "cost": "low",
+    "hours": 7,
+    "hours_estimated": false,
+    "language": "en",
+    "skill_ids": [
+      "SK100"
+    ],
+    "notes": "Beginner; storage technologies, battery modelling and sizing case studies; about half covers hydrogen. Free to enrol on Coursera; full access and the certificate are paid (Coursera Plus or the certificate).",
+    "checked": "2026-10-24"
+  },
+  {
+    "id": "coursera-rutgers-supply-chain-logistics",
+    "title": "Supply Chain Logistics",
+    "provider": "Rutgers University on Coursera",
+    "url": "https://www.coursera.org/learn/supply-chain-logistics",
+    "cost": "low",
+    "hours": 10,
+    "hours_estimated": false,
+    "language": "en",
+    "skill_ids": [
+      "SK104"
+    ],
+    "notes": "Beginner; transportation, warehousing, inventory and logistics network design. Free to enrol on Coursera; full access and the certificate are paid (Coursera Plus or the certificate).",
+    "checked": "2026-10-24"
+  },
+  {
+    "id": "coursera-wharton-operations",
+    "title": "Introduction to Operations Management",
+    "provider": "Wharton (University of Pennsylvania) on Coursera",
+    "url": "https://www.coursera.org/learn/wharton-operations",
+    "cost": "low",
+    "hours": 16,
+    "hours_estimated": false,
+    "language": "en",
+    "skill_ids": [
+      "SK105"
+    ],
+    "notes": "Beginner; process analysis, capacity, flow rate and utilisation, Six Sigma. Free to enrol on Coursera; full access and the certificate are paid (Coursera Plus or the certificate).",
+    "checked": "2026-10-24"
+  },
+  {
+    "id": "coursera-dartmouth-structures",
+    "title": "The Engineering of Structures Around Us (Specialization)",
+    "provider": "Dartmouth College on Coursera",
+    "url": "https://www.coursera.org/specializations/engineering-of-structures-around-us",
+    "cost": "low",
+    "hours": 67,
+    "hours_estimated": false,
+    "language": "en",
+    "skill_ids": [
+      "SK106"
+    ],
+    "notes": "Beginner, 5 courses; loads, tension, compression, shear and bending in structures. Hours are the sum of the five courses. Free to enrol on Coursera; full access and the certificate are paid (Coursera Plus or the certificate).",
+    "checked": "2026-10-24"
+  },
+  {
+    "id": "nptel-soil-mechanics-iitkgp",
+    "title": "Soil Mechanics/Geotechnical Engineering I",
+    "provider": "NPTEL (IIT Kharagpur)",
+    "url": "https://nptel.ac.in/courses/105105168",
+    "cost": "free",
+    "hours": 30,
+    "hours_estimated": true,
+    "language": "en",
+    "skill_ids": [
+      "SK107"
+    ],
+    "notes": "Free recorded lectures (12 weeks): soil classification, seepage, effective stress, shear strength, consolidation. The certificate exam is paid and only in scheduled runs (last run Jul-Oct 2026). Hours estimated from about 60 lectures.",
+    "checked": "2026-10-24"
+  },
+  {
+    "id": "coursera-polimi-energy-transition-modelling",
+    "title": "Modelling and measuring the Energy Transition",
+    "provider": "Politecnico di Milano on Coursera",
+    "url": "https://www.coursera.org/learn/modelling-and-measuring-the-energy-transition",
+    "cost": "low",
+    "hours": 7,
+    "hours_estimated": false,
+    "language": "en",
+    "skill_ids": [
+      "SK051"
+    ],
+    "notes": "Beginner; energy system models, linear programming for energy planning and scenario analysis, with Excel exercises. Covers energy-system modelling rather than detailed power simulation. Free to enrol on Coursera; full access and the certificate are paid (Coursera Plus or the certificate).",
+    "checked": "2026-10-24"
+  },
+  {
+    "id": "udemy-python-unreal-editor-tools",
+    "title": "Python for Unreal Engine Editor Tools Scripting",
+    "provider": "Udemy",
+    "url": "https://www.udemy.com/course/ue4python/",
+    "cost": "low",
+    "hours": 4,
+    "hours_estimated": false,
+    "language": "en",
+    "skill_ids": [
+      "SK103"
+    ],
+    "notes": "4 hours of video on building Unreal Engine editor tools and UIs with the Python API. Listed at RM89.90 on 2026-10-24; Udemy prices change often.",
+    "checked": "2026-10-24"
+  },
+  {
+    "id": "tuvsud-my-iso13485-awareness",
+    "title": "ISO 13485:2016 Medical Device Quality Management System Awareness Training",
+    "provider": "TÜV SÜD Malaysia",
+    "url": "https://www.tuvsud.com/en-my/services/training/instructor-led-courses/medical-device-management-system/iso-13485-2016-awareness",
+    "cost": "hrdc_claimable",
+    "hours": 8,
+    "hours_estimated": true,
+    "language": "en",
+    "skill_ids": [
+      "SK098"
+    ],
+    "notes": "1-day instructor-led course; the provider page says it is HRDF claimable (subject to approval). Fee on request. Hours estimated from 1 day.",
+    "checked": "2026-10-24"
+  },
+  {
+    "id": "hdc-certified-halal-internal-auditor",
+    "title": "Certified Halal Internal Auditor Programme (CHAP)",
+    "provider": "Halal Development Corporation (HDC)",
+    "url": "https://hdcglobal.com/halal-training-centre/",
+    "cost": "hrdc_claimable",
+    "hours": 72,
+    "hours_estimated": true,
+    "language": "en",
+    "skill_ids": [
+      "SK108"
+    ],
+    "notes": "HDC is an accredited provider under the HRD Corp Claimable Course Scheme and recognised by JAKIM's Halal Professional Board. Dates and fees are in HDC's 2026 calendar. Other providers list CHAP as 9 days, so hours are estimated; confirm with HDC.",
+    "checked": "2026-10-24"
+  },
+  {
+    "id": "misi-logistics-transportation",
+    "title": "Logistics and Transportation (short course)",
+    "provider": "Malaysia Institute for Supply Chain Innovation (MISI)",
+    "url": "https://www.misi.edu.my/training/",
+    "cost": "hrdc_claimable",
+    "hours": 8,
+    "hours_estimated": true,
+    "language": "en",
+    "skill_ids": [
+      "SK104"
+    ],
+    "notes": "1-day online course. MISI states all its short courses are HRD Corp claimable (SBL-Khas), subject to the employer applying first. Dates on request.",
+    "checked": "2026-10-24"
+  },
+  {
+    "id": "misi-warehousing-distribution",
+    "title": "Warehousing and Distribution Management (short course)",
+    "provider": "Malaysia Institute for Supply Chain Innovation (MISI)",
+    "url": "https://www.misi.edu.my/training/",
+    "cost": "hrdc_claimable",
+    "hours": 16,
+    "hours_estimated": true,
+    "language": "en",
+    "skill_ids": [
+      "SK104",
+      "SK105"
+    ],
+    "notes": "2-day online course. MISI states all its short courses are HRD Corp claimable (SBL-Khas), subject to the employer applying first. Dates on request.",
+    "checked": "2026-10-24"
+  },
+  {
+    "id": "trainocate-cka",
+    "title": "CKA: Certified Kubernetes Administrator",
+    "provider": "Trainocate Malaysia",
+    "url": "https://trainocate.com.my/courses/cka-certified-kubernetes-administrator/",
+    "cost": "hrdc_claimable",
+    "hours": 32,
+    "hours_estimated": true,
+    "language": "en",
+    "skill_ids": [
+      "SK087",
+      "SK086"
+    ],
+    "notes": "4-day course (next listed run 2-5 Nov 2026), RM 5,200; the page says HRD Corp claimable. Hours estimated from 4 days.",
+    "checked": "2026-10-24"
+  },
+  {
+    "id": "trainocate-az104",
+    "title": "AZ-104T00: Microsoft Azure Administrator",
+    "provider": "Trainocate Malaysia",
+    "url": "https://trainocate.com.my/courses/az-104t00-microsoft-azure-administrator/",
+    "cost": "hrdc_claimable",
+    "hours": 32,
+    "hours_estimated": true,
+    "language": "en",
+    "skill_ids": [
+      "SK086",
+      "SK088"
+    ],
+    "notes": "4-day course, RM 3,000; covers compute, networking, governance, monitoring and backup. The page says HRD Corp claimable. Hours estimated from 4 days.",
+    "checked": "2026-10-24"
+  },
+  {
+    "id": "trainocate-pl300",
+    "title": "PL-300T00: Design and Manage Analytics Solutions using Power BI",
+    "provider": "Trainocate Malaysia",
+    "url": "https://trainocate.com.my/courses/pl-300t00-design-and-manage-analytics-solutions-using-power-bi/",
+    "cost": "hrdc_claimable",
+    "hours": 24,
+    "hours_estimated": true,
+    "language": "en",
+    "skill_ids": [
+      "SK004",
+      "SK027"
+    ],
+    "notes": "3-day course (next listed run 23-25 Nov 2026), RM 2,800; the page says HRD Corp claimable. Hours estimated from 3 days.",
     "checked": "2026-10-24"
   }
 ]

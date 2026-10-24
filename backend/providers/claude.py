@@ -6,7 +6,7 @@ against the CV before anything is shown.
 """
 import base64,json,os
 import anthropic
-from .validation import SYSTEM_STRUCTURED,allowed_catalogue,validate_candidates,normalise,IntegrationError
+from .validation import SYSTEM_STRUCTURED,allowed_catalogue,validate_candidates,normalise,first_page,IntegrationError
 
 DEFAULT_MODEL='claude-opus-5-5'
 # Server-side refusal fallback ("default" routing) is available on these models.
@@ -128,14 +128,6 @@ def _model_pages(data):
                 found[x['skill_id']]=page if isinstance(page,int) else None
     return found
 
-def _first_page(excerpt,pages):
-    """Deterministic page for a quote: first page whose normalised text contains the normalised excerpt, else None."""
-    want=normalise(excerpt)
-    for i,page in enumerate(pages):
-        if want and want in normalise(page):
-            return i+1
-    return None
-
 def result_from(data,cv_text,skills,scanned=False,pages=None):
     """Validated candidates, each carrying `evidence: {page, source}`.
 
@@ -152,7 +144,7 @@ def result_from(data,cv_text,skills,scanned=False,pages=None):
             source='transcript';page=reported.get(c['skill_id'])
             if not (isinstance(page,int) and 1<=page<=n_pages):page=None
         else:
-            source='text_layer';page=None if pages is None else _first_page(c['excerpt'],pages)
+            source='text_layer';page=None if pages is None else first_page(c['excerpt'],pages)
         out.append({**c,'evidence':{'page':page,'source':source}})
     return {'candidates':out,'scanned':scanned}
 

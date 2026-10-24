@@ -1,7 +1,7 @@
 """Offline catalogue matches backed by CV quotes; never infer proficiency."""
 import re
 from ..catalog import SKILLS
-from ..providers.validation import is_interest_evidence
+from ..providers.validation import is_interest_evidence, is_study_mention
 
 
 def suggest(text, excerpt_before=35, excerpt_after=45):
@@ -12,6 +12,8 @@ def suggest(text, excerpt_before=35, excerpt_after=45):
         for alias in [skill['name']] + skill.get('aliases', []):
             expression = re.compile(r'(?<!\w)' + re.escape(alias) + r'(?!\w)', re.I)
             for hit in expression.finditer(text):
+                if is_study_mention(text, hit.start(), hit.end()):
+                    continue
                 left = max((text.rfind(char, 0, hit.start()) + 1 for char in '.!?\n•'), default=0)
                 right_positions = [text.find(char, hit.end()) for char in '.!?\n•']
                 right = min((pos for pos in right_positions if pos >= 0), default=len(text))
