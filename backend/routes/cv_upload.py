@@ -23,6 +23,12 @@ async def extract(file: UploadFile = File(...), provider: str = Form('dictionary
     pages = parse_cv_pages(name, raw, strict=not is_pdf)
     content = ' '.join(pages)
 
+    if not is_pdf and not content.strip():
+        raise HTTPException(
+            422,
+            'No readable text found. Upload a CV with selectable text or use the manual skills form.',
+        )
+
     # Qwen and the dictionary only receive extracted text, not page images.
     # Avoid presenting an image-only PDF as a successful zero-skill extraction.
     if is_pdf and not content.strip():
