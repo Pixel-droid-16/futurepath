@@ -105,6 +105,7 @@ def test_docx_table_skills_are_read_in_document_order():
     assert parsed.index('PROJECTS') < parsed.index('Laravel and PostgreSQL')
     assert parsed.index('Built a full-stack application') < parsed.index('JavaScript')
     assert 'Technology | Experience' in parsed
+    assert '\n' in parsed
 
 
 def test_empty_docx_rejected_without_gpu_inference():

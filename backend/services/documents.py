@@ -42,7 +42,7 @@ def parse_cv_pages(name, raw, strict=True):
                             lines.append(' | '.join(fields))
                 elif block.text.strip():
                     lines.append(block.text.strip())
-            return ['\\n'.join(lines)]
+            return ['\n'.join(lines)]
         except Exception:
             raise HTTPException(400, 'Could not parse DOCX')
     elif name.endswith('.txt'):
