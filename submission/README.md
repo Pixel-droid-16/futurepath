@@ -25,3 +25,14 @@ The official [SDC submission-template repository](https://github.com/michaelzhng
 Confirm the required primary SDG, registered team name, team leader, members and institutions; verify the official deadline and upload mechanism separately. The GitHub README intentionally uses **TBD** instead of inventing this information.
 
 See [SDC checklist](../docs/SDC_SUBMISSION_CHECKLIST.md) and the [Replit release runbook](../docs/REPLIT_RELEASE.md).
+
+## Official form fields confirmed on 2026-10-24
+
+The organizer's [Preliminary Proposal DOCX](https://drive.google.com/drive/folders/1KvSNvXRXrnYpJ2rGterZx6Gfchi64Nkz) states **25 October 2026** as the Phase 1 submission deadline. It requires: team/domain/SDG; problem statement (250-word maximum); AI solution (300 words); architecture; design-thinking/deployment (200 words); measurable SDG sub-target, numeric baseline, KPI and target; workshop eligibility; pre-existing and third-party IP declarations; and a signed leader declaration. The declaration form separately requires versioned tools, external services, model/dataset licenses, AI-assisted development disclosure, privacy and risks (150 words each), plus the leader's signature.
+
+Start from these copy-ready, **unfinished** drafts, then fill the official editable templates:
+
+- [Preliminary Project Proposal draft](../docs/SDC_PRELIMINARY_DRAFT.md)
+- [Technical Tools Declaration draft](../docs/SDC_TECH_DECLARATION_DRAFT.md)
+
+The Preliminary proposal's deadline is tomorrow relative to 2026-10-24; prioritize actual registered team information and sign-off. The Technical Declaration form has an unspecified deadline; do not assume it matches without checking official announcements.

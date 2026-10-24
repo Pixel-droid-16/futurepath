@@ -48,3 +48,13 @@ Reviewed against the official SDC Hackathon Submission Template README (2026-10-
 - [ ] README and PDFs agree on application capabilities
 - [ ] Every external slide/video/demo link is verified
 - [ ] Team approves `main` and publication
+
+## Verified official Word-template requirements (2026-10-24)
+
+- **Phase 1 Preliminary PDF deadline:** 25 October 2026, according to the XMUM AI Club's Word template.
+- **Preliminary maximum word counts:** problem context 250; AI solution 300; design thinking/deployment 200.
+- **Baseline/KPI:** the exact primary SDG sub-target, number-based baseline, tracking unit and realistic Phase 2 target must be supplied. A global study statistic is contextual evidence, not a substitute for local prototype measurement.
+- **Eligibility:** team members must truthfully confirm the mandatory GenAI, Database and Cloud Deployment workshops.
+- **Originality:** explicit Yes/No disclosure of work predating the hackathon, third-party code/datasets/models, and employment-related IP conflicts; leader declaration/signature/date.
+- **Technical tools:** list model versions, access tiers, cloud plans/regions, dataset types and licenses, AI-assisted development tools and extent, sponsor resources (with Yes/No), and data-handling/known-risk explanations within the form's limits. **Do not underdeclare AI-assisted development.**
+- **Technological Declaration deadline:** the editable template says `[Insert date]`; confirm separately.
