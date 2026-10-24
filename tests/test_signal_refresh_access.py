@@ -57,3 +57,28 @@ def test_public_demo_disables_refresh_even_with_admin_token(monkeypatch):
     with pytest.raises(HTTPException) as e:
         authorise(fake_request(authorization='Bearer fictional-admin-token'))
     assert e.value.status_code==403
+
+
+def test_refresh_access_api_endpoint_returns_no_credentials(monkeypatch):
+    from fastapi.testclient import TestClient
+    from backend.app import app
+    monkeypatch.delenv('FUTUREPATH_PUBLIC_DEMO', raising=False)
+    monkeypatch.setenv('ADMIN_TOKEN', 'fictional-admin-token')
+    response=TestClient(app).get('/api/signals/refresh-access')
+    assert response.status_code==200
+    assert response.json()['mode']=='admin'
+    assert 'fictional-admin-token' not in response.text
+
+
+def test_signals_ui_requires_capability_before_showing_admin_action():
+    from pathlib import Path
+    root=Path(__file__).resolve().parents[1] / 'frontend'
+    html=(root / 'mockup_source' / 'pages' / 'signals.html').read_text(encoding='utf8')
+    logic=(root / 'mockup_source' / 'logic' / 'state_and_actions.js').read_text(encoding='utf8')
+    assembled=(root / 'index.html').read_text(encoding='utf8')
+    assert '<sc-if value="{{ adminRefreshAvailable }}"' in html
+    assert 'Reload saved signals' in (root / 'mockup_source' / 'logic' / 'page_bindings_view.js').read_text(encoding='utf8')
+    assert "'/api/signals/refresh-access'" in logic
+    assert 'headers.Authorization = "Bearer "' in logic
+    assert 'localStorage.setItem' not in logic[logic.index('async refreshSignals()'):logic.index('async refreshLiveCareers()')]
+    assert html.split('<section style="padding:24px',1)[1].split('</section>',1)[0] in assembled

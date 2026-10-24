@@ -99,7 +99,7 @@ def refresh_access(request:Request):
     """Read-only refresh policy for the UI; never return secret values."""
     mode=refresh_mode(request)
     messages={
-        'demo': 'Live-feed refresh is disabled in this public synthetic-data demo. Stored curated signals remain available.',
+        'demo': 'Live-feed refresh is disabled in this public synthetic-data demo. Existing stored signals remain available.',
         'admin': 'Live-feed refresh is administrator-only. Enter ADMIN_TOKEN only when prompted; it is not saved in the browser.',
         'local': 'Live-feed refresh is available in local development.',
         'local_only': 'Hosted live-feed refresh requires an ADMIN_TOKEN Replit Secret and a server restart. Existing curated signals remain available.',

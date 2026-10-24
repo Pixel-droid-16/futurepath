@@ -63,7 +63,7 @@ class Component extends DCLogic {
   }
   async reloadStoredSignals() {
     if (this.state.refreshing) return;
-    this.setState({ refreshing: true, refreshMsg: "Reloading saved and approved signals…" });
+    this.setState({ refreshing: true, refreshMsg: "Reloading stored signals…" });
     const loaded = await this.loadSignals();
     if (this._alive) this.setState({ refreshing: false, refreshMsg: loaded
       ? "Saved signals reloaded. No live news or research was fetched."
