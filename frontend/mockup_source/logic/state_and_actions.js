@@ -10,7 +10,7 @@ class Component extends DCLogic {
     // Saved people: each finished Start run is a person; activeProfileId is whose results are shown (remembered in this browser).
     people: [], activeProfileId: savedActiveProfile(), editingId: null, confirmDeleteId: null,
     // Trend signals (/api/signals): curated reports plus refreshed feeds; whatChanged explains the latest refresh.
-    liveSignals: [], signalRuns: [], whatChanged: null, refreshing: false, refreshMsg: "", skillOutlook: { rising: [], declining: [], updated_at: null, auto_refresh_hours: 0 },
+    liveSignals: [], signalRuns: [], whatChanged: null, refreshing: false, refreshMsg: "", refreshAccess: { mode: "checking", can_refresh: false, requires_token: false, message: "Checking refresh permissions…" }, skillOutlook: { rising: [], declining: [], updated_at: null, auto_refresh_hours: 0 },
     // Signals page cards: rising and declining skills (and declining jobs) from stored signals (/api/skill-trends).
     skillTrends: null, trendsAll: false, sigView: "trends",
     pathDone: savedPathDone() };
@@ -43,23 +43,53 @@ class Component extends DCLogic {
     this.loadPeople();
   }
   async loadSignals() {
+    let loaded = true;
     try {
       const [liveSignals, signalRuns, whatChanged, meta, skillOutlook] = await Promise.all([FP_API.json('/api/signals'), FP_API.json('/api/signals/runs'), FP_API.json('/api/what-changed' + this.profileQuery('?')), FP_API.json('/api/meta'), FP_API.json('/api/skill-outlook')]);
       if (this._alive) this.setState({ liveSignals, signalRuns, whatChanged, courseTotal: meta.courses_count, skillOutlook });
-    } catch (e) { console.warn('FuturePath: could not load trend signals', e); }
-    try { const skillTrends = await FP_API.json('/api/skill-trends'); if (this._alive) this.setState({ skillTrends }); }
-    catch (e) { console.warn('FuturePath: could not load skill trends', e); }
+    } catch (e) { loaded = false; console.warn('FuturePath: could not load trend signals', e); }
+    try {
+      const skillTrends = await FP_API.json('/api/skill-trends');
+      if (this._alive) this.setState({ skillTrends });
+    } catch (e) { loaded = false; console.warn('FuturePath: could not load skill trends', e); }
+    // Fail closed: a failed permission lookup must not reveal an actionable admin button.
+    try {
+      const refreshAccess = await FP_API.json('/api/signals/refresh-access');
+      if (this._alive) this.setState({ refreshAccess });
+    } catch (e) {
+      if (this._alive) this.setState({ refreshAccess: { mode: "unavailable", can_refresh: false, requires_token: false, message: "Live-feed refresh is unavailable; stored evidence is still visible." } });
+    }
+    return loaded;
+  }
+  async reloadStoredSignals() {
+    if (this.state.refreshing) return;
+    this.setState({ refreshing: true, refreshMsg: "Reloading saved and approved signals…" });
+    const loaded = await this.loadSignals();
+    if (this._alive) this.setState({ refreshing: false, refreshMsg: loaded
+      ? "Saved signals reloaded. No live news or research was fetched."
+      : "Could not reload all saved signals. Try again." });
   }
   async refreshSignals() {
     if (this.state.refreshing) return;
-    this.setState({ refreshing: true, refreshMsg: 'Fetching feeds and tagging new items… this can take a minute.' });
+    const access = this.state.refreshAccess;
+    if (!access?.can_refresh) return this.setState({ refreshMsg: access?.message || "Live-feed refresh is not permitted here." });
+    const headers = {};
+    if (access.requires_token) {
+      // Never put the admin secret in app state, localStorage or a URL.
+      const token = window.prompt("Administrator-only: enter ADMIN_TOKEN to refresh feeds (not saved):");
+      if (token === null) return;
+      if (!token.trim()) return this.setState({ refreshMsg: "An administrator token is required." });
+      headers.Authorization = "Bearer " + token.trim();
+    }
+    if (!window.confirm("Fetch live feeds now? Tagging may incur Claude API charges. Continue?")) return;
+    this.setState({ refreshing: true, refreshMsg: "Fetching and validating live evidence…" });
     try {
-      const r = await FP_API.send('/api/signals/refresh', { method: 'POST' });
+      const r = await FP_API.send('/api/signals/refresh', { method: 'POST', headers });
       if (!this._alive) return;
-      this.setState({ refreshing: false, refreshMsg: `Refresh ${r.status}: checked ${r.checked} items, ${r.accepted} new signals, ${r.rejected} rejected, ${r.failed} failed (tagged by ${r.tagger}).` });
+      this.setState({ refreshing: false, refreshMsg: "Refresh " + r.status + ": checked " + r.checked + " items; " + r.accepted + " accepted, " + r.rejected + " rejected, " + r.failed + " failed (tagged by " + r.tagger + ")." });
       await Promise.all([this.loadSignals(), this.refreshLiveCareers()]);
     } catch (err) {
-      if (this._alive) this.setState({ refreshing: false, refreshMsg: 'Refresh failed: ' + String(err.message || err) });
+      if (this._alive) this.setState({ refreshing: false, refreshMsg: "Live-feed refresh failed: " + String(err.message || err) });
     }
   }
   async refreshLiveCareers() {

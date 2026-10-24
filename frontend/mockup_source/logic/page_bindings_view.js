@@ -61,7 +61,12 @@
       weeks: [1, 2, 3, 4, 5, 6].map(w => ({ w, bg: w <= 4 ? (w <= 2 ? "var(--pr)" : "color-mix(in oklch, var(--pr) 60%, var(--sf))") : (w <= 7 ? "var(--sky)" : "var(--up)") })),
       // Signals page.
       signals, sigCount: signals.length, sigUpdated, sigLastRun, sigLastRunC, sigFeeds,
-      refreshSignals: () => this.refreshSignals(), refreshLbl: st.refreshing ? "Refreshing…" : "Refresh signals", refreshMsg: st.refreshMsg, hasRefreshMsg: !!st.refreshMsg,
+      refreshSignals: () => this.refreshSignals(), reloadSignals: () => this.reloadStoredSignals(),
+      adminRefreshAvailable: !!st.refreshAccess?.can_refresh,
+      refreshAccessMsg: st.refreshAccess?.message || "Checking refresh permissions…",
+      refreshLbl: st.refreshing ? "Working…" : "Admin: refresh live feeds",
+      reloadLbl: st.refreshing ? "Loading…" : "Reload saved signals",
+      refreshMsg: st.refreshMsg, hasRefreshMsg: !!st.refreshMsg,
       fAll: () => this.setState({ sig: "all" }), fUp: () => this.setState({ sig: "up" }), fDn: () => this.setState({ sig: "dn" }),
       fAllB: f("all").b, fAllC: f("all").c, fUpB: f("up").b, fUpC: f("up").c, fDnB: f("dn").b, fDnC: f("dn").c
     };
