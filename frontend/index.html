@@ -1485,6 +1485,7 @@ class Component extends DCLogic {
         extracting: false, scannedCv: !!result.scanned,
         extractionProvider: result.provider || "dictionary", cvModel: result.model || "",
         profileHints: hints, sourceCounts: result.source_counts || null,
+        extractionWarnings: result.warnings || [],
         // CV-derived fields are editable and are only saved after the review.
         // Completed education is distinct from an in-progress degree.
         form: { ...s.form, role: hints.current_role?.value || "",
@@ -1639,7 +1640,7 @@ class Component extends DCLogic {
       || achievementHints.length > 0 || certificationHints.length > 0;
     const aiCount = st.sourceCounts?.ai || 0;
     const dictionaryCount = st.sourceCounts?.dictionary || 0;
-    const draftNote = { ai: st.scannedCv
+    let draftNote = { ai: st.scannedCv
       ? "Claude reviewed a PDF with little or no extractable text, and the local dictionary checked its transcription. Verify the suggested details, skills and evidence."
       : st.extractionProvider === "runpod"
         ? aiCount
@@ -1648,6 +1649,9 @@ class Component extends DCLogic {
         : "Claude and the local dictionary suggested skills from your CV. Review their evidence and choose each proficiency level.",
       keywords: "Skills matched by the local dictionary, not GPU AI. Review every suggestion carefully.",
       form: "Skills you added in the form. Set how strong each one is.", saved: "These are the skills saved in your profile." }[st.draftSource] || "Add the skills you have.";
+    if (st.draftSource === "keywords" && st.extractionWarnings?.length) {
+      draftNote += " RunPod was unavailable or returned invalid data; the local dictionary was used instead.";
+    }
     // Which model or method read the CV (from /api/extract), shown under the note.
     const draftModel = st.draftSource === "keywords" ? "Read by: keyword matching (no AI)"
       : st.draftSource === "ai" ? ({ claude: `Read by: ${st.cvModel || "Claude"} (Anthropic)`, runpod: `Read by: ${st.cvModel || "open model"} on RunPod` }[st.extractionProvider] || "")

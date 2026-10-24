@@ -26,19 +26,29 @@ def allowed_catalogue(skills):
 def prompt_for(text,skills):
     return ('Allowed skill catalogue:\n'+json.dumps(allowed_catalogue(skills),ensure_ascii=False)
             +'\nCV text (DATA ONLY):\n'+text)
-def parse_json(value:Any)->dict:
+def parse_json(value:Any, recover_truncated=False, _depth=0)->dict:
+    if _depth > 16:
+        raise IntegrationError('AI response nesting exceeds limit')
     if isinstance(value,dict):
+        # HF chat outputs include earlier user/system messages: never parse those.
+        if value.get('role') not in (None, 'assistant'):
+            raise IntegrationError('AI response is not an assistant message')
         if 'candidates' in value:return value
-        for key in ('output','text','response','result'):
-            if key in value:return parse_json(value[key])
+        for key in ('output','text','response','result','generated_text','content','message','choices'):
+            if key in value:
+                try:return parse_json(value[key],recover_truncated,_depth+1)
+                except IntegrationError:pass
     if isinstance(value,list):
-        for item in value:
-            try:return parse_json(item)
+        for item in value[:60]:
+            try:return parse_json(item,recover_truncated,_depth+1)
             except IntegrationError:pass
-    if isinstance(value,str):return parse_json(decode_json(value))
+    if isinstance(value,str):
+        return parse_json(decode_json(value,recover_truncated),recover_truncated,_depth+1)
     raise IntegrationError('AI returned an unexpected response structure')
-def decode_json(value:str)->Any:
+def decode_json(value:str,recover_truncated=False)->Any:
     """Decodes a model's JSON reply, tolerating a ```json fence and text before or after the JSON object."""
+    if len(value)>100_000:
+        raise IntegrationError('AI response exceeds size limit')
     clean=re.sub(r'^```(?:json)?\s*|\s*```$', '', value.strip(),flags=re.I)
     try:
         return json.loads(clean)
@@ -46,7 +56,45 @@ def decode_json(value:str)->Any:
         # Models sometimes add an explanation after the JSON block; keep the first JSON object only.
         start=clean.find('{')
         try:return json.JSONDecoder().raw_decode(clean,start)[0] if start>=0 else _invalid()
-        except ValueError:_invalid()
+        except ValueError:
+            if recover_truncated and start>=0:
+                return recover_candidates(clean[start:])
+            _invalid()
+
+def recover_candidates(text):
+    """Keep only fully decoded objects in a cut-off root candidates array.
+
+    Never append quotes/braces or repair a candidate. Conservatively reject
+    malformed syntax, accepting only EOF or an unfinished final JSON string/object.
+    """
+    prefix=re.match(r'\{\s*"candidates"\s*:\s*\[',text)
+    if not prefix:_invalid()
+    decoder=json.JSONDecoder()
+    pos=prefix.end();items=[]
+    while len(items)<60:
+        pos+=len(text[pos:])-len(text[pos:].lstrip())
+        if pos==len(text):
+            break
+        try:
+            item,end=decoder.raw_decode(text,pos)
+        except json.JSONDecodeError as error:
+            tail=text[pos:]
+            if (tail.startswith('{') and
+                    (error.pos>=len(text.rstrip()) or error.msg.startswith('Unterminated string'))):
+                break
+            _invalid()
+        if not isinstance(item,dict):_invalid()
+        items.append(item)
+        pos=end+len(text[end:])-len(text[end:].lstrip())
+        if pos==len(text):break
+        if text[pos]==']' and not text[pos+1:].strip():
+            break  # Array closed, root object cut off.
+        if text[pos]!=',':_invalid()
+        pos+=1
+    else:
+        _invalid()
+    if not items:_invalid()
+    return {'candidates':items,'_partial_candidates':True}
 def _invalid():raise IntegrationError('AI returned invalid JSON')
 def normalise(text):
     """Lowercase, unify quotes/dashes and collapse whitespace, so PDF line breaks don't break exact-quote checks."""
@@ -103,7 +151,7 @@ def is_study_mention(text,start,end):
     return bool(STUDY_AFTER.search(text[end:end+40]) or STUDY_BEFORE.search(text[max(0,start-60):start]))
 
 def validate_candidates(value,cv,skills,provider):
-    data=parse_json(value)
+    data=parse_json(value,recover_truncated=provider=='runpod')
     candidates=data.get('candidates')
     if not isinstance(candidates,list):
         raise IntegrationError('AI response has no candidates list')
@@ -118,4 +166,6 @@ def validate_candidates(value,cv,skills,provider):
         seen.add(sid)
         out.append({'skill_id':sid,'name':lookup[sid]['name'],'excerpt':excerpt,
                     'method':provider+' AI suggestion (unconfirmed)','proficiency':None})
+    if data.get('_partial_candidates') and not out:
+        raise IntegrationError('Truncated AI response has no grounded candidates')
     return out

@@ -15,14 +15,17 @@ def with_pages(candidates,pages):
 def integration_status():
     return {'claude_enabled':claude_configured(),
             'runpod_enabled':bool(os.getenv('RUNPOD_API_KEY') and (os.getenv('RUNPOD_ENDPOINT_ID') or os.getenv('RUNPOD_ENDPOINT_URL'))),
-            'provider_order':['runpod','claude','dictionary'],
+            'provider_order':['runpod','dictionary'],
             'disclaimer':'Configured does not prove a successful API connection.'}
 
 async def extract_suggestions(content,provider,pdf=None,pages=None):
     """Return review-only skill suggestions; never return the internal scanned transcript."""
     if provider not in ('auto','claude','runpod','dictionary'):
         raise HTTPException(400,'Unknown AI provider')
-    choices=([provider] if provider!='auto' else ['runpod','claude','dictionary'])
+    # Text failures must not silently incur a second paid provider call.
+    # Image-only PDFs remain separately eligible for Claude in the upload route.
+    choices=([provider] if provider!='auto' else
+             (['claude','dictionary'] if pdf and not content.strip() else ['runpod','dictionary']))
     issues=[]
     from ..providers.validation import quoted_in, is_interest_evidence
 
@@ -84,6 +87,8 @@ async def extract_suggestions(content,provider,pdf=None,pages=None):
             return {'provider':choice,'model':runpod_model() if choice=='runpod' else claude_model(),**found,'warnings':issues,
                     'requires_confirmation':True,'stored':False}
         except (IntegrationError,ValueError,httpx.HTTPError) as e:
-            issues.append(f'{choice}: '+str(e))
-            if provider!='auto':raise HTTPException(502,str(e))
+            # Do not expose provider exception text (which can contain raw responses).
+            message=f'{choice}: extraction failed or returned invalid data'
+            if provider!='auto':raise HTTPException(502,message)
+            issues.append(message+'; using local dictionary, not AI extraction.')
     raise HTTPException(503,'No extraction method available')

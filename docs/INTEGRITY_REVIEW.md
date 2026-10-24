@@ -178,3 +178,23 @@ The Signals refresh fix had added the permission-checking initializer to the gen
 The editable source was corrected to match the already-reviewed generated output,
 without modifying the UI or original protected assets. The frontend assembly
 consistency test must still pass before the release is considered verified.
+
+## RunPod response reliability and fallback attribution (2026-10-24)
+
+The user authorized a targeted main-branch reliability fix after a completed
+RunPod response failed backend structure validation. Reviewed provider changes
+accept bounded, known JSON wrappers and conservatively retain only fully decoded,
+grounded candidate objects from a cut-off candidates array. They do not repair
+partial quotes, invent skills, relax canonical IDs, or deploy a worker change.
+The prompt requests at most eight candidates with short literal quotes.
+Automatic text extraction falls directly from RunPod to the local dictionary;
+scanned-PDF Claude routing remains separate. Failure details and logs exclude raw
+model output, contact data and actual job identifiers.
+
+The only reviewed hash updated here is `frontend/index.html`, assembled from
+the existing V2 fragments. Its changes capture safe extraction-warning presence
+and append a fixed fallback explanation to the existing dictionary confirmation
+note. There are no layout, stylesheet, original asset, scoring or dataset changes.
+The original manifest and all other reviewed hashes remain unchanged.
+Offline mock-provider, grounding, fallback, assembly and browser tests validate
+these contracts independently; hashes do not establish live provider reliability.

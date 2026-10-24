@@ -211,6 +211,7 @@ class Component extends DCLogic {
         extracting: false, scannedCv: !!result.scanned,
         extractionProvider: result.provider || "dictionary", cvModel: result.model || "",
         profileHints: hints, sourceCounts: result.source_counts || null,
+        extractionWarnings: result.warnings || [],
         // CV-derived fields are editable and are only saved after the review.
         // Completed education is distinct from an in-progress degree.
         form: { ...s.form, role: hints.current_role?.value || "",
