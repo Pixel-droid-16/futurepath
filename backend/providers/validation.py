@@ -58,7 +58,8 @@ INTEREST=re.compile(
     r"\b(interested in|interest in|passionate about|keen (?:on|to)|eager to|"
     r"aspir\w*|hop(?:e|ing) to|would like to|wants? to|wish(?:es)? to|"
     r"looking to|aim(?:ing)? to|plan(?:ning)? to|seeking to|"
-    r"gaining experience in|hope to)\b", re.I,
+    r"gaining experience in|hope to|goal is to|goals? (?:is|are) to|intend to|"
+    r"learning to|learn to|trying to)\b", re.I,
 )
 def is_interest(excerpt):return bool(INTEREST.search(excerpt or ''))
 
