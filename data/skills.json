@@ -129,7 +129,9 @@
     "name": "Security fundamentals",
     "category": "technical",
     "aliases": [
-      "cybersecurity foundations"
+      "cybersecurity foundations",
+      "cybersecurity fundamentals",
+      "Foundations of Cybersecurity"
     ],
     "sdgs": [
       9
@@ -1281,5 +1283,164 @@
       12
     ],
     "sdg_justification": "Can support SDG 8 through fair, certified trade and SDG 12 when auditing standards support responsible production and consumption."
+  },
+  {
+    "id": "SK109",
+    "name": "Web application development",
+    "category": "technical",
+    "aliases": [
+      "web development",
+      "web apps",
+      "web applications",
+      "web app development"
+    ],
+    "sdgs": [
+      8,
+      9
+    ],
+    "sdg_justification": "Can support SDG 9 through practical web application development in reliable digital systems and SDG 8 through transferable technical employment skills."
+  },
+  {
+    "id": "SK110",
+    "name": "Frontend framework development",
+    "category": "technical",
+    "aliases": [
+      "React",
+      "Vue",
+      "React.js",
+      "Vue.js"
+    ],
+    "sdgs": [
+      8,
+      9
+    ],
+    "sdg_justification": "Can support SDG 9 through practical frontend framework development in reliable digital systems and SDG 8 through transferable technical employment skills."
+  },
+  {
+    "id": "SK111",
+    "name": "Backend application development",
+    "category": "technical",
+    "aliases": [
+      "Laravel",
+      "server-side development",
+      "backend development"
+    ],
+    "sdgs": [
+      8,
+      9
+    ],
+    "sdg_justification": "Can support SDG 9 through practical backend application development in reliable digital systems and SDG 8 through transferable technical employment skills."
+  },
+  {
+    "id": "SK112",
+    "name": "Relational database development",
+    "category": "technical",
+    "aliases": [
+      "PostgreSQL",
+      "Supabase",
+      "relational database"
+    ],
+    "sdgs": [
+      8,
+      9
+    ],
+    "sdg_justification": "Can support SDG 9 through practical relational database development in reliable digital systems and SDG 8 through transferable technical employment skills."
+  },
+  {
+    "id": "SK113",
+    "name": "IoT and embedded prototyping",
+    "category": "engineering",
+    "aliases": [
+      "Arduino",
+      "ESP32",
+      "IoT prototype",
+      "RFID"
+    ],
+    "sdgs": [
+      9
+    ],
+    "sdg_justification": "Can support SDG 9 through practical iot and embedded prototyping in reliable digital systems and SDG 8 through transferable technical employment skills."
+  },
+  {
+    "id": "SK114",
+    "name": "API integration",
+    "category": "technical",
+    "aliases": [
+      "integrates AI APIs",
+      "API integration",
+      "integrating APIs"
+    ],
+    "sdgs": [
+      8,
+      9
+    ],
+    "sdg_justification": "Can support SDG 9 through practical api integration in reliable digital systems and SDG 8 through transferable technical employment skills."
+  },
+  {
+    "id": "SK115",
+    "name": "JavaScript programming",
+    "category": "technical",
+    "aliases": [
+      "JavaScript"
+    ],
+    "sdgs": [
+      8,
+      9
+    ],
+    "sdg_justification": "Can support SDG 9 through practical javascript programming in reliable digital systems and SDG 8 through transferable technical employment skills."
+  },
+  {
+    "id": "SK116",
+    "name": "PHP programming",
+    "category": "technical",
+    "aliases": [
+      "PHP"
+    ],
+    "sdgs": [
+      8,
+      9
+    ],
+    "sdg_justification": "Can support SDG 9 through practical php programming in reliable digital systems and SDG 8 through transferable technical employment skills."
+  },
+  {
+    "id": "SK117",
+    "name": "Java programming",
+    "category": "technical",
+    "aliases": [
+      "Java"
+    ],
+    "sdgs": [
+      8,
+      9
+    ],
+    "sdg_justification": "Can support SDG 9 through practical java programming in reliable digital systems and SDG 8 through transferable technical employment skills."
+  },
+  {
+    "id": "SK118",
+    "name": "C++ programming",
+    "category": "technical",
+    "aliases": [
+      "C++"
+    ],
+    "sdgs": [
+      8,
+      9
+    ],
+    "sdg_justification": "Can support SDG 9 through practical c++ programming in reliable digital systems and SDG 8 through transferable technical employment skills."
+  },
+  {
+    "id": "SK119",
+    "name": "HTML and CSS development",
+    "category": "technical",
+    "aliases": [
+      "HTML",
+      "CSS",
+      "HTML/CSS"
+    ],
+    "sdgs": [
+      8,
+      9
+    ],
+    "sdg_justification": "Can support SDG 9 through practical html and css development in reliable digital systems and SDG 8 through transferable technical employment skills."
   }
 ]

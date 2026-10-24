@@ -46,21 +46,22 @@ def runpod_prompt(text, skills):
     import json
 
     catalogue = [
-        {"id": s["id"], "name": s["name"]}
+        {"id": s["id"], "name": s["name"], "aliases": s.get("aliases", [])[:3]}
         for s in skills
     ]
 
     return (
-        "Extract demonstrated skills from the CV below. "
-        "Return ONLY one valid JSON object. "
-        "Do not use markdown fences or include explanations. "
-        "Use exactly this schema: "
-        '{"candidates":[{"skill_id":"SK005","excerpt":"exact words from CV"}]}. '
-        "The example skill ID is illustrative, not a required answer. "
-        "Select IDs only from the allowed catalogue. "
-        "Copy each excerpt exactly from the CV. "
-        "If no skills are supported, return "
-        '{"candidates":[]}.'
+        "Read every CV section: technical skills, framework/tool lists, paid and "
+        "volunteer work, completed projects, awards and certifications. "
+        "Suggest ALL supported allowed skills (up to 25), not just generic soft skills. "
+        "Explicitly listed technical tools and languages count as evidence of exposure; "
+        "duties and completed projects can support closely equivalent catalogue skills. "
+        "Do not treat an interest, future goal, desired job, or mere employer name as demonstrated experience. "
+        "Return ONLY one JSON object, no markdown or explanation, with key candidates. "
+        "Each candidate is an object with skill_id (allowed catalogue ID) and excerpt "
+        "(exact copied text, maximum 300 characters). "
+        "No guessed proficiency, fabricated skills or personal contact details. "
+        "If none is supported return {\"candidates\":[]}. "
         "\n\nCV TEXT:\n"
         + text
         + "\n\nALLOWED SKILLS:\n"
