@@ -1,0 +1,7 @@
+# Replit FastAPI workflow. Do not enable --reload in a published app.
+run = "python -m uvicorn backend.app:app --host 0.0.0.0 --port 8000"
+entrypoint = "backend/app.py"
+
+[[ports]]
+localPort = 8000
+externalPort = 80

@@ -3,6 +3,7 @@ import json,os,secrets
 from datetime import date
 from fastapi import APIRouter,HTTPException,Request
 from ..catalog import ROLES,SKILL_INDEX,load
+from ..demo_security import public_demo
 from ..signals.demand import recency_decay
 from ..storage import connection,get_signals
 from ..services.recommendations import result
@@ -86,7 +87,9 @@ def runs(limit:int=5):
         return [run_row(r) for r in c.execute('SELECT * FROM refresh_runs ORDER BY id DESC LIMIT ?',(max(1,min(limit,50)),))]
 
 def authorise(request:Request):
-    """With ADMIN_TOKEN set, a matching bearer token is required. Without it, only this computer may refresh."""
+    """In public demo mode refresh is disabled; otherwise require admin token or local host."""
+    if public_demo():
+        raise HTTPException(403,'Manual signal refresh is disabled in public demo mode')
     token=os.getenv('ADMIN_TOKEN')
     if token:
         given=request.headers.get('authorization','').removeprefix('Bearer ').strip()
