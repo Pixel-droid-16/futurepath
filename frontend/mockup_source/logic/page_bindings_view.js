@@ -43,7 +43,6 @@
       pathTitle: fpActive?.title || 'Choose a career on the results page',
       pathIntroduction: `${st.fast ? 'Fast' : 'Moderate'} AI disruption · ${studyHours} h a week · free, low-cost and HRD Corp claimable courses`,
       pathSdgs: (fpActive?.sdgs || []).map(n => ({ n, label:`SDG ${n} · ${SDG_GOALS[n] || 'Sustainable Development Goal'}`, c: SDG[n] || 'var(--pr)' })),
-      pathSdgJustification: fpActive?.sdg_justification || 'Select a career to see its SDG connection.',
       // Hours and weeks still to go: completed steps no longer count.
       ...(left => ({ pathHours: pathHoursNum ? left : '—', pathWeeks: pathHoursNum ? Math.ceil(left / studyHours) : '—',
         pathHoursLbl: fpSteps.some(x => x.done) ? 'hours left' : 'hours', pathWeeksLbl: fpSteps.some(x => x.done) ? 'weeks left' : 'weeks' }))
