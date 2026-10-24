@@ -26,7 +26,7 @@ must show actual tool use, not recreated or fabricated screenshots.
 - **Members**: HUA SOON LAI; ADAM BIN AZMI; MUHAMMAD ADAM BIN ROSLAN
 - **Affiliation**: Universiti Teknikal Malaysia Melaka
 - **Member count**: 4
-- **Primary SDG track**: Team must confirm; SDG 4, target 4.4, is a fitting proposed track.
+- **Primary SDG track**: SDG 4, target 4.4 (team confirmed).
 
 Do not put participant email addresses, phone numbers, real CVs, passcodes or
 credentials in the public GitHub README. Contact details belong in the submitted
@@ -59,3 +59,17 @@ check the public judge-facing URL, actual RunPod inference and credential safety
 Other references: `docs/SDC_PRELIMINARY_DRAFT.md`,
 `docs/SDC_TECH_DECLARATION_DRAFT.md`,
 `docs/SDC_SUBMISSION_CHECKLIST.md`, and `submission/README.md`.
+
+## Team confirmations received 24 October 2026
+
+- Primary SDG: **4 — Quality Education**, target **4.4**.
+- Mandatory workshops: **all four members completed** (team confirmation; attendance evidence not independently checked).
+- Official SDC sponsor-provided resources: **Yes**; **which sponsor, resource, credit amount and use are still unconfirmed**.
+- Pre-existing project work: **No**, according to team leader.
+- Employment-related IP conflicts: **No**, according to team leader.
+- Leader phone: supplied privately for official PDF; intentionally **not included in public GitHub**.
+- Outstanding: live Replit URL, RunPod test screenshots, exact third-party licensing, sponsor details, signed official forms, presentation/video links.
+
+## Structure aligned to organizer example
+
+The repository now has `src/main.py` and `src/__init__.py`. `src/main.py` exposes `backend.app:app`, so `python src/main.py` starts the actual existing FastAPI application; it is not a placeholder or a duplicate implementation. The real GPU worker remains in `runpod_worker/handler.py` rather than the sample `runpod/handler.py`. No existing files were moved or deleted.
