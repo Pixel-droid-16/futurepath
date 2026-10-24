@@ -1,3 +1,4 @@
+from backend.signals.snapshot import read_snapshot
 """Trend signals: list, refresh from feeds (admin), refresh audit trail and "What changed"."""
 import json,os,secrets
 from datetime import date,datetime,timezone
@@ -143,6 +144,30 @@ def signal_status():
         quarantined=c.execute("SELECT COUNT(*) FROM signal_candidates WHERE status='quarantined'").fetchone()[0]
         legacy=c.execute("SELECT COUNT(*) FROM signal_review WHERE status='pending'").fetchone()[0]
         success=c.execute("SELECT finished_at FROM refresh_runs WHERE status IN ('ok','partial') AND finished_at IS NOT NULL ORDER BY id DESC LIMIT 1").fetchone()
+    # Externally verified GitHub snapshot takes priority over local scheduler metadata.
+    remote_signals, remote_meta = read_snapshot()
+    if remote_meta and remote_meta.get('last_successful_at'):
+        checked = remote_meta.get('checked_at')
+        successful = remote_meta.get('last_successful_at')
+        return {
+            'enabled': True,
+            'interval_hours': 24.0,
+            'next_due': None,
+            'last_checked': checked,
+            'last_successful_check': successful,
+            'next_expected_run': None,
+            'schedule_guaranteed': False,
+            'status': remote_meta.get('status', 'ok'),
+            'health': 'ready' if remote_meta.get('status') == 'ok' else 'degraded',
+            'message': 'Daily external evidence checks completed. Only verified signals are published.',
+            'quarantined_count': quarantined + legacy,
+            'paid_verification_enabled': paid_enabled(),
+            'automatic_tagger': 'claude' if remote_meta.get('ai_enabled') else 'ai-required',
+            'public_demo': public_demo(),
+            'best_effort': True,
+            'external_scheduler': bool(remote_meta.get('external_scheduler')),
+            'verified_count': len(remote_signals)
+        }
     due=next_due()
     enabled=bool(interval_hours())
     paid=paid_enabled()

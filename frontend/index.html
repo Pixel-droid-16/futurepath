@@ -141,44 +141,176 @@
 <aside style="flex:1 1 300px;min-width:0;display:flex;flex-direction:column;gap:16px">
 <div style="background:var(--sf);border:1px solid var(--ln);border-radius:24px;padding:24px;display:flex;flex-direction:column;gap:14px"><b style="font-size:17px;font-weight:600">How this career may contribute to the SDGs</b><div style="display:flex;flex-wrap:wrap;gap:6px"><sc-for list="{{ pathSdgs }}" as="g"><span style="background:{{ g.c }};color:#fff;border-radius:8px;padding:4px 10px;font-size:12px;font-weight:600">{{ g.label }}</span></sc-for></div></div>
 <div style="background:var(--sf);border:1px solid var(--ln);border-radius:24px;padding:24px;font-size:14px;line-height:1.5"><b style="display:block;font-size:17px;font-weight:600;margin-bottom:6px">Build through practice</b>Practice verified skills and ask for feedback as you learn.</div></aside></section></main></sc-if>
-<sc-if value="{{ is_signals }}" hint-placeholder-val="{{ false }}"><main data-screen-label="Signals" style="flex:1;display:flex;flex-direction:column"><section style="background:var(--hero);border-bottom:1px solid var(--ln);padding:56px max(clamp(20px,4vw,48px),calc((100% - 1200px)/2)) 44px;display:flex;flex-wrap:wrap;gap:24px 40px;align-items:flex-end"><div style="flex:1 1 480px"><span style="font:600 12px 'Geist Mono',monospace;letter-spacing:.06em;color:var(--pr)">TREND SIGNALS</span><h1 style="margin:8px 0 0;font-size:clamp(34px,4.5vw,52px);line-height:1.05;letter-spacing:-.035em;font-weight:700">The evidence behind every score</h1><p style="margin:12px 0 0;font-size:17px;line-height:1.55;color:var(--mu);max-width:640px">Curated reports remain available. Incoming evidence appears only after the verification required for publication.</p></div>
-</section>
+<sc-if value="{{ is_signals }}" hint-placeholder-val="{{ false }}">
+<main data-screen-label="Signals" style="flex:1;display:flex;flex-direction:column">
+  <section style="background:var(--hero);border-bottom:1px solid var(--ln);padding:56px max(clamp(20px,4vw,48px),calc((100% - 1200px)/2)) 44px;display:flex;flex-wrap:wrap;gap:24px 40px;align-items:flex-end">
+    <div style="flex:1 1 480px">
+      <span style="font:600 12px 'Geist Mono',monospace;letter-spacing:.06em;color:var(--pr)">TREND SIGNALS</span>
+      <h1 style="margin:8px 0 0;font-size:clamp(34px,4.5vw,52px);line-height:1.05;letter-spacing:-.035em;font-weight:700">The evidence behind every score</h1>
+      <p style="margin:12px 0 0;font-size:17px;line-height:1.55;color:var(--mu);max-width:640px">{{ sigIntro }}</p>
+    </div>
+    <div style="background:var(--sf);border:1px solid var(--ln);border-radius:16px;padding:14px 18px">
+      <div style="font:600 12px 'Geist Mono';letter-spacing:.06em;color:var(--mu)">{{ sigUpdatedLabel }}</div>
+      <b style="font-size:15px;font-weight:600">{{ sigUpdated }}</b>
+    </div>
+  </section>
 
-<section aria-label="Automatic signal update status" style="padding:20px max(clamp(20px,4vw,48px),calc((100% - 1200px)/2)) 0">
- <div style="background:var(--sf);border:1px solid var(--ln);border-radius:16px;padding:14px 20px;display:flex;flex-wrap:wrap;gap:12px 28px;align-items:center">
- <div style="flex:1 1 220px;display:flex;flex-direction:column;gap:3px"><b style="color:var(--pr);font-size:14px">● {{ sigAutoTitle }}</b><span style="font-size:13px;color:var(--mu)">{{ sigAutoFrequency }}</span></div>
- <div style="display:flex;flex-wrap:wrap;gap:14px 24px"><span style="font-size:12px;color:var(--mu)">{{ sigLastSuccessTitle }}<b style="display:block;color:var(--ink);font-size:13px">{{ sigLastSuccessful }}</b></span><span style="font-size:12px;color:var(--mu)">{{ sigNextTitle }}<b style="display:block;color:var(--ink);font-size:13px">{{ sigNextExpected }}</b></span><span role="status" style="font-size:12px;color:var(--mu)">{{ sigHealthTitle }}<b style="display:block;color:var(--ink);font-size:13px">{{ sigHealth }}</b></span></div>
- </div><p style="margin:6px 0 0;font-size:12px;color:var(--mu)">{{ sigAIGuard }}</p>
-</section>
-<section style="padding:32px max(clamp(20px,4vw,48px),calc((100% - 1200px)/2)) 0"><div role="tablist" style="display:inline-flex;gap:4px;background:var(--sf2);border:1px solid var(--ln);border-radius:12px;padding:4px"><button onClick="{{ vTrends }}" aria-pressed="{{ vTrBOn }}" style="border:0;border-radius:9px;padding:10px 20px;font:600 15px Geist;cursor:pointer;background:{{ vTrB }};color:{{ vTrC }}">Skill trends</button><button onClick="{{ vSigs }}" aria-pressed="{{ vSgBOn }}" style="border:0;border-radius:9px;padding:10px 20px;font:600 15px Geist;cursor:pointer;background:{{ vSgB }};color:{{ vSgC }}">Signals</button></div></section><sc-if value="{{ showTrends }}" hint-placeholder-val="{{ true }}"><section style="padding:40px max(clamp(20px,4vw,48px),calc((100% - 1200px)/2)) 0;display:flex;flex-direction:column;gap:16px"><div><span style="font:600 12px 'Geist Mono',monospace;letter-spacing:.06em;color:var(--pr)">SKILL TRENDS</span><h2 style="margin:8px 0 0;font-size:clamp(24px,2.6vw,30px);line-height:1.15;letter-spacing:-.03em;font-weight:700">Which skills are rising, and which are declining</h2><p style="margin:8px 0 0;font-size:15px;line-height:1.55;color:var(--mu);max-width:760px">Counted from the dated signals listed below. The line shows each item's signals over the last 3 years; the badge counts them. Declining also includes jobs that WEF and ILO reports name as declining.</p></div><sc-if value="{{ trLoading }}" hint-placeholder-val="{{ false }}"><div style="font-size:14px;color:var(--mu)">Loading skill trends…</div></sc-if><sc-if value="{{ trReady }}" hint-placeholder-val="{{ true }}"><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:16px;align-items:start"><div style="background:var(--sf2);border:1px solid var(--ln);border-radius:24px;padding:18px;display:flex;flex-direction:column;gap:12px"><div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding-bottom:10px;border-bottom:1px solid var(--ln)"><span style="width:28px;height:28px;border-radius:8px;background:var(--skybg);color:var(--chup);display:flex;align-items:center;justify-content:center;font-weight:700">↗</span><b style="font-size:16px;font-weight:600">{{ trRisingLbl }}</b><span style="margin-left:auto;font:600 12px 'Geist Mono',monospace;color:var(--chup)">Net rising signals</span></div><sc-for list="{{ trRising }}" as="c" hint-placeholder-count="3"><article style="background:var(--sf);border:1px solid var(--ln);border-radius:16px;padding:16px 18px;display:flex;flex-direction:column;gap:6px"><div style="display:flex;gap:10px;align-items:flex-start"><div style="flex:1;min-width:0"><span style="font-size:12px;font-weight:600;color:{{ c.bc }}">{{ c.cat }}</span><h3 style="margin:2px 0 0;font-size:16px;line-height:1.3;font-weight:600">{{ c.t }}</h3></div><div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex:none"><span role="img" aria-label="{{ c.sparkAlt }}" style="display:block;width:76px;height:24px;background:{{ c.spark }} center / contain no-repeat"></span><span style="background:{{ c.bb }};color:{{ c.bc }};border-radius:6px;padding:2px 8px;font:600 12px 'Geist Mono',monospace;white-space:nowrap">{{ c.badge }}</span></div></div><p style="margin:0;font-size:13px;line-height:1.45;color:var(--mu)">{{ c.latest }}</p><div style="margin-top:4px;padding-top:10px;border-top:1px solid var(--ln);display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:12px;color:var(--mu)"><a href="{{ c.url }}" target="_blank" rel="noopener noreferrer" style="color:var(--mu);text-decoration:none;flex:1 1 180px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ c.src }} ↗</a><sc-if value="{{ c.hasSdgs }}" hint-placeholder-val="{{ true }}"><span style="display:flex;gap:4px"><sc-for list="{{ c.sdgs }}" as="g"><span style="background:{{ g.c }};color:#fff;border-radius:6px;padding:2px 7px;font-size:11px;font-weight:700">SDG {{ g.n }}</span></sc-for></span></sc-if></div></article></sc-for>
-<sc-if value="{{ risingEmpty }}" hint-placeholder-val="{{ false }}"><p style="margin:0;font-size:13px;color:var(--mu)">No rising skills have verified signals yet.</p></sc-if>
-<nav aria-label="Rising skills pages" style="display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:6px;margin-top:12px">
-<button onClick="{{ risingPrev }}" aria-disabled="{{ risingFirst }}" style="border:1px solid var(--ln);background:var(--sf);color:var(--ink);padding:8px 11px;border-radius:9px;font:600 12px Geist;cursor:pointer;flex-shrink:0">{{ pagerPrevLbl }}</button>
-<sc-for list="{{ risingPages }}" as="p"><button onClick="{{ p.go }}" aria-current="{{ p.current }}" style="border:1px solid var(--ln);background:{{ p.bg }};color:{{ p.c }};min-width:30px;padding:8px 9px;border-radius:9px;font:600 12px Geist;cursor:pointer;flex-shrink:0">{{ p.n }}</button></sc-for>
-<button onClick="{{ risingNext }}" aria-disabled="{{ risingLast }}" style="border:1px solid var(--ln);background:var(--sf);color:var(--ink);padding:8px 11px;border-radius:9px;font:600 12px Geist;cursor:pointer;flex-shrink:0">{{ pagerNextLbl }}</button>
-<span style="width:100%;text-align:center;font-size:12px;color:var(--mu)">{{ pagerPageLbl }} {{ risingCurrent }} {{ pagerOfLbl }} {{ risingTotal }}</span>
-</nav></div><div style="background:var(--sf2);border:1px solid var(--ln);border-radius:24px;padding:18px;display:flex;flex-direction:column;gap:12px"><div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding-bottom:10px;border-bottom:1px solid var(--ln)"><span style="width:28px;height:28px;border-radius:8px;background:var(--dnbg);color:var(--chdn);display:flex;align-items:center;justify-content:center;font-weight:700">↘</span><b style="font-size:16px;font-weight:600">{{ trDeclLbl }}</b><span style="margin-left:auto;font:600 12px 'Geist Mono',monospace;color:var(--chdn)">Named as declining</span></div><sc-for list="{{ trDecl }}" as="c" hint-placeholder-count="3"><article style="background:var(--sf);border:1px solid var(--ln);border-radius:16px;padding:16px 18px;display:flex;flex-direction:column;gap:6px"><div style="display:flex;gap:10px;align-items:flex-start"><div style="flex:1;min-width:0"><span style="font-size:12px;font-weight:600;color:{{ c.bc }}">{{ c.cat }}</span><h3 style="margin:2px 0 0;font-size:16px;line-height:1.3;font-weight:600">{{ c.t }}</h3></div><div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex:none"><span role="img" aria-label="{{ c.sparkAlt }}" style="display:block;width:76px;height:24px;background:{{ c.spark }} center / contain no-repeat"></span><span style="background:{{ c.bb }};color:{{ c.bc }};border-radius:6px;padding:2px 8px;font:600 12px 'Geist Mono',monospace;white-space:nowrap">{{ c.badge }}</span></div></div><p style="margin:0;font-size:13px;line-height:1.45;color:var(--mu)">{{ c.latest }}</p><div style="margin-top:4px;padding-top:10px;border-top:1px solid var(--ln);display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:12px;color:var(--mu)"><a href="{{ c.url }}" target="_blank" rel="noopener noreferrer" style="color:var(--mu);text-decoration:none;flex:1 1 180px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ c.src }} ↗</a><sc-if value="{{ c.hasSdgs }}" hint-placeholder-val="{{ true }}"><span style="display:flex;gap:4px"><sc-for list="{{ c.sdgs }}" as="g"><span style="background:{{ g.c }};color:#fff;border-radius:6px;padding:2px 7px;font-size:11px;font-weight:700">SDG {{ g.n }}</span></sc-for></span></sc-if></div></article></sc-for>
-<sc-if value="{{ decliningEmpty }}" hint-placeholder-val="{{ false }}"><p style="margin:0;font-size:13px;color:var(--mu)">No declining skills have verified signals yet.</p></sc-if>
-<nav aria-label="Declining skills pages" style="display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:6px;margin-top:12px">
-<button onClick="{{ decliningPrev }}" aria-disabled="{{ decliningFirst }}" style="border:1px solid var(--ln);background:var(--sf);color:var(--ink);padding:8px 11px;border-radius:9px;font:600 12px Geist;cursor:pointer;flex-shrink:0">{{ pagerPrevLbl }}</button>
-<sc-for list="{{ decliningPages }}" as="p"><button onClick="{{ p.go }}" aria-current="{{ p.current }}" style="border:1px solid var(--ln);background:{{ p.bg }};color:{{ p.c }};min-width:30px;padding:8px 9px;border-radius:9px;font:600 12px Geist;cursor:pointer;flex-shrink:0">{{ p.n }}</button></sc-for>
-<button onClick="{{ decliningNext }}" aria-disabled="{{ decliningLast }}" style="border:1px solid var(--ln);background:var(--sf);color:var(--ink);padding:8px 11px;border-radius:9px;font:600 12px Geist;cursor:pointer;flex-shrink:0">{{ pagerNextLbl }}</button>
-<span style="width:100%;text-align:center;font-size:12px;color:var(--mu)">{{ pagerPageLbl }} {{ decliningCurrent }} {{ pagerOfLbl }} {{ decliningTotal }}</span>
-</nav></div></div></sc-if></section>
-</sc-if><sc-if value="{{ showSigs }}" hint-placeholder-val="{{ false }}"><section style="padding:24px max(clamp(20px,4vw,48px),calc((100% - 1200px)/2)) 72px;display:flex;flex-direction:column;gap:20px"><div><span style="font:600 12px 'Geist Mono',monospace;letter-spacing:.06em;color:var(--pr)">THE EVIDENCE</span><h2 style="margin:8px 0 0;font-size:clamp(22px,2.4vw,26px);line-height:1.15;letter-spacing:-.03em;font-weight:700">The signals behind these trends</h2></div>
-<div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center"><div style="display:flex;flex-wrap:wrap;max-width:100%;gap:4px;background:var(--sf2);border:1px solid var(--ln);border-radius:12px;padding:4px"><button onClick="{{ fAll }}" style="border:0;border-radius:9px;padding:9px 16px;font:600 14px Geist;cursor:pointer;background:{{ fAllB }};color:{{ fAllC }}">All</button><button onClick="{{ fUp }}" style="border:0;border-radius:9px;padding:9px 16px;font:600 14px Geist;cursor:pointer;background:{{ fUpB }};color:{{ fUpC }}">↑ Emerging</button><button onClick="{{ fDn }}" style="border:0;border-radius:9px;padding:9px 16px;font:600 14px Geist;cursor:pointer;background:{{ fDnB }};color:{{ fDnC }}">↓ Declining</button></div><span style="margin-left:auto;font-size:14px;color:var(--mu)">{{ sigCount }} signals</span></div>
-<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:16px"><sc-for list="{{ signals }}" as="s" hint-placeholder-count="4"><article style="background:var(--sf);border:1px solid var(--ln);border-radius:24px;padding:24px;display:flex;flex-direction:column;gap:12px">
-<div style="display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:12px"><span style="background:{{ s.db }};color:{{ s.dc }};border-radius:8px;padding:4px 10px;font-weight:600">{{ s.dir }}</span><span style="background:{{ s.tb }};color:{{ s.tc }};border-radius:8px;padding:4px 10px;font-weight:600">{{ s.tag }}</span><span style="background:var(--sf2);border-radius:8px;padding:4px 10px;font-weight:600">{{ s.type }}</span><span style="margin-left:auto;color:var(--pr);letter-spacing:2px" title="Strength">{{ s.dots }}</span></div>
-<h3 style="margin:0;font-size:18px;line-height:1.3;font-weight:600">{{ s.t }}</h3><p style="margin:0;font-size:14px;color:var(--mu);line-height:1.45"><b style="color:var(--ink);font-weight:600">Roles:</b> {{ s.roles }}</p>
-<div style="margin-top:auto;display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;font-size:12px;color:var(--mu);padding-top:12px;border-top:1px solid var(--ln)"><span style="font-family:'Geist Mono';font-size:13px">{{ s.src }}</span><a href="{{ s.url }}" target="_blank" rel="noopener noreferrer" style="margin-left:auto;color:var(--pr);font-weight:600;font-size:13px">Open source ↗</a></div></article></sc-for></div>
-<sc-if value="{{ sigNoMatches }}" hint-placeholder-val="{{ false }}"><p role="status" style="margin:0;font-size:14px;color:var(--mu)">{{ sigNoMatchesLbl }}</p></sc-if>
-<nav aria-label="Signals pages" style="display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:6px;margin-top:12px">
-<button onClick="{{ signalsPrev }}" aria-disabled="{{ signalsFirst }}" style="border:1px solid var(--ln);background:var(--sf);color:var(--ink);padding:8px 11px;border-radius:9px;font:600 12px Geist;cursor:pointer;flex-shrink:0">{{ pagerPrevLbl }}</button>
-<sc-for list="{{ signalsPages }}" as="p"><button onClick="{{ p.go }}" aria-current="{{ p.current }}" style="border:1px solid var(--ln);background:{{ p.bg }};color:{{ p.c }};min-width:30px;padding:8px 9px;border-radius:9px;font:600 12px Geist;cursor:pointer;flex-shrink:0">{{ p.n }}</button></sc-for>
-<button onClick="{{ signalsNext }}" aria-disabled="{{ signalsLast }}" style="border:1px solid var(--ln);background:var(--sf);color:var(--ink);padding:8px 11px;border-radius:9px;font:600 12px Geist;cursor:pointer;flex-shrink:0">{{ pagerNextLbl }}</button>
-<span style="width:100%;text-align:center;font-size:12px;color:var(--mu)">{{ pagerPageLbl }} {{ signalsCurrent }} {{ pagerOfLbl }} {{ signalsTotal }}</span>
-</nav>
-<p style="margin:0;font-size:13px;color:var(--mu);line-height:1.5">Strength (1–5) is a team judgement of how direct and large the evidence is (curated reports); feed items are capped at 3. A signal counts in full for a career it names, at reduced weight through a required skill, and halves in weight every 12 months.</p><p style="margin:0;font-size:12px;color:var(--mu)">Source titles and course names are shown in their original language.</p></section></sc-if></main></sc-if>
+  <section aria-label="{{ sigStatusTitle }}" style="padding:24px max(clamp(20px,4vw,48px),calc((100% - 1200px)/2)) 0">
+    <div style="background:var(--sf);border:1px solid var(--ln);border-radius:20px;padding:18px 22px;display:flex;flex-direction:column;gap:12px">
+      <div style="display:flex;flex-wrap:wrap;gap:10px 24px;align-items:flex-start">
+        <div style="flex:1 1 210px">
+          <b style="font-size:15px;font-weight:600">{{ sigStatusTitle }}</b>
+          <p style="margin:4px 0 0;font-size:13px;line-height:1.5;color:var(--mu)">{{ sigNoPublish }}</p>
+        </div>
+        <div style="display:flex;flex:2 1 600px;flex-wrap:wrap;gap:10px 24px;border-left:1px solid var(--ln);padding-left:20px">
+          <span style="font-size:13px;color:var(--mu)"><b style="color:var(--ink)">{{ sigFrequencyLabel }}:</b> {{ sigFrequency }}</span>
+          <span style="font-size:13px;color:var(--mu)"><b style="color:var(--ink)">{{ sigLastSuccessLabel }}:</b> {{ sigLastSuccess }}</span>
+          <span style="font-size:13px;color:var(--mu)"><b style="color:var(--ink)">{{ sigNextLabel }}:</b> {{ sigNextExpected }}</span>
+          <span style="font-size:13px;color:var(--mu)"><b style="color:var(--ink)">{{ sigStatusLabel }}:</b> {{ sigAutoStatus }}</span>
+          <span style="font-size:13px;color:var(--mu)"><b style="color:var(--ink)">{{ sigHealthLabel }}:</b> {{ sigHealth }}</span>
+          <span style="font-size:13px;color:var(--mu)"><b style="color:var(--ink)">{{ sigAIlabel }}:</b> {{ sigAIStatus }}</span>
+          <span style="font-size:13px;color:var(--mu)"><b style="color:var(--ink)">{{ sigQuarantinedLabel }}:</b> {{ sigQuarantined }}</span>
+        </div>
+      </div>
+      <p role="status" style="margin:0;border-top:1px solid var(--ln);padding-top:10px;font-size:13px;line-height:1.5;color:var(--mu)">{{ sigStatusMessage }}</p>
+    </div>
+  </section>
+
+  <section style="padding:32px max(clamp(20px,4vw,48px),calc((100% - 1200px)/2)) 0">
+    <div role="tablist" style="display:inline-flex;gap:4px;background:var(--sf2);border:1px solid var(--ln);border-radius:12px;padding:4px">
+      <button onClick="{{ vTrends }}" aria-pressed="{{ vTrBOn }}" style="border:0;border-radius:9px;padding:10px 20px;font:600 15px Geist;cursor:pointer;background:{{ vTrB }};color:{{ vTrC }}">Skill trends</button>
+      <button onClick="{{ vSigs }}" aria-pressed="{{ vSgBOn }}" style="border:0;border-radius:9px;padding:10px 20px;font:600 15px Geist;cursor:pointer;background:{{ vSgB }};color:{{ vSgC }}">Signals</button>
+    </div>
+  </section>
+
+  <sc-if value="{{ showTrends }}" hint-placeholder-val="{{ true }}">
+    <section style="padding:40px max(clamp(20px,4vw,48px),calc((100% - 1200px)/2)) 0;display:flex;flex-direction:column;gap:16px">
+      <div>
+        <span style="font:600 12px 'Geist Mono',monospace;letter-spacing:.06em;color:var(--pr)">SKILL TRENDS</span>
+        <h2 style="margin:8px 0 0;font-size:clamp(24px,2.6vw,30px);line-height:1.15;letter-spacing:-.03em;font-weight:700">Which skills are rising, and which are declining</h2>
+        <p style="margin:8px 0 0;font-size:15px;line-height:1.55;color:var(--mu);max-width:760px">Counted from the dated signals listed below. The line shows each item's signals over the last 3 years; the badge counts them. Declining also includes jobs that WEF and ILO reports name as declining.</p>
+      </div>
+      <sc-if value="{{ trLoading }}" hint-placeholder-val="{{ false }}"><div style="font-size:14px;color:var(--mu)">Loading skill trends…</div></sc-if>
+      <sc-if value="{{ trReady }}" hint-placeholder-val="{{ true }}">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:16px;align-items:start">
+          <div style="background:var(--sf2);border:1px solid var(--ln);border-radius:24px;padding:18px;display:flex;flex-direction:column;gap:12px">
+            <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding-bottom:10px;border-bottom:1px solid var(--ln)">
+              <span style="width:28px;height:28px;border-radius:8px;background:var(--skybg);color:var(--chup);display:flex;align-items:center;justify-content:center;font-weight:700">↗</span>
+              <b style="font-size:16px;font-weight:600">{{ trRisingLbl }}</b>
+              <span style="margin-left:auto;font:600 12px 'Geist Mono',monospace;color:var(--chup)">Net rising signals</span>
+            </div>
+            <sc-for list="{{ trRising }}" as="c" hint-placeholder-count="3">
+              <article style="background:var(--sf);border:1px solid var(--ln);border-radius:16px;padding:16px 18px;display:flex;flex-direction:column;gap:6px">
+                <div style="display:flex;gap:10px;align-items:flex-start">
+                  <div style="flex:1;min-width:0"><span style="font-size:12px;font-weight:600;color:{{ c.bc }}">{{ c.cat }}</span><h3 style="margin:2px 0 0;font-size:16px;line-height:1.3;font-weight:600">{{ c.t }}</h3></div>
+                  <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex:none"><span role="img" aria-label="{{ c.sparkAlt }}" style="display:block;width:76px;height:24px;background:{{ c.spark }} center / contain no-repeat"></span><span style="background:{{ c.bb }};color:{{ c.bc }};border-radius:6px;padding:2px 8px;font:600 12px 'Geist Mono',monospace;white-space:nowrap">{{ c.badge }}</span></div>
+                </div>
+                <p style="margin:0;font-size:13px;line-height:1.45;color:var(--mu)">{{ c.latest }}</p>
+                <div style="margin-top:4px;padding-top:10px;border-top:1px solid var(--ln);display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:12px;color:var(--mu)">
+                  <a href="{{ c.url }}" target="_blank" rel="noopener noreferrer" style="color:var(--mu);text-decoration:none;flex:1 1 180px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ c.src }} ↗</a>
+                  <sc-if value="{{ c.hasSdgs }}" hint-placeholder-val="{{ true }}"><span style="display:flex;gap:4px"><sc-for list="{{ c.sdgs }}" as="g"><span style="background:{{ g.c }};color:#fff;border-radius:6px;padding:2px 7px;font-size:11px;font-weight:700">SDG {{ g.n }}</span></sc-for></span></sc-if>
+                </div>
+              </article>
+            </sc-for>
+            <sc-if value="{{ showRisingEmpty }}" hint-placeholder-val="{{ false }}"><p style="margin:0;padding:14px;color:var(--mu);font-size:13px">{{ risingEmpty }}</p></sc-if>
+            <sc-if value="{{ hasRisingPages }}" hint-placeholder-val="{{ false }}">
+              <nav aria-label="{{ risingNavLabel }}" style="display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:6px;padding-top:4px">
+                <sc-if value="{{ risingPrevDisabled }}" hint-placeholder-val="{{ false }}"><button disabled aria-label="{{ paginationPrevious }}" style="border:1px solid var(--ln);background:var(--sf);color:var(--mu);border-radius:9px;padding:8px 11px;font:600 13px Geist;opacity:.55">{{ paginationPrevious }}</button></sc-if>
+                <sc-if value="{{ risingPrevEnabled }}" hint-placeholder-val="{{ true }}"><button onClick="{{ risingPrev }}" aria-label="{{ paginationPrevious }}" style="border:1px solid var(--ln);background:var(--sf);color:var(--ink);border-radius:9px;padding:8px 11px;font:600 13px Geist;cursor:pointer">{{ paginationPrevious }}</button></sc-if>
+                <sc-for list="{{ risingPages }}" as="p"><button onClick="{{ p.change }}" aria-label="{{ p.ariaLabel }}" aria-current="{{ p.current }}" style="border:1px solid {{ p.border }};background:{{ p.background }};color:{{ p.color }};border-radius:9px;min-width:36px;padding:8px 10px;font:600 13px 'Geist Mono';cursor:pointer">{{ p.label }}</button></sc-for>
+                <sc-if value="{{ risingNextDisabled }}" hint-placeholder-val="{{ false }}"><button disabled aria-label="{{ paginationNext }}" style="border:1px solid var(--ln);background:var(--sf);color:var(--mu);border-radius:9px;padding:8px 11px;font:600 13px Geist;opacity:.55">{{ paginationNext }}</button></sc-if>
+                <sc-if value="{{ risingNextEnabled }}" hint-placeholder-val="{{ true }}"><button onClick="{{ risingNext }}" aria-label="{{ paginationNext }}" style="border:1px solid var(--ln);background:var(--sf);color:var(--ink);border-radius:9px;padding:8px 11px;font:600 13px Geist;cursor:pointer">{{ paginationNext }}</button></sc-if>
+              </nav>
+            </sc-if>
+          </div>
+          <div style="background:var(--sf2);border:1px solid var(--ln);border-radius:24px;padding:18px;display:flex;flex-direction:column;gap:12px">
+            <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding-bottom:10px;border-bottom:1px solid var(--ln)">
+              <span style="width:28px;height:28px;border-radius:8px;background:var(--dnbg);color:var(--chdn);display:flex;align-items:center;justify-content:center;font-weight:700">↘</span>
+              <b style="font-size:16px;font-weight:600">{{ trDeclLbl }}</b>
+              <span style="margin-left:auto;font:600 12px 'Geist Mono',monospace;color:var(--chdn)">Named as declining</span>
+            </div>
+            <sc-for list="{{ trDecl }}" as="c" hint-placeholder-count="3">
+              <article style="background:var(--sf);border:1px solid var(--ln);border-radius:16px;padding:16px 18px;display:flex;flex-direction:column;gap:6px">
+                <div style="display:flex;gap:10px;align-items:flex-start">
+                  <div style="flex:1;min-width:0"><span style="font-size:12px;font-weight:600;color:{{ c.bc }}">{{ c.cat }}</span><h3 style="margin:2px 0 0;font-size:16px;line-height:1.3;font-weight:600">{{ c.t }}</h3></div>
+                  <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex:none"><span role="img" aria-label="{{ c.sparkAlt }}" style="display:block;width:76px;height:24px;background:{{ c.spark }} center / contain no-repeat"></span><span style="background:{{ c.bb }};color:{{ c.bc }};border-radius:6px;padding:2px 8px;font:600 12px 'Geist Mono',monospace;white-space:nowrap">{{ c.badge }}</span></div>
+                </div>
+                <p style="margin:0;font-size:13px;line-height:1.45;color:var(--mu)">{{ c.latest }}</p>
+                <div style="margin-top:4px;padding-top:10px;border-top:1px solid var(--ln);display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:12px;color:var(--mu)">
+                  <a href="{{ c.url }}" target="_blank" rel="noopener noreferrer" style="color:var(--mu);text-decoration:none;flex:1 1 180px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ c.src }} ↗</a>
+                  <sc-if value="{{ c.hasSdgs }}" hint-placeholder-val="{{ true }}"><span style="display:flex;gap:4px"><sc-for list="{{ c.sdgs }}" as="g"><span style="background:{{ g.c }};color:#fff;border-radius:6px;padding:2px 7px;font-size:11px;font-weight:700">SDG {{ g.n }}</span></sc-for></span></sc-if>
+                </div>
+              </article>
+            </sc-for>
+            <sc-if value="{{ showDecliningEmpty }}" hint-placeholder-val="{{ false }}"><p style="margin:0;padding:14px;color:var(--mu);font-size:13px">{{ decliningEmpty }}</p></sc-if>
+            <sc-if value="{{ hasDecliningPages }}" hint-placeholder-val="{{ false }}">
+              <nav aria-label="{{ decliningNavLabel }}" style="display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:6px;padding-top:4px">
+                <sc-if value="{{ decliningPrevDisabled }}" hint-placeholder-val="{{ false }}"><button disabled aria-label="{{ paginationPrevious }}" style="border:1px solid var(--ln);background:var(--sf);color:var(--mu);border-radius:9px;padding:8px 11px;font:600 13px Geist;opacity:.55">{{ paginationPrevious }}</button></sc-if>
+                <sc-if value="{{ decliningPrevEnabled }}" hint-placeholder-val="{{ true }}"><button onClick="{{ decliningPrev }}" aria-label="{{ paginationPrevious }}" style="border:1px solid var(--ln);background:var(--sf);color:var(--ink);border-radius:9px;padding:8px 11px;font:600 13px Geist;cursor:pointer">{{ paginationPrevious }}</button></sc-if>
+                <sc-for list="{{ decliningPages }}" as="p"><button onClick="{{ p.change }}" aria-label="{{ p.ariaLabel }}" aria-current="{{ p.current }}" style="border:1px solid {{ p.border }};background:{{ p.background }};color:{{ p.color }};border-radius:9px;min-width:36px;padding:8px 10px;font:600 13px 'Geist Mono';cursor:pointer">{{ p.label }}</button></sc-for>
+                <sc-if value="{{ decliningNextDisabled }}" hint-placeholder-val="{{ false }}"><button disabled aria-label="{{ paginationNext }}" style="border:1px solid var(--ln);background:var(--sf);color:var(--mu);border-radius:9px;padding:8px 11px;font:600 13px Geist;opacity:.55">{{ paginationNext }}</button></sc-if>
+                <sc-if value="{{ decliningNextEnabled }}" hint-placeholder-val="{{ true }}"><button onClick="{{ decliningNext }}" aria-label="{{ paginationNext }}" style="border:1px solid var(--ln);background:var(--sf);color:var(--ink);border-radius:9px;padding:8px 11px;font:600 13px Geist;cursor:pointer">{{ paginationNext }}</button></sc-if>
+              </nav>
+            </sc-if>
+          </div>
+        </div>
+      </sc-if>
+    </section>
+  </sc-if>
+
+  <sc-if value="{{ showSigs }}" hint-placeholder-val="{{ false }}">
+    <section style="padding:24px max(clamp(20px,4vw,48px),calc((100% - 1200px)/2)) 72px;display:flex;flex-direction:column;gap:20px">
+      <div>
+        <span style="font:600 12px 'Geist Mono',monospace;letter-spacing:.06em;color:var(--pr)">THE EVIDENCE</span>
+        <h2 style="margin:8px 0 0;font-size:clamp(22px,2.4vw,26px);line-height:1.15;letter-spacing:-.03em;font-weight:700">The signals behind these trends</h2>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center">
+        <div style="display:flex;gap:4px;background:var(--sf2);border:1px solid var(--ln);border-radius:12px;padding:4px">
+          <button onClick="{{ fAll }}" style="border:0;border-radius:9px;padding:9px 16px;font:600 14px Geist;cursor:pointer;background:{{ fAllB }};color:{{ fAllC }}">All</button>
+          <button onClick="{{ fUp }}" style="border:0;border-radius:9px;padding:9px 16px;font:600 14px Geist;cursor:pointer;background:{{ fUpB }};color:{{ fUpC }}">↑ Emerging</button>
+          <button onClick="{{ fDn }}" style="border:0;border-radius:9px;padding:9px 16px;font:600 14px Geist;cursor:pointer;background:{{ fDnB }};color:{{ fDnC }}">↓ Declining</button>
+        </div>
+        <span style="margin-left:auto;font-size:14px;color:var(--mu)">{{ sigCount }} signals</span>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:16px">
+        <sc-for list="{{ signals }}" as="s" hint-placeholder-count="4">
+          <article style="background:var(--sf);border:1px solid var(--ln);border-radius:24px;padding:24px;display:flex;flex-direction:column;gap:12px">
+            <div style="display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:12px">
+              <span style="background:{{ s.db }};color:{{ s.dc }};border-radius:8px;padding:4px 10px;font-weight:600">{{ s.dir }}</span>
+              <span style="background:{{ s.tb }};color:{{ s.tc }};border-radius:8px;padding:4px 10px;font-weight:600">{{ s.tag }}</span>
+              <span style="background:var(--sf2);border-radius:8px;padding:4px 10px;font-weight:600">{{ s.type }}</span>
+              <span style="margin-left:auto;color:var(--pr);letter-spacing:2px" title="Strength">{{ s.dots }}</span>
+            </div>
+            <h3 style="margin:0;font-size:18px;line-height:1.3;font-weight:600">{{ s.t }}</h3>
+            <p style="margin:0;font-size:14px;color:var(--mu);line-height:1.45"><b style="color:var(--ink);font-weight:600">Roles:</b> {{ s.roles }}</p>
+            <div style="display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;font-size:12px;color:var(--mu)">
+              <span style="background:var(--sf2);border-radius:8px;padding:5px 9px">{{ s.provenance }}</span>
+              <sc-if value="{{ s.verification }}" hint-placeholder-val="{{ false }}"><span style="border:1px solid var(--ln);border-radius:8px;padding:4px 8px">{{ s.verification }}</span></sc-if>
+              <span>{{ sigPublishedLabel }}: {{ s.published }}</span>
+            </div>
+            <div style="margin-top:auto;display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;font-size:12px;color:var(--mu);padding-top:12px;border-top:1px solid var(--ln)">
+              <span style="font-family:'Geist Mono';font-size:13px">{{ s.src }}</span>
+              <a href="{{ s.url }}" target="_blank" rel="noopener noreferrer" style="margin-left:auto;color:var(--pr);font-weight:600;font-size:13px">Open source ↗</a>
+            </div>
+          </article>
+        </sc-for>
+      </div>
+      <sc-if value="{{ showSignalsEmpty }}" hint-placeholder-val="{{ false }}"><p style="margin:0;padding:18px;background:var(--sf2);border:1px solid var(--ln);border-radius:16px;color:var(--mu);font-size:14px">{{ signalsEmpty }}</p></sc-if>
+      <sc-if value="{{ hasSigPages }}" hint-placeholder-val="{{ false }}">
+        <nav aria-label="{{ signalNavLabel }}" style="display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:6px">
+          <sc-if value="{{ sigPrevDisabled }}" hint-placeholder-val="{{ false }}"><button disabled aria-label="{{ paginationPrevious }}" style="border:1px solid var(--ln);background:var(--sf);color:var(--mu);border-radius:9px;padding:8px 11px;font:600 13px Geist;opacity:.55">{{ paginationPrevious }}</button></sc-if>
+          <sc-if value="{{ sigPrevEnabled }}" hint-placeholder-val="{{ true }}"><button onClick="{{ sigPrev }}" aria-label="{{ paginationPrevious }}" style="border:1px solid var(--ln);background:var(--sf);color:var(--ink);border-radius:9px;padding:8px 11px;font:600 13px Geist;cursor:pointer">{{ paginationPrevious }}</button></sc-if>
+          <sc-for list="{{ sigPages }}" as="p"><button onClick="{{ p.change }}" aria-label="{{ p.ariaLabel }}" aria-current="{{ p.current }}" style="border:1px solid {{ p.border }};background:{{ p.background }};color:{{ p.color }};border-radius:9px;min-width:36px;padding:8px 10px;font:600 13px 'Geist Mono';cursor:pointer">{{ p.label }}</button></sc-for>
+          <sc-if value="{{ sigNextDisabled }}" hint-placeholder-val="{{ false }}"><button disabled aria-label="{{ paginationNext }}" style="border:1px solid var(--ln);background:var(--sf);color:var(--mu);border-radius:9px;padding:8px 11px;font:600 13px Geist;opacity:.55">{{ paginationNext }}</button></sc-if>
+          <sc-if value="{{ sigNextEnabled }}" hint-placeholder-val="{{ true }}"><button onClick="{{ sigNext }}" aria-label="{{ paginationNext }}" style="border:1px solid var(--ln);background:var(--sf);color:var(--ink);border-radius:9px;padding:8px 11px;font:600 13px Geist;cursor:pointer">{{ paginationNext }}</button></sc-if>
+        </nav>
+      </sc-if>
+      <p style="margin:0;font-size:13px;color:var(--mu);line-height:1.5">Strength (1–5) is a team judgement of how direct and large the evidence is (curated reports); feed items are capped at 3. A signal counts in full for a career it names, at reduced weight through a required skill, and halves in weight every 12 months.</p>
+      <p style="margin:0;font-size:12px;color:var(--mu)">Source titles and course names are shown in their original language.</p>
+    </section>
+  </sc-if>
+</main>
+</sc-if>
 <sc-if value="{{ is_about }}" hint-placeholder-val="{{ false }}"><main data-screen-label="About" style="flex:1;display:flex;flex-direction:column"><section style="background:var(--hero);border-bottom:1px solid var(--ln);padding:56px max(clamp(20px,4vw,48px),calc((100% - 1200px)/2)) 44px"><span style="font:600 12px 'Geist Mono',monospace;letter-spacing:.06em;color:var(--pr)">ABOUT FUTUREPATH</span><h1 style="margin:8px 0 0;font-size:clamp(34px,4.5vw,52px);line-height:1.05;letter-spacing:-.035em;font-weight:700">Helping Malaysians <span style="color:var(--pr)">reskill for the AI era.</span></h1><p style="margin:12px 0 0;font-size:17px;line-height:1.55;color:var(--mu);max-width:640px">FuturePath is a career navigator for students, graduates, workers facing restructuring and career switchers. It shows which future-ready careers fit your skills, why, and how to get there with free or low-cost learning.</p></section><section style="padding:40px max(clamp(20px,4vw,48px),calc((100% - 1200px)/2)) 0;display:flex;flex-direction:column;gap:16px"><div><span style="font:600 12px 'Geist Mono',monospace;letter-spacing:.06em;color:var(--pr)">THE PROBLEM</span><h2 style="margin:8px 0 0;font-size:clamp(24px,2.6vw,32px);line-height:1.15;letter-spacing:-.03em;font-weight:700">Work is changing, and people are left guessing</h2></div><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:16px"><div style="background:var(--sf);border:1px solid var(--ln);border-radius:24px;padding:24px;display:flex;flex-direction:column;gap:8px"><span style="font:600 12px 'Geist Mono';color:var(--dn)">01</span><b style="font-size:17px;font-weight:600">Jobs are changing faster than people can retrain</b><p style="margin:0;font-size:14px;line-height:1.5;color:var(--mu)">AI and automation are reshaping work in Malaysia. MOSTI expects more than 600,000 workers to need reskilling within 3 to 5 years, and clerical roles such as data entry and bookkeeping are declining fastest.</p></div><div style="background:var(--sf);border:1px solid var(--ln);border-radius:24px;padding:24px;display:flex;flex-direction:column;gap:8px"><span style="font:600 12px 'Geist Mono';color:var(--dn)">02</span><b style="font-size:17px;font-weight:600">People use AI, but few are trained for it</b><p style="margin:0;font-size:14px;line-height:1.5;color:var(--mu)">56% of Malaysian professionals use AI at work, yet only 26% have had formal training (Hays Asia Salary Guide 2025). Most don't know which of their skills still matter.</p></div><div style="background:var(--sf);border:1px solid var(--ln);border-radius:24px;padding:24px;display:flex;flex-direction:column;gap:8px"><span style="font:600 12px 'Geist Mono';color:var(--dn)">03</span><b style="font-size:17px;font-weight:600">Career advice is generic and hard to trust</b><p style="margin:0;font-size:14px;line-height:1.5;color:var(--mu)">Job sites list vacancies, not a path from where you are now. Advice rarely shows its evidence, its date, or how it reached its answer, and paid courses put people off.</p></div></div></section><section style="padding:40px max(clamp(20px,4vw,48px),calc((100% - 1200px)/2)) 0;display:flex;flex-direction:column;gap:16px"><div><span style="font:600 12px 'Geist Mono',monospace;letter-spacing:.06em;color:var(--pr)">HOW FUTUREPATH SOLVES IT</span><h2 style="margin:8px 0 0;font-size:clamp(24px,2.6vw,32px);line-height:1.15;letter-spacing:-.03em;font-weight:700">From your CV to a plan you can act on</h2></div><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,210px),1fr));gap:16px"><div style="background:var(--sf);border:1px solid var(--ln);border-radius:24px;padding:24px;display:flex;flex-direction:column;gap:8px"><span style="font:600 12px 'Geist Mono';color:var(--pr)">01 · Start</span><b style="font-size:17px;font-weight:600">Read your real skills</b><p style="margin:0;font-size:14px;line-height:1.5;color:var(--mu)">Upload a CV or fill a short form. Claude picks out skills, each with a quote from your CV, and you confirm every one.</p></div><div style="background:var(--sf);border:1px solid var(--ln);border-radius:24px;padding:24px;display:flex;flex-direction:column;gap:8px"><span style="font:600 12px 'Geist Mono';color:var(--pr)">02 · Results</span><b style="font-size:17px;font-weight:600">Match you to future careers</b><p style="margin:0;font-size:14px;line-height:1.5;color:var(--mu)">Careers are ranked by a visible formula: your skills, market demand from dated signals, and optional interest fit. You see each skills gap.</p></div><div style="background:var(--sf);border:1px solid var(--ln);border-radius:24px;padding:24px;display:flex;flex-direction:column;gap:8px"><span style="font:600 12px 'Geist Mono';color:var(--pr)">03 · Signals</span><b style="font-size:17px;font-weight:600">Show the evidence</b><p style="margin:0;font-size:14px;line-height:1.5;color:var(--mu)">Every demand score comes from dated, sourced reports, news and research, refreshed daily: which skills are rising and which jobs are declining.</p></div><div style="background:var(--sf);border:1px solid var(--ln);border-radius:24px;padding:24px;display:flex;flex-direction:column;gap:8px"><span style="font:600 12px 'Geist Mono';color:var(--pr)">04 · Pathway</span><b style="font-size:17px;font-weight:600">Plan an affordable route</b><p style="margin:0;font-size:14px;line-height:1.5;color:var(--mu)">An ordered learning plan using checked free, low-cost and HRD Corp-claimable courses, with hours, weeks and a tick-off progress tracker.</p></div><div style="background:var(--sf);border:1px solid var(--ln);border-radius:24px;padding:24px;display:flex;flex-direction:column;gap:8px"><span style="font:600 12px 'Geist Mono';color:var(--pr)">05 · Scenarios</span><b style="font-size:17px;font-weight:600">Be honest about uncertainty</b><p style="margin:0;font-size:14px;line-height:1.5;color:var(--mu)">Moderate and Fast AI disruption scenarios show how the picture could change. Results are estimates, not predictions.</p></div></div></section><section style="padding:40px max(clamp(20px,4vw,48px),calc((100% - 1200px)/2)) 0"><div><span style="font:600 12px 'Geist Mono',monospace;letter-spacing:.06em;color:var(--pr)">HOW WE USE AI</span><h2 style="margin:8px 0 0;font-size:clamp(24px,2.6vw,32px);line-height:1.15;letter-spacing:-.03em;font-weight:700">AI supports. <span style="color:var(--pr)">Humans decide.</span></h2></div></section>
 <section style="padding:40px max(clamp(20px,4vw,48px),calc((100% - 1200px)/2)) 72px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:16px">
 <div style="background:var(--sf);border:1px solid var(--ln);border-radius:24px;padding:24px;display:flex;flex-direction:column;gap:8px"><span style="font:600 12px 'Geist Mono';color:var(--pr)">01</span><b style="font-size:17px;font-weight:600">Fixed, published formulas</b><p style="margin:0;font-size:14px;line-height:1.5;color:var(--mu)">AI never decides a score or a career for you.</p></div>
@@ -1308,7 +1440,7 @@ const FP_API = {
 // Completed pathway steps per person and career, kept in this browser only.
 const savedPathDone = () => { try { return JSON.parse(localStorage.getItem('fp.pathDone') || '{}') || {}; } catch (e) { return {}; } };
 class Component extends DCLogic {
-  state = { theme: this.props.defaultTheme ?? "light", lang: savedLanguage(), page: pageFromPath() ?? this.props.startPage ?? "home", fast: false, ws: 55, wd: 45, liveStatus: "loading", liveError: "", liveModerate: [], liveRapid: [], selectedRole: "data-analyst", scenarioComparison: null, profileDemo: null, sig: "all",
+  state = { theme: this.props.defaultTheme ?? "light", lang: savedLanguage(), page: pageFromPath() ?? this.props.startPage ?? "home", fast: false, ws: 55, wd: 45, liveStatus: "loading", liveError: "", liveModerate: [], liveRapid: [], selectedRole: "data-analyst", scenarioComparison: null, profileDemo: null, sig: "all", signalPage: 1, risingPage: 1, decliningPage: 1,
     // Start flow (/start): choose -> cv | form -> check -> quiz -> results. Nothing is saved until the quiz step ends.
     startStep: "choose", cvName: "", extracting: false, startError: "", catalog: [],
     form: { role: "", years: 0, qualification: "", qualificationLegacy: "", industry: "", interests: "", languages: "", goals: "", aiComfort: "", workArrangement: "", motivation: "" }, formPicked: [], formQuery: "",
@@ -1316,17 +1448,25 @@ class Component extends DCLogic {
     quizQuestions: [], quizLikert: [], quizAnswers: {}, saving: false, confirmError: "",
     // Saved people: each finished Start run is a person; activeProfileId is whose results are shown (remembered in this browser).
     people: [], activeProfileId: savedActiveProfile(), editingId: null, confirmDeleteId: null,
-    // Trend signals (/api/signals): curated reports plus refreshed feeds; whatChanged explains the latest refresh.
-     liveSignals: [], signalRuns: [], whatChanged: null, refreshing: false, refreshMsg: "", refreshAccess: { mode: "checking", can_refresh: false, requires_token: false, message: "Checking refresh permissions…" },
-     signalStatus: null, reviewItems: [], reviewTotal: 0, reviewFilter: "pending", reviewLoading: false, reviewMsg: "", reviewOpen: false,
+    // Trend signals (/api/signals): dated evidence and public automatic-update status.
+     liveSignals: [], signalRuns: [], whatChanged: null, signalStatus: null,
     // Signals page cards: rising and declining skills (and declining jobs) from stored signals (/api/skill-trends).
-    skillTrends: null, risingPage: 1, decliningPage: 1, signalsPage: 1, rolesAll: false, sigView: "trends",
+     skillTrends: null, trendsAll: true, rolesAll: false, sigView: "trends",
     pathDone: savedPathDone() };
   componentDidUpdate(p) {
     const q = this.props, u = {};
     if (q.defaultTheme !== p.defaultTheme && q.defaultTheme) u.theme = q.defaultTheme;
     if (q.startPage !== p.startPage && q.startPage && !pageFromPath()) u.page = q.startPage;
     if (Object.keys(u).length) this.setState(u);
+    const signalCount = (this.state.liveSignals || []).filter(x => this.state.sig === "all" || (this.state.sig === "up") === (x.direction === "emerging")).length;
+    const maxSignalPage = Math.max(1, Math.ceil(signalCount / 8));
+    const maxRisingPage = Math.max(1, Math.ceil(((this.state.skillTrends?.rising || []).length) / 5));
+    const maxDecliningPage = Math.max(1, Math.ceil(((this.state.skillTrends?.declining || []).length) / 5));
+    const pagination = {};
+    if (this.state.signalPage > maxSignalPage) pagination.signalPage = maxSignalPage;
+    if (this.state.risingPage > maxRisingPage) pagination.risingPage = maxRisingPage;
+    if (this.state.decliningPage > maxDecliningPage) pagination.decliningPage = maxDecliningPage;
+    if (Object.keys(pagination).length) this.setState(pagination);
     if (this._translatedLanguage !== this.state.lang) {
       this._translatedLanguage = this.state.lang;
       fpTranslateTree(document.getElementById("dc-root"), this.state.lang);
@@ -1342,15 +1482,7 @@ class Component extends DCLogic {
     }
     this._translatedLanguage = this.state.lang;
     this._t = setInterval(() => this.setState(s => ({ tick: (s.tick || 0) + 1 })), 1000);
-    // Poll only saved evidence while the Signals page is visible. No feed/model calls.
-    this._signalsPoll = setInterval(() => {
-      if (this._alive && this.state.page === 'signals' && !document.hidden &&
-          !this.state.refreshing && !this._signalPolling) {
-        this._signalPolling = true;
-        Promise.resolve(this.loadSignals()).finally(() => { this._signalPolling = false; });
-      }
-    }, 10 * 60 * 1000);
-    this._onPop = () => { const p = pageFromPath(); if (p) { if (p === 'signals') this.loadSignals(); this.setState({ page: p }); } };
+    this._onPop = () => { const p = pageFromPath(); if (p) this.setState({ page: p }); };
     try { window.addEventListener("popstate", this._onPop); } catch (e) {}
     this.refreshLiveCareers();
     this.loadCatalog();
@@ -1361,8 +1493,12 @@ class Component extends DCLogic {
   async loadSignals() {
     let loaded = true;
     try {
-      const [liveSignals, signalRuns, whatChanged, meta] = await Promise.all([FP_API.json('/api/signals'), FP_API.json('/api/signals/runs'), FP_API.json('/api/what-changed' + this.profileQuery('?')), FP_API.json('/api/meta')]);
-      if (this._alive) this.setState({ liveSignals, signalRuns, whatChanged, courseTotal: meta.courses_count });
+      const [liveSignals, signalRuns, whatChanged, meta] = await Promise.all([this.loadStoredEvidence(), FP_API.json('/api/signals/runs'), FP_API.json('/api/what-changed' + this.profileQuery('?')), FP_API.json('/api/meta')]);
+      if (this._alive) this.setState(s => {
+        const count = liveSignals.filter(g => s.sig === "all" || (s.sig === "up" ? g.direction === "emerging" : g.direction === "declining")).length;
+        return { liveSignals, signalRuns, whatChanged, courseTotal: meta.courses_count,
+          signalPage: Math.max(1, Math.min(s.signalPage || 1, Math.max(1, Math.ceil(count / 8)))) };
+      });
     } catch (e) { loaded = false; console.warn('FuturePath: could not load trend signals', e); }
     try {
       const signalStatus = await FP_API.json('/api/signals/status');
@@ -1372,120 +1508,19 @@ class Component extends DCLogic {
     }
     try {
       const skillTrends = await FP_API.json('/api/skill-trends');
-      if (this._alive) this.setState({ skillTrends });
+      if (this._alive) this.setState(s => ({ skillTrends,
+        risingPage: Math.max(1, Math.min(s.risingPage || 1, Math.max(1, Math.ceil((skillTrends.rising || []).length / 5)))),
+        decliningPage: Math.max(1, Math.min(s.decliningPage || 1, Math.max(1, Math.ceil((skillTrends.declining || []).length / 5)))) }));
     } catch (e) { loaded = false; console.warn('FuturePath: could not load skill trends', e); }
-    // Fail closed: a failed permission lookup must not reveal an actionable admin button.
-    try {
-      const refreshAccess = await FP_API.json('/api/signals/refresh-access');
-      if (this._alive) this.setState({ refreshAccess });
-    } catch (e) {
-      if (this._alive) this.setState({ refreshAccess: { mode: "unavailable", can_refresh: false, requires_token: false, message: "Live-feed refresh is unavailable; stored evidence is still visible." } });
-    }
     return loaded;
   }
-  async reloadStoredSignals() {
-    if (this.state.refreshing) return;
-    this.setState({ refreshing: true, refreshMsg: "Reloading stored signals…" });
-    const loaded = await this.loadSignals();
-    if (this._alive) this.setState({ refreshing: false, refreshMsg: loaded
-      ? "Saved signals reloaded. No live news or research was fetched."
-      : "Could not reload all saved signals. Try again." });
-  }
-  async refreshSignals() {
-    if (this.state.refreshing) return;
-    const access = this.state.refreshAccess;
-    if (!access?.can_refresh || !this.state.signalStatus || this.state.signalStatus.public_demo) return this.setState({ refreshMsg: access?.message || "Live-feed refresh is not permitted here." });
-    const headers = {};
-    if (access.requires_token) {
-      // Never put the admin secret in app state, localStorage or a URL.
-      const token = window.prompt("Administrator-only: enter ADMIN_TOKEN to refresh feeds (not saved):");
-      if (token === null) return;
-      if (!token.trim()) return this.setState({ refreshMsg: "An administrator token is required." });
-      headers.Authorization = "Bearer " + token.trim();
-    }
-    if (!window.confirm("Fetch live feeds now? Tagging may incur Claude API charges. Continue?")) return;
-    this.setState({ refreshing: true, refreshMsg: "Fetching and validating live evidence…" });
-    try {
-      const r = await FP_API.send('/api/signals/refresh', { method: 'POST', headers });
-      if (!this._alive) return;
-      this.setState({ refreshing: false, refreshMsg: "Refresh " + r.status + ": checked " + r.checked + " items; " + (r.pending_count ?? r.pending ?? 0) + " pending review, " + (r.accepted ?? 0) + " approved. Unreviewed items do not affect rankings." });
-      await this.loadSignals();
-    } catch (err) {
-      if (this._alive) this.setState({ refreshing: false, refreshMsg: "Live-feed refresh failed. Check access and try again." });
-    }
-  }
-  reviewAccessAllowed() {
-    return this.state.refreshAccess?.mode === "admin" && !!this.state.signalStatus && !this.state.signalStatus.public_demo;
-  }
-  reviewErrorMessage(err) {
-    const message = String(err?.message || "");
-    const match = [401, 403, 409].includes(err?.status) ? [null, String(err.status)] : message.match(/\b(401|403|409)\b/);
-    if (match?.[1] === "401") return "Administrator authentication failed (401). Check the token and try again.";
-    if (match?.[1] === "403") return "Review access is forbidden (403). Public demo mode or administrator permissions may block this action.";
-    if (match?.[1] === "409") return "This item changed before the decision could be saved (409). Reload the queue.";
-    if (/unauthori[sz]ed|invalid token|authentication/i.test(message)) return "Administrator authentication failed (401). Check the token and try again.";
-    if (/forbidden|public demo|administrator access/i.test(message)) return "Review access is forbidden (403). Public demo mode or administrator permissions may block this action.";
-    if (/conflict|already reviewed|already decided|state changed/i.test(message)) return "This item changed before the decision could be saved (409). Reload the queue.";
-    return "The review request failed. Try again later.";
-  }
-  async loadReviewQueue() {
-    return this.loadReviewQueueFor(this.state.reviewFilter || "pending");
-  }
-  async loadReviewQueueFor(statusOverride) {
-    this.setState({ reviewOpen: true });
-    if (!this.reviewAccessAllowed()) return this.setState({ reviewMsg: "Administrator review is unavailable in this mode." });
-    const token = window.prompt("Administrator review: enter ADMIN_TOKEN (used for this request only):");
-    if (token === null) return this.setState({ reviewMsg: "Queue loading cancelled." });
-    if (!token.trim()) return this.setState({ reviewMsg: "An administrator token is required." });
-    const status = statusOverride || this.state.reviewFilter || "pending";
-    this.setState({ reviewLoading: true, reviewMsg: "Loading protected review queue…", reviewOpen: true });
-    try {
-      const result = await FP_API.send('/api/signals/review?status=' + encodeURIComponent(status), {
-        method: "GET",
-        headers: { Authorization: "Bearer " + token.trim(), Accept: "application/json" }
-      });
-      if (!this._alive) return;
-      const items = Array.isArray(result.items) ? result.items : [];
-      this.setState({ reviewItems: items, reviewTotal: Number(result.total) || 0, reviewLoading: false, reviewMsg: items.length ? "Queue loaded. Pending evidence is excluded from career rankings." : "No " + status + " evidence items in this queue." });
-    } catch (err) {
-      if (this._alive) this.setState({ reviewLoading: false, reviewItems: [], reviewTotal: 0, reviewMsg: this.reviewErrorMessage(err) });
-    }
-  }
-  async decideSignal(id, decision) {
-    if (!this.reviewAccessAllowed()) return this.setState({ reviewMsg: "Administrator review is unavailable in this mode." });
-    const token = window.prompt("Administrator review: enter ADMIN_TOKEN (used for this request only):");
-    if (token === null) return this.setState({ reviewMsg: "Decision cancelled. No change was made." });
-    if (!token.trim()) return this.setState({ reviewMsg: "An administrator token is required. No change was made." });
-    const verb = decision === "approve" ? "Approve" : "Reject";
-    if (!window.confirm(verb + " this evidence item?")) return this.setState({ reviewMsg: "Decision cancelled. No change was made." });
-    const reason = window.prompt("Optional decision reason (leave blank for none):", "");
-    if (reason === null) return this.setState({ reviewMsg: "Decision cancelled. No change was made." });
-    this.setState({ reviewLoading: true, reviewMsg: verb + "ing evidence…" });
-    try {
-      await FP_API.send('/api/signals/review/' + encodeURIComponent(id) + '/' + decision, {
-        method: "POST",
-        headers: { Authorization: "Bearer " + token.trim(), "Content-Type": "application/json" },
-        body: JSON.stringify(reason.trim() ? { reason: reason.trim().slice(0, 500) } : {})
-      });
-      if (!this._alive) return;
-      this.setState({ reviewMsg: decision === "approve" ? "Evidence approved. Refreshing stored signals and career results…" : "Evidence rejected. The queue and pending count are being refreshed." });
-      await Promise.all([this.loadReviewQueueAfterDecision(token), this.loadSignals()]);
-      if (decision === "approve") await this.refreshLiveCareers();
-    } catch (err) {
-      if (this._alive) this.setState({ reviewLoading: false, reviewMsg: this.reviewErrorMessage(err) });
-    }
-  }
-  async loadReviewQueueAfterDecision(token) {
-    // Reuse only the action's short-lived local credential; never retain it in state.
-    try {
-      const status = this.state.reviewFilter || "pending";
-      const result = await FP_API.send('/api/signals/review?status=' + encodeURIComponent(status), {
-        method: "GET",
-        headers: { Authorization: "Bearer " + token.trim(), Accept: "application/json" }
-      });
-      if (this._alive) this.setState({ reviewItems: Array.isArray(result.items) ? result.items : [], reviewTotal: Number(result.total) || 0, reviewLoading: false });
-    } catch (err) {
-      if (this._alive) this.setState({ reviewLoading: false, reviewMsg: "Decision saved, but " + this.reviewErrorMessage(err) });
+  async loadStoredEvidence() {
+    const rows = [];
+    for (let offset = 0; ; offset += 200) {
+      const batch = await FP_API.json('/api/signals?limit=200&offset=' + offset);
+      if (!Array.isArray(batch)) throw new Error("Stored evidence is unavailable");
+      rows.push(...batch);
+      if (batch.length < 200) return rows;
     }
   }
   async refreshLiveCareers() {
@@ -1534,7 +1569,7 @@ class Component extends DCLogic {
     this.loadScenarioPair(roleId);
     if (openPathway) this.go('pathway');
   }
-  componentWillUnmount() { this._alive = false; clearInterval(this._t); clearInterval(this._signalsPoll); if (this._translationObserver) this._translationObserver.disconnect(); try { window.removeEventListener("popstate", this._onPop); } catch (e) {} }
+  componentWillUnmount() { this._alive = false; clearInterval(this._t); if (this._translationObserver) this._translationObserver.disconnect(); try { window.removeEventListener("popstate", this._onPop); } catch (e) {} }
   togglePathStep(key, id) {
     const cur = new Set((this.state.pathDone || {})[key] || []);
     cur.has(id) ? cur.delete(id) : cur.add(id);
@@ -1548,7 +1583,6 @@ class Component extends DCLogic {
     this.setState({ lang: locale });
   }
   go(p) {
-    if (p === 'signals' && this.state.page !== 'signals') this.loadSignals();
     this.setState({ page: p });
     try { if (location.pathname !== PAGE_PATH[p]) history.pushState({ page: p }, "", PAGE_PATH[p]); window.scrollTo(0, 0); } catch (e) {}
   }
@@ -1810,35 +1844,42 @@ class Component extends DCLogic {
       skipQuiz: () => { if (!st.saving) this.saveProfile(false); }, finishQuiz: () => { if (!st.saving && quizComplete) this.saveProfile(true); },
       finishLbl: st.saving ? "Saving…" : "See my results →", finishOp: quizComplete && !st.saving ? "1" : ".45",
       confirmError: st.confirmError, hasConfirmError: !!st.confirmError, startError: st.startError, hasStartError: !!st.startError };
-    // Signals page: stored trend signals from /api/signals (curated reports + refreshed feeds), newest first.
-    const TAG = { curated: ["Curated report", "var(--upbg)", "var(--up)"], claude: ["AI-tagged feed", "var(--soft)", "var(--pr)"], keyword: ["Reviewed feed", "var(--sf2)", "var(--mu)"] };
-    const fmtDate = d => { try { return new Date(d + (d.length === 10 ? "T00:00:00" : "")).toLocaleDateString(fpIntlLocale(st.lang), { day: "numeric", month: "short", year: "numeric" }); } catch (e) { return d; } };
-    // Keep verified imported live evidence first, then archived curated reports, all sorted by publication date.
-    const visibleEvidence = st.liveSignals.filter(x => st.sig === "all" || (st.sig === "up") === (x.direction === "emerging"))
-      .sort((a,b) => Number(a.tagged_by === 'curated') - Number(b.tagged_by === 'curated')
-        || String(b.published_date).localeCompare(String(a.published_date))
-        || (Number(b.id) || 0) - (Number(a.id) || 0));
-    const signalsTotal = visibleEvidence.length, signalPagesTotal = Math.max(1, Math.ceil(signalsTotal / 8));
-    const signalsCurrent = Math.min(signalPagesTotal, Math.max(1, Number(st.signalsPage) || 1));
-    const goSignalsPage = page => this.setState({ signalsPage: Math.min(signalPagesTotal, Math.max(1, page)) });
-    // Keep page-number buttons bounded as the live evidence collection grows.
-    const signalPageFirst = Math.max(1, Math.min(signalsCurrent - 2, signalPagesTotal - 4));
-    const signalPageLast = Math.min(signalPagesTotal, signalPageFirst + 4);
-    const signalsPages = Array.from({ length:signalPageLast-signalPageFirst+1 }, (_, i) => {
-      const n = signalPageFirst+i;
-      return { n, current:String(signalsCurrent === n),
-        bg:signalsCurrent === n ? 'var(--pr)' : 'var(--sf)',
-        c:signalsCurrent === n ? 'var(--pri)' : 'var(--ink)', go:()=>goSignalsPage(n) };
-    });
-    const signals = visibleEvidence.slice((signalsCurrent-1)*8,signalsCurrent*8).map(x => { const tag = TAG[x.tagged_by] || TAG.keyword;
-      return { t: x.title, summary: x.summary === x.title ? "" : x.summary, url: x.url, type: x.source_type[0].toUpperCase() + x.source_type.slice(1),
+    // Preserve the API's publication-chronological order; never sort evidence by ingestion time.
+    const TAG = { curated: ["Curated & verified", "var(--upbg)", "var(--up)"], claude: ["Tagged by Claude", "var(--soft)", "var(--pr)"], keyword: ["Keyword fallback", "var(--sf2)", "var(--mu)"] };
+    const localeText = {
+      en: { curated: "Curated evidence", validated: "AI-validated live evidence", stored: "Stored evidence", unknown: "Provenance unavailable", published: "Published", pending: "Not published: unverified evidence is held back", verified: "Verified", unverified: "Unverified", pendingStatus: "Pending verification", rejected: "Rejected" },
+      ms: { curated: "Bukti pilihan", validated: "Bukti langsung disahkan AI", stored: "Bukti tersimpan", unknown: "Asal-usul tidak tersedia", published: "Diterbitkan", pending: "Tidak diterbitkan: bukti belum disahkan ditahan", verified: "Disahkan", unverified: "Belum disahkan", pendingStatus: "Menunggu pengesahan", rejected: "Ditolak" },
+      zh: { curated: "精选证据", validated: "经 AI 验证的实时证据", stored: "已存储证据", unknown: "来源信息不可用", published: "发布日期", pending: "未发布：未经验证的证据不会公开", verified: "已验证", unverified: "未验证", pendingStatus: "等待验证", rejected: "已拒绝" }
+    }[st.lang] || { curated: "Curated evidence", validated: "AI-validated live evidence", stored: "Stored evidence", unknown: "Provenance unavailable", published: "Published", pending: "Not published: unverified evidence is held back", verified: "Verified", unverified: "Unverified", pendingStatus: "Pending verification", rejected: "Rejected" };
+    const fmtDate = value => {
+      if (!value) return "—";
+      try {
+        const raw = String(value), date = new Date(/^\d{4}-\d{2}-\d{2}$/.test(raw) ? raw + "T00:00:00" : raw);
+        return Number.isNaN(date.getTime()) ? raw : date.toLocaleDateString(fpIntlLocale(st.lang), { day: "numeric", month: "short", year: "numeric" });
+      } catch (e) { return String(value); }
+    };
+    const provenanceLabel = row => {
+      const translated = { curated: localeText.curated, live_ai_validated: localeText.validated, stored: localeText.stored }[row.provenance];
+      return (st.lang === "en" && row.provenance_label) || translated || row.provenance_label || localeText.unknown;
+    };
+    const verificationLabel = value => {
+      const normalized = String(value || "").toLowerCase().replace(/[\s-]+/g, "_");
+      return ({ verified: localeText.verified, validated: localeText.verified, live_ai_validated: localeText.verified,
+        unverified: localeText.unverified, pending: localeText.pendingStatus, pending_verification: localeText.pendingStatus,
+        rejected: localeText.rejected }[normalized] || String(value || ""));
+    };
+    const signals = (st.liveSignals || []).filter(x => st.sig === "all" || (st.sig === "up") === (x.direction === "emerging")).map(x => { const tag = TAG[x.tagged_by] || TAG.keyword;
+      const published = x.published_at || x.published_date;
+      const sourceType = String(x.source_type || "evidence");
+      return { t: x.title, summary: x.summary === x.title ? "" : x.summary, url: x.url, type: sourceType ? sourceType[0].toUpperCase() + sourceType.slice(1) : "Evidence",
+        provenance: provenanceLabel(x), verification: verificationLabel(x.verification_status), published: fmtDate(published), provenanceCode: x.provenance || "",
         dir: x.direction === "emerging" ? "↑ Emerging" : "↓ Declining", dc: x.direction === "emerging" ? "var(--sky)" : "var(--dn)", db: x.direction === "emerging" ? "var(--skybg)" : "var(--dnbg)",
-        tag: tag[0], tb: tag[1], tc: tag[2], dots: "●".repeat(x.strength) + "○".repeat(5 - x.strength),
-        roles: x.role_titles.length ? x.role_titles.join(", ") : (x.skill_ids.length ? "Linked through skills only" : "General context"),
-        src: x.source_name + " · " + new Date(x.published_date + "T00:00:00").toLocaleDateString(fpIntlLocale(st.lang), { month: "short", year: "numeric" }) }; });
+        tag: tag[0], tb: tag[1], tc: tag[2], dots: "●".repeat(Math.max(0, Math.min(5, Number(x.strength) || 0)) ) + "○".repeat(5 - Math.max(0, Math.min(5, Number(x.strength) || 0))),
+        roles: (x.role_titles || []).length ? x.role_titles.join(", ") : ((x.skill_ids || []).length ? "Linked through skills only" : "General context"),
+        src: x.source_name || "Unknown source" }; });
     const f = k => st.sig === k ? { b: "var(--pr)", c: "var(--pri)" } : { b: "var(--sf)", c: "var(--ink)" };
     const lastRun = st.signalRuns[0];
-    const sigUpdated = st.liveSignals.length ? fmtDate(st.liveSignals.map(x => x.fetched_at).sort().slice(-1)[0]) : "—";
+    const sigUpdated = st.liveSignals.length ? fmtDate(st.liveSignals[0].published_at || st.liveSignals[0].published_date || st.liveSignals[0].fetched_at) : "—";
     const sigLastRun = lastRun ? (lastRun.status === "ok" ? "● OK" : lastRun.status === "running" ? "● Running" : "● " + lastRun.status[0].toUpperCase() + lastRun.status.slice(1)) + " · " + lastRun.accepted + " accepted · " + fmtDate(lastRun.finished_at || lastRun.started_at) : "Not refreshed yet";
     const sigLastRunC = !lastRun ? "var(--mu)" : lastRun.status === "ok" ? "var(--up)" : lastRun.status === "failed" ? "var(--dn)" : "var(--am)";
     const sigFeeds = lastRun ? lastRun.feeds.map(x => ({ name: x.name, state: x.ok ? x.items + " items" : "failed: " + (x.error || "error"), c: x.ok ? "var(--mu)" : "var(--dn)" })) : [];
@@ -1849,74 +1890,6 @@ class Component extends DCLogic {
       return Number.isNaN(date.getTime()) ? "—" : date.toLocaleString(fpIntlLocale(st.lang), { day: "numeric", month: "short", year: "numeric", hour: "numeric", minute: "2-digit" });
     };
     const feedStatus = st.signalStatus;
-    const lang = st.lang === 'ms' ? 'ms' : st.lang === 'zh' ? 'zh' : 'en';
-    // Never claim daily updates if the scheduler is disabled or the host is asleep.
-    const uiText = {
-      en: { auto:'Automatic evidence checks', off:'Checks paused in this environment',
-        schedule:'Best-effort checks every {n} hours while the server runs',
-        last:'Last successful source check', next:'Next expected check', none:'Not available',
-        status:'Status', ready:'Latest check completed', partial:'Some sources failed; saved evidence remains available',
-        failed:'Latest check failed; saved evidence remains available', running:'Checking sources…',
-        waiting:'Awaiting first check', paused:'Checks paused',
-        held:'AI verification is off; new feed items remain staged, not published',
-        active:'AI validation enabled; passing sources can publish automatically',
-        inactive:'Stored evidence only until automatic checks are enabled',
-        empty:'No signals match this filter yet.',
-        page:'Page', of:'of', previous:'Previous', nextButton:'Next' },
-      ms: { auto:'Semakan bukti automatik', off:'Semakan dijeda dalam pemasangan ini',
-        schedule:'Semakan usaha terbaik setiap {n} jam ketika pelayan beroperasi',
-        last:'Semakan sumber berjaya terakhir',next:'Semakan seterusnya dijangka',none:'Tidak tersedia',
-        status:'Status',ready:'Semakan terkini selesai',partial:'Sebahagian sumber gagal; bukti tersimpan masih tersedia',
-        failed:'Semakan terakhir gagal; bukti tersimpan masih tersedia',running:'Menyemak sumber…',
-        waiting:'Menunggu semakan pertama',paused:'Semakan dijeda',
-        held:'Pengesahan AI dimatikan; sumber baharu disimpan untuk semakan, bukan diterbitkan',
-        active:'Pengesahan AI aktif; sumber yang lulus boleh diterbitkan secara automatik',
-        inactive:'Bukti tersimpan sahaja sehingga semakan automatik diaktifkan',
-        empty:'Tiada isyarat yang sepadan dengan penapis ini.',
-        page:'Halaman',of:'daripada',previous:'Sebelumnya',nextButton:'Seterusnya' },
-      zh: { auto:'自动证据检查',off:'此部署暂停了自动检查',
-        schedule:'服务器运行时，每 {n} 小时尽力检查一次',
-        last:'最近成功来源检查',next:'预计下次检查',none:'不可用',
-        status:'状态',ready:'最近检查已完成',partial:'部分来源检查失败；历史证据仍可查看',
-        failed:'最近检查失败；历史证据仍可查看',running:'正在检查来源…',
-        waiting:'等待首次检查',paused:'检查已暂停',
-        held:'AI验证未启用；新来源仅暂存，不会自动发布',
-        active:'AI验证已启用；通过审核的来源可自动发布',
-        inactive:'启用自动检查前仅显示已保存证据',
-        empty:'此筛选条件下暂无信号。',
-        page:'第',of:'页，共',previous:'上一页',nextButton:'下一页' }
-    }[lang];
-    const hours = Number(feedStatus?.interval_hours);
-    const sigAutoFrequency = feedStatus?.enabled && Number.isFinite(hours) && hours > 0
-      ? uiText.schedule.replace('{n}', String(hours)) : uiText.off;
-    const successDate = statusDate(feedStatus?.last_successful_at);
-    const sigLastSuccessful = successDate === '—' ? uiText.none : successDate;
-    const sigNextExpected = feedStatus?.enabled && feedStatus?.next_due
-      ? statusDate(feedStatus.next_due) : uiText.none;
-    const sigHealth = !feedStatus?.enabled ? uiText.paused : ({
-      ok:uiText.ready, partial:uiText.partial, failed:uiText.failed,
-      running:uiText.running
-    }[feedStatus.status] || uiText.waiting);
-    const sigAIGuard = !feedStatus?.enabled ? uiText.inactive
-      : feedStatus?.automatic_ai_enabled ? uiText.active : uiText.held;
-    const reviewRows = (st.reviewItems || []).map(item => {
-      const signal = item.signal || {};
-      const rawUrl = String(signal.url || "");
-      let url = "";
-      try { const parsed = new URL(rawUrl, location.origin); if (["http:", "https:"].includes(parsed.protocol)) url = parsed.href; } catch (e) {}
-      return {
-        id: item.id, status: item.status || "pending", statusLabel: (item.status || "pending").replace(/^\w/, c => c.toUpperCase()),
-        title: signal.title || "Untitled evidence", summary: signal.summary || "No summary supplied.",
-        source: signal.source_name || "Unknown source", sourceType: signal.source_type || "—",
-        published: signal.published_date ? fmtDate(String(signal.published_date)) : "Date not supplied",
-        created: statusDate(item.created_at), reviewed: statusDate(item.reviewed_at),
-        url, direction: signal.direction || "Unclassified", strength: signal.strength ?? "—",
-        notes: item.validation_notes || "", reason: item.decision_reason || "",
-        canDecide: item.status === "pending",
-        approve: () => this.decideSignal(item.id, "approve"),
-        reject: () => this.decideSignal(item.id, "reject")
-      };
-    });
     const wc = st.whatChanged;
     const wcMoves = (wc?.moves || []).slice(0, 3).map(m => ({ text: m.after_rank < m.before_rank ? `${m.title} moved up from #${m.before_rank} to #${m.after_rank}` : m.after_rank > m.before_rank ? `${m.title} moved down from #${m.before_rank} to #${m.after_rank}` : `${m.title} stayed at #${m.after_rank}`,
       why: `Trends ${m.before_trend} → ${m.after_trend} from ${m.new_signals} new signal${m.new_signals === 1 ? "" : "s"}` }));
@@ -2081,6 +2054,7 @@ class Component extends DCLogic {
       pathTitle: fpActive?.title || 'Choose a career on the results page',
       pathIntroduction: `${st.fast ? 'Fast' : 'Moderate'} AI disruption · ${studyHours} h a week · free, low-cost and HRD Corp claimable courses`,
       pathSdgs: (fpActive?.sdgs || []).map(n => ({ n, label:`SDG ${n} · ${SDG_GOALS[n] || 'Sustainable Development Goal'}`, c: SDG[n] || 'var(--pr)' })),
+      pathSdgJustification: fpActive?.sdg_justification || 'Select a career to see its SDG connection.',
       // Hours and weeks still to go: completed steps no longer count.
       ...(left => ({ pathHours: pathHoursNum ? left : '—', pathWeeks: pathHoursNum ? Math.ceil(left / studyHours) : '—',
         pathHoursLbl: fpSteps.some(x => x.done) ? 'hours left' : 'hours', pathWeeksLbl: fpSteps.some(x => x.done) ? 'weeks left' : 'weeks' }))
@@ -2093,36 +2067,73 @@ class Component extends DCLogic {
       pathProgressNote: `steps completed · ${Math.round(fpSteps.filter(x => x.done).reduce((a, x) => a + x.hours, 0))} of ${pathHoursNum} hours done`,
       steps: fpSteps,
       weeks: [1, 2, 3, 4, 5, 6].map(w => ({ w, bg: w <= 4 ? (w <= 2 ? "var(--pr)" : "color-mix(in oklch, var(--pr) 60%, var(--sf))") : (w <= 7 ? "var(--sky)" : "var(--up)") })),
-      // Signals page.
-       signals, sigCount: signalsTotal, sigUpdated, sigLastRun, sigLastRunC, sigFeeds,
-        signalsPages, signalsCurrent, signalsTotal: signalPagesTotal,
-        sigNoMatches: signalsTotal === 0, sigNoMatchesLbl: uiText.empty,
-        signalsPrev:()=>goSignalsPage(signalsCurrent-1),signalsNext:()=>goSignalsPage(signalsCurrent+1),
-        signalsFirst:signalsCurrent===1,signalsLast:signalsCurrent===signalPagesTotal,
-        pagerPrevLbl:uiText.previous,pagerNextLbl:uiText.nextButton,pagerPageLbl:uiText.page,pagerOfLbl:uiText.of,
-        sigAutoTitle:uiText.auto,sigAutoFrequency,
-        sigLastSuccessTitle:uiText.last,sigLastSuccessful,sigNextTitle:uiText.next,sigNextExpected,
-        sigHealthTitle:uiText.status,sigHealth,sigAIGuard:uiText.held,
-       sigChecked: statusDate(feedStatus?.last_checked), sigDue: statusDate(feedStatus?.next_due),
-       sigPending: feedStatus ? Number(feedStatus.pending_count) || 0 : "—",
-       sigAutoStatus: feedStatus?.status || (feedStatus ? "unknown" : "Unavailable"),
-       sigInterval: feedStatus?.interval_hours ?? "—", sigTagger: feedStatus?.automatic_tagger || "keywords",
-        reviewEnabled: st.refreshAccess?.mode === "admin" && !!feedStatus && !feedStatus.public_demo,
-       reviewOpen: !!st.reviewOpen, reviewLoading: !!st.reviewLoading, reviewItems: reviewRows,
-       reviewTotal: Number(st.reviewTotal) || 0, reviewFilter: st.reviewFilter || "pending", reviewMsg: st.reviewMsg || "",
-       loadReviewQueue: () => this.loadReviewQueue(),
-        showPendingReview: () => { this.setState({ reviewFilter: "pending" }); this.loadReviewQueueFor("pending"); },
-        showApprovedReview: () => { this.setState({ reviewFilter: "approved" }); this.loadReviewQueueFor("approved"); },
-        showRejectedReview: () => { this.setState({ reviewFilter: "rejected" }); this.loadReviewQueueFor("rejected"); },
-        showAllReview: () => { this.setState({ reviewFilter: "all" }); this.loadReviewQueueFor("all"); },
-        closeReview: () => this.setState({ reviewOpen: false, reviewItems: [], reviewTotal: 0 }),
-      refreshSignals: () => this.refreshSignals(), reloadSignals: () => this.reloadStoredSignals(),
-       adminRefreshAvailable: !!st.refreshAccess?.can_refresh && !!st.signalStatus && !st.signalStatus.public_demo,
-      refreshAccessMsg: st.refreshAccess?.message || "Checking refresh permissions…",
-      refreshLbl: st.refreshing ? "Working…" : "Admin: refresh live feeds",
-      reloadLbl: st.refreshing ? "Loading…" : "Reload saved signals",
-      refreshMsg: st.refreshMsg, hasRefreshMsg: !!st.refreshMsg,
-      fAll: () => this.setState({ sig: "all", signalsPage: 1 }), fUp: () => this.setState({ sig: "up", signalsPage: 1 }), fDn: () => this.setState({ sig: "dn", signalsPage: 1 }),
+       // Signals page. Each list has independent page state; the trend arrays are fully prepared by skill_trends_view.
+        ...(() => {
+          const words = ({
+            en: { automatic: "Automatic updates", frequency: "Frequency", every: "Every 24 hours", last: "Last successful check", next: "Next expected run", unavailable: "Unavailable — best-effort schedule", unavailableStatus: "Unavailable", status: "Status", health: "Health", off: "Off", ai: "AI verification", quarantined: "Held unverified", noPublish: "AI verification is off. No new unverified evidence is published.", published: "Published", evidenceUpdated: "LATEST EVIDENCE", intro: "Curated reports form the baseline. New evidence appears only after validation; unverified evidence stays out of rankings.", previous: "Previous page", nextPage: "Next page", page: "Page", of: "of", noStatus: "Update status is temporarily unavailable.", risingNav: "Rising skills pages", decliningNav: "Declining skills and jobs pages", signalNav: "Signal evidence pages", emptyTrends: "No trend evidence is available yet.", emptySignals: "No signals match this filter." },
+            ms: { automatic: "Kemas kini automatik", frequency: "Kekerapan", every: "Setiap 24 jam", last: "Semakan terakhir yang berjaya", next: "Jangkaan semakan seterusnya", unavailable: "Tidak tersedia — jadual usaha terbaik", unavailableStatus: "Tidak tersedia", status: "Status", health: "Kesihatan", off: "Dimatikan", ai: "Pengesahan AI", quarantined: "Ditahan tanpa pengesahan", noPublish: "Pengesahan AI dimatikan. Bukti baharu yang belum disahkan tidak diterbitkan.", published: "Diterbitkan", evidenceUpdated: "BUKTI TERKINI", intro: "Laporan pilihan menjadi asas. Bukti baharu hanya dipaparkan selepas pengesahan; bukti belum disahkan tidak dimasukkan dalam kedudukan.", previous: "Halaman sebelumnya", nextPage: "Halaman seterusnya", page: "Halaman", of: "daripada", noStatus: "Status kemas kini tidak tersedia buat sementara waktu.", risingNav: "Halaman kemahiran meningkat", decliningNav: "Halaman kemahiran dan pekerjaan menurun", signalNav: "Halaman bukti isyarat", emptyTrends: "Bukti trend belum tersedia.", emptySignals: "Tiada isyarat yang sepadan dengan penapis ini." },
+            zh: { automatic: "自动更新", frequency: "频率", every: "每 24 小时", last: "最近一次成功检查", next: "预计下次运行", unavailable: "暂不可用 — 尽力安排，非保证时间", unavailableStatus: "不可用", status: "状态", health: "运行状况", off: "已关闭", ai: "AI 验证", quarantined: "未验证内容已暂存", noPublish: "AI 验证已关闭。新的未验证证据不会发布。", published: "发布日期", evidenceUpdated: "最新证据", intro: "精选报告构成基线。新证据只有通过验证后才会显示；未经验证的证据不会影响排名。", previous: "上一页", nextPage: "下一页", page: "第", of: "页，共", noStatus: "更新状态暂时不可用。", risingNav: "上升技能分页", decliningNav: "下降技能和职业分页", signalNav: "信号证据分页", emptyTrends: "暂无趋势证据。", emptySignals: "没有符合此筛选条件的信号。" }
+          })[st.lang] || { automatic: "Automatic updates", frequency: "Frequency", every: "Every 24 hours", last: "Last successful check", next: "Next expected run", unavailable: "Unavailable — best-effort schedule", unavailableStatus: "Unavailable", status: "Status", health: "Health", off: "Off", ai: "AI verification", quarantined: "Held unverified", noPublish: "AI verification is off. No new unverified evidence is published.", published: "Published", evidenceUpdated: "LATEST EVIDENCE", intro: "Curated reports form the baseline. New evidence appears only after validation; unverified evidence stays out of rankings.", previous: "Previous page", nextPage: "Next page", page: "Page", of: "of", noStatus: "Update status is temporarily unavailable.", risingNav: "Rising skills pages", decliningNav: "Declining skills and jobs pages", signalNav: "Signal evidence pages", emptyTrends: "No trend evidence is available yet.", emptySignals: "No signals match this filter." };
+          const pageMeta = (total, current, prefix) => Array.from({ length: total }, (_, i) => {
+            const page = i + 1;
+            const isCurrent = page === current;
+            return { label: String(page), current: isCurrent ? "page" : "false", isCurrent,
+              border: isCurrent ? "var(--pr)" : "var(--ln)", background: isCurrent ? "var(--soft)" : "var(--sf)", color: isCurrent ? "var(--pr)" : "var(--ink)",
+              ariaLabel: `${words.page} ${page} ${words.of} ${total}`, change: () => this.setState({ [prefix]: page }) };
+          });
+          const rising = Array.isArray(out.trRising) ? out.trRising : [], declining = Array.isArray(out.trDecl) ? out.trDecl : [];
+          const risingCount = Math.max(1, Math.ceil(rising.length / 5)), decliningCount = Math.max(1, Math.ceil(declining.length / 5));
+          const risingPage = Math.min(st.risingPage || 1, risingCount), decliningPage = Math.min(st.decliningPage || 1, decliningCount);
+          const signalCount = signals.length, signalPageCount = Math.max(1, Math.ceil(signalCount / 8));
+          const signalPage = Math.min(st.signalPage || 1, signalPageCount);
+           const knownStatus = st.lang === "ms"
+             ? { ok: "Baik", healthy: "Sihat", running: "Sedang berjalan", failed: "Gagal", degraded: "Terjejas", unavailable: "Tidak tersedia", unknown: "Tidak diketahui", best_effort: "Usaha terbaik" }
+             : st.lang === "zh"
+               ? { ok: "正常", healthy: "健康", running: "运行中", failed: "失败", degraded: "受影响", unavailable: "不可用", unknown: "未知", best_effort: "尽力运行" }
+               : { ok: "OK", healthy: "Healthy", running: "Running", failed: "Failed", degraded: "Degraded", unavailable: "Unavailable", unknown: "Unknown", best_effort: "Best effort" };
+           const statusLabel = value => {
+             if (!value) return words.unavailableStatus;
+             const key = String(value).toLowerCase().replace(/[\s-]+/g, "_");
+             return knownStatus[key] || String(value).replace(/[_-]+/g, " ").replace(/^\w/, c => c.toUpperCase());
+           };
+          return {
+            signals: signals.slice((signalPage - 1) * 8, signalPage * 8), sigCount: signalCount, sigUpdated, sigLastRun, sigLastRunC, sigFeeds,
+            sigStatusTitle: words.automatic, sigFrequencyLabel: words.frequency, sigFrequency: words.every,
+            sigLastSuccessLabel: words.last, sigLastSuccess: statusDate(feedStatus?.last_successful_check),
+            sigNextLabel: words.next, sigNextExpected: feedStatus?.schedule_guaranteed === false ? words.unavailable : statusDate(feedStatus?.next_expected_run),
+            sigStatusLabel: words.status, sigHealthLabel: words.health,
+            sigAutoStatus: statusLabel(feedStatus?.status), sigHealth: statusLabel(feedStatus?.health),
+            sigAIlabel: words.ai, sigAIStatus: feedStatus?.paid_verification_enabled === true ? (st.lang === "ms" ? "Dihidupkan" : st.lang === "zh" ? "已启用" : "On") : words.off,
+            sigQuarantinedLabel: words.quarantined, sigQuarantined: Number.isFinite(Number(feedStatus?.quarantined_count)) ? Number(feedStatus.quarantined_count) : 0,
+             sigStatusMessage: feedStatus?.message || words.noStatus, sigNoPublish: words.noPublish,
+             sigIntro: words.intro, sigUpdatedLabel: words.evidenceUpdated,
+            trRising: rising.slice((risingPage - 1) * 5, risingPage * 5),
+            trDecl: declining.slice((decliningPage - 1) * 5, decliningPage * 5),
+            risingPages: pageMeta(rising.length ? risingCount : 0, risingPage, "risingPage"),
+            decliningPages: pageMeta(declining.length ? decliningCount : 0, decliningPage, "decliningPage"),
+            sigPages: pageMeta(signalCount ? signalPageCount : 0, signalPage, "signalPage"),
+            hasRisingPages: rising.length > 0, hasDecliningPages: declining.length > 0, hasSigPages: signalCount > 0,
+            showRisingEmpty: rising.length === 0, showDecliningEmpty: declining.length === 0, showSignalsEmpty: signalCount === 0,
+            risingEmpty: words.emptyTrends, decliningEmpty: words.emptyTrends, signalsEmpty: words.emptySignals,
+            sigPublishedLabel: words.published,
+            risingPrev: () => this.setState({ risingPage: Math.max(1, risingPage - 1) }),
+            risingNext: () => this.setState({ risingPage: Math.min(risingCount, risingPage + 1) }),
+            decliningPrev: () => this.setState({ decliningPage: Math.max(1, decliningPage - 1) }),
+            decliningNext: () => this.setState({ decliningPage: Math.min(decliningCount, decliningPage + 1) }),
+            sigPrev: () => this.setState({ signalPage: Math.max(1, signalPage - 1) }),
+            sigNext: () => this.setState({ signalPage: Math.min(signalPageCount, signalPage + 1) }),
+            risingPrevDisabled: risingPage <= 1, risingNextDisabled: risingPage >= risingCount,
+            decliningPrevDisabled: decliningPage <= 1, decliningNextDisabled: decliningPage >= decliningCount,
+            sigPrevDisabled: signalPage <= 1, sigNextDisabled: signalPage >= signalPageCount,
+            risingPrevEnabled: risingPage > 1, risingNextEnabled: risingPage < risingCount,
+            decliningPrevEnabled: decliningPage > 1, decliningNextEnabled: decliningPage < decliningCount,
+            sigPrevEnabled: signalPage > 1, sigNextEnabled: signalPage < signalPageCount,
+            paginationPrevious: words.previous, paginationNext: words.nextPage,
+            paginationPage: words.page, paginationOf: words.of,
+            risingNavLabel: words.risingNav, decliningNavLabel: words.decliningNav, signalNavLabel: words.signalNav,
+            fAll: () => this.setState({ sig: "all", signalPage: 1 }), fUp: () => this.setState({ sig: "up", signalPage: 1 }), fDn: () => this.setState({ sig: "dn", signalPage: 1 }),
+          };
+        })(),
       fAllB: f("all").b, fAllC: f("all").c, fUpB: f("up").b, fUpC: f("up").c, fDnB: f("dn").b, fDnC: f("dn").c
     };
   }
