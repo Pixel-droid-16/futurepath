@@ -286,3 +286,23 @@ proposal and the renamed submission files, and names the actual
 `SDC2026_KitaHack_*.pdf` files instead of the `TeamName` placeholder. The demo
 video item stays unticked because no verified link exists yet. Only the README's
 reviewed SHA256 entry is updated.
+
+## Daily worker repair, single-pass Signals paging and teammate links (25 October 2026)
+
+Three previously reviewed hashes are updated; the original manifest and the other seventeen
+reviewed hashes are unchanged.
+
+- `frontend/index.html`: reassembled after two source fixes. The Signals trend columns were paged
+  twice (`skill_trends_view.js` cut each list to five cards, then `page_bindings_view.js` paged those
+  five again), so only the first five of 36 rising and 8 declining entries were reachable. The trend
+  view now hands over every card and pages once, and the numbered buttons return to at most five
+  around the current page. No stylesheet, image or original asset changes.
+- `.env.example`: `8235e7e` documents the default-on verified evidence snapshot and the Actions
+  variable and secret needed for automatic publication. Configuration example only.
+- `README.md`: live deployment link and video links (`694ef0d`, `f8e946a`, `1b89b5b`, `5bf4bf0`).
+  Documentation only.
+
+`scripts/update_live_signals.py` (not hash-pinned) is repaired in the same change: it imported a
+function the Signals refactor removed, and its gates no longer matched the new paid-verification
+settings, so the daily GitHub Actions job could not run or publish. These hashes record accepted
+bytes, not correctness; the regression suite remains the evidence for behaviour.

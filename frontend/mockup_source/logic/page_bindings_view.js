@@ -63,13 +63,17 @@
             ms: { automatic: "Kemas kini automatik", frequency: "Kekerapan", every: "Setiap 24 jam", last: "Semakan terakhir yang berjaya", next: "Jangkaan semakan seterusnya", unavailable: "Tidak tersedia — jadual usaha terbaik", unavailableStatus: "Tidak tersedia", status: "Status", health: "Kesihatan", off: "Dimatikan", ai: "Pengesahan AI", quarantined: "Ditahan tanpa pengesahan", noPublish: "Pengesahan AI dimatikan. Bukti baharu yang belum disahkan tidak diterbitkan.", published: "Diterbitkan", evidenceUpdated: "BUKTI TERKINI", intro: "Laporan pilihan menjadi asas. Bukti baharu hanya dipaparkan selepas pengesahan; bukti belum disahkan tidak dimasukkan dalam kedudukan.", previous: "Halaman sebelumnya", nextPage: "Halaman seterusnya", page: "Halaman", of: "daripada", noStatus: "Status kemas kini tidak tersedia buat sementara waktu.", risingNav: "Halaman kemahiran meningkat", decliningNav: "Halaman kemahiran dan pekerjaan menurun", signalNav: "Halaman bukti isyarat", emptyTrends: "Bukti trend belum tersedia.", emptySignals: "Tiada isyarat yang sepadan dengan penapis ini." },
             zh: { automatic: "自动更新", frequency: "频率", every: "每 24 小时", last: "最近一次成功检查", next: "预计下次运行", unavailable: "暂不可用 — 尽力安排，非保证时间", unavailableStatus: "不可用", status: "状态", health: "运行状况", off: "已关闭", ai: "AI 验证", quarantined: "未验证内容已暂存", noPublish: "AI 验证已关闭。新的未验证证据不会发布。", published: "发布日期", evidenceUpdated: "最新证据", intro: "精选报告构成基线。新证据只有通过验证后才会显示；未经验证的证据不会影响排名。", previous: "上一页", nextPage: "下一页", page: "第", of: "页，共", noStatus: "更新状态暂时不可用。", risingNav: "上升技能分页", decliningNav: "下降技能和职业分页", signalNav: "信号证据分页", emptyTrends: "暂无趋势证据。", emptySignals: "没有符合此筛选条件的信号。" }
           })[st.lang] || { automatic: "Automatic updates", frequency: "Frequency", every: "Every 24 hours", last: "Last successful check", next: "Next expected run", unavailable: "Unavailable — best-effort schedule", unavailableStatus: "Unavailable", status: "Status", health: "Health", off: "Off", ai: "AI verification", quarantined: "Held unverified", noPublish: "AI verification is off. No new unverified evidence is published.", published: "Published", evidenceUpdated: "LATEST EVIDENCE", intro: "Curated reports form the baseline. New evidence appears only after validation; unverified evidence stays out of rankings.", previous: "Previous page", nextPage: "Next page", page: "Page", of: "of", noStatus: "Update status is temporarily unavailable.", risingNav: "Rising skills pages", decliningNav: "Declining skills and jobs pages", signalNav: "Signal evidence pages", emptyTrends: "No trend evidence is available yet.", emptySignals: "No signals match this filter." };
-          const pageMeta = (total, current, prefix) => Array.from({ length: total }, (_, i) => {
-            const page = i + 1;
-            const isCurrent = page === current;
-            return { label: String(page), current: isCurrent ? "page" : "false", isCurrent,
-              border: isCurrent ? "var(--pr)" : "var(--ln)", background: isCurrent ? "var(--soft)" : "var(--sf)", color: isCurrent ? "var(--pr)" : "var(--ink)",
-              ariaLabel: `${words.page} ${page} ${words.of} ${total}`, change: () => this.setState({ [prefix]: page }) };
-          });
+          // At most five numbered buttons around the current page; Previous/Next still reach every page.
+          const pageMeta = (total, current, prefix) => {
+            const first = Math.max(1, Math.min(current - 2, total - 4)), last = Math.min(total, first + 4);
+            return Array.from({ length: Math.max(0, last - first + 1) }, (_, i) => {
+              const page = first + i;
+              const isCurrent = page === current;
+              return { label: String(page), current: isCurrent ? "page" : "false", isCurrent,
+                border: isCurrent ? "var(--pr)" : "var(--ln)", background: isCurrent ? "var(--soft)" : "var(--sf)", color: isCurrent ? "var(--pr)" : "var(--ink)",
+                ariaLabel: `${words.page} ${page} ${words.of} ${total}`, change: () => this.setState({ [prefix]: page }) };
+            });
+          };
           const rising = Array.isArray(out.trRising) ? out.trRising : [], declining = Array.isArray(out.trDecl) ? out.trDecl : [];
           const risingCount = Math.max(1, Math.ceil(rising.length / 5)), decliningCount = Math.max(1, Math.ceil(declining.length / 5));
           const risingPage = Math.min(st.risingPage || 1, risingCount), decliningPage = Math.min(st.decliningPage || 1, decliningCount);

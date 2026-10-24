@@ -83,14 +83,17 @@ def test_signals_v2_hides_admin_controls_but_keeps_backend_authorization():
         assert control not in html
     assert '<sc-if value="{{ adminRefreshAvailable }}"' not in html
 
-    # Internal/manual endpoints are not made public simply because buttons vanish.
-    assert "'/api/signals/refresh-access'" in logic
-    assert 'headers.Authorization = "Bearer "' in logic
-    refresh_logic = logic[logic.index('async refreshSignals()'):
-                          logic.index('async refreshLiveCareers()')]
-    assert 'localStorage.setItem' not in refresh_logic
+    # The read-only page carries no admin client code: no token handling and no refresh calls.
+    # The endpoints themselves stay authorised; the tests above check their 401/403 responses.
+    assert "'/api/signals/refresh-access'" not in logic
+    assert 'Authorization' not in logic
+    assert "'/api/signals/refresh'" not in logic
 
     # Changes to the existing V2 source are reflected in the generated file.
     assert html in assembled
-    for pager in ('Rising skills pages', 'Declining skills pages', 'Signals pages'):
-        assert pager in html
+    bindings = (root / 'mockup_source' / 'logic' / 'page_bindings_view.js').read_text(encoding='utf8')
+    for nav, label in (('risingNavLabel', 'Rising skills pages'),
+                       ('decliningNavLabel', 'Declining skills and jobs pages'),
+                       ('signalNavLabel', 'Signal evidence pages')):
+        assert f'aria-label="{{{{ {nav} }}}}"' in html
+        assert label in bindings

@@ -1915,26 +1915,6 @@ class Component extends DCLogic {
     });
     
     const trRising = tr?.rising || [], trDecl = tr?.declining || [];
-    // Keep the two skill columns independent and clamp stale page values if new data arrives.
-    const makePager = (items, requested, field) => {
-      const total = Math.max(1, Math.ceil(items.length / 5));
-      const current = Math.min(total, Math.max(1, Number(requested) || 1));
-      const go = page => this.setState({ [field]: Math.min(total, Math.max(1, page)) });
-      // Five visible page numbers at most; Previous/Next still navigate every page.
-      const firstVisible = Math.max(1, Math.min(current - 2, total - 4));
-      const lastVisible = Math.min(total, firstVisible + 4);
-      return { current, total, first: current === 1, last: current === total,
-        pages: Array.from({length:lastVisible-firstVisible+1}, (_,i) => {
-          const n = firstVisible + i;
-          return { n, current: String(current === n),
-            bg: current === n ? 'var(--pr)' : 'var(--sf)',
-            c: current === n ? 'var(--pri)' : 'var(--ink)', go: () => go(n) };
-        }),
-        prev: () => go(current-1), next: () => go(current+1),
-        cards: items.slice((current-1)*5, current*5) };
-    };
-    const rise = makePager(trRising, st.risingPage, 'risingPage');
-    const fall = makePager(trDecl, st.decliningPage, 'decliningPage');
     const sv = st.sigView || 'trends', svOn = k => sv === k ? { b: 'var(--pr)', c: 'var(--pri)' } : { b: 'transparent', c: 'var(--ink)' };
     Object.assign(out, {
       // Signals page switch: Skill trends cards or the list of signals.
@@ -1942,12 +1922,9 @@ class Component extends DCLogic {
       vTrB: svOn('trends').b, vTrC: svOn('trends').c, vTrBOn: String(sv === 'trends'), vSgB: svOn('signals').b, vSgC: svOn('signals').c, vSgBOn: String(sv === 'signals'),
       trReady: !!tr, trLoading: !tr,
       trRisingLbl: `Rising skills (${trRising.length})`, trDeclLbl: `Declining skills & jobs (${trDecl.length})`,  // one text node each, so they translate
-      trRising: rise.cards.map(c => trCard(c, true)), risingEmpty: trRising.length === 0,
-      trDecl: fall.cards.map(c => trCard(c, false)), decliningEmpty: trDecl.length === 0,
-      risingPages: rise.pages, risingCurrent: rise.current, risingTotal: rise.total,
-      risingPrev: rise.prev, risingNext: rise.next, risingFirst: rise.first, risingLast: rise.last,
-      decliningPages: fall.pages, decliningCurrent: fall.current, decliningTotal: fall.total,
-      decliningPrev: fall.prev, decliningNext: fall.next, decliningFirst: fall.first, decliningLast: fall.last,
+      // Every card; page_bindings_view pages each column (paging here too would leave only page 1 reachable).
+      trRising: trRising.map(c => trCard(c, true)),
+      trDecl: trDecl.map(c => trCard(c, false)),
     });
     const SAMPLE_FEED = [
       { dir: "↑", kind: "Emerging", t: "Solar installation roles and vocational teachers expected to grow", src: "Demo · synthetic", roles: "Solar PV Technician, Skills Trainer", c: "var(--up)", bg: "var(--upbg)" },
@@ -2074,13 +2051,17 @@ class Component extends DCLogic {
             ms: { automatic: "Kemas kini automatik", frequency: "Kekerapan", every: "Setiap 24 jam", last: "Semakan terakhir yang berjaya", next: "Jangkaan semakan seterusnya", unavailable: "Tidak tersedia — jadual usaha terbaik", unavailableStatus: "Tidak tersedia", status: "Status", health: "Kesihatan", off: "Dimatikan", ai: "Pengesahan AI", quarantined: "Ditahan tanpa pengesahan", noPublish: "Pengesahan AI dimatikan. Bukti baharu yang belum disahkan tidak diterbitkan.", published: "Diterbitkan", evidenceUpdated: "BUKTI TERKINI", intro: "Laporan pilihan menjadi asas. Bukti baharu hanya dipaparkan selepas pengesahan; bukti belum disahkan tidak dimasukkan dalam kedudukan.", previous: "Halaman sebelumnya", nextPage: "Halaman seterusnya", page: "Halaman", of: "daripada", noStatus: "Status kemas kini tidak tersedia buat sementara waktu.", risingNav: "Halaman kemahiran meningkat", decliningNav: "Halaman kemahiran dan pekerjaan menurun", signalNav: "Halaman bukti isyarat", emptyTrends: "Bukti trend belum tersedia.", emptySignals: "Tiada isyarat yang sepadan dengan penapis ini." },
             zh: { automatic: "自动更新", frequency: "频率", every: "每 24 小时", last: "最近一次成功检查", next: "预计下次运行", unavailable: "暂不可用 — 尽力安排，非保证时间", unavailableStatus: "不可用", status: "状态", health: "运行状况", off: "已关闭", ai: "AI 验证", quarantined: "未验证内容已暂存", noPublish: "AI 验证已关闭。新的未验证证据不会发布。", published: "发布日期", evidenceUpdated: "最新证据", intro: "精选报告构成基线。新证据只有通过验证后才会显示；未经验证的证据不会影响排名。", previous: "上一页", nextPage: "下一页", page: "第", of: "页，共", noStatus: "更新状态暂时不可用。", risingNav: "上升技能分页", decliningNav: "下降技能和职业分页", signalNav: "信号证据分页", emptyTrends: "暂无趋势证据。", emptySignals: "没有符合此筛选条件的信号。" }
           })[st.lang] || { automatic: "Automatic updates", frequency: "Frequency", every: "Every 24 hours", last: "Last successful check", next: "Next expected run", unavailable: "Unavailable — best-effort schedule", unavailableStatus: "Unavailable", status: "Status", health: "Health", off: "Off", ai: "AI verification", quarantined: "Held unverified", noPublish: "AI verification is off. No new unverified evidence is published.", published: "Published", evidenceUpdated: "LATEST EVIDENCE", intro: "Curated reports form the baseline. New evidence appears only after validation; unverified evidence stays out of rankings.", previous: "Previous page", nextPage: "Next page", page: "Page", of: "of", noStatus: "Update status is temporarily unavailable.", risingNav: "Rising skills pages", decliningNav: "Declining skills and jobs pages", signalNav: "Signal evidence pages", emptyTrends: "No trend evidence is available yet.", emptySignals: "No signals match this filter." };
-          const pageMeta = (total, current, prefix) => Array.from({ length: total }, (_, i) => {
-            const page = i + 1;
-            const isCurrent = page === current;
-            return { label: String(page), current: isCurrent ? "page" : "false", isCurrent,
-              border: isCurrent ? "var(--pr)" : "var(--ln)", background: isCurrent ? "var(--soft)" : "var(--sf)", color: isCurrent ? "var(--pr)" : "var(--ink)",
-              ariaLabel: `${words.page} ${page} ${words.of} ${total}`, change: () => this.setState({ [prefix]: page }) };
-          });
+          // At most five numbered buttons around the current page; Previous/Next still reach every page.
+          const pageMeta = (total, current, prefix) => {
+            const first = Math.max(1, Math.min(current - 2, total - 4)), last = Math.min(total, first + 4);
+            return Array.from({ length: Math.max(0, last - first + 1) }, (_, i) => {
+              const page = first + i;
+              const isCurrent = page === current;
+              return { label: String(page), current: isCurrent ? "page" : "false", isCurrent,
+                border: isCurrent ? "var(--pr)" : "var(--ln)", background: isCurrent ? "var(--soft)" : "var(--sf)", color: isCurrent ? "var(--pr)" : "var(--ink)",
+                ariaLabel: `${words.page} ${page} ${words.of} ${total}`, change: () => this.setState({ [prefix]: page }) };
+            });
+          };
           const rising = Array.isArray(out.trRising) ? out.trRising : [], declining = Array.isArray(out.trDecl) ? out.trDecl : [];
           const risingCount = Math.max(1, Math.ceil(rising.length / 5)), decliningCount = Math.max(1, Math.ceil(declining.length / 5));
           const risingPage = Math.min(st.risingPage || 1, risingCount), decliningPage = Math.min(st.decliningPage || 1, decliningCount);

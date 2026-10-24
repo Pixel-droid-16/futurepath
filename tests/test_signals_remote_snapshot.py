@@ -34,7 +34,9 @@ def test_snapshot_document_rejects_invalid_schema_and_deduplicates():
     with pytest.raises(ValueError):
         snapshot.validate_document({**good,'schema_version':2})
 
-def test_opt_in_and_no_network_when_disabled(monkeypatch):
+def test_enabled_by_default_and_no_network_when_disabled(monkeypatch):
     monkeypatch.delenv('SIGNALS_REMOTE_SNAPSHOT_ENABLED',raising=False)
+    assert snapshot.enabled()
+    monkeypatch.setenv('SIGNALS_REMOTE_SNAPSHOT_ENABLED','0')
     monkeypatch.setattr(snapshot.httpx,'get',lambda *a,**kw: pytest.fail('network called'))
     assert snapshot.read_snapshot()==([],None)

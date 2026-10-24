@@ -1,9 +1,9 @@
 {
-  ".env.example": "b7bbc82b8343dccbba996991469e420997c941351f7c1e866d5abfbb9f77f203",
+  ".env.example": "663f5b3f3b8be8d2af5dbca2e02d1007f0b9973839d895bc4a09f85d12956c29",
   "requirements.txt": "f0d94b9ad97b66579cd8850fe55d824eb23fa90a0c622ddfc7ef6e0739123dc7",
   ".gitignore": "c6040ba84b52a1cff8af3c86e3a4f4d991323405be4501d76b5c4c81dbbe82e5",
   "INTEGRATION_EXPLAINED.md": "689634cf946f652d306e00f7887e3a015f9b05e44a1509963eac9686422e023d",
-  "README.md": "6a19d80ab95bdd3ca5f77c9b14a89ac195dc121f0483af09309ba9721e85fc78",
+  "README.md": "36389228947697854704a367bf94b38a700f56ed9603b45cc10a388ed992ae5c",
   "tests/test_ai_providers.py": "22eb2302ea73989d506a1e6d1b41fa23b4909010c60d9f51461462ff01ae5f56",
   "tests/test_api.py": "71c8e74247c4016b8c75a9e8372e39f4cfbb99e75f77e26c64100baacfb65f16",
   "tests/test_engine.py": "b0e7c2b6bf16c12a75ea5bfeff39dc279e1783eed7f3f461efffcb0c81d9f1c4",
@@ -15,7 +15,7 @@
   "backend/engine.py": "e3ac320bbaa8e70173a9c578d1e776491a61b91b7864be3e015c8c3622608463",
   "backend/scenarios.py": "2f42cebac75aa031faec91b5d2907f851c699e2ee735b81faf533b38327cef40",
   "backend/app.py": "f940b030ed34450d1f29ffc62caf65de3c54386d174a0e6a36ebe48d0c8d1d97",
-  "frontend/index.html": "e3df783c241f00c2bcf10476592da96ac14c7304fad690d16a5f9193c4ab0793",
+  "frontend/index.html": "74ccb24abb058bb12e8651fd51d1757f135cbef4b07f9082762b0cc469486812",
   "runpod_worker/Dockerfile": "0e20b5b8358293298ff5980a7f8776178b29da59cc00ad076674ab20045f8a87",
   "runpod_worker/requirements.txt": "acb39588801a9bfb9c9068da669bd3509f3b54e2190672f6232c9c2a8a507970",
   "docs/ARCHITECTURE.md": "4b3f7796832650da5b52d07e4e74efc4ab56cf6fc6bb33c2328e95cac7453a50"

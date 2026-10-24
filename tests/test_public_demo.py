@@ -15,14 +15,27 @@ def test_local_site_is_unchanged_without_public_demo(monkeypatch):
     assert TestClient(app).get("/api/skills").status_code == 200
 
 
-def test_public_demo_requires_secret_before_app_is_exposed(monkeypatch):
+def test_public_demo_is_open_to_visitors_by_default(monkeypatch):
     monkeypatch.setenv("FUTUREPATH_PUBLIC_DEMO", "1")
+    monkeypatch.delenv("FUTUREPATH_DEMO_REQUIRE_PASSWORD", raising=False)
+    monkeypatch.delenv("FUTUREPATH_DEMO_PASSWORD", raising=False)
+    client = TestClient(app)
+    assert client.get("/start").status_code == 200
+    assert client.get("/api/skills").status_code == 200
+    # Opening the pages does not reopen the administrative writes.
+    assert client.post("/api/signals/refresh").status_code == 403
+
+
+def test_required_passcode_needs_secret_before_app_is_exposed(monkeypatch):
+    monkeypatch.setenv("FUTUREPATH_PUBLIC_DEMO", "1")
+    monkeypatch.setenv("FUTUREPATH_DEMO_REQUIRE_PASSWORD", "1")
     monkeypatch.delenv("FUTUREPATH_DEMO_PASSWORD", raising=False)
     assert TestClient(app).get("/start").status_code == 503
 
 
-def test_public_demo_requires_passcode_on_api_and_pages(monkeypatch):
+def test_required_passcode_on_api_and_pages(monkeypatch):
     monkeypatch.setenv("FUTUREPATH_PUBLIC_DEMO", "1")
+    monkeypatch.setenv("FUTUREPATH_DEMO_REQUIRE_PASSWORD", "1")
     monkeypatch.setenv("FUTUREPATH_DEMO_PASSWORD", "a-demo-secret-password-1234")
     client = TestClient(app)
     assert client.get("/start").status_code == 401
