@@ -1,113 +1,204 @@
-"""Refresh pipeline: fetch feeds, drop seen items and near-duplicates, tag, apply guardrails, store, audit."""
-import asyncio,json,re
-from datetime import datetime,timedelta,timezone
+"""Automatic evidence publication: prefilter, quota-bound AI, strict validation, audit."""
+import asyncio
+import json
+import re
+from datetime import datetime, timedelta, timezone
+
 import httpx
-from ..catalog import ROLES,SKILLS
-from ..storage import connection
+
+from ..catalog import ROLES, SKILLS
+from ..storage import connection, insert_signal
 from ..demo_security import public_demo
+from ..providers.claude import configured
 from .feeds import FEEDS
 from .fetch import fetch_feed
-from .guardrails import apply_guardrails,source_error
-from .tagging import default_tagger,KeywordTagger
+from . import verification as ai
 
-MAX_NEW_ITEMS_PER_RUN=40
-STALE_RUN_MINUTES=15
-STOPWORDS={'the','and','for','with','from','says','said','its','into','over','will','has','have','are','was'}
+MAX_NEW_ITEMS_PER_RUN = 40
+STALE_RUN_MINUTES = 15
+STOPWORDS = {'the','and','for','with','from','says','said','its','into','over','will','has','have','are','was'}
+
 
 class RefreshInProgress(Exception):
-    def __init__(self):super().__init__('A signal refresh is already running. Try again in a few minutes.')
+    def __init__(self):
+        super().__init__('A signal refresh is already running. Try again later.')
 
-def now():return datetime.now(timezone.utc).isoformat(timespec='seconds')
+
+def now():
+    return datetime.now(timezone.utc).isoformat(timespec='seconds')
+
 
 def title_tokens(title):
-    return {w for w in re.sub(r'[^a-z0-9\s]',' ',title.lower()).split() if len(w)>2 and w not in STOPWORDS}
+    return {w for w in re.sub(r'[^a-z0-9\s]',' ',title.lower()).split()
+            if len(w)>2 and w not in STOPWORDS}
+
 
 def near_duplicate(a,b):
-    """The same story often arrives from several outlets with reworded headlines."""
-    smaller=min(len(a),len(b))
+    smaller = min(len(a),len(b))
     return smaller>=4 and len(a&b)/smaller>=0.6
 
+
 def record_item(c,it,run_id,status,reason,signal_id=None):
-    c.execute('''INSERT INTO feed_items(external_id,feed_key,title,url,published_date,run_id,status,reason,signal_id,seen_at) VALUES(?,?,?,?,?,?,?,?,?,?)
-        ON CONFLICT(external_id) DO UPDATE SET run_id=excluded.run_id,status=excluded.status,reason=excluded.reason,signal_id=excluded.signal_id,seen_at=excluded.seen_at''',
-        (it['external_id'],it['feed_key'],it['title'],it['url'],it['published_date'],run_id,status,reason[:500],signal_id,now()))
+    c.execute('''INSERT INTO feed_items(external_id,feed_key,title,url,published_date,run_id,status,reason,signal_id,seen_at)
+        VALUES(?,?,?,?,?,?,?,?,?,?) ON CONFLICT(external_id) DO UPDATE SET run_id=excluded.run_id,
+        status=excluded.status,reason=excluded.reason,signal_id=excluded.signal_id,seen_at=excluded.seen_at''',
+        (it['external_id'],it['feed_key'],it['title'],it.get('url',''),it.get('published_date',''),
+         run_id,status,reason[:500],signal_id,now()))
+
+
+def quarantine(c,it,run_id,status,reason,signal_id=None):
+    stamp = now()
+    c.execute('''INSERT INTO signal_candidates(external_id,content_hash,run_id,status,source_item,reason,
+        created_at,checked_at,signal_id,verified_by) VALUES(?,?,?,?,?,?,?,?,?,?)
+        ON CONFLICT(external_id) DO UPDATE SET content_hash=excluded.content_hash,run_id=excluded.run_id,
+        status=excluded.status,source_item=excluded.source_item,reason=excluded.reason,
+        checked_at=excluded.checked_at,signal_id=excluded.signal_id,verified_by=excluded.verified_by''',
+        (it['external_id'],ai.fingerprint(it),run_id,status,json.dumps(it),reason[:500],stamp,stamp,
+         signal_id,'claude-verified' if status=='published' else None))
+    c.execute('INSERT INTO signal_ingestion_audit(external_id,run_id,status,reason,created_at) VALUES(?,?,?,?,?)',
+              (it['external_id'],run_id,status,reason[:500],stamp))
+    record_item(c,it,run_id,status,reason,signal_id)
+
 
 async def refresh_signals(feeds=None,tagger=None,client=None,automatic=False):
-    """Validate and stage evidence. Only a separate authenticated approval makes it active."""
+    """No human approval and no keyword-only publication, including manual refreshes.
+
+    The legacy tagger argument cannot bypass AI verification or opt-in settings.
+    """
     if public_demo():
         raise RuntimeError('External refresh is disabled in public demo mode')
-    feeds=FEEDS if feeds is None else feeds
-    tagger=KeywordTagger() if automatic else (tagger or default_tagger())
+    feeds = FEEDS if feeds is None else feeds
+    catalog = {'roles':ROLES,'skills':SKILLS}
     with connection() as c:
         c.execute('BEGIN IMMEDIATE')
-        cutoff=(datetime.now(timezone.utc)-timedelta(minutes=STALE_RUN_MINUTES)).isoformat(timespec='seconds')
-        if c.execute("SELECT 1 FROM refresh_runs WHERE status='running' AND started_at>?",(cutoff,)).fetchone():raise RefreshInProgress()
-        run_id=c.execute("INSERT INTO refresh_runs(started_at,status,tagger,model,trigger) VALUES(?,?,?,?,?)",(now(),'running',tagger.name,tagger.model,'automatic' if automatic else 'manual')).lastrowid
+        cutoff = (datetime.now(timezone.utc)-timedelta(minutes=STALE_RUN_MINUTES)).isoformat()
+        if c.execute("SELECT 1 FROM refresh_runs WHERE status='running' AND started_at>?",(cutoff,)).fetchone():
+            raise RefreshInProgress()
+        run_id = c.execute("INSERT INTO refresh_runs(started_at,status,tagger,trigger) VALUES(?,'running',?,?)",
+                           (now(),'ai-verification' if ai.paid_enabled() else 'verification-disabled',
+                            'automatic' if automatic else 'manual')).lastrowid
+    owned = client is None
+    client = client or httpx.AsyncClient()
+    feed_results = []
+    accepted = rejected = failed = pending = checked = 0
+    new = []
     try:
-        own=client is None
-        client=client or httpx.AsyncClient()
-        try:settled=await asyncio.gather(*(fetch_feed(client,f) for f in feeds),return_exceptions=True)
-        finally:
-            if own:await client.aclose()
-        feed_results=[{'key':f['key'],'name':f['name'],'ok':not isinstance(r,BaseException),'items':0 if isinstance(r,BaseException) else len(r),
-                       **({'error':str(r)[:300]} if isinstance(r,BaseException) else {})} for f,r in zip(feeds,settled)]
-        fetched=list({i['external_id']:i for r in settled if not isinstance(r,BaseException) for i in r}.values())
-
+        results = await asyncio.gather(*(fetch_feed(client,f) for f in feeds),return_exceptions=True)
+        fetched = {}
+        for feed, result in zip(feeds,results):
+            if isinstance(result,BaseException):
+                feed_results.append({'key':feed['key'],'name':feed['name'],'ok':False,
+                                     'error':'Source could not be checked'})
+                continue
+            feed_results.append({'key':feed['key'],'name':feed['name'],'ok':True,'items':len(result)})
+            for it in result:
+                fetched.setdefault(it['external_id'],(it,feed))
         with connection() as c:
-            ids=[i['external_id'] for i in fetched]
-            marks=','.join('?'*len(ids)) or "''"
-            seen={r[0] for r in c.execute(f"SELECT external_id FROM feed_items WHERE status IN ('accepted','approved','pending','rejected') AND external_id IN ({marks})",ids)}
-            seen|={r[0] for r in c.execute(f'SELECT external_id FROM signals WHERE external_id IN ({marks})',ids)}
-            since=(datetime.now(timezone.utc)-timedelta(days=90)).date().isoformat()
-            known=[(t,title_tokens(t)) for (t,) in c.execute('SELECT title FROM signals WHERE published_date>=?',(since,))]
-            known += [(json.loads(r[0])['title'],title_tokens(json.loads(r[0])['title']))
-                      for r in c.execute('SELECT signal FROM signal_review')]
-        candidates=sorted((i for i in fetched if i['external_id'] not in seen),key=lambda i:i['published_date'],reverse=True)
-        fresh,duplicates,invalid=[],[],[]
-        feed_map={f['key']:f for f in feeds}
-        for it in candidates:
-            error=source_error(it,feed_map.get(it['feed_key']))
-            if it['feed_key'] not in feed_map:error='Unconfigured feed source'
-            if error:invalid.append((it,error));continue
-            tokens=title_tokens(it['title'])
-            # Dataset releases are keyed by their release folder; their titles differ only by date.
-            match=None if it['source_type']=='dataset' else next((t for t,k in known if near_duplicate(tokens,k)),None)
-            if match:duplicates.append((it,match))
-            elif len(fresh)<MAX_NEW_ITEMS_PER_RUN:fresh.append(it);known.append((it['title'],tokens))
-
-        catalog={'roles':ROLES,'skills':SKILLS}
-        outcomes=await tagger.tag(fresh,catalog) if fresh else []
-        role_ids={r['id'] for r in ROLES};skill_ids={s['id'] for s in SKILLS}
-        pending=rejected=failed=0
+            active_ids = {r[0] for r in c.execute('SELECT external_id FROM signals')}
+            cached = {r['external_id']:dict(r) for r in c.execute('SELECT * FROM signal_candidates')}
+            known = [title_tokens(r[0]) for r in c.execute('SELECT title FROM signals WHERE published_date>=?',
+                     ((datetime.now(timezone.utc)-timedelta(days=90)).date().isoformat(),))]
+            known += [title_tokens(json.loads(r['source_item'])['title']) for r in cached.values()]
+        candidates = sorted(fetched.values(),key=lambda pair:pair[0].get('published_at') or
+                            pair[0].get('published_date',''),reverse=True)[:MAX_NEW_ITEMS_PER_RUN]
+        ready = []
+        for it,feed in candidates:
+            eid = it['external_id']
+            if eid in active_ids:
+                continue
+            old = cached.get(eid)
+            unchanged = old and old['content_hash']==ai.fingerprint(it)
+            if unchanged and old['status'] in ('published','rejected'):
+                continue
+            # Disabled verification caches quarantine without repeating work daily.
+            if unchanged and not (ai.paid_enabled() and configured()):
+                continue
+            # Failed/unsupported unchanged candidates retry at most once per UTC day.
+            if unchanged and old['checked_at'][:10]==ai.utc_day():
+                continue
+            checked += 1
+            error = ai.identity_error(it,feed)
+            tokens = title_tokens(it['title'])
+            duplicate = not old and any(near_duplicate(tokens,k) for k in known)
+            if error or duplicate:
+                reason = error or 'Duplicate evidence story'
+                with connection() as c:
+                    quarantine(c,it,run_id,'rejected',reason)
+                rejected += 1
+                continue
+            allowed, reason = await ai.prefilter(it,catalog)
+            if allowed is None:
+                with connection() as c:
+                    quarantine(c,it,run_id,'quarantined',reason)
+                pending += 1
+                known.append(tokens)
+                continue
+            known.append(tokens)
+            ready.append((it,allowed))
+        offset = 0
+        while offset < len(ready):
+            remaining = ready[offset:]
+            count = ai.reserve_batch(len(remaining))
+            if not count:
+                reason = ('Paid AI verification is off' if not ai.paid_enabled() else
+                          'AI unavailable or daily verification quota exhausted')
+                with connection() as c:
+                    for it,_ in remaining:
+                        quarantine(c,it,run_id,'quarantined',reason)
+                        pending += 1
+                break
+            batch = remaining[:count]
+            offset += count
+            try:
+                replies = await ai.analyse([it for it,_ in batch],catalog)
+                if not isinstance(replies,list) or len(replies)!=count:
+                    raise ValueError('Incomplete verification results')
+            except Exception:
+                # Never save/log provider exceptions, credentials or raw model responses.
+                replies = [None]*count
+                failed += count
+            for (it,allowed),reply in zip(batch,replies):
+                proposal,reason = await ai.validate_analysis(it,reply,catalog,allowed)
+                with connection() as c:
+                    c.execute('BEGIN IMMEDIATE')
+                    usage = c.execute('SELECT published FROM signal_ai_usage WHERE day=?',
+                                      (ai.utc_day(),)).fetchone()
+                    if proposal is None or not usage or usage[0]>=ai.MAX_DAILY_PUBLICATIONS:
+                        quarantine(c,it,run_id,'quarantined',
+                                   reason or 'Daily publication safety limit reached')
+                        pending += 1
+                        continue
+                    # Recheck source/config state at the publication boundary.
+                    if public_demo() or not ai.paid_enabled() or not configured():
+                        quarantine(c,it,run_id,'quarantined','Verification configuration changed')
+                        pending += 1
+                        continue
+                    signal = {k:it[k] for k in ('external_id','feed_key','title','source_name',
+                              'source_type','url','published_date')}
+                    signal.update({k:proposal[k] for k in
+                                   ('summary','direction','strength','role_ids','skill_ids')})
+                    signal.update(fetched_at=now()[:10],tagged_by='claude-verified',run_id=run_id)
+                    sid = insert_signal(c,signal)
+                    if sid:
+                        c.execute('UPDATE signal_ai_usage SET published=published+1 WHERE day=?',(ai.utc_day(),))
+                        quarantine(c,it,run_id,'published','AI analysis and automated evidence checks passed',sid)
+                        accepted += 1
+                        new.append({'id':sid,'title':it['title'],'direction':proposal['direction']})
+        any_ok = any(f['ok'] for f in feed_results)
+        status = 'failed' if not any_ok else ('ok' if all(f['ok'] for f in feed_results) and not failed else 'partial')
         with connection() as c:
-            for it,reason in invalid+[(it,f'near-duplicate of "{of}"') for it,of in duplicates]:
-                rejected+=1;record_item(c,it,run_id,'rejected',reason)
-            for it,outcome in zip(fresh,outcomes+[{'ok':False,'error':'no tagger result'}]*(len(fresh)-len(outcomes))):
-                if not outcome['ok']:failed+=1;record_item(c,it,run_id,'failed',outcome['error']);continue
-                proposal,notes=apply_guardrails(it,outcome['proposal'],role_ids,skill_ids)
-                if proposal is None:rejected+=1;record_item(c,it,run_id,'rejected',notes);continue
-                signal={'external_id':it['external_id'],'title':it['title'],'source_name':it['source_name'],'source_type':it['source_type'],
-                    'url':it['url'],'published_date':it['published_date'],'fetched_at':now()[:10],'summary':proposal['summary'],'direction':proposal['direction'],
-                    'strength':proposal['strength'],'role_ids':proposal['role_ids'],'skill_ids':proposal['skill_ids'],'tagged_by':tagger.name,
-                    'feed_key':it['feed_key'],'run_id':run_id}
-                reason='; '.join([outcome['proposal'].get('reason','')]+notes).strip('; ')
-                review_id=c.execute('INSERT INTO signal_review(external_id,run_id,status,signal,source_item,validation_notes,created_at) VALUES(?,?,?,?,?,?,?)',
-                                    (it['external_id'],run_id,'pending',json.dumps(signal),json.dumps(it),reason,now())).lastrowid
-                c.execute('INSERT INTO signal_review_events(review_id,action,created_at,actor,reason) VALUES(?,?,?,?,?)',
-                          (review_id,'staged',now(),'automatic-keywords' if automatic else 'manual-refresh',reason))
-                pending+=1
-                record_item(c,it,run_id,'pending',reason)
-            any_ok=any(f['ok'] for f in feed_results)
-            status='failed' if not any_ok else ('ok' if all(f['ok'] for f in feed_results) and failed==0 else 'partial')
-            c.execute('UPDATE refresh_runs SET finished_at=?,status=?,feeds=?,checked=?,pending=?,rejected=?,failed=? WHERE id=?',
-                      (now(),status,json.dumps(feed_results),len(fresh)+len(duplicates)+len(invalid),pending,rejected,failed,run_id))
-        return {'run_id':run_id,'status':status,'tagger':tagger.name,'model':tagger.model,'feeds':feed_results,
-                'checked':len(fresh)+len(duplicates)+len(invalid),'accepted':0,'pending':pending,'rejected':rejected,'failed':failed,'new_signals':[]}
-    except Exception as err:
+            c.execute('UPDATE refresh_runs SET finished_at=?,status=?,feeds=?,checked=?,accepted=?,pending=?,rejected=?,failed=? WHERE id=?',
+                      (now(),status,json.dumps(feed_results),checked,accepted,pending,rejected,failed,run_id))
+        return {'run_id':run_id,'status':status,'tagger':'ai-verification','model':None,
+                'feeds':feed_results,'checked':checked,'accepted':accepted,'pending':pending,
+                'quarantined':pending,'rejected':rejected,'failed':failed,'new_signals':new}
+    except Exception:
         with connection() as c:
-            c.execute("UPDATE refresh_runs SET finished_at=?,status='failed',error=? WHERE id=?",(now(),str(err)[:500],run_id))
+            c.execute("UPDATE refresh_runs SET finished_at=?,status='failed',error=? WHERE id=?",
+                      (now(),'Signal check failed safely; no unverified evidence published',run_id))
         raise
     finally:
-        # Avoid a circular import at module load; schedule is persisted in the same DB.
+        if owned:
+            await client.aclose()
         from .schedule import record_check
         record_check()

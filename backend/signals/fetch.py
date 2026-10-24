@@ -21,15 +21,23 @@ def iso_date(value):
     except (TypeError,ValueError):
         try:dt=datetime.fromisoformat(value.replace('Z','+00:00'))  # Atom: ISO 8601
         except ValueError:return None
-    return dt.date().isoformat()
+    return dt.astimezone(timezone.utc).date().isoformat() if dt.tzinfo else dt.date().isoformat()
+
+def iso_timestamp(value):
+    if not value:return None
+    try:dt=parsedate_to_datetime(value)
+    except (TypeError,ValueError):
+        try:dt=datetime.fromisoformat(value.replace('Z','+00:00'))
+        except ValueError:return None
+    return dt.astimezone(timezone.utc).isoformat() if dt.tzinfo else None
 
 def text_of(node,tag):
     found=node.find(tag)
     return (found.text or '').strip() if found is not None else ''
 
-def item(feed,external,title,url,source_name,published,snippet):
+def item(feed,external,title,url,source_name,published,snippet,published_at=None):
     return {'external_id':f"{feed['key']}:{short_hash(external)}",'feed_key':feed['key'],'title':title,'url':url,'source_name':source_name,
-            'source_type':feed['source_type'],'published_date':published,'snippet':snippet[:MAX_SNIPPET]}
+            'source_type':feed['source_type'],'published_date':published,'published_at':published_at,'snippet':snippet[:MAX_SNIPPET]}
 
 def parse_feed_xml(xml,feed,today=None):
     """Parses RSS 2.0 or Atom. Keeps items within max_age_days, newest first, at most max_items."""
@@ -41,7 +49,7 @@ def parse_feed_xml(xml,feed,today=None):
         # Google News appends " - Publisher" to titles; the publisher is already in <source>.
         if title.endswith(f' - {source}'):title=title[:-(len(source)+3)]
         if title and link and published:
-            items.append(item(feed,text_of(it,'guid') or link,title,link,source,published,strip_html(text_of(it,'description'))))
+            items.append(item(feed,text_of(it,'guid') or link,title,link,source,published,strip_html(text_of(it,'description')),iso_timestamp(text_of(it,'pubDate'))))
     for entry in root.iter(ATOM+'entry'):
         links=entry.findall(ATOM+'link')
         alt=next((l for l in links if l.get('rel') in (None,'alternate')),links[0] if links else None)
@@ -49,16 +57,21 @@ def parse_feed_xml(xml,feed,today=None):
         title=strip_html(text_of(entry,ATOM+'title'))
         published=iso_date(text_of(entry,ATOM+'published') or text_of(entry,ATOM+'updated'))
         if title and link and published:
-            items.append(item(feed,text_of(entry,ATOM+'id') or link,title,link,feed['name'],published,strip_html(text_of(entry,ATOM+'summary'))))
+            items.append(item(feed,text_of(entry,ATOM+'id') or link,title,link,feed['name'],published,strip_html(text_of(entry,ATOM+'summary')),iso_timestamp(text_of(entry,ATOM+'published') or text_of(entry,ATOM+'updated'))))
     today=today or datetime.now(timezone.utc).date()
     oldest=(today-timedelta(days=feed['max_age_days'])).isoformat()
     items=[i for i in items if i['published_date']>=oldest]
-    return sorted(items,key=lambda i:i['published_date'],reverse=True)[:feed['max_items']]
+    return sorted(items,key=lambda i:i.get('published_at') or i['published_date'],reverse=True)[:feed['max_items']]
 
 async def get(client,url):
-    resp=await client.get(url,headers={'user-agent':USER_AGENT},timeout=TIMEOUT,follow_redirects=True)
-    if resp.status_code>=400:raise RuntimeError(f'HTTP {resp.status_code} from {httpx.URL(url).host}')
-    return resp.text
+    async with client.stream('GET',url,headers={'user-agent':USER_AGENT},timeout=TIMEOUT,follow_redirects=True) as resp:
+        if resp.status_code>=400:raise RuntimeError(f'HTTP {resp.status_code} from {httpx.URL(url).host}')
+        chunks=[];size=0
+        async for chunk in resp.aiter_bytes():
+            size+=len(chunk)
+            if size>2_000_000:raise RuntimeError('Feed response exceeds safety limit')
+            chunks.append(chunk)
+        return b''.join(chunks).decode('utf-8',errors='replace')
 
 async def fetch_hf_releases(client,feed):
     tree=json.loads(await get(client,f"https://huggingface.co/api/datasets/{feed['dataset']}/tree/main"))

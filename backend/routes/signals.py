@@ -1,6 +1,6 @@
 """Trend signals: list, refresh from feeds (admin), refresh audit trail and "What changed"."""
 import json,os,secrets
-from datetime import date
+from datetime import date,datetime,timezone
 from fastapi import APIRouter,HTTPException,Request
 from pydantic import BaseModel,Field
 from ..catalog import ROLES,SKILL_INDEX,load
@@ -11,15 +11,30 @@ from ..services.recommendations import result
 from ..signals.refresh import refresh_signals,RefreshInProgress
 from ..signals.schedule import interval_hours,last_runs,next_due
 from ..signals.review import review_items,decide
+from ..signals.verification import paid_enabled
 router=APIRouter(prefix='/api',tags=['signals'])
 LOCAL_HOSTS={'127.0.0.1','::1','localhost','testclient'}
 ROLE_TITLES={r['id']:r['title'] for r in ROLES}
 
 @router.get('/signals')
-def signals(direction:str|None=None,limit:int=200):
-    rows=[s for s in get_signals() if direction in (None,s['direction'])][:max(1,min(limit,500))]
-    for s in rows:s['role_titles']=[ROLE_TITLES[r] for r in s['role_ids'] if r in ROLE_TITLES]
-    return rows
+def signals(direction:str|None=None,limit:int=200,offset:int=0):
+    with connection() as c:
+        verified={r['external_id']:json.loads(r['source_item']) for r in c.execute(
+            "SELECT external_id,source_item FROM signal_candidates WHERE status='published' AND verified_by='claude-verified'")}
+    rows=[s for s in get_signals() if direction in (None,s['direction'])]
+    for s in rows:
+        s['role_titles']=[ROLE_TITLES[r] for r in s['role_ids'] if r in ROLE_TITLES]
+        live=s['tagged_by']=='claude-verified' and s['external_id'] in verified
+        s['published_at']=verified[s['external_id']].get('published_at') if live else None
+        s['provenance']='curated' if s['tagged_by']=='curated' else ('live_ai_validated' if live else 'stored')
+        s['provenance_label']={'curated':'Curated evidence','live_ai_validated':'AI-validated live source',
+                               'stored':'Stored evidence (legacy)'}[s['provenance']]
+        s['verification_status']='ai_and_guardrails_passed' if live else 'existing_evidence'
+    def publication(s):
+        return datetime.fromisoformat(s['published_at'].replace('Z','+00:00')) if s['published_at'] else datetime.fromisoformat(s['published_date']).replace(tzinfo=timezone.utc)
+    rows.sort(key=publication,reverse=True)
+    start=max(0,offset)
+    return rows[start:start+max(1,min(limit,500))]
 
 @router.get('/skill-outlook')
 def skill_outlook():
@@ -125,15 +140,28 @@ def signal_status():
     """Public metadata only: no fetch, review authorization, or scheduler mutation."""
     with connection() as c:
         row=c.execute('SELECT * FROM refresh_runs ORDER BY id DESC LIMIT 1').fetchone()
-        pending=c.execute("SELECT COUNT(*) FROM signal_review WHERE status='pending'").fetchone()[0]
-        approved=c.execute("SELECT MAX(reviewed_at) FROM signal_review WHERE status='approved'").fetchone()[0]
+        quarantined=c.execute("SELECT COUNT(*) FROM signal_candidates WHERE status='quarantined'").fetchone()[0]
+        legacy=c.execute("SELECT COUNT(*) FROM signal_review WHERE status='pending'").fetchone()[0]
+        success=c.execute("SELECT finished_at FROM refresh_runs WHERE status IN ('ok','partial') AND finished_at IS NOT NULL ORDER BY id DESC LIMIT 1").fetchone()
     due=next_due()
+    enabled=bool(interval_hours())
+    paid=paid_enabled()
+    health='paused' if not enabled else ('error' if row and row['status']=='failed' else
+                                       'degraded' if row and row['status']=='partial' else
+                                       'verification_off' if not paid else 'ready')
+    message=('Automatic checks are paused here; stored evidence remains available.' if not enabled else
+             'Source checks failed; stored evidence is unchanged.' if health=='error' else
+             'Some checks could not complete. Unverified items remain excluded.' if health=='degraded' else
+             'AI verification is off. New candidates remain quarantined and do not affect results.' if not paid else
+             'New evidence appears only after AI analysis and automated evidence checks pass.')
     return {'enabled':bool(interval_hours()),'interval_hours':interval_hours(),
             'next_due':due.isoformat() if due else None,
             'last_checked':(row['finished_at'] or row['started_at']) if row else None,
-            'status':row['status'] if row else 'not_checked','pending_count':pending,
-            'last_approved_at':approved,'automatic_tagger':'keywords',
-            'public_demo':public_demo(),'best_effort':True}
+            'last_successful_check':success[0] if success else None,
+            'next_expected_run':None,'schedule_guaranteed':False,
+            'status':row['status'] if row else 'not_checked','health':health,'message':message,
+            'quarantined_count':quarantined+legacy,'paid_verification_enabled':paid,
+            'automatic_tagger':'ai-required','public_demo':public_demo(),'best_effort':True}
 
 @router.get('/signals/review')
 def list_review(request:Request,status:str='pending',limit:int=200):
@@ -174,9 +202,7 @@ async def refresh(request:Request):
 def what_changed(profile:str|None=None):
     """How the latest refresh moved the current profile's ranking: score with and without that run's new signals."""
     with connection() as c:
-        approval=c.execute("SELECT run_id FROM signal_review WHERE status='approved' ORDER BY reviewed_at DESC,id DESC LIMIT 1").fetchone()
-        run=(c.execute('SELECT * FROM refresh_runs WHERE id=?',(approval[0],)).fetchone() if approval else
-             c.execute("SELECT * FROM refresh_runs WHERE accepted>0 AND status!='running' ORDER BY id DESC LIMIT 1").fetchone())
+        run=c.execute("SELECT * FROM refresh_runs WHERE accepted>0 AND status!='running' ORDER BY id DESC LIMIT 1").fetchone()
         last=c.execute("SELECT * FROM refresh_runs WHERE status!='running' ORDER BY id DESC LIMIT 1").fetchone()
     if not run:return {'has_change':False,'last_refresh':run_row(last) if last else None}
     every=get_signals();new=[s for s in every if s['run_id']==run['id']]

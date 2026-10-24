@@ -106,7 +106,7 @@ def temp_db(tmp_path,monkeypatch):
     storage.init()
     return tmp_path
 
-def test_refresh_pipeline_stores_audits_and_moves_ranking(temp_db,monkeypatch):
+def test_refresh_pipeline_quarantines_without_ai_and_preserves_ranking(temp_db,monkeypatch):
     monkeypatch.delenv('ADMIN_TOKEN',raising=False)
     recent=(date.today()-timedelta(days=2)).strftime('%a, %d %b %Y 08:00:00 GMT')
     rss=f'''<rss><channel>
@@ -117,24 +117,18 @@ def test_refresh_pipeline_stores_audits_and_moves_ranking(temp_db,monkeypatch):
         async with httpx.AsyncClient(transport=httpx.MockTransport(lambda r:httpx.Response(200,text=rss))) as c:
             return await refresh_signals(feeds=[RSS_FEED],tagger=KeywordTagger(),client=c)
     summary=asyncio.run(run())
-    assert summary['status']=='ok' and summary['pending']==1 and summary['accepted']==0 and summary['rejected']==2
+    assert summary['status']=='ok' and summary['pending']==2 and summary['accepted']==0 and summary['rejected']==1
     with storage.connection() as c:
         statuses=sorted(r[0] for r in c.execute('SELECT status FROM feed_items'))
-        assert statuses==['pending','rejected','rejected']
+        assert statuses==['quarantined','quarantined','rejected']
         assert c.execute('SELECT accepted FROM refresh_runs').fetchone()[0]==0
     api=TestClient(app)
     assert not any(s['tagged_by']=='keyword' for s in api.get('/api/signals').json())
     assert api.get('/api/what-changed').json()['has_change'] is False
-    monkeypatch.setenv('ADMIN_TOKEN','review-test-token')
-    headers={'Authorization':'Bearer review-test-token'}
-    queued=api.get('/api/signals/review',headers=headers).json()['items']
-    assert len(queued)==1
-    assert api.post(f"/api/signals/review/{queued[0]['id']}/approve",headers=headers).status_code==200
     stored=api.get('/api/signals').json()
-    assert any(s['tagged_by']=='keyword' and 'cybersecurity-analyst' in s['role_ids'] for s in stored)
+    assert not any(s['tagged_by']=='keyword' for s in stored)
     changed=api.get('/api/what-changed').json()
-    assert changed['has_change'] and changed['new_signal_count']==1
-    assert any(m['role_id']=='cybersecurity-analyst' and m['after_trend']>m['before_trend'] for m in changed['moves'])
+    assert changed['has_change'] is False
     again=asyncio.run(run())  # already-seen items are not checked twice
     assert again['checked']==0 and again['accepted']==0
 

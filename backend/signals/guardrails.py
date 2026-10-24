@@ -1,7 +1,7 @@
 """Enforces the "never invent" rules on a tagger proposal before anything is saved."""
 import re
 import ipaddress
-from datetime import date, datetime, timezone
+from datetime import date, datetime, timezone, timedelta
 from urllib.parse import urlsplit
 
 # Ingested items are single news/research items, so they never outweigh curated reports (strength up to 5).
@@ -31,6 +31,12 @@ def source_error(item, feed=None):
         except ValueError:pass
         published=date.fromisoformat(item['published_date'])
         if published>datetime.now(timezone.utc).date():return 'Future-dated evidence'
+        if item.get('published_at'):
+            stamp=datetime.fromisoformat(item['published_at'].replace('Z','+00:00'))
+            if not stamp.tzinfo or stamp.astimezone(timezone.utc).date()!=published:
+                return 'Inconsistent publication timestamp'
+            if stamp>datetime.now(timezone.utc)+timedelta(minutes=5):
+                return 'Future-dated evidence'
     except ValueError:
         return 'Invalid source URL or publication date'
     return None

@@ -36,6 +36,17 @@ def init():
         CREATE TABLE IF NOT EXISTS signal_schedule(
             id INTEGER PRIMARY KEY CHECK(id=1),interval_hours REAL NOT NULL,
             activated_at TEXT NOT NULL,next_due TEXT);
+        CREATE TABLE IF NOT EXISTS signal_candidates(
+            external_id TEXT PRIMARY KEY,content_hash TEXT NOT NULL,run_id INTEGER NOT NULL,
+            status TEXT NOT NULL CHECK(status IN ('quarantined','rejected','published')),
+            source_item TEXT NOT NULL,reason TEXT NOT NULL,created_at TEXT NOT NULL,
+            checked_at TEXT NOT NULL,signal_id INTEGER,verified_by TEXT);
+        CREATE TABLE IF NOT EXISTS signal_ingestion_audit(
+            id INTEGER PRIMARY KEY AUTOINCREMENT,external_id TEXT NOT NULL,run_id INTEGER NOT NULL,
+            status TEXT NOT NULL,reason TEXT NOT NULL,created_at TEXT NOT NULL);
+        CREATE TABLE IF NOT EXISTS signal_ai_usage(
+            day TEXT PRIMARY KEY,items INTEGER NOT NULL DEFAULT 0,calls INTEGER NOT NULL DEFAULT 0,
+            published INTEGER NOT NULL DEFAULT 0);
         ''')
         # Additive, idempotent migration: preserve existing profiles and evidence.
         columns={r['name'] for r in c.execute('PRAGMA table_info(refresh_runs)')}

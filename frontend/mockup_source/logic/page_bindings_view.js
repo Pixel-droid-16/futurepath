@@ -56,28 +56,73 @@
       pathProgressNote: `steps completed · ${Math.round(fpSteps.filter(x => x.done).reduce((a, x) => a + x.hours, 0))} of ${pathHoursNum} hours done`,
       steps: fpSteps,
       weeks: [1, 2, 3, 4, 5, 6].map(w => ({ w, bg: w <= 4 ? (w <= 2 ? "var(--pr)" : "color-mix(in oklch, var(--pr) 60%, var(--sf))") : (w <= 7 ? "var(--sky)" : "var(--up)") })),
-      // Signals page.
-       signals, sigCount: signals.length, sigUpdated, sigLastRun, sigLastRunC, sigFeeds,
-       sigChecked: statusDate(feedStatus?.last_checked), sigDue: statusDate(feedStatus?.next_due),
-       sigPending: feedStatus ? Number(feedStatus.pending_count) || 0 : "—",
-       sigAutoStatus: feedStatus?.status || (feedStatus ? "unknown" : "Unavailable"),
-       sigInterval: feedStatus?.interval_hours ?? "—", sigTagger: feedStatus?.automatic_tagger || "keywords",
-        reviewEnabled: st.refreshAccess?.mode === "admin" && !!feedStatus && !feedStatus.public_demo,
-       reviewOpen: !!st.reviewOpen, reviewLoading: !!st.reviewLoading, reviewItems: reviewRows,
-       reviewTotal: Number(st.reviewTotal) || 0, reviewFilter: st.reviewFilter || "pending", reviewMsg: st.reviewMsg || "",
-       loadReviewQueue: () => this.loadReviewQueue(),
-        showPendingReview: () => { this.setState({ reviewFilter: "pending" }); this.loadReviewQueueFor("pending"); },
-        showApprovedReview: () => { this.setState({ reviewFilter: "approved" }); this.loadReviewQueueFor("approved"); },
-        showRejectedReview: () => { this.setState({ reviewFilter: "rejected" }); this.loadReviewQueueFor("rejected"); },
-        showAllReview: () => { this.setState({ reviewFilter: "all" }); this.loadReviewQueueFor("all"); },
-        closeReview: () => this.setState({ reviewOpen: false, reviewItems: [], reviewTotal: 0 }),
-      refreshSignals: () => this.refreshSignals(), reloadSignals: () => this.reloadStoredSignals(),
-       adminRefreshAvailable: !!st.refreshAccess?.can_refresh && !!st.signalStatus && !st.signalStatus.public_demo,
-      refreshAccessMsg: st.refreshAccess?.message || "Checking refresh permissions…",
-      refreshLbl: st.refreshing ? "Working…" : "Admin: refresh live feeds",
-      reloadLbl: st.refreshing ? "Loading…" : "Reload saved signals",
-      refreshMsg: st.refreshMsg, hasRefreshMsg: !!st.refreshMsg,
-      fAll: () => this.setState({ sig: "all" }), fUp: () => this.setState({ sig: "up" }), fDn: () => this.setState({ sig: "dn" }),
+       // Signals page. Each list has independent page state; the trend arrays are fully prepared by skill_trends_view.
+        ...(() => {
+          const words = ({
+            en: { automatic: "Automatic updates", frequency: "Frequency", every: "Every 24 hours", last: "Last successful check", next: "Next expected run", unavailable: "Unavailable — best-effort schedule", unavailableStatus: "Unavailable", status: "Status", health: "Health", off: "Off", ai: "AI verification", quarantined: "Held unverified", noPublish: "AI verification is off. No new unverified evidence is published.", published: "Published", evidenceUpdated: "LATEST EVIDENCE", intro: "Curated reports form the baseline. New evidence appears only after validation; unverified evidence stays out of rankings.", previous: "Previous page", nextPage: "Next page", page: "Page", of: "of", noStatus: "Update status is temporarily unavailable.", risingNav: "Rising skills pages", decliningNav: "Declining skills and jobs pages", signalNav: "Signal evidence pages", emptyTrends: "No trend evidence is available yet.", emptySignals: "No signals match this filter." },
+            ms: { automatic: "Kemas kini automatik", frequency: "Kekerapan", every: "Setiap 24 jam", last: "Semakan terakhir yang berjaya", next: "Jangkaan semakan seterusnya", unavailable: "Tidak tersedia — jadual usaha terbaik", unavailableStatus: "Tidak tersedia", status: "Status", health: "Kesihatan", off: "Dimatikan", ai: "Pengesahan AI", quarantined: "Ditahan tanpa pengesahan", noPublish: "Pengesahan AI dimatikan. Bukti baharu yang belum disahkan tidak diterbitkan.", published: "Diterbitkan", evidenceUpdated: "BUKTI TERKINI", intro: "Laporan pilihan menjadi asas. Bukti baharu hanya dipaparkan selepas pengesahan; bukti belum disahkan tidak dimasukkan dalam kedudukan.", previous: "Halaman sebelumnya", nextPage: "Halaman seterusnya", page: "Halaman", of: "daripada", noStatus: "Status kemas kini tidak tersedia buat sementara waktu.", risingNav: "Halaman kemahiran meningkat", decliningNav: "Halaman kemahiran dan pekerjaan menurun", signalNav: "Halaman bukti isyarat", emptyTrends: "Bukti trend belum tersedia.", emptySignals: "Tiada isyarat yang sepadan dengan penapis ini." },
+            zh: { automatic: "自动更新", frequency: "频率", every: "每 24 小时", last: "最近一次成功检查", next: "预计下次运行", unavailable: "暂不可用 — 尽力安排，非保证时间", unavailableStatus: "不可用", status: "状态", health: "运行状况", off: "已关闭", ai: "AI 验证", quarantined: "未验证内容已暂存", noPublish: "AI 验证已关闭。新的未验证证据不会发布。", published: "发布日期", evidenceUpdated: "最新证据", intro: "精选报告构成基线。新证据只有通过验证后才会显示；未经验证的证据不会影响排名。", previous: "上一页", nextPage: "下一页", page: "第", of: "页，共", noStatus: "更新状态暂时不可用。", risingNav: "上升技能分页", decliningNav: "下降技能和职业分页", signalNav: "信号证据分页", emptyTrends: "暂无趋势证据。", emptySignals: "没有符合此筛选条件的信号。" }
+          })[st.lang] || { automatic: "Automatic updates", frequency: "Frequency", every: "Every 24 hours", last: "Last successful check", next: "Next expected run", unavailable: "Unavailable — best-effort schedule", unavailableStatus: "Unavailable", status: "Status", health: "Health", off: "Off", ai: "AI verification", quarantined: "Held unverified", noPublish: "AI verification is off. No new unverified evidence is published.", published: "Published", evidenceUpdated: "LATEST EVIDENCE", intro: "Curated reports form the baseline. New evidence appears only after validation; unverified evidence stays out of rankings.", previous: "Previous page", nextPage: "Next page", page: "Page", of: "of", noStatus: "Update status is temporarily unavailable.", risingNav: "Rising skills pages", decliningNav: "Declining skills and jobs pages", signalNav: "Signal evidence pages", emptyTrends: "No trend evidence is available yet.", emptySignals: "No signals match this filter." };
+          const pageMeta = (total, current, prefix) => Array.from({ length: total }, (_, i) => {
+            const page = i + 1;
+            const isCurrent = page === current;
+            return { label: String(page), current: isCurrent ? "page" : "false", isCurrent,
+              border: isCurrent ? "var(--pr)" : "var(--ln)", background: isCurrent ? "var(--soft)" : "var(--sf)", color: isCurrent ? "var(--pr)" : "var(--ink)",
+              ariaLabel: `${words.page} ${page} ${words.of} ${total}`, change: () => this.setState({ [prefix]: page }) };
+          });
+          const rising = Array.isArray(out.trRising) ? out.trRising : [], declining = Array.isArray(out.trDecl) ? out.trDecl : [];
+          const risingCount = Math.max(1, Math.ceil(rising.length / 5)), decliningCount = Math.max(1, Math.ceil(declining.length / 5));
+          const risingPage = Math.min(st.risingPage || 1, risingCount), decliningPage = Math.min(st.decliningPage || 1, decliningCount);
+          const signalCount = signals.length, signalPageCount = Math.max(1, Math.ceil(signalCount / 8));
+          const signalPage = Math.min(st.signalPage || 1, signalPageCount);
+           const knownStatus = st.lang === "ms"
+             ? { ok: "Baik", healthy: "Sihat", running: "Sedang berjalan", failed: "Gagal", degraded: "Terjejas", unavailable: "Tidak tersedia", unknown: "Tidak diketahui", best_effort: "Usaha terbaik" }
+             : st.lang === "zh"
+               ? { ok: "正常", healthy: "健康", running: "运行中", failed: "失败", degraded: "受影响", unavailable: "不可用", unknown: "未知", best_effort: "尽力运行" }
+               : { ok: "OK", healthy: "Healthy", running: "Running", failed: "Failed", degraded: "Degraded", unavailable: "Unavailable", unknown: "Unknown", best_effort: "Best effort" };
+           const statusLabel = value => {
+             if (!value) return words.unavailableStatus;
+             const key = String(value).toLowerCase().replace(/[\s-]+/g, "_");
+             return knownStatus[key] || String(value).replace(/[_-]+/g, " ").replace(/^\w/, c => c.toUpperCase());
+           };
+          return {
+            signals: signals.slice((signalPage - 1) * 8, signalPage * 8), sigCount: signalCount, sigUpdated, sigLastRun, sigLastRunC, sigFeeds,
+            sigStatusTitle: words.automatic, sigFrequencyLabel: words.frequency, sigFrequency: words.every,
+            sigLastSuccessLabel: words.last, sigLastSuccess: statusDate(feedStatus?.last_successful_check),
+            sigNextLabel: words.next, sigNextExpected: feedStatus?.schedule_guaranteed === false ? words.unavailable : statusDate(feedStatus?.next_expected_run),
+            sigStatusLabel: words.status, sigHealthLabel: words.health,
+            sigAutoStatus: statusLabel(feedStatus?.status), sigHealth: statusLabel(feedStatus?.health),
+            sigAIlabel: words.ai, sigAIStatus: feedStatus?.paid_verification_enabled === true ? (st.lang === "ms" ? "Dihidupkan" : st.lang === "zh" ? "已启用" : "On") : words.off,
+            sigQuarantinedLabel: words.quarantined, sigQuarantined: Number.isFinite(Number(feedStatus?.quarantined_count)) ? Number(feedStatus.quarantined_count) : 0,
+             sigStatusMessage: feedStatus?.message || words.noStatus, sigNoPublish: words.noPublish,
+             sigIntro: words.intro, sigUpdatedLabel: words.evidenceUpdated,
+            trRising: rising.slice((risingPage - 1) * 5, risingPage * 5),
+            trDecl: declining.slice((decliningPage - 1) * 5, decliningPage * 5),
+            risingPages: pageMeta(rising.length ? risingCount : 0, risingPage, "risingPage"),
+            decliningPages: pageMeta(declining.length ? decliningCount : 0, decliningPage, "decliningPage"),
+            sigPages: pageMeta(signalCount ? signalPageCount : 0, signalPage, "signalPage"),
+            hasRisingPages: rising.length > 0, hasDecliningPages: declining.length > 0, hasSigPages: signalCount > 0,
+            showRisingEmpty: rising.length === 0, showDecliningEmpty: declining.length === 0, showSignalsEmpty: signalCount === 0,
+            risingEmpty: words.emptyTrends, decliningEmpty: words.emptyTrends, signalsEmpty: words.emptySignals,
+            sigPublishedLabel: words.published,
+            risingPrev: () => this.setState({ risingPage: Math.max(1, risingPage - 1) }),
+            risingNext: () => this.setState({ risingPage: Math.min(risingCount, risingPage + 1) }),
+            decliningPrev: () => this.setState({ decliningPage: Math.max(1, decliningPage - 1) }),
+            decliningNext: () => this.setState({ decliningPage: Math.min(decliningCount, decliningPage + 1) }),
+            sigPrev: () => this.setState({ signalPage: Math.max(1, signalPage - 1) }),
+            sigNext: () => this.setState({ signalPage: Math.min(signalPageCount, signalPage + 1) }),
+            risingPrevDisabled: risingPage <= 1, risingNextDisabled: risingPage >= risingCount,
+            decliningPrevDisabled: decliningPage <= 1, decliningNextDisabled: decliningPage >= decliningCount,
+            sigPrevDisabled: signalPage <= 1, sigNextDisabled: signalPage >= signalPageCount,
+            risingPrevEnabled: risingPage > 1, risingNextEnabled: risingPage < risingCount,
+            decliningPrevEnabled: decliningPage > 1, decliningNextEnabled: decliningPage < decliningCount,
+            sigPrevEnabled: signalPage > 1, sigNextEnabled: signalPage < signalPageCount,
+            paginationPrevious: words.previous, paginationNext: words.nextPage,
+            paginationPage: words.page, paginationOf: words.of,
+            risingNavLabel: words.risingNav, decliningNavLabel: words.decliningNav, signalNavLabel: words.signalNav,
+            fAll: () => this.setState({ sig: "all", signalPage: 1 }), fUp: () => this.setState({ sig: "up", signalPage: 1 }), fDn: () => this.setState({ sig: "dn", signalPage: 1 }),
+          };
+        })(),
       fAllB: f("all").b, fAllC: f("all").c, fUpB: f("up").b, fUpC: f("up").c, fDnB: f("dn").b, fDnC: f("dn").c
     };
   }

@@ -1,4 +1,4 @@
-"""Best-effort, keyword-only daily checks while this server remains running.
+"""Best-effort daily source checks while this server remains running.
 
 State survives process restarts in the configured SQLite DB, not DB loss.
 First activation and overdue restarts defer a full interval; no catch-up fetch.
@@ -97,11 +97,11 @@ async def run_forever():
             continue
         try:
             out = await refresh_signals(automatic=True)
-            log.info('Automatic keyword check %s: %s pending review, %s rejected',
-                     out['status'], out['pending'], out['rejected'])
+            log.info('Automatic source check %s: %s quarantined, %s AI-validated published',
+                     out['status'], out['pending'], out['accepted'])
         except RefreshInProgress:
             await asyncio.sleep(300)
         except Exception:
             # No raw provider/feed response or secret-bearing exception logs.
-            log.error('Automatic keyword check failed; next daily interval will retry')
+            log.error('Automatic source check failed; next daily interval will retry')
             record_check()
