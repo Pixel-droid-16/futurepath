@@ -190,6 +190,8 @@ async def claude_extract_pdf(pdf,pages,skills,client=None,include_details=False)
     data=await ask_json(SYSTEM_STRUCTURED,content,cv_schema(skills,include_details),client)
     text_layer=' '.join(pages)
     source=(data.get('transcript') or '') if scanned else text_layer
+    if scanned and include_details and not source.strip():
+        raise IntegrationError('Claude could not transcribe this scanned PDF; use a clearer scan or text-based PDF')
     found=result_from(data,source,skills,scanned,pages)
     if include_details:
         found['profile_suggestions']=verified_profile(data,source)

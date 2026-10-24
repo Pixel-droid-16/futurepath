@@ -136,3 +136,23 @@ def test_dictionary_only_goal_does_not_claim_a_skill():
     found = {x['skill_id'] for x in suggest(cv)}
     assert 'SK001' not in found
     assert 'SK005' not in found
+
+
+
+def test_scanned_pdf_without_transcript_fails_instead_of_hiding_missing_content(monkeypatch):
+    import pytest
+    from backend.providers.validation import IntegrationError
+    monkeypatch.setenv('ANTHROPIC_API_KEY', 'synthetic-test-key')
+    fake = FakeClaude({
+        'transcript': '', 'candidates': [],
+        'profile': {
+            'current_role': {'value': '', 'excerpt': ''},
+            'education': {'value': '', 'excerpt': ''},
+            'industry': {'value': '', 'excerpt': ''},
+            'projects': [],
+        },
+    })
+    with pytest.raises(IntegrationError, match='could not transcribe'):
+        asyncio.run(claude_extract_pdf(
+            b'%PDF-test', [''], SKILL, client=fake, include_details=True,
+        ))
