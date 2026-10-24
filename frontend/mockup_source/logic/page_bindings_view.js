@@ -58,10 +58,11 @@
       // Signals page.
        signals, sigCount: signalsTotal, sigUpdated, sigLastRun, sigLastRunC, sigFeeds,
         signalsPages, signalsCurrent, signalsTotal: signalPagesTotal,
+        sigNoMatches: signalsTotal === 0, sigNoMatchesLbl: uiText.empty,
         signalsPrev:()=>goSignalsPage(signalsCurrent-1),signalsNext:()=>goSignalsPage(signalsCurrent+1),
         signalsFirst:signalsCurrent===1,signalsLast:signalsCurrent===signalPagesTotal,
         pagerPrevLbl:uiText.previous,pagerNextLbl:uiText.nextButton,pagerPageLbl:uiText.page,pagerOfLbl:uiText.of,
-        sigAutoTitle:uiText.auto,sigAutoFrequency:feedStatus?.enabled?uiText.on:uiText.off,
+        sigAutoTitle:uiText.auto,sigAutoFrequency,
         sigLastSuccessTitle:uiText.last,sigLastSuccessful,sigNextTitle:uiText.next,sigNextExpected,
         sigHealthTitle:uiText.status,sigHealth,sigAIGuard:uiText.held,
        sigChecked: statusDate(feedStatus?.last_checked), sigDue: statusDate(feedStatus?.next_due),

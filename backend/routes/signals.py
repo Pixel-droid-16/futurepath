@@ -1,6 +1,6 @@
 """Trend signals: list, refresh from feeds (admin), refresh audit trail and "What changed"."""
 import json,os,secrets
-from datetime import date
+from datetime import date,datetime,timedelta
 from fastapi import APIRouter,HTTPException,Request
 from pydantic import BaseModel,Field
 from ..catalog import ROLES,SKILL_INDEX,load
@@ -129,13 +129,19 @@ def signal_status():
         approved=c.execute("SELECT MAX(reviewed_at) FROM signal_review WHERE status='approved'").fetchone()[0]
         success=c.execute("SELECT finished_at FROM refresh_runs WHERE status IN ('ok','partial') AND finished_at IS NOT NULL ORDER BY id DESC LIMIT 1").fetchone()
     due=next_due()
-    return {'enabled':bool(interval_hours()),'interval_hours':interval_hours(),
-            'next_due':due.isoformat() if due else None,
-            'last_checked':(row['finished_at'] or row['started_at']) if row else None,
-            'last_successful_at':success[0] if success else None,
-            'status':row['status'] if row else 'not_checked','pending_count':pending,
+    from ..signals.snapshot import read_snapshot
+    _,remote=read_snapshot()
+    checked=remote.get('checked_at') if remote else None
+    external=bool(remote)
+    return {'enabled':bool(interval_hours()) or external,
+            'interval_hours':interval_hours() or (24 if external else 0),
+            'next_due':(due.isoformat() if due else (datetime.fromisoformat(checked)+timedelta(hours=24)).isoformat() if checked else None),
+            'last_checked':checked or ((row['finished_at'] or row['started_at']) if row else None),
+            'last_successful_at':(remote.get('last_successful_at') if remote else None) or (success[0] if success else None),
+            'status':(remote.get('status') if remote else None) or (row['status'] if row else 'not_checked'),'pending_count':pending,
             'last_approved_at':approved,'automatic_tagger':'claude' if automatic_ai_allowed() else 'keywords',
-            'automatic_ai_enabled':automatic_ai_allowed(),
+            'automatic_ai_enabled':remote.get('ai_enabled',False) if remote else automatic_ai_allowed(),
+            'external_scheduler':external,
             'public_demo':public_demo(),'best_effort':True}
 
 @router.get('/signals/review')

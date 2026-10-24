@@ -24,7 +24,8 @@ SIGNALS_REFRESH_HOURS = "24"
 [userenv.production]
 FUTUREPATH_DB = "/tmp/futurepath_demo.sqlite3"
 FUTUREPATH_PUBLIC_DEMO = "1"
-SIGNALS_REFRESH_HOURS = "24"
+SIGNALS_REFRESH_HOURS = "0"
+SIGNALS_REMOTE_SNAPSHOT_ENABLED = "1"
 
 [deployment]
 deploymentTarget = "autoscale"
