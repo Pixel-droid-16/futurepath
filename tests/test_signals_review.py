@@ -2,7 +2,9 @@
 import asyncio
 import base64
 import json
+import os
 from datetime import date,datetime,timedelta,timezone
+from pathlib import Path
 
 import httpx
 import pytest
@@ -172,17 +174,28 @@ def test_paid_switch_requires_both_explicit_positive_quotas(monkeypatch):
 
 
 def test_ephemeral_storage_cannot_enable_paid_usage(monkeypatch):
+    # Every switch is on, but the budget database is disposable, so paid verification stays off.
     monkeypatch.setenv('SIGNALS_PAID_AI_ENABLED','1')
     monkeypatch.setenv('SIGNALS_AI_DAILY_ITEMS','16')
     monkeypatch.setenv('SIGNALS_AI_DAILY_CALLS','4')
     monkeypatch.setenv('SIGNALS_AI_DURABLE_STORAGE_CONFIRMED','1')
-    assert not ai.durable_storage_ready() and not ai.paid_enabled()
+    disposable=[Path(':memory:')]
+    if os.name=='posix':  # the /tmp check is the Linux deployment rule (Replit keeps its demo DB in /tmp)
+        disposable+=[Path('/tmp/futurepath-budget.sqlite3'),Path('/var/tmp/futurepath-budget.sqlite3')]
+    for path in disposable:
+        monkeypatch.setattr(storage,'DB',path)
+        assert not ai.durable_storage_ready() and not ai.paid_enabled()
+
+
+def test_paid_quotas_must_be_positive_whole_numbers(monkeypatch):
+    monkeypatch.setattr(ai,'durable_storage_ready',lambda:True)
+    monkeypatch.setenv('SIGNALS_PAID_AI_ENABLED','1')
     monkeypatch.setenv('SIGNALS_AI_DAILY_ITEMS','2')
-    assert not ai.paid_enabled()
     monkeypatch.setenv('SIGNALS_AI_DAILY_CALLS','1')
     assert ai.paid_enabled()
-    monkeypatch.setenv('SIGNALS_AI_DAILY_ITEMS','nan')
-    assert not ai.paid_enabled()
+    for bad in ('0','-3','nan',''):
+        monkeypatch.setenv('SIGNALS_AI_DAILY_ITEMS',bad)
+        assert not ai.paid_enabled()
 
 
 @pytest.mark.parametrize('field,value',[
