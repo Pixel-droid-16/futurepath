@@ -116,3 +116,15 @@ Qwen and Claude can omit skills or make unsupported inferences; output is valida
 Name/signature/date of team leader: **[REQUIRED IN OFFICIAL FORM AFTER REVIEW]**.
 
 This is a working draft, not a signed claim that all declarations are complete.
+
+
+## Team-confirmed declarations (24 October 2026)
+
+- Team: **KitaHack**; project: **FuturePath**; Domain 1; primary **SDG 4, target 4.4**.
+- Team leader: **CHANTHIRAA CHELVAN PASUPATHY**; four members at **Universiti Teknikal Malaysia Melaka**.
+- All four completed mandatory workshops: **YES (leader-confirmed)**.
+- SDC sponsor-provided resources used: **YES (leader-confirmed)**; **exact sponsor, allocation and service still to verify**.
+- Project work created before hackathon: **NO (leader-confirmed)**.
+- Employment-related IP conflicts: **NO (leader-confirmed)**.
+- Leader's phone was supplied privately and intentionally excluded from public GitHub files.
+- This is still a draft: actual leader signature, sponsor details, production URL, and real Replit/RunPod evidence are outstanding.
