@@ -106,3 +106,21 @@ The Signals fix `f3443e6` integrated the already-reviewed isolated admin-refresh
 Four previously reviewed file hashes were updated to the actual accepted bytes (`README.md`, `frontend/index.html`, `.env.example`, and newly reviewed `docs/ARCHITECTURE.md`). This is a **narrow documented review**, not a baseline reset. The original manifest remains unchanged. The existing malicious-change fixture still requires verification failures when any reviewed file is modified or removed.
 
 Fresh final combined tests and browser validation are required; these hash updates are **not** a claim that the Signals refresh or all application paths have passed tests.
+
+## Teammate scoring and role-data evolution (2026-10-24)
+
+Two accepted `main` changes were not reflected in the historical reviewed manifest:
+`95cd1a9` introduced embeddings/semantic search in career matching and updated role requirements, while
+`4adc3a9` corrected a ranking crash and adjusted score/card presentation. The actual
+`backend/engine.py` and `data/roles.json` bytes are now pinned, without altering these
+teammate-authored files or the original manifest. These are *intentional changes with provenance*, not permission to
+silently change the career scoring model later. Run all backend scoring, scenario and browser
+tests after integration; a pinned hash does not prove algorithm quality.
+
+## Generated V2 source alignment (2026-10-24)
+
+The Signals refresh fix had added the permission-checking initializer to the generated
+`frontend/index.html` but not to `frontend/mockup_source/logic/state_and_actions.js`.
+The editable source was corrected to match the already-reviewed generated output,
+without modifying the UI or original protected assets. The frontend assembly
+consistency test must still pass before the release is considered verified.

@@ -14,8 +14,8 @@ def parse_cv_pages(name, raw, strict=True):
 
     Returns a list[str] where each element is one page for PDFs
     (up to 8 pages) or a single-element list for DOCX/TXT.
-    With strict=False an unreadable PDF gives [''] so callers can
-    still hand the file to Claude for reading.
+    Image-only but otherwise valid PDFs return empty text for optional
+    image-capable Claude support; corrupt PDFs raise a clear error.
     """
     if name.endswith('.pdf'):
         from pypdf import PdfReader
@@ -25,14 +25,24 @@ def parse_cv_pages(name, raw, strict=True):
                 for page in PdfReader(io.BytesIO(raw)).pages[:8]
             ]
         except Exception:
-            if strict:
-                raise HTTPException(400, 'Could not parse text PDF')
-            return ['']
+            # Bad PDF bytes must not be treated as a scanned document and
+            # needlessly sent to a potentially paid external AI service.
+            raise HTTPException(400, 'Could not read PDF. Export a valid PDF file.')
     elif name.endswith('.docx'):
         from docx import Document
         try:
-            text = ' '.join(p.text for p in Document(io.BytesIO(raw)).paragraphs)
-            return [text]
+            # CV authors frequently use tables for tool lists, work history
+            # and certifications; preserve their position among paragraphs.
+            lines = []
+            for block in Document(io.BytesIO(raw)).iter_inner_content():
+                if hasattr(block, 'rows'):
+                    for row in block.rows:
+                        fields = [cell.text.strip() for cell in row.cells if cell.text.strip()]
+                        if fields:
+                            lines.append(' | '.join(fields))
+                elif block.text.strip():
+                    lines.append(block.text.strip())
+            return ['\n'.join(lines)]
         except Exception:
             raise HTTPException(400, 'Could not parse DOCX')
     elif name.endswith('.txt'):
@@ -43,7 +53,8 @@ def parse_cv_pages(name, raw, strict=True):
 def parse_cv(name, raw, strict=True):
     """Text from a PDF, DOCX or TXT CV — joined into a single string.
 
-    With strict=False an unreadable PDF gives '' (Claude can still read the file).
+    Only valid image-only PDFs may produce an empty text layer; malformed
+    documents raise a descriptive error.
     """
     return ' '.join(parse_cv_pages(name, raw, strict=strict))
 
