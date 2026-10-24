@@ -31,7 +31,32 @@ async def extract_suggestions(content,provider,pdf=None,pages=None):
                     'warnings':issues,'requires_confirmation':True,'stored':False}
         try:
             if choice=='runpod':
-                found={'candidates':await runpod_extract(content,SKILLS),'scanned':False}
+                ai_candidates = await runpod_extract(content, SKILLS)
+
+                # Supplement AI suggestions using the local skill dictionary.
+                # Preserve AI provenance and avoid duplicate skill IDs.
+                from ..providers.validation import quoted_in, is_interest
+
+                candidates = list(ai_candidates)
+                seen = {item['skill_id'] for item in candidates}
+
+                for item in suggest(content):
+                    sid = item['skill_id']
+                    excerpt = item['excerpt']
+
+                    if sid in seen:
+                        continue
+                    if not 3 <= len(excerpt) <= 300:
+                        continue
+                    if not quoted_in(excerpt, content):
+                        continue
+                    if is_interest(excerpt):
+                        continue
+
+                    candidates.append(item)
+                    seen.add(sid)
+
+                found = {'candidates': candidates, 'scanned': False}
             else:
                 found=await (claude_extract_pdf(pdf,pages,SKILLS) if pdf else claude_extract(content,SKILLS))
             return {'provider':choice,**found,'warnings':issues,'requires_confirmation':True,'stored':False}
