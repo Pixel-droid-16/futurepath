@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
-  "checked_at": "2026-10-30T02:56:35+00:00",
-  "last_successful_at": "2026-10-30T02:56:35+00:00",
+  "checked_at": "2026-10-31T02:55:15+00:00",
+  "last_successful_at": "2026-10-31T02:55:15+00:00",
   "status": "ok",
   "ai_enabled": true,
-  "last_ai_check_day": "2026-10-30",
+  "last_ai_check_day": "2026-10-31",
   "signals": [
     {
       "external_id": "gnews-my-ai-jobs:ca302350a4d1df22",
